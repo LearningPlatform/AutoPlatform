@@ -1,0 +1,403 @@
+<!-- API用例 -->
+<div ng-controller="CaseCtrl">
+    <div >
+        <div><!-- 顶部 -->
+            <h1 class="page-header text-primary">API用例库</h1>
+            <div class="alert alert-info" ng-show="caseDivShow">
+                项目中的接口测试用例
+                <button class="btn bg-info pull-right" ng-click="caseDivShow = !caseDivShow"><span class="glyphicon glyphicon-remove"></span></button>
+            </div>
+        </div>
+
+        <div class="panel panel-default">
+            <div class="panel-body">
+                <div>
+                    <ul class="nav nav-tabs">
+                        <li class="active"><a>全部</a></li>
+                        <li ng-repeat="model in modelList"><a ng-bind="model.model_name"></a></li>
+                    </ul>
+                </div>
+                <div class="panel-body">
+                    <div class="panel-body">
+                        <div class="row">
+                            <div class="col-md-4">
+                                <div class="btn-group">
+                                    <button type="button" class="btn btn-success" ng-click="openRunModal()">
+                                        <span class="glyphicon glyphicon-play"></span>运行
+                                    </button>
+                                    <button type="button" class="btn btn-default" ng-click="openCaseModal()">
+                                        添加用例
+                                    </button>
+                                    <button type="button" class="btn btn-default" ng-click="openSuiteModal()">
+                                        添加套件
+                                    </button>
+                                    <button type="button" class="btn btn-default" ng-click="openApiModal()">
+                                        添加接口
+                                    </button>
+                                    <button type="button" class="btn btn-default" ng-click="openModelModal()">
+                                        添加模块
+                                    </button>
+                                </div>
+                            </div>
+                            <form>
+                                <div class="col-md-1 col-md-offset-4 col-sm-1 col-sm-offset-4">
+                                    <select class="form-control">
+                                        <option>全部</option>
+                                        <option>接口名</option>
+                                        <option>模块名</option>
+                                        <option>用例名</option>
+                                        <option>套件名</option>
+                                    </select>
+                                </div>
+                                <div class="col-md-2 col-sm-2 ">
+                                    <input class="form-control">
+                                </div>
+                                <div class="col-md-1 col-sm-1">
+                                    <button class="btn btn-primary">查询</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                    <div class="panel panel-success" ng-repeat="api in apiList">
+                        <div class="panel-heading" ng-click="getApiCase(api.id)">
+                            <h4 class="panel-title">
+                                <a ng-bind="api.api_name">
+                                </a>
+                            </h4>
+                        </div>
+                        <div class="panel-body" ng-show="(caseShowID == api.id)&&caseShow">
+                            <div class="panel-body">
+                                <div class="panel panel-default" ng-repeat="case in caseNameList">
+                                    <div class="panel-heading" ng-click="getCaseInfo(case.id,$parent.$index)">
+                                        <h6 class="panel-title">
+                                            <a ng-bind="case.name">
+                                            </a>
+                                        </h6>
+                                    </div>
+                                    <div class="panel-body" ng-show="caseInfoShowID == case.id">
+                                        <ul class="nav nav-tabs">
+                                            <li class="active"><a ng-click="showBese(1)">基本信息</a></li>
+                                            <li><a ng-click="showBese(2)">请求</a></li>
+                                            <li><a ng-click="showBese(3)">响应</a></li>
+                                        </ul>
+                                    </div>
+                                    <div ng-show="(caseInfoShowID == case.id)&&caseBaseInfoShow">
+                                        <div class="panel-body">
+                                            <table class="table table-hover casetable">
+                                                <tbody>
+                                                <tr>
+                                                    <td>
+                                                        用例名：{$caseInfo.case_name$}</td>
+                                                    <td></td>
+                                                </tr>
+                                                <tr>
+                                                    <td>URL：{$api.api_url$}</td>
+                                                    <td></td>
+                                                </tr>
+                                                <tr>
+                                                    <td>
+                                                        请求方法：{$api.api_method$}
+                                                    </td>
+                                                    <td>
+                                                        所属API：{$api.api_name$}
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td>描述：{$caseInfo.case_desc$}</td>
+                                                    <td>校验器：</td>
+                                                </tr>
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                    <div ng-show="(caseInfoShowID == case.id)&&caseReqInfoShow">
+                                        <div class="panel-body">
+                                            <div>
+                                                <div>
+                                                    <table class="table table-bordered text-center table-responsive">
+                                                        <thead>
+                                                        <th class="text-center">参数名</th>
+                                                        <th class="text-center"  style="width: 60px">参数类型</th>
+                                                        <th class="text-center">参数值</th>
+                                                        <th class="text-center">操作</th>
+                                                        </thead>
+                                                        <tbody>
+                                                        <tr ng-repeat="param in reqParam" >
+                                                            <td style="width: 150px" ng-bind="param.name"></td>
+                                                            <td style="width: 120px">
+                                                                <select class="form-control" ng-show="editShow" ng-model="param.type">
+                                                                    <option>字符串</option>
+                                                                    <option>布尔型</option>
+                                                                    <option>数字</option>
+                                                                </select>
+                                                                <div ng-show="displayShow">
+                                                                    <span ng-bind="param.type"></span>
+                                                                </div>
+                                                            </td>
+                                                            <td>
+                                                                <input class="form-control" placeholder="请输入参数值" ng-show="editShow" ng-model="param.value">
+                                                                <div ng-show="displayShow" >
+                                                                    <span ng-bind="param.value"></span>
+                                                                </div>
+                                                            </td>
+                                                            <td style="width: 200px">
+                                                                <div>
+                                                                    <a><span class="glyphicon glyphicon-ok" ng-click="disEditParam()">确定</span></a>
+                                                                    <a><span class="glyphicon glyphicon-edit" ng-click="editParam()">编辑</span></a>
+                                                                    <a><span class="glyphicon glyphicon-remove">删除</span></a>
+                                                                </div>
+                                                            </td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td colspan="4">
+                                                                <a><span class="glyphicon glyphicon-chevron-right" ng-click="reqBodyShow = !reqBodyShow">显示参数体</span></a>
+                                                                <a><span class="glyphicon glyphicon-ok" ng-click="submitParam($index,case.id,api.id)">确定</span></a>
+                                                                <div class="col-md-12">
+                                                                    <textarea class="form-control" rows="5" ng-show="reqBodyShow" ng-model="reqJsonBody"></textarea>
+                                                                </div>
+                                                            </td>
+                                                        </tr>
+                                                        </tbody>
+                                                    </table>
+                                                </div>
+
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div ng-show="(caseInfoShowID == case.id)&&caseResInfoShow">
+                                        <div class="panel-body">
+                                            用例响应信息
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!--添加接口摸态框-->
+    <div class="modal fade" id="apiAddModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close"
+                            data-dismiss="modal" aria-hidden="true">
+                        &times;
+                    </button>
+                    <h4 class="modal-title" id="myModalLabel">
+                        添加接口
+                    </h4>
+                </div>
+                <div class="modal-body">
+                    <div>
+                        <form role="form" method="post" enctype="multipart/form-data" class="form-horizontal">
+                            <label for="api_name" class="col-md-2 control-label ">接口名</label>
+                            <div class="col-md-10">
+                                <input type="text" class="form-control" ng-model="api.currname" placeholder="请输入名称">
+                            </div>
+                            <label for="api_select_method" class="col-md-2 control-label">所属模块</label>
+                            <div class="col-md-10">
+                                <select ng-model="api.currmodel" class="form-control" ng-options="ml.model_name for ml in modelList"></select>
+                            </div>
+                            <label for="api_protocol" class="col-md-2 control-label ">接口协议</label>
+                            <div class="col-md-10">
+                                <select ng-model="api.currprotocol" class="form-control" ng-options="pcl for pcl in protocal"></select>
+                            </div>
+                            <label for="api_url" class="col-md-2 control-label">URL</label>
+                            <div class="col-md-10">
+                                <input type="text" class="form-control" ng-model="api.currurl" placeholder="请输入URL">
+                            </div>
+                            <label for="api_select_method" class="col-md-2 control-label">请求方法</label>
+                            <div class="col-md-10">
+                                <select ng-model="api.currmethod" class="form-control" ng-options="me for me in method"></select>
+                            </div>
+                            <label for="api_select_type" class="col-md-2 control-label">格式</label>
+                            <div class="col-md-10">
+                                <select ng-model="api.currtype" class="form-control" ng-options="ty for ty in type"></select>
+                            </div>
+                            <label for="api_param" class="col-md-2 control-label">参数</label>
+                            <div class="col-md-10">
+                                <input type="text" class="form-control" ng-model="api.currparam" placeholder="请输入参数，多个参数使用,分开">
+                            </div>
+                            <label for="api_name" class="col-md-2 control-label ">描述</label>
+                            <div class="col-md-10">
+                                <textarea type="text" class="form-control" ng-model="api.currdesc" rows="3" placeholder="请输入描述"></textarea>
+                            </div>
+                        </form>
+                    </div>
+
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+                    <button type="submit" class="btn btn-primary" ng-click="saveApi()">保存</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal fade" id="modelAddModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close"
+                            data-dismiss="modal" aria-hidden="true">
+                        &times;
+                    </button>
+                    <h4 class="modal-title" id="myModalLabel">
+                        添加模块
+                    </h4>
+                </div>
+                <div class="modal-body">
+                    <div>
+                        <form role="form" method="post" enctype="multipart/form-data" class="form-horizontal">
+                            <label for="api_name" class="col-md-2 control-label ">模块名</label>
+                            <div class="col-md-10">
+                                <input type="text" class="form-control" ng-model="pro_model.currname" placeholder="请输入名称">
+                            </div>
+                            <label for="api_name" class="col-md-2 control-label ">描述</label>
+                            <div class="col-md-10">
+                                <textarea type="text" class="form-control" ng-model="pro_model.currdesc" rows="3" placeholder="请输入描述"></textarea>
+                            </div>
+                        </form>
+                    </div>
+
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+                    <button type="submit" class="btn btn-primary" ng-click="saveModel()">保存</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div  class="modal fade" id="runModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close"
+                            data-dismiss="modal" aria-hidden="true">
+                        &times;
+                    </button>
+                    <h4 class="modal-title" id="myModalLabel">
+                        运行用例
+                    </h4>
+                </div>
+                <div class="modal-body">
+                    <div>
+                        <form role="form" method="post" enctype="multipart/form-data" class="form-horizontal">
+                            <label for="api_name" class="col-md-2 control-label ">报告名</label>
+                            <div class="col-md-10">
+                                <input type="text" class="form-control" ng-model="pro_model.currname" placeholder="请输入名称">
+                            </div>
+                            <label for="api_select_method" class="col-md-2 control-label">所属环境</label>
+                            <div class="col-md-10">
+                                <select ng-model="runCase.currEnv" class="form-control" ng-options="el.env_name for el in envList"></select>
+                            </div>
+                            <label for="api_select_method" class="col-md-2 control-label">所属模块</label>
+                            <div class="col-md-10">
+                                <select ng-model="runCase.currModel" class="form-control" ng-options="ml.model_name for ml in modelList"></select>
+                            </div>
+                            <label for="api_select_method" class="col-md-2 control-label">所属套件</label>
+                            <div class="col-md-10">
+                                <select ng-model="runCase.currSuite" class="form-control" ng-options="sl.suite_name for sl in suiteList"></select>
+                            </div>
+                            <label for="api_name" class="col-md-2 control-label ">描述</label>
+                            <div class="col-md-10">
+                                <textarea type="text" class="form-control" ng-model="pro_model.currdesc" rows="3" placeholder="请输入描述"></textarea>
+                            </div>
+                        </form>
+                    </div>
+
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+                    <button type="submit" class="btn btn-primary" ng-click="runCaseStart()">确定</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal fade" id="suiteModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close"
+                            data-dismiss="modal" aria-hidden="true">
+                        &times;
+                    </button>
+                    <h4 class="modal-title" id="myModalLabel">
+                        添加套件
+                    </h4>
+                </div>
+                <div class="modal-body">
+                    <div>
+                        <form role="form" method="post" enctype="multipart/form-data" class="form-horizontal">
+                            <label for="api_name" class="col-md-2 control-label ">套件名</label>
+                            <div class="col-md-10">
+                                <input type="text" class="form-control" ng-model="suite.currName" placeholder="请输入名称">
+                            </div>
+                            <label for="api_name" class="col-md-2 control-label ">描述</label>
+                            <div class="col-md-10">
+                                <textarea type="text" class="form-control" ng-model="suite.currDesc" rows="3" placeholder="请输入描述"></textarea>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+                    <button type="submit" class="btn btn-primary" ng-click="saveSuite()">保存</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal fade" id="caseModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close"
+                            data-dismiss="modal" aria-hidden="true">
+                        &times;
+                    </button>
+                    <h4 class="modal-title" id="myModalLabel">
+                        添加用例
+                    </h4>
+                </div>
+                <div class="modal-body">
+                    <div>
+                        <form role="form" method="post" enctype="multipart/form-data" class="form-horizontal">
+                            <label for="api_name" class="col-md-2 control-label ">用例名</label>
+                            <div class="col-md-10">
+                                <input type="text" class="form-control" ng-model="case.currName" placeholder="请输入名称">
+                            </div>
+                            <label for="api_select_method" class="col-md-2 control-label">所属API</label>
+                            <div class="col-md-10">
+                                <select ng-model="case.currApi" class="form-control" ng-options="al.api_name for al in apiList"></select>
+                            </div>
+                            <label for="var_type" class="col-md-2 control-label">所属套件</label>
+                            <div class="col-md-10">
+                                <div class="panel panel-info">
+                                    <div class="panel-body">
+                                        <div class="checkbox col-md-6" ng-repeat="cl in case.suite">
+                                            <label>
+                                                <input type="checkbox" ng-model="cl.checked" ng-click="checkearSuite(cl.checked,$index)">
+                                                <span ng-bind="cl.name"></span>
+                                            </label>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <label for="api_name" class="col-md-2 control-label ">描述</label>
+                            <div class="col-md-10">
+                                <textarea type="text" class="form-control" ng-model="case.currDesc" rows="3" placeholder="请输入描述"></textarea>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+                    <button type="submit" class="btn btn-primary" ng-click="saveCase()">保存</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
