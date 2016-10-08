@@ -2,115 +2,11 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="106b45e4-5905-4066-9b81-f65e9435e4e6" name="Default" comment="">
-      <change type="DELETED" beforePath="$PROJECT_DIR$/InterfaceTest/__init__.py" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/InterfaceTest/admin.py" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/InterfaceTest/api/__init__.py" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/InterfaceTest/apps.py" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/InterfaceTest/case/__init__.py" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/InterfaceTest/case/api.py" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/InterfaceTest/case/case.py" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/InterfaceTest/datahandle/__init__.py" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/InterfaceTest/datahandle/apidata.py" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/InterfaceTest/datahandle/casedata.py" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/InterfaceTest/datahandle/envdata.py" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/InterfaceTest/datahandle/modeldata.py" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/InterfaceTest/datahandle/prodata.py" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/InterfaceTest/datahandle/runcase.py" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/InterfaceTest/datahandle/suitedata.py" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/InterfaceTest/datahandle/vardata.py" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/InterfaceTest/migrations/0001_initial.py" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/InterfaceTest/migrations/0002_env_vars.py" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/InterfaceTest/migrations/0003_varsevn.py" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/InterfaceTest/migrations/0004_varsevn_var_env_id.py" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/InterfaceTest/migrations/0005_auto_20160910_1840.py" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/InterfaceTest/migrations/0006_auto_20160910_1843.py" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/InterfaceTest/migrations/0007_varvalue_pro_id.py" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/InterfaceTest/migrations/0008_delete_varsevn.py" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/InterfaceTest/migrations/0009_proapi_promodel.py" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/InterfaceTest/migrations/0010_proapi_api_type.py" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/InterfaceTest/migrations/0011_auto_20160912_1028.py" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/InterfaceTest/migrations/0012_result_resultdetail_suite.py" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/InterfaceTest/migrations/0013_auto_20160912_1352.py" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/InterfaceTest/migrations/0014_casesuite.py" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/InterfaceTest/migrations/0015_case_case_desc.py" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/InterfaceTest/migrations/0016_remove_case_level.py" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/InterfaceTest/migrations/0017_remove_case_suite_id.py" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/InterfaceTest/migrations/0018_remove_case_input_type.py" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/InterfaceTest/migrations/0019_case_model_id.py" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/InterfaceTest/migrations/0020_casesuite_api_id.py" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/InterfaceTest/migrations/0021_case_pro_id.py" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/InterfaceTest/migrations/0022_case_case_name.py" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/InterfaceTest/migrations/0023_remove_casesuite_model_id.py" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/InterfaceTest/migrations/0024_case_is_set.py" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/InterfaceTest/migrations/__init__.py" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/InterfaceTest/models.py" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/InterfaceTest/request/__init__.py" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/InterfaceTest/request/req_entity.py" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/InterfaceTest/request/req_http.py" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/InterfaceTest/static/scripts/library/angular-ui-router.js" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/InterfaceTest/static/scripts/library/angular/angular-animate.min.js" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/InterfaceTest/static/scripts/library/angular/angular-aria.min.js" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/InterfaceTest/static/scripts/library/angular/angular-cookies.min.js" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/InterfaceTest/static/scripts/library/angular/angular-loader.min.js" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/InterfaceTest/static/scripts/library/angular/angular-message-format.min.js" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/InterfaceTest/static/scripts/library/angular/angular-messages.min.js" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/InterfaceTest/static/scripts/library/angular/angular-messages.min.js.map" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/InterfaceTest/static/scripts/library/angular/angular-parse-ext.min.js" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/InterfaceTest/static/scripts/library/angular/angular-resource.min.js" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/InterfaceTest/static/scripts/library/angular/angular-route.min.js" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/InterfaceTest/static/scripts/library/angular/angular-sanitize.min.js" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/InterfaceTest/static/scripts/library/angular/angular-scenario.js" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/InterfaceTest/static/scripts/library/angular/angular-touch.min.js" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/InterfaceTest/static/scripts/library/angular/angular.min.js" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/InterfaceTest/static/scripts/library/bootstrap/bootstrap.min.js" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/InterfaceTest/static/scripts/library/jquery-3.1.0.min.js" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/InterfaceTest/static/scripts/library/ui-bootstrap-2.1.3.min.js" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/InterfaceTest/static/scripts/library/ui-bootstrap-tpls-2.1.3.min.js" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/InterfaceTest/static/scripts/library/ui-grid.min.js" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/InterfaceTest/static/scripts/public/app.js" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/InterfaceTest/static/scripts/public/case/controller/CaseCtrl.js" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/InterfaceTest/static/scripts/public/case/model/CaseModel.js" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/InterfaceTest/static/scripts/public/controllers/case.js" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/InterfaceTest/static/scripts/public/controllers/main.js" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/InterfaceTest/static/scripts/public/controllers/project_nav.js" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/InterfaceTest/static/scripts/public/controllers/var.js" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/InterfaceTest/static/scripts/public/main/controller/MainCtrl.js" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/InterfaceTest/static/scripts/public/main/model/ProjectModel.js" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/InterfaceTest/static/scripts/public/nav/controller/ProNavCtrl.js" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/InterfaceTest/static/scripts/public/nav/controller/ProTopCtrl.js" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/InterfaceTest/static/scripts/public/nav/model/NavModel.js" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/InterfaceTest/static/scripts/public/var/controller/VarCtrl.js" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/InterfaceTest/static/scripts/public/var/model/VarModel.js" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/InterfaceTest/static/styles/library/bootstrap-theme.min.css" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/InterfaceTest/static/styles/library/bootstrap.min.css" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/InterfaceTest/static/styles/library/fonts/glyphicons-halflings-regular.eot" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/InterfaceTest/static/styles/library/fonts/glyphicons-halflings-regular.svg" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/InterfaceTest/static/styles/library/fonts/glyphicons-halflings-regular.ttf" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/InterfaceTest/static/styles/library/fonts/glyphicons-halflings-regular.woff" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/InterfaceTest/static/styles/library/ui-bootstrap-2.1.3-csp.css" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/InterfaceTest/static/styles/library/ui-grid.eot" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/InterfaceTest/static/styles/library/ui-grid.min.css" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/InterfaceTest/static/styles/library/ui-grid.svg" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/InterfaceTest/static/styles/library/ui-grid.ttf" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/InterfaceTest/static/styles/library/ui-grid.woff" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/InterfaceTest/static/styles/public/css/project.css" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/InterfaceTest/static/styles/public/css/public.css" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/InterfaceTest/static/view/case.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/InterfaceTest/static/view/main.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/InterfaceTest/static/view/overview.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/InterfaceTest/static/view/pro_nav.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/InterfaceTest/static/view/pro_top.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/InterfaceTest/static/view/project.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/InterfaceTest/static/view/var.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/InterfaceTest/tests.py" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/InterfaceTest/tets.py" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/InterfaceTest/urls.py" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/InterfaceTest/views.py" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/接口自动化平台/__init__.py" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/接口自动化平台/settings.py" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/接口自动化平台/urls.py" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/接口自动化平台/wsgi.py" afterPath="" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/vcs.xml" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/AutoTest/platform/tools/strtool.py" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/AutoTest/platform/tools/tostr.py" afterPath="" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/AutoTest/views.py" afterPath="$PROJECT_DIR$/AutoTest/views.py" />
     </list>
     <ignored path="自动化平台.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -147,8 +43,8 @@
       <file leaf-file-name="urls.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/AutoTest/urls.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="120">
-              <caret line="7" column="5" selection-start-line="7" selection-start-column="5" selection-end-line="7" selection-end-column="5" />
+            <state relative-caret-position="80">
+              <caret line="4" column="31" selection-start-line="4" selection-start-column="31" selection-end-line="4" selection-end-column="31" />
               <folding>
                 <element signature="e#0#32#0" expanded="true" />
               </folding>
@@ -156,11 +52,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="views.py" pinned="false" current-in-tab="true">
+      <file leaf-file-name="views.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/AutoTest/views.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="400">
-              <caret line="47" column="7" selection-start-line="47" selection-start-column="7" selection-end-line="47" selection-end-column="7" />
+            <state relative-caret-position="511">
+              <caret line="56" column="30" selection-start-line="56" selection-start-column="30" selection-end-line="56" selection-end-column="30" />
               <folding>
                 <element signature="e#0#60#0" expanded="true" />
               </folding>
@@ -168,11 +64,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="tostr.py" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/AutoTest/platform/tools/tostr.py">
+      <file leaf-file-name="strtool.py" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/AutoTest/platform/tools/strtool.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="80">
-              <caret line="4" column="38" selection-start-line="4" selection-start-column="38" selection-end-line="4" selection-end-column="38" />
+            <state relative-caret-position="60">
+              <caret line="3" column="7" selection-start-line="3" selection-start-column="7" selection-end-line="3" selection-end-column="7" />
               <folding />
             </state>
           </provider>
@@ -181,7 +77,7 @@
       <file leaf-file-name="prodata.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/AutoTest/platform/datahandle/prodata.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="160">
+            <state relative-caret-position="71">
               <caret line="11" column="15" selection-start-line="11" selection-start-column="15" selection-end-line="11" selection-end-column="15" />
               <folding>
                 <element signature="e#37#72#0" expanded="true" />
@@ -220,10 +116,11 @@
         <option value="$PROJECT_DIR$/templates/index.html" />
         <option value="$PROJECT_DIR$/AutoTest/platform/datahandle/prohandle.py" />
         <option value="$PROJECT_DIR$/AutoTest/platform/datahandle/prodata.py" />
-        <option value="$PROJECT_DIR$/AutoTest/urls.py" />
         <option value="$PROJECT_DIR$/自动化平台/settings.py" />
+        <option value="$PROJECT_DIR$/AutoTest/urls.py" />
         <option value="$PROJECT_DIR$/AutoTest/platform/tools/tostr.py" />
         <option value="$PROJECT_DIR$/AutoTest/views.py" />
+        <option value="$PROJECT_DIR$/AutoTest/platform/tools/strtool.py" />
       </list>
     </option>
   </component>
@@ -576,6 +473,14 @@
       <option name="presentableId" value="Default" />
       <updated>1475469257273</updated>
     </task>
+    <task id="LOCAL-00001" summary="test">
+      <created>1475919628965</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1475919628965</updated>
+    </task>
+    <option name="localTasksCounter" value="2" />
     <servers />
   </component>
   <component name="ToolWindowManager">
@@ -588,18 +493,18 @@
       <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Python Console" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.3" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.08291708" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
+      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.3006993" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
       <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
     </layout>
   </component>
   <component name="Vcs.Log.UiProperties">
@@ -612,6 +517,10 @@
   </component>
   <component name="VcsContentAnnotationSettings">
     <option name="myLimit" value="2678400000" />
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="test" />
+    <option name="LAST_COMMIT_MESSAGE" value="test" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager />
@@ -628,7 +537,7 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/AutoTest/platform/tools/tostr.py">
+    <entry file="file://$PROJECT_DIR$/AutoTest/platform/tools/strtool.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="80">
           <caret line="4" column="38" selection-start-line="4" selection-start-column="38" selection-end-line="4" selection-end-column="38" />
@@ -675,6 +584,7 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="1940">
           <caret line="97" column="0" selection-start-line="97" selection-start-column="0" selection-end-line="97" selection-end-column="0" />
+          <folding />
         </state>
       </provider>
     </entry>
@@ -734,6 +644,7 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="1843">
           <caret line="97" column="0" selection-start-line="97" selection-start-column="0" selection-end-line="97" selection-end-column="0" />
+          <folding />
         </state>
       </provider>
     </entry>
@@ -783,6 +694,7 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="1843">
           <caret line="97" column="0" selection-start-line="97" selection-start-column="0" selection-end-line="97" selection-end-column="0" />
+          <folding />
         </state>
       </provider>
     </entry>
@@ -832,6 +744,7 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="1843">
           <caret line="97" column="0" selection-start-line="97" selection-start-column="0" selection-end-line="97" selection-end-column="0" />
+          <folding />
         </state>
       </provider>
     </entry>
@@ -927,6 +840,7 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="948">
           <caret line="97" column="0" selection-start-line="97" selection-start-column="0" selection-end-line="97" selection-end-column="0" />
+          <folding />
         </state>
       </provider>
     </entry>
@@ -940,7 +854,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/AutoTest/platform/datahandle/prodata.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="160">
+        <state relative-caret-position="71">
           <caret line="11" column="15" selection-start-line="11" selection-start-column="15" selection-end-line="11" selection-end-column="15" />
           <folding>
             <element signature="e#37#72#0" expanded="true" />
@@ -950,29 +864,29 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/AutoTest/urls.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="120">
-          <caret line="7" column="5" selection-start-line="7" selection-start-column="5" selection-end-line="7" selection-end-column="5" />
+        <state relative-caret-position="80">
+          <caret line="4" column="31" selection-start-line="4" selection-start-column="31" selection-end-line="4" selection-end-column="31" />
           <folding>
             <element signature="e#0#32#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/AutoTest/platform/tools/tostr.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="80">
-          <caret line="4" column="38" selection-start-line="4" selection-start-column="38" selection-end-line="4" selection-end-column="38" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/AutoTest/views.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="400">
-          <caret line="47" column="7" selection-start-line="47" selection-start-column="7" selection-end-line="47" selection-end-column="7" />
+        <state relative-caret-position="511">
+          <caret line="56" column="30" selection-start-line="56" selection-start-column="30" selection-end-line="56" selection-end-column="30" />
           <folding>
             <element signature="e#0#60#0" expanded="true" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/AutoTest/platform/tools/strtool.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="60">
+          <caret line="3" column="7" selection-start-line="3" selection-start-column="7" selection-end-line="3" selection-end-column="7" />
+          <folding />
         </state>
       </provider>
     </entry>

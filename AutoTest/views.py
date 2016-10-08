@@ -2,7 +2,7 @@ from django.shortcuts import render_to_response,HttpResponse
 import json
 
 from .platform.datahandle import prodata
-from .platform.tools import tostr
+from .platform.tools import strtool
 
 
 def to_index(req):
@@ -54,7 +54,7 @@ def pro_detail(req):
           "msg": "返回成功"
         }
     """
-    tostr(req.body)
+    strtool.byteToStr(req.body)
     data = json.loads(str(req.body, encoding="utf-8"))
     pro = prodata.getProDetail(data)
     return HttpResponse(json.dumps({"msg": '返回成功', "data":pro}), content_type="application/json")
