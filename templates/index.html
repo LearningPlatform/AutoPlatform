@@ -8,29 +8,26 @@
     {% load staticfiles %}
     <link href="{% static 'styles/library/bootstrap.min.css' %}" rel="stylesheet">
     <link href="{% static 'styles/library/ui-grid.min.css' %}" rel="stylesheet">
-    <link href="{% static 'styles/public/css/public.css' %}" rel="stylesheet">
-    <link href="{% static 'styles/public/css/project.css' %}" rel="stylesheet">
 </head>
 <body>
-<div class="container-fluid" ui-view></div>
-<div class="nav"></div>
+<div ng-controller="proListCtrl">
+<button class="btn btn-success"><span class="glyphicon glyphicon-play"></span>run</button>
+</div>
 </body>
 {% load staticfiles %}
 <script src="{% static 'scripts/library/jquery-3.1.0.min.js' %}"></script>
-<script src="{% static 'scripts/library/bootstrap/bootstrap.min.js' %}"></script>
+<script src="{% static 'scripts/library/bootstrap.min.js' %}"></script>
 <script src="{% static 'scripts/library/angular/angular.min.js' %}"></script>
 <script src="{% static 'scripts/library/angular/angular-cookies.min.js' %}"></script>
 <script src="{% static 'scripts/library/angular-ui-router.js' %}"></script>
-<script src="{% static 'scripts/library/ui-grid.min.js' %}"></script>
-<script src="{% static 'scripts/public/app.js'%}"></script>
-<script src="{% static 'scripts/public/main/model/ProjectModel.js'%}"></script>
-<script src="{% static 'scripts/public/main/controller/MainCtrl.js' %}"></script>
-<script src="{% static 'scripts/public/nav/model/NavModel.js' %}"></script>
-<script src="{% static 'scripts/public/nav/controller/ProTopCtrl.js' %}"></script>
-<script src="{% static 'scripts/public/nav/controller/ProNavCtrl.js' %}"></script>
-<script src="{% static 'scripts/public/var/model/VarModel.js' %}"></script>
-<script src="{% static 'scripts/public/var/controller/VarCtrl.js' %}"></script>
-<script src="{% static 'scripts/public/case/model/CaseModel.js' %}"></script>
-<script src="{% static 'scripts/public/case/controller/CaseCtrl.js' %}"></script>
-
+<script>
+    var autoTest=angular.module('autoTest',[])
+    autoTest.controller("proListCtrl",function($scope,$http,$timeout) {
+        $timeout(function(){
+            $http.get("list/").success(function(response) {
+                $scope.proList=response.data;
+            });
+        });
+    })
+</script>
 </html>
