@@ -10,9 +10,8 @@
     <link href="{% static 'styles/library/ui-grid.min.css' %}" rel="stylesheet">
 </head>
 <body>
-<div ng-controller="proListCtrl">
-<button class="btn btn-success"><span class="glyphicon glyphicon-play"></span>run</button>
-</div>
+
+
 </body>
 {% load staticfiles %}
 <script src="{% static 'scripts/library/jquery-3.1.0.min.js' %}"></script>
@@ -20,14 +19,4 @@
 <script src="{% static 'scripts/library/angular/angular.min.js' %}"></script>
 <script src="{% static 'scripts/library/angular/angular-cookies.min.js' %}"></script>
 <script src="{% static 'scripts/library/angular-ui-router.js' %}"></script>
-<script>
-    var autoTest=angular.module('autoTest',[])
-    autoTest.controller("proListCtrl",function($scope,$http,$timeout) {
-        $timeout(function(){
-            $http.get("list/").success(function(response) {
-                $scope.proList=response.data;
-            });
-        });
-    })
-</script>
 </html>
