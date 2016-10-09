@@ -1,3 +1,7 @@
+# 字符串处理工具
+"""
+@author:liujing
+"""
 
 
 def byteToStr(byte, encoding="utf-8"):

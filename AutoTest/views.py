@@ -1,7 +1,7 @@
 from django.shortcuts import render_to_response,HttpResponse
 import json
 
-from .platform.datahandle import prodata
+from .platform.datahandle import prodata,envdata
 from .platform.tools import strtool
 
 
@@ -156,4 +156,10 @@ def pro_del(req):
     """
     data = json.loads(strtool.byteToStr(req.body))
     resp = prodata.delPro(data)
+    return HttpResponse(json.dumps(resp), content_type="application/json")
+
+
+def evn_list(req):
+    data = json.loads(str(req.body, encoding="utf-8"))
+    resp = envdata.getEnvList(data)
     return HttpResponse(json.dumps(resp), content_type="application/json")

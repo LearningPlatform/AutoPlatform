@@ -7,6 +7,7 @@ from django.core import serializers
 import json
 
 from ...models import Project
+from ..tools import dbtool
 
 
 def getProList():
@@ -27,6 +28,7 @@ def getProList():
             "data": body
         }
     except Exception as e:
+        print(e)
         return {
             "code": 0,
             "msg": "获取失败",
@@ -41,21 +43,28 @@ def getProDetail(data):
     """
     try:
         pro_id = data['pro_id']
-        data = Project.objects.all().get(id=pro_id)
-        data_json = {
-            "id": data.id,
-            "pro_name": data.pro_name,
-            "pro_desc": data.pro_desc
-        }
-        return {
-            "code": 1,
-            "msg": "获取成功",
-            "data": data_json
-        }
+        id_list = dbtool.getFieldList(Project, 'id')
+        if pro_id in id_list:
+            data = Project.objects.all().get(id=pro_id)
+            data_json = {
+                "id": data.id,
+                "pro_name": data.pro_name,
+                "pro_desc": data.pro_desc
+            }
+            return {
+                "code": 1,
+                "msg": "获取成功",
+                "data": data_json
+            }
+        else:
+            return {
+                "code": 0,
+                "msg": "获取失败，id不存在",
+            }
     except Exception as e:
         return {
             "code": 0,
-            "msg": "获取失败，id不存在",
+            "msg": "请求超时",
         }
 
 
@@ -81,7 +90,7 @@ def createPro(data):
     except Exception as e:
         print(e)
         return {
-                "code":0,
+                "code": 0,
                 "msg": "项目创建失败"
             }
 
@@ -127,15 +136,22 @@ def delPro(data):
     """
     try:
         pro_id = data['pro_id']
-        pro = Project.objects.all().get(id=pro_id)
-        pro.delete()
-        return {
-            "code": 1,
-            "msg": "删除成功"
-        }
+        id_list = dbtool.getFieldList(Project, 'id')
+        if pro_id in id_list:
+            pro = Project.objects.all().get(id=pro_id)
+            pro.delete()
+            return {
+                "code": 1,
+                "msg": "删除成功"
+            }
+        else:
+            return {
+                "code": 0,
+                "msg": "删除失败，项目id不存在"
+            }
     except Exception as e:
         print(e)
         return {
             "code": 0,
-            "msg": "删除失败，项目id不存在"
+            "msg": "请求超时"
         }
