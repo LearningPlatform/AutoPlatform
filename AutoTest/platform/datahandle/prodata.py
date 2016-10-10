@@ -3,25 +3,23 @@
 @author:liujing
 """
 
-from django.core import serializers
-import json
-
 from ...models import Project
-from ..tools import dbtool
+from ..tools import dbtool, jsontool
 
 
-def getProList():
+def get_pro_list():
     """
     获取所有的项目
     :return: 所有的项目，类型为列表
     """
     body = []
     try:
-        data = json.loads(serializers.serialize("json", Project.objects.all()))
-        for e in data:
-            str1 = e['fields']
-            str1['id'] = e['pk']
-            body.append(str1)
+        body = []
+        test = Project.objects.all()
+        for a in list(test):
+            a = jsontool.class_to_dict(a)
+            del (a['_state'])
+            body.append(a)
         return {
             "code": 1,
             "msg": "获取成功",
@@ -35,7 +33,7 @@ def getProList():
         }
 
 
-def getProDetail(data):
+def get_pro_detail(data):
     """
     获取单个项目详情
     :param data:
@@ -46,11 +44,8 @@ def getProDetail(data):
         id_list = dbtool.getFieldList(Project, 'id')
         if pro_id in id_list:
             data = Project.objects.all().get(id=pro_id)
-            data_json = {
-                "id": data.id,
-                "pro_name": data.pro_name,
-                "pro_desc": data.pro_desc
-            }
+            data_json = jsontool.convert_to_dict(data)
+            del(data_json['_state'])
             return {
                 "code": 1,
                 "msg": "获取成功",
@@ -68,7 +63,7 @@ def getProDetail(data):
         }
 
 
-def createPro(data):
+def create_pro(data):
     """
     新建项目
     :param data:
@@ -84,7 +79,7 @@ def createPro(data):
             }
         Project.objects.create(pro_name=name, pro_desc=description)
         return {
-                "code":1,
+                "code": 1,
                 "msg": "项目创建成功"
             }
     except Exception as e:
@@ -95,7 +90,7 @@ def createPro(data):
             }
 
 
-def editPro(data):
+def edit_pro(data):
     """
     编辑项目
     :param data:
@@ -110,7 +105,7 @@ def editPro(data):
                 "code": 0,
                 "msg": "项目名不能为空！"
             }
-        a = Project.objects.all().filter(id=pro_id).update(pro_name=pro_name,pro_desc=pro_desc)
+        a = Project.objects.all().filter(id=pro_id).update(pro_name=pro_name, pro_desc=pro_desc)
         if a == 0:
             return {
                 "code": 0,
@@ -124,11 +119,11 @@ def editPro(data):
         print(e)
         return {
             "code": 0,
-            "msg": "修改失败"
+            "msg": "参数错误"
         }
 
 
-def delPro(data):
+def del_pro(data):
     """
     删除项目
     :param data:
