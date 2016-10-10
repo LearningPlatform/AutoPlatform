@@ -1,16 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="106b45e4-5905-4066-9b81-f65e9435e4e6" name="Default" comment="新增了">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" afterPath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" />
+    <list default="true" id="106b45e4-5905-4066-9b81-f65e9435e4e6" name="Default" comment="">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/AutoTest/platform/datahandle/envdata.py" afterPath="$PROJECT_DIR$/AutoTest/platform/datahandle/envdata.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/AutoTest/platform/datahandle/prodata.py" afterPath="$PROJECT_DIR$/AutoTest/platform/datahandle/prodata.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/AutoTest/platform/tools/strtool.py" afterPath="$PROJECT_DIR$/AutoTest/platform/tools/strtool.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/AutoTest/urls.py" afterPath="$PROJECT_DIR$/AutoTest/urls.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/AutoTest/views.py" afterPath="$PROJECT_DIR$/AutoTest/views.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/templates/index.html" afterPath="$PROJECT_DIR$/templates/index.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/自动化平台/settings.py" afterPath="$PROJECT_DIR$/自动化平台/settings.py" />
     </list>
     <ignored path="自动化平台.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -683,21 +675,28 @@
       <option name="project" value="LOCAL" />
       <updated>1476007335688</updated>
     </task>
-    <option name="localTasksCounter" value="9" />
+    <task id="LOCAL-00009" summary="10.09号下班前提交">
+      <created>1476008743118</created>
+      <option name="number" value="00009" />
+      <option name="presentableId" value="LOCAL-00009" />
+      <option name="project" value="LOCAL" />
+      <updated>1476008743118</updated>
+    </task>
+    <option name="localTasksCounter" value="10" />
     <servers />
   </component>
   <component name="ToolWindowManager">
     <frame x="561" y="0" width="1359" height="1160" extended-state="0" />
     <editor active="false" />
     <layout>
-      <window_info id="Project" active="true" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.22863741" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="true" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.19014627" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
-      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.345" sideWeight="0.80908394" order="7" side_tool="true" content_ui="tabs" />
+      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.345" sideWeight="0.113933794" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.18700787" sideWeight="0.39872068" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Python Console" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.345" sideWeight="0.19091609" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.345" sideWeight="0.8860662" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.335" sideWeight="0.21777777" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
@@ -730,7 +729,8 @@
     <MESSAGE value="新增了首页关于项目模块的代码及url，注释等" />
     <MESSAGE value="新增了环境与变量请求处理的文件" />
     <MESSAGE value="增加数据库处理工具函数，添加函数获取某数据表中的字段值，返回为list" />
-    <option name="LAST_COMMIT_MESSAGE" value="增加数据库处理工具函数，添加函数获取某数据表中的字段值，返回为list" />
+    <MESSAGE value="10.09号下班前提交" />
+    <option name="LAST_COMMIT_MESSAGE" value="10.09号下班前提交" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>

@@ -1,7 +1,7 @@
 from django.shortcuts import render_to_response,HttpResponse
 import json
 
-from .platform.datahandle import prodata,envdata
+from .platform.datahandle import prodata, envdata, vardata
 from .platform.tools import strtool
 
 
@@ -259,7 +259,7 @@ def env_create(req):
 
 def env_edit(req):
     """
-    创建环境
+    修改编辑环境
     :param req:请求
     请求方法：post
     参数：环境id：env_id，环境名：env_name，描述：env_desc
@@ -296,3 +296,164 @@ def env_del(req):
     data = json.loads(str(req.body, encoding="utf-8"))
     resp = envdata.del_env(data)
     return HttpResponse(json.dumps(resp), content_type="application/json")
+
+
+def var_list(req):
+    """
+    获取变量列表
+    :param req:
+    :return:
+    """
+    pass
+
+
+def var_detail(req):
+    """
+    获取变量详情
+    :param req:
+    :return:
+    """
+    pass
+
+
+def var_create(req):
+    """
+    创建变量
+    :param req:请求
+    请求方法：post
+    参数：
+        项目id：pro_id   变量名：var_name   变量类型：var_type   变量描述：var_desc
+        变量值：var_value---------json类型，key对用环境的id，value对应变量的值
+    如：
+        {
+        "pro_id":1,
+        "var_name":"host",
+        "var_type":"String",
+        "var_desc":"描述",
+        "var_value":[{"env_id":1,"value":"192.168.40.25"},{"env_id":2,"value":"192.168.40.30"}]
+        }
+    :return:
+    如：
+    成功：
+    {
+        "code": 1,
+        "msg": "变量创建成功"
+    }
+    失败：
+    {
+        "code": 0,
+        "msg": "参数错误，环境id不存在"
+    }
+    """
+    data = json.loads(str(req.body, encoding="utf-8"))
+    resp = vardata.create_vars(data)
+    return HttpResponse(json.dumps(resp), content_type="application/json")
+
+
+def var_edit(req):
+    """
+    修改编辑变量
+    :param req:
+    :return:
+    """
+    pass
+
+
+def var_del(req):
+    """
+    删除变量
+    :param req:
+    :return:
+    """
+    pass
+
+
+def module_list(req):
+    """
+    获取模块列表
+    :param req:
+    :return:
+    """
+    pass
+
+
+def module_detail(req):
+    """
+    获取模块详情
+    :param req:
+    :return:
+    """
+    pass
+
+
+def module_create(req):
+    """
+    创建模块
+    :param req:请求
+    :return
+    """
+    pass
+
+
+def module_edit(req):
+    """
+    修改编辑模块
+    :param req:
+    :return:
+    """
+    pass
+
+
+def module_del(req):
+    """
+    删除模块
+    :param req:
+    :return:
+    """
+    pass
+
+
+def suite_list(req):
+    """
+    获取套件列表
+    :param req:
+    :return:
+    """
+    pass
+
+
+def suite_detail(req):
+    """
+    获取套件详情
+    :param req:
+    :return:
+    """
+    pass
+
+
+def suite_create(req):
+    """
+    创建套件
+    :param req:请求
+    :return
+    """
+    pass
+
+
+def suite_edit(req):
+    """
+    修改编辑套件
+    :param req:
+    :return:
+    """
+    pass
+
+
+def suite_del(req):
+    """
+    删除套件
+    :param req:
+    :return:
+    """
+    pass
+
