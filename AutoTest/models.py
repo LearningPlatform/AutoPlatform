@@ -38,7 +38,7 @@ class VarValue(models.Model):
     var_value = models.TextField(null=True)
 
 
-class Model(models.Model):
+class Module(models.Model):
     """
     项目模块表
     """
