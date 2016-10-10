@@ -40,7 +40,7 @@ def pro_list(req):
             "msg": "获取失败",
         }
     """
-    resp = prodata.getProList()
+    resp = prodata.get_pro_list()
     return HttpResponse(json.dumps(resp), content_type="application/json")
 
 
@@ -71,7 +71,7 @@ def pro_detail(req):
         }
     """
     data = json.loads(strtool.byteToStr(req.body))
-    resp = prodata.getProDetail(data)
+    resp = prodata.get_pro_detail(data)
     return HttpResponse(json.dumps(resp), content_type="application/json")
 
 
@@ -99,7 +99,7 @@ def pro_create(req):
         }
     """
     data = json.loads(strtool.byteToStr(req.body))
-    resp = prodata.createPro(data)
+    resp = prodata.create_pro(data)
     return HttpResponse(json.dumps(resp), content_type="application/json")
 
 
@@ -128,7 +128,7 @@ def pro_edit(req):
         }
         """
     data = json.loads(strtool.byteToStr(req.body))
-    resp = prodata.editPro(data)
+    resp = prodata.edit_pro(data)
     return HttpResponse(json.dumps(resp), content_type="application/json")
 
 
@@ -155,11 +155,144 @@ def pro_del(req):
         }
     """
     data = json.loads(strtool.byteToStr(req.body))
-    resp = prodata.delPro(data)
+    resp = prodata.del_pro(data)
     return HttpResponse(json.dumps(resp), content_type="application/json")
 
 
-def evn_list(req):
+def env_list(req):
+    """
+    获取所有项目
+    :param req:请求
+    请求方法：post
+    参数：项目id
+    如：
+    {
+        "pro_id":1
+    }
+    :return:返回所有环境
+    如：
+    成功：
+    {
+      "code": 1,
+      "msg": "获取环境列表成功",
+      "data": [
+        {
+          "id": 1,
+          "env_desc": "无",
+          "pro_id": 1,
+          "env_name": "正式环境"
+        }
+      ]
+    }
+    失败：
+    {
+      "msg": "参数错误",
+      "code": 0
+    }
+    """
     data = json.loads(str(req.body, encoding="utf-8"))
-    resp = envdata.getEnvList(data)
+    resp = envdata.get_env_list(data)
+    return HttpResponse(json.dumps(resp), content_type="application/json")
+
+
+def env_detail(req):
+    """
+    获取特定的环境详情
+    :param req:请求
+    请求方法：post
+    参数：项目id
+    如：
+        {"env_id": 1}
+    :return:特定项目的信息
+    如：
+    成功：
+    {
+      "msg": "获取成功",
+      "code": 1,
+      "data": {
+        "env_name": "正式环境",
+        "pro_id": 1,
+        "id": 1,
+        "env_desc": "无"
+      }
+    }
+    失败：
+    {
+        "code": 0,
+        "msg": "获取失败，id不存在",
+    }
+    """
+    data = json.loads(str(req.body, encoding="utf-8"))
+    resp = envdata.get_env_detail(data)
+    return HttpResponse(json.dumps(resp), content_type="application/json")
+
+
+def env_create(req):
+    """
+    创建环境
+    :param req:请求
+    请求方法：post
+    参数：项目id：pro_id，环境名：env_name，描述：env_desc
+    如：
+        {
+        "pro_id":1,
+        "env_name":"测试环境",
+        "env_desc":"描述"
+        }
+    :return:
+    如：
+    成功：
+    {
+        "code": 1,
+        "msg": "环境创建成功"
+    }
+    失败：
+    {
+        "code": 0,
+        "msg": "参数错误，项目id不存在"
+    }
+    """
+    data = json.loads(str(req.body, encoding="utf-8"))
+    resp = envdata.create_env(data)
+    return HttpResponse(json.dumps(resp), content_type="application/json")
+
+
+def env_edit(req):
+    """
+    创建环境
+    :param req:请求
+    请求方法：post
+    参数：环境id：env_id，环境名：env_name，描述：env_desc
+    如：
+        {
+        "env_id":1,
+        "env_name":"测试环境",
+        "env_desc":"描述"
+        }
+    :return:
+    如：
+    成功：
+    {
+        "code": 1,
+        "msg": "环境创建成功"
+    }
+    失败：
+    {
+        "code": 0,
+        "msg": "参数错误，环境id不存在"
+    }
+    """
+    data = json.loads(str(req.body, encoding="utf-8"))
+    resp = envdata.edit_env(data)
+    return HttpResponse(json.dumps(resp), content_type="application/json")
+
+
+def env_del(req):
+    """
+    待定！！！！！！！
+    :param req:
+    :return:
+    """
+    data = json.loads(str(req.body, encoding="utf-8"))
+    resp = envdata.del_env(data)
     return HttpResponse(json.dumps(resp), content_type="application/json")
