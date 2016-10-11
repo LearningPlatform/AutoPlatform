@@ -108,7 +108,7 @@ def pro_edit(req):
         创建新的项目
         :param req: 请求
         请求方法：post
-        参数：项目名 pro_name  项目描述：pro_desc
+        参数：项目id pro_id 项目名 pro_name  项目描述：pro_desc
         如：
         {
             "pro_id" : 1,
@@ -137,7 +137,7 @@ def pro_del(req):
     删除
     :param req: 请求
     请求方法：post
-    参数：项目名 pro_name  项目描述：pro_desc
+    参数：项目id pro_id
     如：
     {
         "pro_id": 1
@@ -164,7 +164,7 @@ def env_list(req):
     获取所有项目
     :param req:请求
     请求方法：post
-    参数：项目id
+    参数：项目id pro_id
     如：
     {
         "pro_id":1
