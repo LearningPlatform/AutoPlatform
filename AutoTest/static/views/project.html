@@ -1,0 +1,39 @@
+<div>
+<nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+    <div class="container">
+        <div class="navbar-header">
+            <a class="navbar-brand" href="#" ><span ng-bind="pro.pro_name"></span></a>
+        </div>
+        <div >
+            <ul class="nav navbar-nav navbar-right">
+                <li><a href="#">Dashboard</a></li>
+                <li><a href="#">Settings</a></li>
+                <li><a href="#">Profile</a></li>
+                <li><a href="#">Help</a></li>
+            </ul>
+            <form class="navbar-form navbar-right" role="search">
+                <div class="form-group">
+                    <input type="text" class="form-control" placeholder="查找">
+                </div>
+            </form>
+        </div>
+    </div>
+</nav>
+<div class="container-fluid top">
+    <div class="col-sm-3 col-md-2 sidebar">
+        <ul class=" nav nav-pills nav-stacked nav-sidebar">
+            <li class="{$activeList[0]$}"><a ui-sref=".intro" ng-click="active(0)">概览</a></li>
+            <li class="{$activeList[1]$}"><a ui-sref=".var" ng-click="active(1)">全局变量</a></li>
+            <li class="{$activeList[2]$}"><a ui-sref=".method" ng-click="active(2)">常用方法</a></li>
+            <li class="{$activeList[3]$}"><a ui-sref=".validation" ng-click="active(3)">验证器</a></li>
+            <li class="{$activeList[4]$}"><a ui-sref=".response" ng-click="active(4)">通用响应配置</a></li>
+            <li class="{$activeList[5]$}"><a ui-sref=".rely" ng-click="active(5)">API依赖库</a></li>
+            <li class="{$activeList[6]$}"><a ui-sref=".api" ng-click="active(6)">API用例库</a></li>
+            <li class="{$activeList[7]$}"><a ui-sref=".clock" ng-click="active(7)">定时任务</a></li>
+            <li class="{$activeList[8]$}"><a ui-sref=".check" ng-click="active(8)">测试报告</a></li>
+        </ul>
+    </div>
+    <div class="col-sm-8 col-sm-offset-2 col-md-10 col-md-offset-2" ui-view="des"></div>
+</div>
+</div>
+
