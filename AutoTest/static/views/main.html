@@ -27,6 +27,46 @@
             </div>
         </div>
 
+
+        <!--添加项目-->
+        <div class="modal fade" id="myModal">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+                            &times;
+                        </button>
+                        <h4 class="modal-title">
+                            添加项目
+                        </h4>
+                    </div>
+                    <div class="modal-body">
+                        <form class="form-horizontal" role="form">
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label">项目名：</label>
+                                <div class="col-sm-10">
+                                    <input type="text" class="form-control" ng-model="pro.pro_name" placeholder="请输入名称">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label">描述：</label>
+                                <div class="col-sm-10">
+                                    <input type="text" class="form-control" ng-model="pro.pro_desc" placeholder="请输入描述">
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">关闭
+                        </button>
+                        <button type="button" class="btn btn-primary" ng-click="save()" >
+                            保存
+                        </button>
+                    </div>
+                </div>
+            </div>
+         </div>
+
         <div  class="col-md-12 column">
             <div class="container">
                 <div class="row">
@@ -38,7 +78,7 @@
                                     <p ng-bind="x.pro_desc"></p>
                                     <a href="#project" class="btn btn-default" role="button" ng-click="recordId(x.id)">进入项目 </a>
                                     <btn class="btn" ng-click="editPro(x.id)">编辑</btn>
-                                    <btn class="btn" ng-click="delPro(x.id)">删除</btn>
+                                    <btn class="btn" ng-click="confirmDel(x.id)">删除</btn>
                                 </div>
                             </div>
                         </div>
@@ -48,47 +88,9 @@
         </div>
     </div>
 
-    <!--添加项目-->
-    <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
-                        &times;
-                    </button>
-                    <h4 class="modal-title">
-                        添加项
-                    </h4>
-                </div>
-                <div class="modal-body">
-                    <form class="form-horizontal" role="form">
-                        <div class="form-group">
-                            <label class="col-sm-2 control-label">项目名：</label>
-                            <div class="col-sm-10">
-                                <input type="text" class="form-control" ng-model="pro.pro_name" placeholder="请输入名称">
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <label class="col-sm-2 control-label">描述：</label>
-                            <div class="col-sm-10">
-                                <input type="text" class="form-control" ng-model="pro.pro_desc" placeholder="请输入描述">
-                            </div>
-                        </div>
-                    </form>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-default" data-dismiss="modal">关闭
-                    </button>
-                    <button type="button" class="btn btn-primary" ng-click="save()" >
-                        保存
-                    </button>
-                </div>
-            </div>
-        </div>
-     </div>
 
     <!--编辑项目-->
-    <div class="modal fade" id="editModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal fade" id="editModal">
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
@@ -120,6 +122,28 @@
                     </button>
                     <button type="button" class="btn btn-primary" ng-click="saveEdit(pro.id)">
                         保存
+                    </button>
+                </div>
+            </div>
+        </div>
+     </div>
+
+    <div class="modal fade" id="confirmModal" >
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header alert alert-danger">
+                    <h4 class="modal-title">
+                        删除项目
+                    </h4>
+                </div>
+                <div class="modal-body">
+                    确定删除该项目吗？
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">取消
+                    </button>
+                    <button type="button" class="btn btn-primary" ng-click="delPro(pro.id)">
+                        确定
                     </button>
                 </div>
             </div>
