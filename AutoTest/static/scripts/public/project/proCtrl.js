@@ -10,18 +10,13 @@
          }).success(function (response) {
              $scope.pro = response.data;
          });
-     })
-
-     $timeout(function(){
-         var nav_id = $cookieStore.get('activeNav');
          for (var i=0;i<9;i++){
              $scope.activeList[i]="disactive";
          }
-         $scope.activeList[nav_id]='active';
-     });
+         $scope.activeList[0]='active';
+     })
 
      $scope.active = function(id) {
-         $cookieStore.put("activeNav",id);
          for (var i=0;i<9;i++){
              $scope.activeList[i]="disactive";
          }
