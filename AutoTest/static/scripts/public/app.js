@@ -20,27 +20,28 @@ myApp.config(function($stateProvider,$urlRouterProvider,$interpolateProvider) {
             url:'/project',
             views:{
                 '':{
-                    templateUrl: '/static/views/project.html',
+                    templateUrl: '/static/views/projectIntro.html',
                     controller: 'proCtrl'
                 }
             }
         })
 
-        .state('project.intro',{
-            url:'/introduce',
+        .state('project.homepage',{
+            url:'/homepage',
             views:{
-                'des@project':{
-                    templateUrl: '/static/views/introduce.html',
+                'intro@project':{
+                    templateUrl: '/static/views/homepage.html',
+                    controller: 'homepageCtrl'
                 }
             }
         })
 
-        .state('project.var',{
-            url:'/var',
+        .state('project.globalVar',{
+            url:'/globalVar',
             views:{
-                'des@project':{
-                     templateUrl: '/static/views/var.html',
-                     controller: 'proVarCtrl'
+                'intro@project':{
+                    templateUrl: '/static/views/globalVar.html',
+                    controller: 'globalVarCtrl'
                 }
             }
         })
@@ -48,9 +49,8 @@ myApp.config(function($stateProvider,$urlRouterProvider,$interpolateProvider) {
         .state('project.method',{
             url:'/method',
             views:{
-                'des@project':{
-                     templateUrl: '/static/views/method.html',
-                     controller: 'proMethodCtrl'
+                'intro@project':{
+                    templateUrl: '/static/views/method.html',
                 }
             }
         })
@@ -58,11 +58,54 @@ myApp.config(function($stateProvider,$urlRouterProvider,$interpolateProvider) {
         .state('project.validation',{
             url:'/validation',
             views:{
-                'des@project':{
-                     templateUrl: '/static/views/validation.html',
-                     controller: 'proValidationCtrl'
+                'intro@project':{
+                    templateUrl: '/static/views/validation.html',
                 }
             }
         })
 
+        .state('project.response',{
+            url:'/response',
+            views:{
+                'intro@project':{
+                    templateUrl: '/static/views/response.html',
+                }
+            }
+        })
+
+        .state('project.APIDependency',{
+            url:'/APIDependency',
+            views:{
+                'intro@project':{
+                    templateUrl: '/static/views/APIDependency.html',
+                }
+            }
+        })
+
+        .state('project.APICase',{
+            url:'/APICase',
+            views:{
+                'intro@project':{
+                    templateUrl: '/static/views/APICase.html',
+                }
+            }
+        })
+
+        .state('project.task',{
+            url:'/task',
+            views:{
+                'intro@project':{
+                    templateUrl: '/static/views/task.html',
+                }
+            }
+        })
+
+        .state('project.testReport',{
+            url:'/testReport',
+            views:{
+                'intro@project':{
+                    templateUrl: '/static/views/testReport.html',
+                }
+            }
+        })
 })
