@@ -11,7 +11,11 @@
 
         $timeout(function() {
             $http.get('project/list').success(function(response){
-                $scope.proList=response.data;
+                if(response.code==1){
+                    $scope.proList=response.data;
+                } else{
+                    alert(response.msg);
+                }
             })
         })
 
@@ -24,49 +28,83 @@
             $cookieStore.put("currProID",id);
         };
 
-        $cookieStore.put("activeNav",0);
 
         $scope.editPro=function(id){
             $http.post('project/detail',{
                 "pro_id":id
             }).success(function (response){
-                $scope.pro=response.data;
+                if(response.code==1){
+                    $scope.pro=response.data;
+                } else {
+                    alert(response.mas);
+                }
             });
             $("#editModal").modal();
         }
 
         $scope.save=function(){
+            if($scope.pro.pro_name==null){
+                $scope.pro.pro_name="";
+            }
+            if($scope.pro.pro_desc==null){
+                $scope.pro.pro_desc="无";
+            }
             $http.post('project/create',{
                 "pro_name":$scope.pro.pro_name,
                 "pro_desc":$scope.pro.pro_desc
-            }).success(function () {
-                $("#myModal").modal('hide');
-                $http.get('project/list').success(function(response){
-                    $scope.proList=response.data;
-                })
+            }).success(function (response) {
+                if(response.code==1){
+                    $("#myModal").modal('hide');
+                    $http.get('project/list').success(function(response1){
+                        $scope.proList=response1.data;
+                    })
+                } else{
+                    alert(response.msg);
+                }
         });
         }
 
         $scope.saveEdit=function(id){
+            if($scope.pro.pro_desc==""){
+                $scope.pro.pro_desc="无";
+            }
             $http.post('project/edit',{
                 "pro_id":id,
                 "pro_name":$scope.pro.pro_name,
                 "pro_desc":$scope.pro.pro_desc
-            }).success(function () {
-            $http.get('project/list').success(function(response){
-                $scope.proList=response.data;
-            })
-            $("#editModal").modal('hide');
+            }).success(function (response) {
+             if(response.code==1){
+                    $("#editModal").modal('hide');
+                    $http.get('project/list').success(function(response1){
+                        $scope.proList=response1.data;
+                    })
+                } else{
+                    alert(response.msg);
+                }
         });
         }
 
+        $scope.confirmDel=function(id){
+            $("#confirmModal").modal();
+            $http.post('project/detail',{
+                "pro_id":id
+            }).success(function (response){
+                $scope.pro=response.data;
+            });
+        }
+
         $scope.delPro=function(id){
+            $("#confirmModal").modal('hide');
             $http.post('project/delete',{
                 "pro_id":id,
-            }).success(function () {
-            $http.get('project/list').success(function(response){
-                $scope.proList=response.data;
-            })
+            }).success(function (response1) {
+                if(response1.code==1){
+                    $http.get('project/list').success(function(response){
+                        $scope.proList=response.data;
+                    })
+                }else{
+                    alert(response1.msg);
+                }
         });
         }
     });
