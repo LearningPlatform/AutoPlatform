@@ -49,9 +49,9 @@ def get_env_detail(data):
     """
     try:
         env_id = data['env_id']
-        id_list = dbtool.getFieldList(Env, 'id')
-        if env_id in id_list:
-            data = Env.objects.all().get(id=env_id)
+        env_id_list = dbtool.getFieldList(Env, 'env_id')
+        if env_id in env_id_list:
+            data = Env.objects.all().get(env_id=env_id)
             data_json = jsontool.convert_to_dict(data)
             del(data_json['_state'])
             return {
@@ -81,7 +81,7 @@ def create_env(data):
         pro_id = data['pro_id']
         env_name = data['env_name']
         env_desc = data['env_desc']
-        pro_id_list = dbtool.getFieldList(Project, 'id')
+        pro_id_list = dbtool.getFieldList(Project, 'pro_id')
         if pro_id in pro_id_list:
             if env_name == '':
                 return {
@@ -121,7 +121,7 @@ def edit_env(data):
                 "code": 0,
                 "msg": "项目名不能为空！"
             }
-        a = Env.objects.all().filter(id=env_id).update(env_name=env_name, env_desc=env_desc)
+        a = Env.objects.all().filter(env_id=env_id).update(env_name=env_name, env_desc=env_desc)
         if a == 0:
             return {
                 "code": 0,

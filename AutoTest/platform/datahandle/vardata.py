@@ -16,7 +16,7 @@ def create_vars(data):
         var_desc = data['var_desc']
         var_type = data['var_type']
         var_value_list = data['var_value']
-        pro_id_list = dbtool.getFieldList(Project, 'id')
+        pro_id_list = dbtool.getFieldList(Project, 'pro_id')
         if pro_id in pro_id_list:
             if var_name == '':
                 return {
@@ -29,7 +29,7 @@ def create_vars(data):
                     "msg": "变量类型不能为空！"
                 }
             var_id = Vars.objects.create(pro_id=pro_id, var_name=var_name,
-                                         var_desc=var_desc, var_type=var_type).id
+                                         var_desc=var_desc, var_type=var_type).var_id
             for var_value in var_value_list:
                 env_id = var_value['env_id']
                 value = var_value['value']

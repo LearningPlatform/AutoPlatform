@@ -18,6 +18,7 @@ def get_pro_list():
         test = Project.objects.all()
         for a in list(test):
             a = jsontool.class_to_dict(a)
+            print(a)
             del (a['_state'])
             body.append(a)
         return {
@@ -41,9 +42,9 @@ def get_pro_detail(data):
     """
     try:
         pro_id = data['pro_id']
-        id_list = dbtool.getFieldList(Project, 'id')
-        if pro_id in id_list:
-            data = Project.objects.all().get(id=pro_id)
+        pro_id_list = dbtool.getFieldList(Project, 'pro_id')
+        if pro_id in pro_id_list:
+            data = Project.objects.all().get(pro_id=pro_id)
             data_json = jsontool.convert_to_dict(data)
             del(data_json['_state'])
             return {
@@ -105,7 +106,7 @@ def edit_pro(data):
                 "code": 0,
                 "msg": "项目名不能为空！"
             }
-        a = Project.objects.all().filter(id=pro_id).update(pro_name=pro_name, pro_desc=pro_desc)
+        a = Project.objects.all().filter(pro_id=pro_id).update(pro_name=pro_name, pro_desc=pro_desc)
         if a == 0:
             return {
                 "code": 0,
@@ -131,8 +132,8 @@ def del_pro(data):
     """
     try:
         pro_id = data['pro_id']
-        id_list = dbtool.getFieldList(Project, 'id')
-        if pro_id in id_list:
+        pro_id_list = dbtool.getFieldList(Project, 'pro_id')
+        if pro_id in pro_id_list:
             pro = Project.objects.all().get(id=pro_id)
             pro.delete()
             return {
