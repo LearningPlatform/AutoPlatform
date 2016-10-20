@@ -5,6 +5,7 @@ class Project(models.Model):
     """
     项目表
     """
+    pro_id = models.AutoField(primary_key=True)
     pro_name = models.CharField(max_length=100, null=True)
     pro_desc = models.TextField(null=True)
 
@@ -13,6 +14,7 @@ class Env(models.Model):
     """
     项目环境表
     """
+    env_id = models.AutoField(primary_key=True)
     pro_id = models.IntegerField(null=True)
     env_name = models.CharField(max_length=20, null=True)
     env_desc = models.TextField(null=True)
@@ -22,6 +24,7 @@ class Vars(models.Model):
     """
     全局变量基本信息表，保存变量名，类型，描述等共有信息
     """
+    var_id = models.AutoField(primary_key=True)
     pro_id = models.IntegerField(null=True)
     var_name = models.CharField(max_length=20, null=True)
     var_type = models.CharField(max_length=20, null=True)
@@ -42,6 +45,7 @@ class Module(models.Model):
     """
     项目模块表
     """
+    module_id = models.AutoField(primary_key=True)
     pro_id = models.IntegerField(null=True)
     model_name = models.CharField(max_length=20, null=True)
     model_desc = models.TextField(null=True)
@@ -51,6 +55,7 @@ class Api(models.Model):
     """
     项目接口信息表
     """
+    api_id = models.AutoField(primary_key=True)
     pro_id = models.IntegerField(null=True)
     model_id = models.IntegerField(null=True)
     api_name = models.CharField(max_length=20, null=True)
@@ -66,6 +71,7 @@ class Case(models.Model):
     """
     项目用例表
     """
+    case_id = models.AutoField(primary_key=True)
     case_name = models.CharField(max_length=20, null=True)
     pro_id = models.IntegerField(null=True)
     api_id = models.IntegerField(null=True)
@@ -81,6 +87,7 @@ class Suite(models.Model):
     """
     测试套件表
     """
+    suite_id = models.AutoField(primary_key=True)
     pro_id = models.IntegerField(null=True)
     suite_name = models.CharField(max_length=20, null=True)
     suite_desc = models.TextField(null=True)
@@ -90,6 +97,7 @@ class CaseSuite(models.Model):
     """
     测试套件表
     """
+    case_suite_id = models.AutoField(primary_key=True)
     pro_id = models.IntegerField(null=True)
     suite_id = models.IntegerField(null=True)
     case_id = models.IntegerField(null=True)
@@ -100,6 +108,7 @@ class Result(models.Model):
     """
     项目运行结果概述表
     """
+    result_id = models.AutoField(primary_key=True)
     suite_id = models.IntegerField(null=True)
     opt_duration = models.IntegerField(null=True)
     pass_num = models.IntegerField(null=True)
@@ -111,6 +120,7 @@ class ResultDetail(models.Model):
     """
     用例执行结果详情表
     """
+    result_detail_id = models.AutoField(primary_key=True)
     result_id = models.IntegerField(null=True)
     case_id = models.IntegerField(null=True)
     api_id = models.IntegerField(null=True)
