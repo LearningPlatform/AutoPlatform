@@ -18,7 +18,6 @@ def get_pro_list():
         test = Project.objects.all()
         for a in list(test):
             a = jsontool.class_to_dict(a)
-            print(a)
             del (a['_state'])
             body.append(a)
         return {
@@ -134,7 +133,7 @@ def del_pro(data):
         pro_id = data['pro_id']
         pro_id_list = dbtool.getFieldList(Project, 'pro_id')
         if pro_id in pro_id_list:
-            pro = Project.objects.all().get(id=pro_id)
+            pro = Project.objects.all().get(pro_id=pro_id)
             pro.delete()
             return {
                 "code": 1,

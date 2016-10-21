@@ -12,3 +12,4 @@ def getFieldList(models, field='id'):
     :return: 返回该字段的所有值，数据类型为list
     """
     return list(models.objects.values_list(field, flat=True))
+

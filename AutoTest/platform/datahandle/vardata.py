@@ -1,6 +1,6 @@
 # 处理全局变量相关的请求
 
-from ...models import Vars, Project, VarValue
+from ...models import Vars, Project, VarValue, Env
 from ..tools import dbtool, jsontool
 
 
@@ -53,7 +53,76 @@ def create_vars(data):
 
 def get_var_of_env(data):
     """
-    获取环境下的所有变量
+    获取变量在不同环境的所有值
     :param data:
     :return:
     """
+    var_id = data["var_id"]
+    body_list = []
+    var_value_list = VarValue.objects.all().filter(var_id=var_id)
+    var_info = jsontool.class_to_dict(Vars.objects.all().get(var_id=var_id))
+    del (var_info['_state'])
+    for var_value in var_value_list:
+        a = jsontool.class_to_dict(var_value)
+        b = jsontool.class_to_dict(Env.objects.all().get(env_id=a["env_id"]))
+        var = dict(a, **b)
+        del (var['_state'])
+        del (var['id'])
+        del (var['pro_id'])
+        del (var['var_id'])
+        body_list.append(var)
+    body = {"value": body_list}
+    body = dict(body, **var_info)
+    return {
+        "code": 1,
+        "msg": "返回成功",
+        "data": body
+    }
+
+
+def get_var_list(data):
+    """
+    获取变量信息列表
+    :param data:
+    :return:
+    """
+    pro_id = data["pro_id"]
+    body = []
+    var_list_ob = Vars.objects.all().filter(pro_id=pro_id)
+    for var_ob in var_list_ob:
+        a = jsontool.class_to_dict(var_ob)
+        del (a['_state'])
+        body.append(a)
+    return {
+        "code":1,
+        "msg":"返回成功",
+        "data":body
+    }
+
+
+def edit_var(data):
+    var_id = data["var_id"]
+    var_name = data['var_name']
+    var_desc = data['var_desc']
+    var_type = data['var_type']
+    var_value_list = data['var_value']
+    Vars.objects.all().filter(var_id=var_id).update(var_name=var_name
+                                 ,var_desc=var_desc, var_type=var_type)
+    for var_value in var_value_list:
+        value = var_value['value']
+        env_id = var_value["env_id"]
+        VarValue.objects.all().filter(var_id=var_id,env_id=env_id).update(var_value=value)
+    return {
+            "code": 1,
+            "msg": "编辑变量成功！"
+        }
+
+
+def del_var(data):
+    var_id = data["var_id"]
+    Vars.objects.all().get(var_id=var_id).delete()
+    VarValue.objects.all().filter(var_id=var_id).delete()
+    return {
+        "code": 1,
+        "msg": "删除成功"
+    }

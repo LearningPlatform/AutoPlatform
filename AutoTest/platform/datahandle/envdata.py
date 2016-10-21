@@ -3,7 +3,7 @@
 @author:liujing
 """
 
-from ...models import Env, Project
+from ...models import Env, Project, Vars, VarValue
 from ..tools import dbtool, jsontool
 
 
@@ -140,6 +140,39 @@ def edit_env(data):
 
 
 def del_env(data):
+    """
+    删除环境
+    :param data:
+    :return:
+    """
+    env_id = data["env_id"]
+    Env.objects.all().get(env_id=env_id).delete()
+    VarValue.objects.all().filter(env_id=env_id).delete()
     return {
-        "msg": "待定"
+        "code": 1,
+        "msg": "删除成功"
     }
+
+
+def get_env_varList(data):
+    """
+    获取该环境下的变量列表
+    :param data:
+    :return:
+    """
+    env_id = data["env_id"]
+    body = []
+    test = VarValue.objects.all().filter(env_id=env_id)
+    for a in list(test):
+        a = jsontool.class_to_dict(a)
+        var_info = jsontool.class_to_dict(Vars.objects.all().get(var_id=a["var_id"]))
+        var = dict(a, **var_info)
+        del (var['id'])
+        del (var['_state'])
+        body.append(var)
+    return {
+        "code":1,
+        "msg":"返回成功",
+        "data":body
+    }
+

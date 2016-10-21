@@ -289,31 +289,161 @@ def env_edit(req):
 
 def env_del(req):
     """
-    待定！！！！！！！
+    删除环境
     :param req:
+    请求方法：post
+    参数：环境id：env_id
+    如：
+        {
+        "env_id":1,
+        }
     :return:
+    如：
+    成功：
+    {
+        "code": 1,
+        "msg": "环境删除成功"
+    }
+    失败：
+    {
+        "code": 0,
+        "msg": "参数错误，环境id不存在"
+    }
     """
     data = json.loads(str(req.body, encoding="utf-8"))
     resp = envdata.del_env(data)
     return HttpResponse(json.dumps(resp), content_type="application/json")
 
 
+def env_var_list(req):
+    """
+    获取特定环境下的变量的列表
+    :param req:
+    请求方法：post
+    参数：环境id：env_id
+    如：
+        {
+        "env_id":1,
+        }
+    :return:
+    如：
+    成功：
+    {
+      "code": 1,
+      "msg": "返回成功",
+      "data": [
+        {
+          "pro_id": 1,
+          "env_id": 2,
+          "var_id": 1,
+          "var_type": "string",
+          "var_name": "host",
+          "var_value": "192.168.40.15",
+          "var_desc": "host的值"
+        },
+        {
+          "pro_id": 1,
+          "env_id": 2,
+          "var_id": 2,
+          "var_type": "int",
+          "var_name": "变量2",
+          "var_value": "值2",
+          "var_desc": "描述2"
+        }
+      ]
+    }
+    失败：
+    {
+        "code": 0,
+        "msg": "参数错误，环境id不存在"
+    }
+    """
+    data = json.loads(str(req.body, encoding="utf-8"))
+    resp = envdata.get_env_varList(data)
+    return HttpResponse(json.dumps(resp), content_type="application/json")
+
+
 def var_list(req):
     """
-    获取变量列表
+    获取项目的变量列表
     :param req:
+    参数：项目id：pro_id
+    如：
+        {
+        "pro_id":1,
+        }
     :return:
+    如：
+    成功：
+    {
+      "code": 1,
+      "msg": "返回成功",
+      "data": [
+        {
+          "pro_id": 5,
+          "var_desc": "host的值",
+          "var_type": "string",
+          "var_id": 1,
+          "var_name": "host"
+        },
+        {
+          "pro_id": 5,
+          "var_desc": "描述2",
+          "var_type": "int",
+          "var_id": 2,
+          "var_name": "变量2"
+        }
+      ]
+    }
     """
-    pass
+    data = json.loads(str(req.body, encoding="utf-8"))
+    resp = vardata.get_var_list(data)
+    return HttpResponse(json.dumps(resp), content_type="application/json")
 
 
 def var_detail(req):
     """
-    获取变量详情
+    获取变量详情，即各个环境下的值
     :param req:
+    请求方法：post
+    参数：
+        变量id：var_id
+    如：
+        {
+        "var_id":1,
+        }
     :return:
+    如：
+    成功：
+    {
+      "data": {
+        "var_id": 1,
+        "var_type": "string",
+        "pro_id": 5,
+        "value": [
+          {
+            "env_desc": "描述1",
+            "env_name": "正式环境",
+            "var_value": "192.168.40.15",
+            "env_id": 2
+          },
+          {
+            "env_desc": "描述2",
+            "env_name": "测试环境",
+            "var_value": "127.0.0.1",
+            "env_id": 3
+          }
+        ],
+        "var_desc": "host的值",
+        "var_name": "host"
+      },
+      "msg": "返回成功",
+      "code": 1
+    }
     """
-    pass
+    data = json.loads(str(req.body, encoding="utf-8"))
+    resp = vardata.get_var_of_env(data)
+    return HttpResponse(json.dumps(resp), content_type="application/json")
 
 
 def var_create(req):
@@ -352,11 +482,33 @@ def var_create(req):
 
 def var_edit(req):
     """
-    修改编辑变量
-    :param req:
+    编辑变量
+    :param req:请求
+    请求方法：post
+    参数：
+        项目id：pro_id   变量名：var_name   变量类型：var_type   变量描述：var_desc     变量id：var_id
+        变量值：var_value---------json类型，key对用环境的id，value对应变量的值
+    如：
+        {
+        "pro_id":5,
+        "var_id":1,
+        "var_name":"host",
+        "var_type":"String",
+        "var_desc":"描述",
+        "var_value":[{"env_id":2,"value":"192.168.40.25"},{"env_id":3,"value":"192.168.40.30"}]
+        }
     :return:
+    如：
+    成功：
+    {
+        "code": 1,
+        "msg": "变量编辑成功"
+    }
+
     """
-    pass
+    data = json.loads(str(req.body, encoding="utf-8"))
+    resp = vardata.edit_var(data)
+    return HttpResponse(json.dumps(resp), content_type="application/json")
 
 
 def var_del(req):
@@ -365,7 +517,9 @@ def var_del(req):
     :param req:
     :return:
     """
-    pass
+    data = json.loads(str(req.body, encoding="utf-8"))
+    resp = vardata.del_var(data)
+    return HttpResponse(json.dumps(resp), content_type="application/json")
 
 
 def module_list(req):
