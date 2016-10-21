@@ -48,8 +48,8 @@
             <div ng-repeat="env in envList">
                 <div class="panel panel-info">
                     <div class="panel-heading">
-                        <h4 class="panel-title" ng-click="showVar=!showVar" ng-mouseenter="shownCom=true" ng-mouseleave="shownCom=false" >
-                            <a ng-bind="env.env_name" ></a>
+                        <h4 class="panel-title"  ng-mouseenter="shownCom=true" ng-mouseleave="shownCom=false" >
+                            <a ng-click="showVar=!showVar" ng-bind="env.env_name" ></a>
                             <div class="pull-right">
                                 <a ng-show="shownCom" ng-click="editEnv(env.id)"><span class="glyphicon glyphicon-pencil"></span>编辑</a>
                                 <a ng-show="shownCom" ng-click="cfDel(env.id)"><span class="glyphicon glyphicon-remove"></span>删除</a>
@@ -190,7 +190,7 @@
                 <div class="modal-footer">
                     <button type="button" class="btn btn-default" data-dismiss="modal">关闭
                     </button>
-                    <button type="button" class="btn btn-primary" ng-click="saveEnv()">
+                    <button type="button" class="btn btn-primary" ng-click="saveEnvEdit(env.id)">
                         保存
                     </button>
                 </div>

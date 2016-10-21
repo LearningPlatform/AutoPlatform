@@ -93,7 +93,6 @@ myApp.controller('globalVarCtrl',function($scope,$http,$cookieStore,$timeout){
     }
 
     $scope.editEnv=function(id){
-        console.log(id)
         $http.post('project/env/detail',{
             "env_id":id
         }).success(function (response){
@@ -105,6 +104,33 @@ myApp.controller('globalVarCtrl',function($scope,$http,$cookieStore,$timeout){
         });
         $("#editEnvModal").modal();
     }
+
+    $scope.saveEnvEdit=function(id){
+            console.log(id)
+            if($scope.env.env_desc==""){
+                $scope.env.env_desc="无";
+            }
+            $http.post('project/env/edit',{
+                "env_id":id,
+                "env_name":$scope.env.env_name,
+                "env_desc":$scope.env.env_desc
+            }).success(function (response) {
+             if(response.code==1){
+                    $("#editEnvModal").modal('hide');
+                    $http.post('project/env/list', {
+                         "pro_id": pro_id
+                    }).success(function (response1) {
+                        if(response1.code==1) {
+                            $scope.envList = response1.data;
+                        }else{
+                            alert(response1.msg);
+                        }
+                    });
+                } else{
+                    alert(response.msg);
+                }
+        });
+        }
 
     $scope.cfDel=function(id){
         $("#cfModal").modal();
