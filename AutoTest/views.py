@@ -460,7 +460,7 @@ def var_create(req):
         "var_name":"host",
         "var_type":"String",
         "var_desc":"描述",
-        "var_value":[{"env_id":1,"value":"192.168.40.25"},{"env_id":2,"value":"192.168.40.30"}]
+        "value":[{"env_id":1,"var_value":"192.168.40.25"},{"env_id":2,"var_value":"192.168.40.30"}]
         }
     :return:
     如：
@@ -495,7 +495,7 @@ def var_edit(req):
         "var_name":"host",
         "var_type":"String",
         "var_desc":"描述",
-        "var_value":[{"env_id":2,"value":"192.168.40.25"},{"env_id":3,"value":"192.168.40.30"}]
+        "value":[{"env_id":2,"var_value":"192.168.40.25"},{"env_id":3,"var_value":"192.168.40.30"}]
         }
     :return:
     如：
@@ -514,8 +514,19 @@ def var_edit(req):
 def var_del(req):
     """
     删除变量
-    :param req:
+    请求方法：post
+    参数：变量id：var_id
+    如：
+        {
+        "var_id":1,
+        }
     :return:
+    如：
+    成功：
+    {
+        "code": 1,
+        "msg": "变量删除成功"
+    }
     """
     data = json.loads(str(req.body, encoding="utf-8"))
     resp = vardata.del_var(data)

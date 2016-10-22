@@ -15,7 +15,7 @@ def create_vars(data):
         var_name = data['var_name']
         var_desc = data['var_desc']
         var_type = data['var_type']
-        var_value_list = data['var_value']
+        value_list = data['value']
         pro_id_list = dbtool.getFieldList(Project, 'pro_id')
         if pro_id in pro_id_list:
             if var_name == '':
@@ -30,10 +30,10 @@ def create_vars(data):
                 }
             var_id = Vars.objects.create(pro_id=pro_id, var_name=var_name,
                                          var_desc=var_desc, var_type=var_type).var_id
-            for var_value in var_value_list:
-                env_id = var_value['env_id']
-                value = var_value['value']
-                VarValue.objects.create(pro_id=pro_id, env_id=env_id, var_value=value, var_id=var_id)
+            for value in value_list:
+                env_id = value['env_id']
+                var_value = value['var_value']
+                VarValue.objects.create(pro_id=pro_id, env_id=env_id, var_value=var_value, var_id=var_id)
             return {
                 "code": 1,
                 "msg": "创建变量成功！"
@@ -105,13 +105,13 @@ def edit_var(data):
     var_name = data['var_name']
     var_desc = data['var_desc']
     var_type = data['var_type']
-    var_value_list = data['var_value']
+    value_list = data['value']
     Vars.objects.all().filter(var_id=var_id).update(var_name=var_name
                                  ,var_desc=var_desc, var_type=var_type)
-    for var_value in var_value_list:
-        value = var_value['value']
-        env_id = var_value["env_id"]
-        VarValue.objects.all().filter(var_id=var_id,env_id=env_id).update(var_value=value)
+    for value in value_list:
+        var_value = value['var_value']
+        env_id = value["env_id"]
+        VarValue.objects.all().filter(var_id=var_id,env_id=env_id).update(var_value=var_value)
     return {
             "code": 1,
             "msg": "编辑变量成功！"
