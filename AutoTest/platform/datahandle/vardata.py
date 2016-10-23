@@ -94,9 +94,9 @@ def get_var_list(data):
         del (a['_state'])
         body.append(a)
     return {
-        "code":1,
-        "msg":"返回成功",
-        "data":body
+        "code": 1,
+        "msg": "返回成功",
+        "data": body
     }
 
 

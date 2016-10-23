@@ -1,7 +1,7 @@
 from django.shortcuts import render_to_response,HttpResponse
 import json
 
-from .platform.datahandle import prodata, envdata, vardata
+from .platform.datahandle import prodata, envdata, vardata, moduledata
 from .platform.tools import strtool
 
 
@@ -487,7 +487,7 @@ def var_edit(req):
     请求方法：post
     参数：
         项目id：pro_id   变量名：var_name   变量类型：var_type   变量描述：var_desc     变量id：var_id
-        变量值：var_value---------json类型，key对用环境的id，value对应变量的值
+        变量值：value---------json类型，key对用环境的id，var_value对应变量的值
     如：
         {
         "pro_id":5,
@@ -535,47 +535,163 @@ def var_del(req):
 
 def module_list(req):
     """
-    获取模块列表
+    获取项目下的模块列表
     :param req:
+    请求方法：post
+    参数：
+        项目id：pro_id
+    如：
+        {
+        "pro_id":5,
+        }
     :return:
+    如：
+    成功：
+    {
+      "code": 1,
+      "msg": "获取成功",
+      "data": [
+        {
+          "pro_id": 5,
+          "module_id": 1,
+          "module_desc": "ceshimiaoshu111111",
+          "module_name": "ceshiming111111"
+        }
+      ]
+    }
     """
-    pass
+    data = json.loads(str(req.body, encoding="utf-8"))
+    resp = moduledata.get_module_list(data)
+    return HttpResponse(json.dumps(resp), content_type="application/json")
 
 
 def module_detail(req):
     """
     获取模块详情
     :param req:
+    请求方法：post
+    参数：
+        模块id：module_id
+    如：
+        {
+        "module_id":1,
+        }
     :return:
+    如：
+    成功：
+    {
+      "msg": "获取成功",
+      "code": 1,
+      "data": {
+        "module_desc": "ceshimiaoshu111111",
+        "module_id": 1,
+        "pro_id": 5,
+        "module_name": "ceshiming111111"
+      }
+    }
     """
-    pass
+    data = json.loads(str(req.body, encoding="utf-8"))
+    resp = moduledata.get_module_detail(data)
+    return HttpResponse(json.dumps(resp), content_type="application/json")
 
 
 def module_create(req):
     """
     创建模块
-    :param req:请求
-    :return
+    :param req:
+    请求方法：post
+    参数：
+        项目id：pro_id    模块名：module_name    模块描述：module_desc
+    如：
+        {
+        "pro_id":5,
+        "module_name":"ceshiming",
+        "module_desc":"ceshimiaoshu"
+        }
+    :return:
+    如：
+    成功：
+    {
+      "msg": "创建模块成功",
+      "code": 1
+    }
     """
-    pass
+    data = json.loads(str(req.body, encoding="utf-8"))
+    resp = moduledata.create_module(data)
+    return HttpResponse(json.dumps(resp), content_type="application/json")
 
 
 def module_edit(req):
     """
-    修改编辑模块
+    编辑模块
     :param req:
+    请求方法：post
+    参数：
+        项目id：pro_id    模块id：module_id    模块名：module_name    模块描述：module_desc
+    如：
+        {
+        "pro_id":5,
+        "module_id":1,
+        "module_name":"ceshiming",
+        "module_desc":"ceshimiaoshu"
+        }
     :return:
+    如：
+    成功：
+    {
+      "msg": "编辑模块成功",
+      "code": 1
+    }
     """
-    pass
+    data = json.loads(str(req.body, encoding="utf-8"))
+    resp = moduledata.edit_pro(data)
+    return HttpResponse(json.dumps(resp), content_type="application/json")
 
 
 def module_del(req):
     """
-    删除模块
+    编辑模块
+    :param req:
+    请求方法：post
+    参数：
+        模块id：module_id
+    如：
+        {
+        "module_id":1,
+        }
+    :return:
+    如：
+    成功：
+    {
+      "msg": "删除模块成功",
+      "code": 1
+    }
+    """
+    data = json.loads(str(req.body, encoding="utf-8"))
+    resp = moduledata.del_module(data)
+    return HttpResponse(json.dumps(resp), content_type="application/json")
+
+
+def module_api_list(req):
+    """
+    获取模块下的接口列表
     :param req:
     :return:
     """
-    pass
+    data = json.loads(str(req.body, encoding="utf-8"))
+    resp = moduledata.get_module_api_list(data)
+    return HttpResponse(json.dumps(resp), content_type="application/json")
+
+
+def module_case_list(req):
+    """
+    获取模块下的用例列表
+    :param req:
+    :return:
+    """
+    data = json.loads(str(req.body, encoding="utf-8"))
+    resp = moduledata.get_module_case_list(data)
+    return HttpResponse(json.dumps(resp), content_type="application/json")
 
 
 def suite_list(req):

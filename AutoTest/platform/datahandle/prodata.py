@@ -12,7 +12,6 @@ def get_pro_list():
     获取所有的项目
     :return: 所有的项目，类型为列表
     """
-    body = []
     try:
         body = []
         test = Project.objects.all()

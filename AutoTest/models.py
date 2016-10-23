@@ -47,8 +47,8 @@ class Module(models.Model):
     """
     module_id = models.AutoField(primary_key=True)
     pro_id = models.IntegerField(null=True)
-    model_name = models.CharField(max_length=20, null=True)
-    model_desc = models.TextField(null=True)
+    module_name = models.CharField(max_length=20, null=True)
+    module_desc = models.TextField(null=True)
 
 
 class Api(models.Model):
@@ -57,7 +57,7 @@ class Api(models.Model):
     """
     api_id = models.AutoField(primary_key=True)
     pro_id = models.IntegerField(null=True)
-    model_id = models.IntegerField(null=True)
+    module_id = models.IntegerField(null=True)
     api_name = models.CharField(max_length=20, null=True)
     api_protocol = models.CharField(max_length=10, null=True)
     api_method = models.CharField(max_length=10, null=True)
@@ -75,7 +75,7 @@ class Case(models.Model):
     case_name = models.CharField(max_length=20, null=True)
     pro_id = models.IntegerField(null=True)
     api_id = models.IntegerField(null=True)
-    model_id = models.IntegerField(null=True)
+    module_id = models.IntegerField(null=True)
     input_data = models.TextField(null=True)
     exp_data = models.TextField(null=True)
     check_type = models.IntegerField(null=True)

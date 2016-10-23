@@ -23,12 +23,13 @@ urlpatterns = [
     url(r'project/var/edit$', views.var_edit, name="修改编辑变量"),
     url(r'project/var/delete$', views.var_del, name="删除变量"),
 
-    # 未写实体
     url(r'project/module/list$', views.module_list, name="获取模块列表"),
-    url(r'project/module/detail$', views.module_list, name="获取模块详情"),
-    url(r'project/module/create$', views.module_list, name="创建模块"),
-    url(r'project/module/edit$', views.module_list, name="编辑修改模块"),
-    url(r'project/module/delete$', views.module_list, name="删除模块"),
+    url(r'project/module/detail$', views.module_detail, name="获取模块详情"),
+    url(r'project/module/create$', views.module_create, name="创建模块"),
+    url(r'project/module/edit$', views.module_edit, name="编辑修改模块"),
+    url(r'project/module/delete$', views.module_del, name="删除模块"),
+    url(r'project/module/apiList$', views.module_api_list, name="获取模块下的接口列表"),
+    url(r'project/module/caseList$', views.module_case_list, name="获取模块下的用例列表"),
 
     # 未写实体
     url(r'project/suite/list$', views.suite_list, name="获取套件列表"),
