@@ -31,10 +31,18 @@ urlpatterns = [
     url(r'project/module/apiList$', views.module_api_list, name="获取模块下的接口列表"),
     url(r'project/module/caseList$', views.module_case_list, name="获取模块下的用例列表"),
 
-    # 未写实体
     url(r'project/suite/list$', views.suite_list, name="获取套件列表"),
     url(r'project/suite/detail$', views.suite_detail, name="获取套件详情"),
     url(r'project/suite/create$', views.suite_create, name="创建套件"),
     url(r'project/suite/edit$', views.suite_edit, name="编辑修改套件"),
     url(r'project/suite/delete$', views.suite_del, name="删除套件"),
+    url(r'project/suite/caseList$', views.suite_case_list, name="获取套件下的case列表"),
+
+    url(r'project/api/list$', views.api_list, name="获取项目中的接口列表"),
+    url(r'project/api/detail$', views.api_detail, name="获取接口详情"),
+    url(r'project/api/create$', views.api_create, name="创建接口"),
+    url(r'project/api/edit$', views.api_edit, name="编辑修改接口"),
+    url(r'project/api/delete$', views.api_del, name="删除接口"),
+    url(r'project/api/caseList$', views.api_case_list, name="获取接口下的case列表"),
+
 ]
