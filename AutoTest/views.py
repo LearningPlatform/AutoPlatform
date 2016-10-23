@@ -1,7 +1,8 @@
 from django.shortcuts import render_to_response,HttpResponse
 import json
 
-from .platform.datahandle import prodata, envdata, vardata, moduledata
+from .platform.datahandle import prodata, envdata, vardata, moduledata, suitedata, \
+    casedata, apidata
 from .platform.tools import strtool
 
 
@@ -644,7 +645,7 @@ def module_edit(req):
     }
     """
     data = json.loads(str(req.body, encoding="utf-8"))
-    resp = moduledata.edit_pro(data)
+    resp = moduledata.edit_module(data)
     return HttpResponse(json.dumps(resp), content_type="application/json")
 
 
@@ -700,7 +701,9 @@ def suite_list(req):
     :param req:
     :return:
     """
-    pass
+    data = json.loads(str(req.body, encoding="utf-8"))
+    resp = suitedata.get_suite_list(data)
+    return HttpResponse(json.dumps(resp), content_type="application/json")
 
 
 def suite_detail(req):
@@ -709,7 +712,9 @@ def suite_detail(req):
     :param req:
     :return:
     """
-    pass
+    data = json.loads(str(req.body, encoding="utf-8"))
+    resp = suitedata.get_suite_detail(data)
+    return HttpResponse(json.dumps(resp), content_type="application/json")
 
 
 def suite_create(req):
@@ -718,7 +723,9 @@ def suite_create(req):
     :param req:请求
     :return
     """
-    pass
+    data = json.loads(str(req.body, encoding="utf-8"))
+    resp = suitedata.create_suite(data)
+    return HttpResponse(json.dumps(resp), content_type="application/json")
 
 
 def suite_edit(req):
@@ -727,7 +734,9 @@ def suite_edit(req):
     :param req:
     :return:
     """
-    pass
+    data = json.loads(str(req.body, encoding="utf-8"))
+    resp = suitedata.edit_suite(data)
+    return HttpResponse(json.dumps(resp), content_type="application/json")
 
 
 def suite_del(req):
@@ -736,5 +745,7 @@ def suite_del(req):
     :param req:
     :return:
     """
-    pass
+    data = json.loads(str(req.body, encoding="utf-8"))
+    resp = suitedata.del_suite(data)
+    return HttpResponse(json.dumps(resp), content_type="application/json")
 
