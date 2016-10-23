@@ -1,3 +1,174 @@
-<div class="container top">
-    <h1 class="page-header text-primary">API用例库</h1>
+<div class="top1">
+    <div>
+        <h1 class="page-header text-primary">API用例库</h1>
+    </div>
+    <div>
+        <div class="alert alert-info" ng-show="varInfoShow">
+            项目中的接口测试用例
+            <button class="btn bg-info pull-right" ng-click="varInfoShow = !varInfoShow"><span class="glyphicon glyphicon-remove"></span></button>
+        </div>
+    </div>
+    <div class="panel panel-default">
+        <div class="panel-body">
+            <div class="row">
+                <div class="col-md-9">
+                    <ul class="nav nav-tabs">
+                        <li class="{$List[0]$}">
+                            <a ng-click="showAll()">全部</a>
+                        </li>
+                        <li ng-repeat="md in moduleList" class="{$List[$index+1]$}">
+                            <a class="bind_hover_card" data-toggle="popover" data-placement="bottom" data-trigger="hover"  ng-click="active1($index)" ng-bind="md.module_name"></a>
+                        </li>
+                    </ul>
+                </div>
+                <div class="col-md-2">
+                    <div class="btn-group">
+                        <button type="button" class="btn btn-default" ng-click="editModule(module.module_id)">
+                            编辑
+                        </button>
+                        <button type="button" class="btn btn-default" ng-click="cfModoule(module.module_id)">
+                            删除
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="panel-body">
+            <div class="panel-body">
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="btn-group">
+                            <button type="button" class="btn btn-info" ng-click="addEnv()">
+                                <span class="glyphicon glyphicon-play"></span>运行
+                            </button>
+                            <button type="button" class="btn btn-default" ng-click="addVar()">
+                                添加用例
+                            </button>
+                            <button type="button" class="btn btn-default" ng-click="addVar()">
+                                添加套件
+                            </button>
+                            <button type="button" class="btn btn-default" ng-click="addVar()">
+                                添加接口
+                            </button>
+                            <button type="button" class="btn btn-default" ng-click="addModule()">
+                                添加模块
+                            </button>
+                        </div>
+                    </div>
+                    <form>
+                        <div class="col-md-1 col-md-offset-2">
+                            <select class="form-control" ng-model="var.var_type" ng-options="type for type in varType">
+                                <option value=""></option>
+                            </select>
+                        </div>
+                        <div class="col-md-2">
+                            <input class="form-control">
+                        </div>
+                        <div class="col-md-1">
+                            <button class="btn btn-info">查询</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="AddModule" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+                        &times;
+                    </button>
+                    <h4 class="modal-title">
+                        添加模块
+                    </h4>
+                </div>
+                <div class="modal-body">
+                    <form class="form-horizontal">
+                        <div class="form-group">
+                            <label class="col-md-2 control-label">模块名：</label>
+                            <div class="col-md-9">
+                                <input type="text" class="form-control" placeholder="请输入模块名称" ng-model="module.module_name">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-md-2 control-label">描述：</label>
+                            <div class="col-md-9">
+                                <input type="text" class="form-control" placeholder="请输入模块描述" ng-model="module.module_desc">
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">关闭
+                    </button>
+                    <button type="button" class="btn btn-primary" ng-click="saveModule()">
+                        保存
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="editModule" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+                        &times;
+                    </button>
+                    <h4 class="modal-title">
+                        编辑模块
+                    </h4>
+                </div>
+                <div class="modal-body">
+                    <form class="form-horizontal">
+                        <div class="form-group">
+                            <label class="col-md-2 control-label">模块名：</label>
+                            <div class="col-md-9">
+                                <input type="text" class="form-control" placeholder="请输入模块名称" ng-model="module.module_name">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-md-2 control-label">描述：</label>
+                            <div class="col-md-9">
+                                <input type="text" class="form-control" placeholder="请输入模块描述" ng-model="module.module_desc">
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">关闭
+                    </button>
+                    <button type="button" class="btn btn-primary" ng-click="saveEditModule()">
+                        保存
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="cfModule" >
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header alert alert-danger">
+                    <h4 class="modal-title">
+                        删除模块
+                    </h4>
+                </div>
+                <div class="modal-body">
+                    确定删除该模块？？
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">取消
+                    </button>
+                    <button type="button" class="btn btn-primary" ng-click="delModule()">
+                        确定
+                    </button>
+                </div>
+            </div>
+        </div>
+     </div>
 </div>
