@@ -49,14 +49,14 @@
                 <div class="panel panel-info">
                     <div class="panel-heading">
                         <h4 class="panel-title"  ng-mouseenter="shownCom=true" ng-mouseleave="shownCom=false" >
-                            <a ng-click="showVar=!showVar" ng-bind="env.env_name" ></a>
+                            <a ng-click="getEnvVar(env.env_id)" ng-bind="env.env_name" ></a>
                             <div class="pull-right">
-                                <a ng-show="shownCom" ng-click="editEnv(env.id)"><span class="glyphicon glyphicon-pencil"></span>编辑</a>
-                                <a ng-show="shownCom" ng-click="cfDel(env.id)"><span class="glyphicon glyphicon-remove"></span>删除</a>
+                                <a ng-show="shownCom" ng-click="editEnv(env.env_id)"><span class="glyphicon glyphicon-pencil"></span>编辑</a>
+                                <a ng-show="shownCom" ng-click="cfDel(env.env_id)"><span class="glyphicon glyphicon-remove"></span>删除</a>
                             </div>
                         </h4>
                     </div>
-                    <div class="panel-body" ng-show="showVar">
+                    <div class="panel-body" ng-show="showVar&&(showId==env.env_id)">
                         <table class="table table-bordered table-striped">
                             <thead>
                             <th> 变量名</th>
@@ -66,16 +66,15 @@
                             <th> 操作</th>
                             </thead>
                             <tbody>
-                            <tr>
-                                <td ng-bind="env.pro_id"></td>
-                                <td ng-bind="env.id"></td>
-                                <td ng-bind="env.env_name"></td>
-                                <td ng-bind="env.env_desc"></td>
-                                <td >
-                                    <a><span class="glyphicon glyphicon-remove" ng-click="delVarCom(envvar.id,envvar.var_id)">删除</span></a>
-                                    <a><span class="glyphicon glyphicon-edit">编辑</span></a>
-                                </td>
-                            </tr>
+                                <tr ng-repeat="varEnv in envVarList">
+                                    <td ng-bind="varEnv.var_name"></td>
+                                    <td ng-bind="varEnv.var_type"></td>
+                                    <td ng-bind="varEnv.var_value"></td>
+                                    <td ng-bind="varEnv.var_desc"></td>
+                                    <td >
+                                        <a><span class="glyphicon glyphicon-remove" ng-click="delVarCom(varEnv.env_id,varEnv.var_id)">删除</span></a>
+                                    </td>
+                                </tr>
                             </tbody>
                         </table>
                     </div>
@@ -83,18 +82,18 @@
             </div>
         </div>
         <div class="panel-body" ng-show="showEnvCom">
-            <div ng-repeat="env in envList">
+            <div ng-repeat="varNum in varList">
                 <div class="panel panel-info">
                     <div class="panel-heading">
-                        <h4 class="panel-title" ng-click="showVar=!showVar" ng-mouseenter="shownCom=true" ng-mouseleave="shownCom=false">
-                            <a ng-bind="env.env_name" ></a>
+                        <h4 class="panel-title" ng-mouseenter="shownCom=true" ng-mouseleave="shownCom=false">
+                            <a ng-click="getVarEnv(varNum.var_id)" ng-bind="varNum.var_name" ></a>
                             <div class="pull-right">
-                                <a class="op" ng-show="shownCom" ng-click="editEnv(env.id)"><span class="glyphicon glyphicon-pencil"></span>编辑</a>
-                                <a class="op" ng-show="shownCom" ng-click="cfDel(env.id)"><span class="glyphicon glyphicon-remove"></span>删除</a>
+                                <a class="op" ng-show="shownCom" ng-click="editVar(varNum.var_id)"><span class="glyphicon glyphicon-pencil"></span>编辑</a>
+                                <a class="op" ng-show="shownCom" ng-click="cfDelVar(varNum.var_id)"><span class="glyphicon glyphicon-remove"></span>删除</a>
                             </div>
                         </h4>
                     </div>
-                    <div class="panel-body" ng-show="showVar">
+                    <div class="panel-body" ng-show="showEnv&&(showId==varNum.var_id)">
                         <table class="table table-bordered table-striped">
                             <thead>
                             <th> 环境</th>
@@ -104,16 +103,15 @@
                             <th> 操作</th>
                             </thead>
                             <tbody>
-                            <tr>
-                                <td ng-bind="env.pro_id"></td>
-                                <td ng-bind="env.id"></td>
-                                <td ng-bind="env.env_name"></td>
-                                <td ng-bind="env.env_desc"></td>
-                                <td >
-                                    <a><span class="glyphicon glyphicon-remove" ng-click="delVarCom(envvar.id,envvar.var_id)">删除</span></a>
-                                    <a><span class="glyphicon glyphicon-edit">编辑</span></a>
-                                </td>
-                            </tr>
+                                <tr ng-repeat="envVar in var.value">
+                                    <td ng-bind="envVar.env_name"></td>
+                                    <td ng-bind="varNum.var_type"></td>
+                                    <td ng-bind="envVar.var_value"></td>
+                                    <td ng-bind="varNum.var_desc"></td>
+                                    <td >
+                                        <a><span class="glyphicon glyphicon-remove" ng-click="delEnvCom(varNum.var_id,envVar.env_id)">删除</span></a>
+                                    </td>
+                                </tr>
                             </tbody>
                         </table>
                     </div>
@@ -190,7 +188,7 @@
                 <div class="modal-footer">
                     <button type="button" class="btn btn-default" data-dismiss="modal">关闭
                     </button>
-                    <button type="button" class="btn btn-primary" ng-click="saveEnvEdit(env.id)">
+                    <button type="button" class="btn btn-primary" ng-click="saveEnvEdit(env.env_id)">
                         保存
                     </button>
                 </div>
@@ -214,13 +212,13 @@
                         <div class="form-group">
                             <label class="col-md-2 control-label">变量名：</label>
                             <div class="col-md-10">
-                                <input type="text" class="form-control" placeholder="请输入变量名称" ng-model="pro.pro_name">
+                                <input type="text" class="form-control" placeholder="请输入变量名称" ng-model="var.var_name">
                             </div>
                         </div>
                         <div class="form-group">
                             <label for="var_type" class="col-md-2 control-label">类型：</label>
                             <div class="col-md-10">
-                                <select class="form-control" ng-model="var.currVarType" ng-options="type for type in varType">
+                                <select class="form-control" ng-model="var.var_type" ng-options="type for type in varType">
                                     <option value="">请选择</option>
                                 </select>
                             </div>
@@ -233,7 +231,7 @@
                                         <div ng-repeat="env in envList">
                                             <label class="col-md-3 control-label" ng-bind="env.env_name"></label>
                                             <div class="col-md-8">
-                                                <input type="text" class="form-control" placeholder="请输入变量值" ng-model="var.currVarValue[$index].value">
+                                                <input type="text" class="form-control" placeholder="请输入变量值" ng-model="var.value[$index].var_value">
                                             </div>
                                         </div>
                                     </div>
@@ -243,7 +241,7 @@
                         <div class="form-group">
                             <label class="col-md-2 control-label">描述：</label>
                             <div class="col-md-10">
-                                <input type="text" class="form-control" placeholder="请输入变量描述" ng-model="pro.pro_desc">
+                                <input type="text" class="form-control" placeholder="请输入变量描述" ng-model="var.var_desc">
                             </div>
                         </div>
                     </form>
@@ -259,23 +257,77 @@
         </div>
      </div>
 
-    <!-- 添加项目模态框 -->
-    <div  class="modal fade" id="delVarModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" >
+    <div class="modal fade" id="editvarModal" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
-                    <button type="button" class="close"
-                            data-dismiss="modal" aria-hidden="true">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
                         &times;
                     </button>
-                    <h4 class="modal-title" id="myModalLabel">
-                        确认
+                    <h4 class="modal-title">
+                        编辑变量
                     </h4>
                 </div>
-                <div class="modal-body" id="myModal">
-                    <div class="modal-body-div">
-                        <p>在各个环境下的改变量均会被删除，请确认是否删除？？</p>
-                    </div>
+                <div class="modal-body">
+                    <form class="form-horizontal" role="form">
+                        <div class="form-group">
+                            <label class="col-md-2 control-label">变量名：</label>
+                            <div class="col-md-10">
+                                <input type="text" class="form-control" placeholder="请输入变量名称" ng-model="var.var_name">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="var_type" class="col-md-2 control-label">类型：</label>
+                            <div class="col-md-10">
+                                <select class="form-control" ng-model="var.var_type" ng-options="type for type in varType">
+                                    <option value="" ng-bind="var.var_type"></option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-md-2 control-label">变量值：</label>
+                            <div class="col-md-10">
+                                <div class="panel panel-info">
+                                    <div class="panel-body">
+                                        <div ng-repeat="env in envList">
+                                            <label class="col-md-3 control-label" ng-bind="env.env_name"></label>
+                                            <div class="col-md-8">
+                                                <input type="text" class="form-control" placeholder="请输入变量值" ng-model="var.value[$index].var_value">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-md-2 control-label">描述：</label>
+                            <div class="col-md-10">
+                                <input type="text" class="form-control" placeholder="请输入变量描述" ng-model="var.var_desc">
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">关闭
+                    </button>
+                    <button type="button" class="btn btn-primary" ng-click="saveVarEdit(var.var_id)">
+                        保存
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div  class="modal fade" id="cfModalVar" aria-hidden="true" >
+         <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header alert alert-danger">
+                    <h4 class="modal-title">
+                        删除变量
+                    </h4>
+                </div>
+                <div class="modal-body">
+                    <p>在各个环境下的改变量均会被删除，请确认是否删除？？</p>
                 </div>
                 <div class="modal-footer btn_div">
                     <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
@@ -285,7 +337,7 @@
         </div>
     </div>
 
-    <div class="modal fade" id="cfModal" >
+    <div class="modal fade" id="cfModalEnv" >
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header alert alert-danger">
@@ -299,7 +351,7 @@
                 <div class="modal-footer">
                     <button type="button" class="btn btn-default" data-dismiss="modal">取消
                     </button>
-                    <button type="button" class="btn btn-primary" ng-click="delEnv(pro.id)">
+                    <button type="button" class="btn btn-primary" ng-click="delEnv()">
                         确定
                     </button>
                 </div>
