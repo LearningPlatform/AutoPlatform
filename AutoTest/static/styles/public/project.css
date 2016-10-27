@@ -48,6 +48,18 @@ a:active {text-decoration:none ;color: #3c3c3c}
     margin-left: -20px;
 }
 
+.opt{
+    opacity: .2;
+}
+.opt1{
+    opacity: 0;
+}
+
+.opt:hover{
+    opacity: .9;
+}
+
+
 .color{
     background-color: #bbb;
 }
