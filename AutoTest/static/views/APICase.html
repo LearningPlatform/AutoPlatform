@@ -11,25 +11,29 @@
     <div class="panel panel-default">
         <div class="panel-body">
             <div class="row">
-                <div class="col-md-9">
+                <div class="col-md-12">
                     <ul class="nav nav-tabs">
                         <li class="{$List[0]$}">
+                            <div class="btn-group">
+                                <button type="button" ng-show="showBtn1" class="opt1 btn btn-xs btn-default">1
+                                </button>
+                                <button type="button" ng-show="showBtn1" class="opt1 btn btn-xs btn-default">2
+                                </button>
+                            </div>
                             <a ng-click="showAll()">全部</a>
                         </li>
                         <li ng-repeat="md in moduleList" class="{$List[$index+1]$}">
-                            <a class="bind_hover_card" data-toggle="popover" data-placement="bottom" data-trigger="hover"  ng-click="active1($index)" ng-bind="md.module_name"></a>
+                            <div class="btn-group">
+                                <button type="button" ng-show="showBtn&&(showId==md.module_id)" class="opt btn btn-xs btn-default" ng-click="editModule()">
+                                    编辑
+                                </button>
+                                <button type="button" ng-show="showBtn&&(showId==md.module_id)" class="opt btn btn-xs btn-default" ng-click="cfModoule(module.module_id)">
+                                    删除
+                                </button>
+                            </div>
+                            <a class="bind_hover_card" ng-click="active1($index)" ng-bind="md.module_name"></a>
                         </li>
                     </ul>
-                </div>
-                <div class="col-md-2">
-                    <div class="btn-group">
-                        <button type="button" class="btn btn-default" ng-click="editModule(module.module_id)">
-                            编辑
-                        </button>
-                        <button type="button" class="btn btn-default" ng-click="cfModoule(module.module_id)">
-                            删除
-                        </button>
-                    </div>
                 </div>
             </div>
         </div>
@@ -42,13 +46,13 @@
                             <button type="button" class="btn btn-info" ng-click="addEnv()">
                                 <span class="glyphicon glyphicon-play"></span>运行
                             </button>
-                            <button type="button" class="btn btn-default" ng-click="addVar()">
+                            <button type="button" class="btn btn-default" ng-click="addCase()">
                                 添加用例
                             </button>
-                            <button type="button" class="btn btn-default" ng-click="addVar()">
+                            <button type="button" class="btn btn-default" ng-click="addSuite()">
                                 添加套件
                             </button>
-                            <button type="button" class="btn btn-default" ng-click="addVar()">
+                            <button type="button" class="btn btn-default" ng-click="addApi()">
                                 添加接口
                             </button>
                             <button type="button" class="btn btn-default" ng-click="addModule()">
@@ -59,7 +63,7 @@
                     <form>
                         <div class="col-md-1 col-md-offset-2">
                             <select class="form-control" ng-model="var.var_type" ng-options="type for type in varType">
-                                <option value=""></option>
+                                <option value="">全部</option>
                             </select>
                         </div>
                         <div class="col-md-2">
@@ -72,7 +76,57 @@
                 </div>
             </div>
         </div>
+        <div class="panel-body" ng-show="showAllAPI">
+            <div ng-repeat="list in apiList">
+                <div class="panel panel-info">
+                    <div class="panel-heading">
+                        <h4 class="panel-title"  ng-mouseenter="shownCom=true" ng-mouseleave="shownCom=false" >
+                            <a ng-click="getAPICase(list.api_id)" ng-bind="list.api_name" ></a>
+                            <div class="pull-right">
+                                <a ng-show="shownCom" ng-click="editapi(list.api_id)"><span class="glyphicon glyphicon-pencil"></span>编辑</a>
+                                <a ng-show="shownCom" ng-click="cfDelapi(list.api_id)"><span class="glyphicon glyphicon-remove"></span>删除</a>
+                            </div>
+                        </h4>
+                    </div>
+                    <div class="panel-body" ng-show="showCase&&(showAPIID==list.api_id)">
+                        <div> 123</div>
+                        <div ng-repeat="case in caseList">
+                            <div class="panel panel-info">
+                                <div class="panel-heading">
+                                    <h4 class="panel-title" ng-bind="case.case_name"></h4>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="panel-body" ng-show="showAPIInModule">
+            <div ng-repeat="listInModule in apiList">
+                <div class="panel panel-info">
+                    <div class="panel-heading">
+                        <h4 class="panel-title"  ng-mouseenter="shownCom=true" ng-mouseleave="shownCom=false" >
+                            <a ng-click="getAPICase(listInModule.api_id)" ng-bind="listInModule.api_name" ></a>
+                            <div class="pull-right">
+                                <a ng-show="shownCom" ng-click="editapi(listInModule.api_id)"><span class="glyphicon glyphicon-pencil"></span>编辑</a>
+                                <a ng-show="shownCom" ng-click="cfDelapi(listInModule.api_id)"><span class="glyphicon glyphicon-remove"></span>删除</a>
+                            </div>
+                        </h4>
+                    </div>
+                    <div class="panel-body" ng-show="showapi&&(showId==api.api_id)">
+                        <div ng-repeat="case in apiCaseList">
+                            <div class="panel panel-info">
+                                <div class="panel-heading">
+                                    <h4 class="panel-title" ng-bind="case.case_name"></h4>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
+
 
     <div class="modal fade" id="AddModule" aria-hidden="true">
         <div class="modal-dialog">
@@ -105,6 +159,44 @@
                     <button type="button" class="btn btn-default" data-dismiss="modal">关闭
                     </button>
                     <button type="button" class="btn btn-primary" ng-click="saveModule()">
+                        保存
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="AddSuite" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+                        &times;
+                    </button>
+                    <h4 class="modal-title">
+                        添加套件
+                    </h4>
+                </div>
+                <div class="modal-body">
+                    <form class="form-horizontal">
+                        <div class="form-group">
+                            <label class="col-md-2 control-label">套件名：</label>
+                            <div class="col-md-9">
+                                <input type="text" class="form-control" placeholder="请输入套件名称" ng-model="suite.suite_name">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-md-2 control-label">描述：</label>
+                            <div class="col-md-9">
+                                <input type="text" class="form-control" placeholder="请输入套件描述" ng-model="suite.suite_desc">
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">关闭
+                    </button>
+                    <button type="button" class="btn btn-primary" ng-click="saveSuite()">
                         保存
                     </button>
                 </div>
@@ -171,4 +263,243 @@
             </div>
         </div>
      </div>
+
+    <div class="modal fade" id="addapi" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+                        &times;
+                    </button>
+                    <h4 class="modal-title">
+                        添加接口
+                    </h4>
+                </div>
+                <div class="modal-body">
+                    <form class="form-horizontal">
+                        <div class="form-group">
+                            <label class="col-md-3 control-label">接口名：</label>
+                            <div class="col-md-8">
+                                <input type="text" class="form-control" placeholder="请输入接口名称" ng-model="api.api_name">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-md-3 control-label">所属模块：</label>
+                            <div class="col-md-8">
+                                <select class="form-control" ng-model="module" ng-options="module.module_name for module in moduleList">
+                                    <option value="">请选择</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-md-3 control-label">接口协议：</label>
+                            <div class="col-md-8">
+                                <select class="form-control" ng-model="api.api_protocol" ng-options="type for type in protocolType">
+                                    <option value="">请选择</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-md-3 control-label">URL：</label>
+                            <div class="col-md-8">
+                                <input type="text" class="form-control" placeholder="请输入URL" ng-model="api.api_url">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-md-3 control-label">请求方法：</label>
+                            <div class="col-md-8">
+                                <select class="form-control" ng-model="api.api_method" ng-options="type for type in methodType">
+                                    <option value="">请选择</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-md-3 control-label">格式：</label>
+                            <div class="col-md-8">
+                                <select class="form-control" ng-model="api.api_type" ng-options="type for type in typeType">
+                                    <option value="">请选择</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-md-3 control-label">参数：</label>
+                            <div class="col-md-8">
+                                <input type="text" class="form-control" placeholder="请输入参数，各个参数请使用，分开" ng-model="api.api_param">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-md-3 control-label">描述：</label>
+                            <div class="col-md-8">
+                                <input type="text" class="form-control" placeholder="请输入描述" ng-model="api.api_desc">
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">关闭
+                    </button>
+                    <button type="button" class="btn btn-primary" ng-click="saveAPI(module.module_id)">
+                        保存
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal fade" id="editapi" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+                        &times;
+                    </button>
+                    <h4 class="modal-title">
+                        编辑接口
+                    </h4>
+                </div>
+                <div class="modal-body">
+                    <form class="form-horizontal">
+                        <div class="form-group">
+                            <label class="col-md-3 control-label">接口名：</label>
+                            <div class="col-md-8">
+                                <input type="text" class="form-control" placeholder="请输入接口名称" ng-model="api.api_name">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-md-3 control-label">所属模块：</label>
+                            <div class="col-md-8">
+                                <select class="form-control" ng-model="module" ng-options="module.module_name for module in moduleList">
+                                    <option value="" ng-bind="module.module_name"></option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-md-3 control-label">接口协议：</label>
+                            <div class="col-md-8">
+                                <select class="form-control" ng-model="api.api_protocol" ng-options="type for type in protocolType">
+                                    <option value="" ng-bind="api.api_protocol">请选择</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-md-3 control-label">URL：</label>
+                            <div class="col-md-8">
+                                <input type="text" class="form-control" placeholder="请输入URL" ng-model="api.api_url">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-md-3 control-label">请求方法：</label>
+                            <div class="col-md-8">
+                                <select class="form-control" ng-model="api.api_method" ng-options="type for type in methodType">
+                                    <option value="" ng-bind="api.api_method">请选择</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-md-3 control-label">格式：</label>
+                            <div class="col-md-8">
+                                <select class="form-control" ng-model="api.api_type" ng-options="type for type in typeType">
+                                    <option value="" ng-bind="api.api_type">请选择</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-md-3 control-label">参数：</label>
+                            <div class="col-md-8">
+                                <input type="text" class="form-control" placeholder="请输入参数，各个参数请使用，分开" ng-model="api.api_param">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-md-3 control-label">描述：</label>
+                            <div class="col-md-8">
+                                <input type="text" class="form-control" placeholder="请输入描述" ng-model="api.api_desc">
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">关闭
+                    </button>
+                    <button type="button" class="btn btn-primary" ng-click="saveEditAPI(module.module_id)">
+                        保存
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="cfAPI" >
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header alert alert-danger">
+                    <h4 class="modal-title">
+                        删除模块
+                    </h4>
+                </div>
+                <div class="modal-body">
+                    确定删除该模块？？
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">取消
+                    </button>
+                    <button type="button" class="btn btn-primary" ng-click="delAPI()">
+                        确定
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="AddCase" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+                        &times;
+                    </button>
+                    <h4 class="modal-title">
+                        添加用例
+                    </h4>
+                </div>
+                <div class="modal-body">
+                    <form class="form-horizontal">
+                        <div class="form-group">
+                            <label class="col-md-3 control-label">用例名：</label>
+                            <div class="col-md-8">
+                                <input type="text" class="form-control" placeholder="请输入用例名称" ng-model="case.case_name">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-md-3 control-label">所属API：</label>
+                            <div class="col-md-8">
+                                <select class="form-control" ng-model="api" ng-options="api.api_name for api in apiList">
+                                    <option value="">请选择</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-md-3 control-label">所属套件：</label>
+                            <div class="col-md-8">
+                                <select class="form-control" ng-model="api" ng-options="api.api_name for api in apiList">
+                                    <option value="">请选择</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-md-3 control-label">描述：</label>
+                            <div class="col-md-8">
+                                <input type="text" class="form-control" placeholder="请输入用例描述" ng-model="case.case_desc">
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">关闭
+                    </button>
+                    <button type="button" class="btn btn-primary" ng-click="saveCase(api.api_is)">
+                        保存
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
