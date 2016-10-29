@@ -677,7 +677,46 @@ def module_api_list(req):
     """
     获取模块下的接口列表
     :param req:
+    请求方法：post
+    参数：
+        项目id：module_id
+    如：
+        {
+        "module_id":1,
+        }
     :return:
+    如：
+    成功：
+    {
+      "data": [
+        {
+          "module_id": 1,
+          "api_id": 1,
+          "api_protocol": "http",
+          "api_method": "post",
+          "api_type": "34",
+          "api_param": "username,pwd",
+          "pro_id": 5,
+          "api_desc": "登录",
+          "api_name": "登录接口",
+          "api_url": "{host}/login"
+        },
+        {
+          "module_id": 1,
+          "api_id": 2,
+          "api_protocol": "http",
+          "api_method": "post",
+          "api_type": "12",
+          "api_param": "email",
+          "pro_id": 5,
+          "api_desc": "忘记密码",
+          "api_name": "忘记密码接口",
+          "api_url": "{host}/forgetpwd"
+        }
+      ],
+      "code": 1,
+      "msg": "获取成功"
+    }
     """
     data = json.loads(str(req.body, encoding="utf-8"))
     resp = moduledata.get_module_api_list(data)
@@ -688,7 +727,46 @@ def module_case_list(req):
     """
     获取模块下的用例列表
     :param req:
+    请求方法：post
+    参数：
+        模块id：module_id
+    如：
+        {
+        "module_id":1,
+        }
     :return:
+    如：
+    成功：
+    {
+      "data": [
+        {
+          "case_name": "正确登录",
+          "input_data": "请求参数",
+          "exp_data": "期待输出",
+          "pro_id": 5,
+          "module_id": 1,
+          "case_desc": "正向验证",
+          "check_type": 0,
+          "case_id": 1,
+          "api_id": 1,
+          "is_set": 1
+        },
+        {
+          "case_name": "密码错误",
+          "input_data": "请求参数2",
+          "exp_data": "期待输出2",
+          "pro_id": 5,
+          "module_id": 1,
+          "case_desc": "反向验证",
+          "check_type": 0,
+          "case_id": 2,
+          "api_id": 1,
+          "is_set": 1
+        }
+      ],
+      "msg": "获取成功",
+      "code": 1
+    }
     """
     data = json.loads(str(req.body, encoding="utf-8"))
     resp = moduledata.get_module_case_list(data)
@@ -1106,5 +1184,225 @@ def api_case_list(req):
     """
     data = json.loads(str(req.body, encoding="utf-8"))
     resp = apidata.get_api_case_list(data)
+    return HttpResponse(json.dumps(resp), content_type="application/json")
+
+
+def case_list(req):
+    """
+    获取项目下的case列表+
+    请求方法：post
+    参数：
+        项目id：pro_id
+    如：
+        {
+        "pro_id":5,
+        }
+    :return:
+    如：
+    成功：
+    {
+      "data": [
+        {
+          "case_name": "正确登录",
+          "input_data": "请求参数",
+          "exp_data": "期待输出",
+          "pro_id": 5,
+          "module_id": 1,
+          "case_desc": "正向验证",
+          "check_type": 0,
+          "case_id": 1,
+          "api_id": 1,
+          "is_set": 1
+        },
+        {
+          "case_name": "密码错误",
+          "input_data": "请求参数2",
+          "exp_data": "期待输出2",
+          "pro_id": 5,
+          "module_id": 1,
+          "case_desc": "反向验证",
+          "check_type": 0,
+          "case_id": 2,
+          "api_id": 1,
+          "is_set": 1
+        }
+      ],
+      "msg": "获取成功",
+      "code": 1
+    }
+    """
+    data = json.loads(str(req.body, encoding="utf-8"))
+    resp = casedata.get_pro_case_list(data)
+    return HttpResponse(json.dumps(resp), content_type="application/json")
+
+
+def case_create(req):
+    """
+    创建case
+    请求方法：post
+    如：
+    {
+      "api_id": 1,     接口id
+      "pro_id": 5,     项目id
+      "case_desc": "正向验证",     case描述
+      "case_name": "正确登录",     case名字
+      "suite_list":[{"checked":1,"suite_id":1},{"checked":0,"suite_id":2}]     套件列表对象，checked为1，表示被勾选，
+                                                                                checked为0，表示未被勾选；
+    }
+    :return:
+    如：
+    成功：
+    {
+      "code": 1,
+      "msg": "保存成功"
+    }
+    """
+    data = json.loads(str(req.body, encoding="utf-8"))
+    resp = casedata.create_case(data)
+    return HttpResponse(json.dumps(resp), content_type="application/json")
+
+
+def case_create2(req):
+    """
+    创建case
+    请求方法：post
+    如：
+    {
+      "api_id": 1,     接口id
+      "pro_id": 5,     项目id
+      "case_desc": "正向验证",     case描述
+      "case_name": "正确登录",     case名字
+      "suite_list":[1,2]     套件列表对象，列表中为所属的suite_id
+    }
+    :return:
+    如：
+    成功：
+    {
+      "code": 1,
+      "msg": "保存成功"
+    }
+    """
+    data = json.loads(str(req.body, encoding="utf-8"))
+    resp = casedata.create_case2(data)
+    return HttpResponse(json.dumps(resp), content_type="application/json")
+
+
+def case_info_edit(req):
+    """
+    编辑case的基本信息
+    请求方法：post
+    如：
+    {
+      "api_id": 1,     接口id
+      "case_id": 1,    case的id
+      "pro_id": 5,     项目id
+      "case_desc": "正向验证",     case描述
+      "case_name": "正确登录",     case名字
+      "suite_list":[{"checked":1,"suite_id":1},{"checked":0,"suite_id":2}]     套件列表对象，checked为1，表示被勾选，
+                                                                                checked为0，表示未被勾选；
+    }
+    :return:
+    如：
+    成功：
+    {
+      "code": 1,
+      "msg": "保存成功"
+    }
+    """
+    data = json.loads(str(req.body, encoding="utf-8"))
+    resp = casedata.edit_case_info(data)
+    return HttpResponse(json.dumps(resp), content_type="application/json")
+
+
+def case_info_edit2(req):
+    """
+    编辑case的基本信息
+    请求方法：post
+    如：
+    {
+      "api_id": 1,     接口id
+      "case_id": 1,    case的id
+      "pro_id": 5,     项目id
+      "case_desc": "正向验证",     case描述
+      "case_name": "正确登录",     case名字
+      "suite_list":[1,2,3]     套件列表对象，checked为1，表示被勾选，
+                                                                                checked为0，表示未被勾选；
+    }
+    :return:
+    如：
+    成功：
+    {
+      "code": 1,
+      "msg": "保存成功"
+    }
+    """
+    data = json.loads(str(req.body, encoding="utf-8"))
+    resp = casedata.edit_case_info2(data)
+    return HttpResponse(json.dumps(resp), content_type="application/json")
+
+
+def case_req_edit(req):
+    """
+    编辑case的请求信息
+    请求方法：post
+    如：
+    {
+      "case_id": 1,    case的id
+      "input_data": xx,   根据设定的参数的格式，传入对应的的格式的值。如json的话，就直接传入json格式的对象等，数组就传入数组
+    }
+    :return:
+    如：
+    成功：
+    {
+      "code": 1,
+      "msg": "保存成功"
+    }
+    """
+    data = json.loads(str(req.body, encoding="utf-8"))
+    resp = casedata.edit_req(data)
+    return HttpResponse(json.dumps(resp), content_type="application/json")
+
+
+def case_resp_edit(req):
+    """
+   编辑case的请求信息
+   请求方法：post
+   如：
+   {
+     "case_id": 1,    case的id
+     "exp_data": xx,   根据设定的参数的格式，传入对应的的格式的值。如json的话，就直接传入json格式的对象等，数组就传入数组
+     "check_type": 0    核对的类型，0为默认，暂时都设为0，后续优化
+   }
+   :return:
+   如：
+   成功：
+   {
+     "code": 1,
+     "msg": "保存成功"
+   }
+   """
+    data = json.loads(str(req.body, encoding="utf-8"))
+    resp = casedata.edit_resp(data)
+    return HttpResponse(json.dumps(resp), content_type="application/json")
+
+
+def case_del(req):
+    """
+   删除case
+   请求方法：post
+   如：
+   {
+     "case_id": 1,    case的id
+   }
+   :return:
+   如：
+   成功：
+   {
+     "code": 1,
+     "msg": "删除成功"
+   }
+   """
+    data = json.loads(str(req.body, encoding="utf-8"))
+    resp = casedata.del_case(data)
     return HttpResponse(json.dumps(resp), content_type="application/json")
 

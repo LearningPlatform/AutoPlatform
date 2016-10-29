@@ -1,5 +1,5 @@
-from ...models import Module, Api, Case, Suite
-from ..tools import dbtool, jsontool
+from ...models import Case, Suite, CaseSuite
+from ..tools import jsontool
 
 
 def get_suite_list(data):
@@ -63,7 +63,7 @@ def edit_suite(data):
     suite_id = data["suite_id"]
     suite_name = data['suite_name']
     suite_desc = data['suite_desc']
-    a = Suite.objects.all().filter(suite_id=suite_id).update(suite_name=suite_name, suite_desc=suite_desc)
+    Suite.objects.all().filter(suite_id=suite_id).update(suite_name=suite_name, suite_desc=suite_desc)
     return {
         "code": 1,
         "msg": "修改成功"
@@ -79,29 +79,15 @@ def del_suite(data):
     }
 
 
-def get_module_api_list(data):
-    module_id = data["module_id"]
+def get_suite_case_list(data):
+    suite_id = data["suite_id"]
     body = []
-    test = Api.objects.all().filter(module_id=module_id)
+    test = CaseSuite.objects.all().filter(suite_id=suite_id)
     for a in list(test):
-        a = jsontool.class_to_dict(a)
+        a = jsontool.class_to_dict(Case.objects.all().get(case_id=a.case_id))
         del (a['_state'])
         body.append(a)
-    return {
-        "code": 1,
-        "msg": "获取成功",
-        "data": body
-    }
-
-
-def get_module_case_list(data):
-    module_id = data["module_id"]
-    body = []
-    test = Case.objects.all().filter(module_id=module_id)
-    for a in list(test):
-        a = jsontool.class_to_dict(a)
-        del (a['_state'])
-        body.append(a)
+    print(test)
     return {
         "code": 1,
         "msg": "获取成功",

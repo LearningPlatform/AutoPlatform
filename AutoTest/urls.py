@@ -45,4 +45,16 @@ urlpatterns = [
     url(r'project/api/delete$', views.api_del, name="删除接口"),
     url(r'project/api/caseList$', views.api_case_list, name="获取接口下的case列表"),
 
+    url(r'project/caseList$', views.case_list, name="获取项目中的case列表"),
+    # ############有两个方法，看哪个参数你觉得简单就用哪个吧
+    #url(r'project/case/create$', views.case_create, name="创建case"),
+    #url(r'project/case/edit/info$', views.case_info_edit, name="编辑case的基本信息"),
+    url(r'project/case/create$', views.case_create2, name="创建case"),
+    url(r'project/case/edit/info$', views.case_info_edit2, name="编辑case的基本信息"),
+    # ##########
+
+    url(r'project/case/edit/req$', views.case_req_edit, name="编辑case的请求信息"),
+    url(r'project/case/edit/resp$', views.case_resp_edit, name="编辑case的响应信息"),
+    url(r'project/case/delete$', views.case_del, name="删除case"),
+
 ]
