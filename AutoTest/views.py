@@ -3,6 +3,7 @@ import json
 
 from .platform.datahandle import prodata, envdata, vardata, moduledata, suitedata, \
     casedata, apidata
+from .platform.case import case
 from .platform.tools import strtool
 
 
@@ -1405,4 +1406,10 @@ def case_del(req):
     data = json.loads(str(req.body, encoding="utf-8"))
     resp = casedata.del_case(data)
     return HttpResponse(json.dumps(resp), content_type="application/json")
+
+
+def test(req):
+    t = case.CaseEntity(1)
+    return HttpResponse(json.dumps({"msg": 1}), content_type="application/json")
+
 
