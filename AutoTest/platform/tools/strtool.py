@@ -12,3 +12,12 @@ def byteToStr(byte, encoding="utf-8"):
     :return: 编码后的字符串
     """
     return str(byte, encoding=encoding)
+
+
+def str_replace(str1, var_map):
+    a = str1.find('{{')
+    b = str1.find('}}')
+    str = str1[a + 2:b]
+    str1 = str1.replace(str1[a:b + 2], var_map[str])
+    print(str1)
+    return str1

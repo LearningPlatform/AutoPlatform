@@ -1,5 +1,6 @@
 from ...models import Env, Project, Vars, VarValue, CaseSuite
-from ..tools import dbtool, jsontool
+from ..case.case import CaseEntity
+
 
 import time
 
@@ -9,6 +10,8 @@ def get_run_info(data):
     suite_id = data["suite_id"]
     var_map = get_env_var_map(env_id)
     case_list = get_run_case_id_list(suite_id)
+    for a in case_list:
+        c = CaseEntity(a, var_map)
 
 
 def get_env_var_map(env_id):
