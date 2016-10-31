@@ -13,3 +13,4 @@ def getFieldList(models, field='id'):
     """
     return list(models.objects.values_list(field, flat=True))
 
+

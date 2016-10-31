@@ -19,6 +19,7 @@ def get_env_list(data):
         if pro_id in id_list:
             body = []
             test = Env.objects.all().filter(pro_id=pro_id)
+
             for a in list(test):
                 a = jsontool.class_to_dict(a)
                 del (a['_state'])
@@ -171,8 +172,8 @@ def get_env_varList(data):
         del (var['_state'])
         body.append(var)
     return {
-        "code":1,
-        "msg":"返回成功",
-        "data":body
+        "code": 1,
+        "msg": "返回成功",
+        "data": body
     }
 

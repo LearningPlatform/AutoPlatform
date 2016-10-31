@@ -2,7 +2,7 @@ from django.shortcuts import render_to_response,HttpResponse
 import json
 
 from .platform.datahandle import prodata, envdata, vardata, moduledata, suitedata, \
-    casedata, apidata
+    casedata, apidata, rundata
 from .platform.case import case
 from .platform.tools import strtool
 
@@ -1409,7 +1409,8 @@ def case_del(req):
 
 
 def test(req):
-    t = case.CaseEntity(1)
+    data = json.loads(str(req.body, encoding="utf-8"))
+    rundata.get_run_info(data)
     return HttpResponse(json.dumps({"msg": 1}), content_type="application/json")
 
 
