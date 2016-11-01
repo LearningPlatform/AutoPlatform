@@ -20,9 +20,9 @@ def get_suite_case_list(data):
 def get_api_case_list(data):
     api_id = data["api_id"]
     body = []
-    test = CaseSuite.objects.all().filter(api_id=api_id)
-    for a in list(test):
-        a = jsontool.class_to_dict(Case.objects.all().get(case_id=a.case_id))
+    test = list(set(CaseSuite.objects.all().filter(api_id=api_id).values_list("case_id", flat=True)))
+    for a in test:
+        a = jsontool.class_to_dict(Case.objects.all().get(case_id=a))
         del (a['_state'])
         body.append(a)
     return {
@@ -35,9 +35,9 @@ def get_api_case_list(data):
 def get_pro_case_list(data):
     pro_id = data["pro_id"]
     body = []
-    test = CaseSuite.objects.all().filter(pro_id=pro_id)
-    for a in list(test):
-        a = jsontool.class_to_dict(Case.objects.all().get(case_id=a.case_id))
+    test = list(set(CaseSuite.objects.all().filter(pro_id=pro_id).values_list("case_id", flat=True)))
+    for a in test:
+        a = jsontool.class_to_dict(Case.objects.all().get(case_id=a))
         del (a['_state'])
         body.append(a)
     return {

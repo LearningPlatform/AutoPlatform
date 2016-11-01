@@ -97,12 +97,11 @@ def del_api(data):
 def get_api_case_list(data):
     api_id = data["api_id"]
     body = []
-    test = CaseSuite.objects.all().filter(api_id=api_id)
-    for a in list(test):
-        a = jsontool.class_to_dict(Case.objects.all().get(case_id=a.case_id))
+    test = list(set(CaseSuite.objects.all().filter(api_id=api_id).values_list("case_id" , flat=True)))
+    for a in test:
+        a = jsontool.class_to_dict(Case.objects.all().get(case_id=a))
         del (a['_state'])
         body.append(a)
-    print(test)
     return {
         "code": 1,
         "msg": "获取成功",
