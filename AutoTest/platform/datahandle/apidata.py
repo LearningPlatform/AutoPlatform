@@ -88,6 +88,8 @@ def edit_api(data):
 def del_api(data):
     api_id = data["api_id"]
     Api.objects.all().get(api_id=api_id).delete()
+    CaseSuite.objects.all().filter(api_id=api_id).delete()
+    Case.objects.all().filter(api_id=api_id).delete()
     return {
         "code": 1,
         "msg": "删除成功"
