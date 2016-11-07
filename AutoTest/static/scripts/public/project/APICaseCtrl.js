@@ -2,11 +2,15 @@ myApp.controller('APICaseCtrl',function($scope,$http,$cookieStore,$timeout) {
     var pro_id = $cookieStore.get("currProID");
     var moduleId=0;
     var apiId=0;
+    var caseId=0;
     $scope.showBtn=false;
     $scope.showModule=true;
     $scope.showCase=false;
+    $scope.showinfo=false;
     $scope.showAPIID=0;
+    $scope.showCaseID=0;
     $scope.List=["active"];
+    $scope.suite_list=[];
     $scope.varInfoShow=true;
     $scope.moduleList="";
     $scope.module={
@@ -52,6 +56,7 @@ myApp.controller('APICaseCtrl',function($scope,$http,$cookieStore,$timeout) {
         "api_id": 1,
         "is_set": 1
     }
+
     $timeout(function(){
         $scope.showAllAPI=true;
         $http.post('project/module/list', {
@@ -78,9 +83,19 @@ myApp.controller('APICaseCtrl',function($scope,$http,$cookieStore,$timeout) {
         })
         $scope.showBtn=false;
         $scope.showBtn1=true;
+        $http.post('project/suite/list', {
+             "pro_id": pro_id
+        }).success(function (response) {
+            if(response.code==1) {
+                $scope.suiteList = response.data;
+            }else{
+                alert(response.msg);
+            }
+        });
     })
 
     $scope.showAll=function(){
+        $scope.showCase=false;
         for(var i=0;i<$scope.moduleList.length;i++){
             $scope.List[i+1]="disactive"
         }
@@ -98,9 +113,11 @@ myApp.controller('APICaseCtrl',function($scope,$http,$cookieStore,$timeout) {
          $scope.showBtn1=true;
          $scope.showAllAPI=true;
          $scope.showAPIInModule=false;
+         $scope.showinfo=false;
     }
 
     $scope.active1 = function(id) {
+         $scope.showCase=false;
          for(var i=0;i<$scope.moduleList.length;i++){
             $scope.List[i+1]="disactive"
          }
@@ -112,12 +129,12 @@ myApp.controller('APICaseCtrl',function($scope,$http,$cookieStore,$timeout) {
          $scope.showBtn1=false;
          $scope.showAllAPI=false;
          $scope.showAPIInModule=true;
+         $scope.showinfo=false;
          $http.post('project/module/apiList',{
              "module_id":$scope.module.module_id
          }).success(function(response){
              if(response.code==1){
                  $scope.apiList=response.data;
-                 console.log($scope.apiListInModelu)
              }else{
                  alert(response.msg);
              }
@@ -241,7 +258,6 @@ myApp.controller('APICaseCtrl',function($scope,$http,$cookieStore,$timeout) {
                 }).success(function (response1) {
                      if(response1.code==1) {
                          $scope.suiteList = response1.data;
-                         console.log($scope.suiteList);
                      }else{
                         alert(response1.msg);
                     }
@@ -429,15 +445,213 @@ myApp.controller('APICaseCtrl',function($scope,$http,$cookieStore,$timeout) {
         }).success(function(response){
             if(response.code==1){
                 $scope.caseList=response.data;
-                 console.log($scope.caseList)
             }else{
-                alert($scope.msg);
+                alert(response.msg);
+            }
+        })
+    }
+    $scope.check=[];
+
+    $scope.addCase=function(){
+        $scope.case="";
+        $scope.api="";
+        $scope.suite_list=[];
+        for(var i=0;i<$scope.suiteList.length;i++){
+            $scope.check[i]=false;
+        }
+        $("#AddCase").modal();
+    }
+
+    $scope.addSuiteList=function(checked,id){
+        if(checked==true){
+            $scope.suite_list.push(id);
+        }
+    }
+
+    $scope.saveCase=function(id){
+        if($scope.case.case_name==null){
+            $scope.case.case_name="";
+        }
+        if($scope.case.case_desc==null){
+            $scope.case.case_desc="无";
+        }
+        $http.post('project/case/create',{
+            "api_id": id,
+            "pro_id": pro_id,
+            "case_desc": $scope.case.case_desc,
+            "case_name": $scope.case.case_name,
+            "suite_list":$scope.suite_list
+        }).success(function(response){
+            if(response.code==1) {
+                $http.post('project/api/caseList',{
+                    "api_id":id
+                }).success(function(response1){
+                    $scope.caseList=response1.data;
+                })
+            }else{
+                alert(response.msg);
+            }
+        })
+        $("#AddCase").modal('hide');
+    }
+
+    $scope.str="";
+    $scope.showSelectId=0;
+    $scope.al=["active","disactive","disactive"];
+
+    $scope.active2=function(index,data){
+        for(i=0;i<3;i++){
+            $scope.al[i]="disactive";
+        }
+        $scope.al[index]="active";
+        $scope.showSelectId=index;
+        $scope.showParamId=0;
+        if($scope.str==""){
+            console.log(2)
+            if(data.is_set==1){
+                $scope.str=data.input_data.replace(/\'/ig,"\"");
+            }else{
+                $http.post('project/api/detail',{
+                    "api_id":editApiId
+                }).success(function(response){
+                    if(response.code==1){
+                        $scope.api=response.data;
+                        $scope.param = $scope.api.api_param.split(',');
+                        $scope.str='{';
+                        for(var i=0;i<$scope.param.length-1;i++){
+                            $scope.str = $scope.str +'"'+ $scope.param[i]+'" :"undefined", ';
+                        }
+                        $scope.str = $scope.str  +'"'+ $scope.param[$scope.param.length-1] + '" :"undefined"}';
+                    }else{
+                        alert(response.msg);
+                    }
+                })
+            }
+        }
+    }
+    var editApiId=0;
+    $scope.infoCase=function(id,apiId){
+        $scope.showinfo=!$scope.showinfo;
+        $scope.showCaseID=id;
+        $scope.str="";
+        editApiId=apiId;
+        $scope.al=["active","disactive","disactive"];
+        $scope.showSelectId=0;
+    }
+    var value;
+    var totalValue;
+    var paramValue;
+    $scope.param=[];
+
+    $scope.canshu=[];
+    var stringId;
+    var textId;
+    $scope.showParam1=function(){
+        stringId=1;
+        $scope.showParamId=1;
+        if(textId==1){
+            $scope.str=angular.toJson($scope.case.input_data)
+            $scope.str=$scope.str.replace(/\'/ig,"\"");
+        }
+        value=$scope.str.replace('{','');
+        value=value.replace('}','');
+        totalValue=value.split(',');
+        for(var i=0;i<totalValue.length;i++){
+            totalValue[i] = totalValue[i].replace(' ','');
+            paramValue=totalValue[i].split(':');
+            $scope.param[i] = paramValue[0].replace(/\"/ig,"");
+            $scope.canshu[i] = paramValue[paramValue.length-1].replace(' ','');
+        }
+    }
+
+    $scope.showParam2=function(){
+        $scope.showParamId=2;
+        textId=1;
+        if(stringId==1){
+            console.log($scope.param)
+            console.log($scope.canshu)
+            $scope.str="";
+            $scope.str='{'
+            for(var i=0;i<$scope.param.length-1;i++){
+                $scope.str = $scope.str +'"'+ $scope.param[i]+'" :'+ $scope.canshu[i]+', ';
+            }
+            $scope.str = $scope.str +'"'+$scope.param[$scope.param.length-1] + '" :'+ $scope.canshu[$scope.param.length-1]+'}';
+        }
+        $scope.textValue=$scope.str;
+    }
+
+    $scope.saveParam1=function(id){
+         $scope.str='{'
+         for(var i=0;i<$scope.param.length-1;i++){
+             $scope.str = $scope.str +'"'+ $scope.param[i]+'" :'+ $scope.canshu[i]+', ';
+         }
+         $scope.str = $scope.str +'"'+$scope.param[$scope.param.length-1] + '" :'+ $scope.canshu[$scope.param.length-1]+'}';
+         $scope.case.input_data=angular.fromJson($scope.str);
+         $http.post('project/case/edit/req',{
+             "case_id":id,
+             "input_data":$scope.case.input_data
+         }).success(function(response){
+             if(response.code==0){
+                 alert(response.msg);
             }
         })
     }
 
-    $scope.addCase=function(){
-        $("#AddCase").modal();
+    $scope.saveParam2=function(id,abc){
+        $scope.case.input_data=angular.fromJson(abc);
+        $http.post('project/case/edit/req',{
+            "case_id":id,
+            "input_data":$scope.case.input_data
+        }).success(function(response){
+            if(response.code==0){
+                alert(response.msg);
+            }
+        })
     }
 
+    var delParam=0;
+    var delCaseId=0;
+    var index=0;
+
+    $scope.cfDelParam=function(caseId,value){
+        $("#cfParam").modal();
+        delCaseId=caseId;
+        delParam=value;
+    }
+
+    $scope.delParam=function(){
+        index=$scope.param.indexOf(delParam);
+        $scope.param.splice(index,1);
+        $scope.canshu.splice(index,1)
+        $scope.saveParam1(delCaseId);
+        $("#cfParam").modal('hide');
+    }
+
+
+    $scope.cfDelCase=function(caseid,APIid){
+        $("#cfCase").modal();
+        caseId=caseid;
+        apiId=APIid;
+    }
+
+    $scope.delCase=function(){
+        $http.post('project/case/delete',{
+            "case_id":caseId
+        }).success(function(response){
+            if(response.code==1){
+                $("#cfCase").modal("hide");
+                $http.post('project/api/caseList',{
+                    "api_id":apiId
+                }).success(function(response1){
+                    if(response1.code==1){
+                        $scope.caseList=response1.data;
+                    }else{
+                        alert(response1.msg);
+                    }
+                })
+            }else{
+                alert(response.msg);
+            }
+        })
+    }
 })
