@@ -109,11 +109,13 @@ class Result(models.Model):
     项目运行结果概述表
     """
     result_id = models.AutoField(primary_key=True)
+    pro_id = models.IntegerField(null=True)
     suite_id = models.IntegerField(null=True)
-    opt_duration = models.IntegerField(null=True)
     pass_num = models.IntegerField(null=True)
     fail_num = models.IntegerField(null=True)
-    apt_time = models.TimeField(null=True)
+    start_time = models.CharField(max_length=13, null=True)
+    end_time = models.CharField(max_length=13, null=True)
+    report_name = models.CharField(max_length=30, null=True)
 
 
 class ResultDetail(models.Model):
@@ -127,5 +129,4 @@ class ResultDetail(models.Model):
     input_data = models.TextField(null=True)
     out_data = models.TextField(null=True)
     exp_data = models.TextField(null=True)
-    is_pass = models.BooleanField()
-    case_desc = models.TextField(null=True)
+    is_pass = models.IntegerField(null=True)
