@@ -34,6 +34,14 @@ a:active {text-decoration:none ;color: #3c3c3c}
     margin-top:65px;
 }
 
+.top3{
+    margin-top:25px;
+}
+
+.top2{
+    margin-top:20px;
+}
+
 .wid{
     width: 13%;
 }
@@ -59,7 +67,19 @@ a:active {text-decoration:none ;color: #3c3c3c}
     opacity: .9;
 }
 
-
 .color{
     background-color: #bbb;
 }
+
+.wid1{
+    width:15%;
+    text-align:right;
+}
+
+.wid2{
+    width:30%;
+    color:blueviolet;
+}
+
+
+
