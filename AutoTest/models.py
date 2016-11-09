@@ -130,3 +130,19 @@ class ResultDetail(models.Model):
     out_data = models.TextField(null=True)
     exp_data = models.TextField(null=True)
     is_pass = models.IntegerField(null=True)
+
+
+class D_Api(models.Model):
+    """
+    接口依赖，参数提取
+    """
+    D_api_id = models.AutoField(primary_key=True)
+    pro_id = models.IntegerField(null=True)
+    D_api_name = models.CharField(max_length=20, null=True)
+    D_api_protocol = models.CharField(max_length=10, null=True)
+    D_api_method = models.CharField(max_length=10, null=True)
+    D_api_url = models.CharField(max_length=50, null=True)
+    D_api_type = models.CharField(max_length=20, null=True)
+    D_api_desc = models.TextField(null=True)
+    D_api_param = models.TextField(null=True)
+    D_pick_param = models.TextField(null=True)

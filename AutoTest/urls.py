@@ -65,4 +65,6 @@ urlpatterns = [
     url(r'project/result/detailList$', views.result_detail_list, name="删除case"),
 
 
+    url(r'test$', views.test, name="调试用"),
+
 ]
