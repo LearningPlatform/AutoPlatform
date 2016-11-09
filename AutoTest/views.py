@@ -2,7 +2,7 @@ from django.shortcuts import render_to_response,HttpResponse
 import json
 
 from .platform.datahandle import prodata, envdata, vardata, moduledata, suitedata, \
-    casedata, apidata, rundata, resultdata
+    casedata, apidata, rundata, resultdata, dapidata
 from .platform.case import case
 from .platform.tools import strtool
 
@@ -1537,6 +1537,12 @@ def result_detail_list(req):
       """
     data = json.loads(str(req.body, encoding="utf-8"))
     resp = resultdata.get_result_detail_list(data)
+    return HttpResponse(json.dumps(resp), content_type="application/json")
+
+
+def test(req):
+    data = json.loads(str(req.body, encoding="utf-8"))
+    resp = dapidata.test(data)
     return HttpResponse(json.dumps(resp), content_type="application/json")
 
 

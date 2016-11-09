@@ -455,7 +455,7 @@ myApp.controller('APICaseCtrl',function($scope,$http,$cookieStore,$timeout) {
     $scope.addCase=function(){
         $scope.case="";
         $scope.api="";
-        $scope.suite_list=[];
+        $scope.suite_list = []
         for(var i=0;i<$scope.suiteList.length;i++){
             $scope.check[i]=false;
         }

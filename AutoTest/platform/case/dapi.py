@@ -1,57 +1,44 @@
-from ...models import Case, CaseSuite, Api, Result, ResultDetail
+from ...models import D_Api
 from ..tools import strtool
 
-import requests
 import json
+import requests
 
 
-class CaseEntity:
+class Interface:
 
-    def __init__(self, case_id, var_map, result_id):
-        self.case_id = case_id
+    def __init__(self, D_api_id, var_map):
+        print("test")
+        self.D_api_id = D_api_id
         self.var_map = var_map
+        self.D_api = object
         self.url = ""
         self.param = ""
-        self.case = object
-        self.api = object
         self.resp = {}
-        self.is_pass = 0
-        self.result_id = result_id
-        self.result_detail = ResultDetail.objects.create(result_id=self.result_id)
-        self.setCase()
+        self.pick_param = {}
         self.selApi()
         self.setUrl()
         self.setReqParam()
         self.sendRequest()
-        self.check_result()
-        self.result_detail.save()
-
-    def setCase(self):
-        self.case = Case.objects.all().get(case_id=self.case_id)
-        self.result_detail.case_id = self.case_id
-        self.result_detail.exp_data = self.case.exp_data
-        self.result_detail.case_desc = self.case.case_desc
 
     def selApi(self):
-        self.api = Api.objects.all().get(api_id=self.case.api_id)
-        self.result_detail.api_id = self.api.api_id
+        self.D_api = D_Api.objects.all().get(D_api_id=self.D_api_id)
 
     def setUrl(self):
-        self.url = self.api.api_protocol + "://" + self.api.api_url
+        self.url = self.D_api.D_api_protocol + "://" + self.D_api.D_api_url
         while "{{" in self.url:
             self.url = strtool.str_replace(self.url, self.var_map)
 
     def setReqParam(self):
-        self.param = self.case.input_data
+        self.param = self.D_api.D_api_param
         while "{{" in self.param:
             self.param = strtool.str_replace(self.param, self.var_map)
         self.param = self.param.replace("\'", "\"")
-        self.result_detail.input_data = self.param
 
     def sendRequest(self):
         # 使用json
         # re = requests.post(self.url, json=json.loads(self.param))
-        if self.api.api_method == "post":
+        if self.D_api.D_api_method == "post":
             if "headers" in self.var_map.keys():
                 headers = json.loads(self.var_map["headers"])
                 re = requests.post(self.url, data=self.param, headers=headers)
@@ -62,7 +49,7 @@ class CaseEntity:
                 "status_code": re.status_code,
                 "content": re.json()
             }
-        if self.api.api_method == "get":
+        if self.D_api.D_api_method == "get":
             if "headers" in self.var_map.keys():
                 headers = json.loads(self.var_map["headers"])
                 self.param = json.loads(self.param)
@@ -74,17 +61,13 @@ class CaseEntity:
                 "status_code": re.status_code,
                 "content": re.json()
             }
-        self.result_detail.out_data = self.resp
 
-    def check_result(self):
-        if json.dumps(self.resp["content"], ensure_ascii=False).find(self.case.exp_data) == -1:
-            self.is_pass = 0
-        else:
-            self.is_pass = 1
-        self.result_detail.is_pass = self.is_pass
+    def set_pick_param(self):
+        # pick_param_list = self.D_api.pick
+        print(self.resp["content"])
+        self.pick_param = {
+            self.D_api.D_pick_param : self.resp["content"]["data"][self.D_api.D_pick_param]
+        }
 
-    def run(self):
-        pass
-
-    def get_passnum(self):
-        return self.is_pass
+    def get_pick_param(self):
+        return self.pick_param
