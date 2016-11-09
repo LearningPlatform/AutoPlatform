@@ -8,7 +8,6 @@ import requests
 class Interface:
 
     def __init__(self, D_api_id, var_map):
-        print("test")
         self.D_api_id = D_api_id
         self.var_map = var_map
         self.D_api = object
@@ -36,8 +35,6 @@ class Interface:
         self.param = self.param.replace("\'", "\"")
 
     def sendRequest(self):
-        # 使用json
-        # re = requests.post(self.url, json=json.loads(self.param))
         if self.D_api.D_api_method == "post":
             if "headers" in self.var_map.keys():
                 headers = json.loads(self.var_map["headers"])
@@ -63,11 +60,13 @@ class Interface:
             }
 
     def set_pick_param(self):
-        # pick_param_list = self.D_api.pick
-        print(self.resp["content"])
-        self.pick_param = {
-            self.D_api.D_pick_param : self.resp["content"]["data"][self.D_api.D_pick_param]
-        }
+        pick_param_list = json.loads(self.D_api.D_pick_param)
+        for pick_param in pick_param_list:
+            param_path = pick_param["path"].split('.')
+            param = self.resp["content"]
+            for p in param_path:
+                param = param[p]
+                self.pick_param[pick_param["param_name"]]=param
 
     def get_pick_param(self):
         return self.pick_param
