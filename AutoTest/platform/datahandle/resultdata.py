@@ -1,4 +1,4 @@
-from ...models import Result, ResultDetail, Case
+from ...models import Result, ResultDetail, Case, Api
 
 from ..tools import jsontool
 
@@ -25,7 +25,9 @@ def get_result_detail_list(data):
     for result_datail in result_detail_list:
         a = jsontool.class_to_dict(result_datail)
         b = jsontool.class_to_dict(Case.objects.all().get(case_id=a["case_id"]))
+        c = jsontool.class_to_dict(Api.objects.all().get(api_id=a["api_id"]))
         var = dict(a, **b)
+        var = dict(var, **c)
         del (var['_state'])
         body_list.append(var)
     return {
