@@ -106,6 +106,7 @@ myApp.config(function($stateProvider,$urlRouterProvider,$interpolateProvider) {
             views:{
                 'intro@project':{
                     templateUrl: '/static/views/testReport.html',
+                    controller: 'testReportCtrl'
                 }
             }
         })
