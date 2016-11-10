@@ -1,5 +1,6 @@
     myApp.controller('mainCtrl',function($scope,$http,$cookieStore,$timeout){
         var saveType=0;
+        var delId=0;
 
         $scope.proList='';
 
@@ -30,6 +31,7 @@
 
 
         $scope.editPro=function(id){
+            console.log(id)
             $http.post('project/detail',{
                 "pro_id":id
             }).success(function (response){
@@ -85,22 +87,23 @@
         }
 
         $scope.confirmDel=function(id){
+            delId=id;
             $("#confirmModal").modal();
-            $http.post('project/detail',{
-                "pro_id":id
-            }).success(function (response){
-                $scope.pro=response.data;
-            });
         }
 
-        $scope.delPro=function(id){
+        $scope.delPro=function(){
             $("#confirmModal").modal('hide');
+            console.log(delId)
             $http.post('project/delete',{
-                "pro_id":id,
+                "pro_id":delId
             }).success(function (response1) {
                 if(response1.code==1){
                     $http.get('project/list').success(function(response){
-                        $scope.proList=response.data;
+                        if(response.code==1){
+                            $scope.proList=response.data;
+                        } else{
+                            alert(response.msg);
+                        }
                     })
                 }else{
                     alert(response1.msg);
