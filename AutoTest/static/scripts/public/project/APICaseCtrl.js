@@ -10,6 +10,7 @@ myApp.controller('APICaseCtrl',function($scope,$http,$cookieStore,$timeout) {
     $scope.showAPIID=0;
     $scope.showCaseID=0;
     $scope.List=["active"];
+    $scope.envList="";
     $scope.suite_list=[];
     $scope.varInfoShow=true;
     $scope.moduleList="";
@@ -57,7 +58,27 @@ myApp.controller('APICaseCtrl',function($scope,$http,$cookieStore,$timeout) {
         "is_set": 1
     }
 
+    $scope.report={
+        "report_name": "",
+        "start_time": "",
+        "suite_id": 1,
+        "fail_num": 1,
+        "pro_id": pro_id,
+        "pass_num": 1,
+        "result_id": 50,
+        "end_time": 1478621079
+    }
+
     $timeout(function(){
+        $http.post('project/env/list',{
+            "pro_id":pro_id
+        }).success(function(response){
+            if(response.code==1){
+                $scope.envList=response.data;
+            }else{
+                alert(response.msg)
+            }
+        })
         $scope.showAllAPI=true;
         $http.post('project/module/list', {
              "pro_id": pro_id
@@ -139,6 +160,29 @@ myApp.controller('APICaseCtrl',function($scope,$http,$cookieStore,$timeout) {
                  alert(response.msg);
              }
          })
+    }
+
+    $scope.run=function(){
+        $("#runModule").modal();
+        $scope.report_name="";
+    }
+
+    $scope.report_name="";
+
+    $scope.saveRun=function(envId,suiteId){
+        $http.post('project/case/run',{
+            "suite_id":suiteId,
+            "pro_id":pro_id,
+            "env_id":envId,
+            "report_name": $scope.report_name
+        }).success(function(response){
+            if(response.code==1){
+                $scope.report=response.data;
+            }else{
+                alert(response.msg)
+            }
+        })
+       $("#runModule").modal('hide');
     }
 
     $scope.addModule=function(){
@@ -496,10 +540,11 @@ myApp.controller('APICaseCtrl',function($scope,$http,$cookieStore,$timeout) {
     }
 
     $scope.str="";
+    $scope.exp="";
     $scope.showSelectId=0;
     $scope.al=["active","disactive","disactive"];
 
-    $scope.active2=function(index,data){
+    $scope.active2=function(index,obj){
         for(i=0;i<3;i++){
             $scope.al[i]="disactive";
         }
@@ -507,36 +552,37 @@ myApp.controller('APICaseCtrl',function($scope,$http,$cookieStore,$timeout) {
         $scope.showSelectId=index;
         $scope.showParamId=0;
         if($scope.str==""){
-            console.log(2)
-            if(data.is_set==1){
-                $scope.str=data.input_data.replace(/\'/ig,"\"");
+            if(obj.is_set==1){
+                $scope.str=obj.input_data.replace(/\'/ig,"\"");
             }else{
-                $http.post('project/api/detail',{
-                    "api_id":editApiId
-                }).success(function(response){
-                    if(response.code==1){
-                        $scope.api=response.data;
-                        $scope.param = $scope.api.api_param.split(',');
-                        $scope.str='{';
-                        for(var i=0;i<$scope.param.length-1;i++){
-                            $scope.str = $scope.str +'"'+ $scope.param[i]+'" :"undefined", ';
-                        }
-                        $scope.str = $scope.str  +'"'+ $scope.param[$scope.param.length-1] + '" :"undefined"}';
-                    }else{
-                        alert(response.msg);
-                    }
-                })
+                $scope.param = $scope.api.api_param.split(',');
+                $scope.str='{';
+                for(var i=0;i<$scope.param.length-1;i++){
+                    $scope.str = $scope.str +'"'+ $scope.param[i]+'" :"undefined", ';
+                }
+                $scope.str = $scope.str  +'"'+ $scope.param[$scope.param.length-1] + '" :"undefined"}';
             }
         }
+        $scope.exp = obj.exp_data;
     }
+
     var editApiId=0;
-    $scope.infoCase=function(id,apiId){
+    $scope.infoCase=function(obj){
         $scope.showinfo=!$scope.showinfo;
-        $scope.showCaseID=id;
+        $scope.showCaseID=obj.case_id;
         $scope.str="";
-        editApiId=apiId;
+        editApiId=obj.api_id;
         $scope.al=["active","disactive","disactive"];
         $scope.showSelectId=0;
+         $http.post('project/api/detail',{
+            "api_id":editApiId
+        }).success(function(response) {
+            if (response.code == 1) {
+                $scope.api = response.data;
+            }else{
+                alert(response.msg);
+            }
+        })
     }
     var value;
     var totalValue;
@@ -568,8 +614,6 @@ myApp.controller('APICaseCtrl',function($scope,$http,$cookieStore,$timeout) {
         $scope.showParamId=2;
         textId=1;
         if(stringId==1){
-            console.log($scope.param)
-            console.log($scope.canshu)
             $scope.str="";
             $scope.str='{'
             for(var i=0;i<$scope.param.length-1;i++){
@@ -578,6 +622,10 @@ myApp.controller('APICaseCtrl',function($scope,$http,$cookieStore,$timeout) {
             $scope.str = $scope.str +'"'+$scope.param[$scope.param.length-1] + '" :'+ $scope.canshu[$scope.param.length-1]+'}';
         }
         $scope.textValue=$scope.str;
+    }
+
+    $scope.addParam1=function(){
+        $scope.param.push(" ");
     }
 
     $scope.saveParam1=function(id){
@@ -627,6 +675,17 @@ myApp.controller('APICaseCtrl',function($scope,$http,$cookieStore,$timeout) {
         $("#cfParam").modal('hide');
     }
 
+    $scope.saveExp=function(id,data){
+        $http.post('project/case/edit/resp',{
+            "case_id": id,
+             "exp_data": data,
+             "check_type": 0
+        }).success(function(response){
+            if(response.code==0){
+                alert(response.msg)
+            }
+        })
+    }
 
     $scope.cfDelCase=function(caseid,APIid){
         $("#cfCase").modal();
