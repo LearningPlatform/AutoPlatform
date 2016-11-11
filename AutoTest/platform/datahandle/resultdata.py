@@ -1,4 +1,4 @@
-from ...models import Result, ResultDetail, Case, Api
+from ...models import Result, ResultDetail, Case, Api, Suite
 
 from ..tools import jsontool
 
@@ -9,8 +9,10 @@ def get_result_list(data):
     test = Result.objects.all().filter(pro_id=pro_id)
     for a in list(test):
         a = jsontool.class_to_dict(a)
-        del (a['_state'])
-        body.append(a)
+        b = jsontool.class_to_dict(Suite.objects.all().get(suite_id=a["suite_id"]))
+        var = dict(a, **b)
+        del (var['_state'])
+        body.append(var)
     return {
         "code": 1,
         "msg": "获取成功",
