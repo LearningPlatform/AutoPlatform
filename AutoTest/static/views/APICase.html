@@ -201,12 +201,12 @@
                                             <div  ng-show="showParamId==2">
                                                 <form role="form">
                                                     <div class="form-group">
-                                                        <textarea class="form-control" rows="3" ng-model="textValue" ng-blur="saveParam2(case.case_id,textValue)">
+                                                        <textarea class="form-control" rows="3" ng-model="str" ng-blur="saveParam2(case.case_id,str)">
                                                         </textarea>
-                                                        <div ng-bind="str"></div>
+                                                        <div ng-bind="textValue"></div>
                                                     </div>
                                                 </form>
-                                                <button type="button" class="pull-right btn btn-primary" ng-click="saveParam2(case.case_id,textValue)">
+                                                <button type="button" class="pull-right btn btn-primary" ng-click="saveParam2(case.case_id,str)">
                                                     保存
                                                 </button>
                                             </div>
@@ -272,7 +272,7 @@
                             <div class="panel panel-info">
                                 <div class="panel-heading">
                                     <h4 class="panel-title" ng-mouseenter="shownCom1=true" ng-mouseleave="shownCom1=false">
-                                        <a ng-bind="case.case_name" ng-click="infoCase(case.case_id,case.api_id)"></a>
+                                        <a ng-bind="case.case_name" ng-click="infoCase(case)"></a>
                                         <div class="pull-right">
                                             <a ng-show="shownCom1" ng-click="cfDelCase(case.case_id,case.api_id)"><span class="glyphicon glyphicon-remove"></span>删除</a>
                                         </div>
@@ -379,8 +379,9 @@
                                             <div  ng-show="showParamId==2">
                                                 <form role="form">
                                                     <div class="form-group">
-                                                        <textarea class="form-control" rows="3" ng-model="str">
+                                                        <textarea class="form-control" rows="3" ng-model="str" ng-blur="saveParam2(case.case_id,str)">
                                                         </textarea>
+                                                        <div ng-bind="textValue"></div>
                                                     </div>
                                                 </form>
                                                 <button type="button" class="pull-right btn btn-primary" ng-click="saveParam2(case.case_id)">
@@ -416,6 +417,13 @@
                                                     </button>
                                                 </div>
                                             </div>
+                                            <form role="form">
+                                                <textarea class="form-control" rows="3" ng-model="exp">
+                                                </textarea>
+                                                <button type="button" class="pull-right btn btn-primary" ng-click="saveExp(case.case_id,exp)">
+                                                    保存
+                                                </button>
+                                            </form>
                                         </div>
                                     </div>
                                 </div>

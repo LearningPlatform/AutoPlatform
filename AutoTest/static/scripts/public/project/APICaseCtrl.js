@@ -602,6 +602,8 @@ myApp.controller('APICaseCtrl',function($scope,$http,$cookieStore,$timeout) {
         value=$scope.str.replace('{','');
         value=value.replace('}','');
         totalValue=value.split(',');
+        $scope.param=[];
+        $scope.canshu=[];
         for(var i=0;i<totalValue.length;i++){
             totalValue[i] = totalValue[i].replace(' ','');
             paramValue=totalValue[i].split(':');
@@ -616,12 +618,14 @@ myApp.controller('APICaseCtrl',function($scope,$http,$cookieStore,$timeout) {
         if(stringId==1){
             $scope.str="";
             $scope.str='{'
+            console.log($scope.param)
             for(var i=0;i<$scope.param.length-1;i++){
                 $scope.str = $scope.str +'"'+ $scope.param[i]+'" :'+ $scope.canshu[i]+', ';
             }
             $scope.str = $scope.str +'"'+$scope.param[$scope.param.length-1] + '" :'+ $scope.canshu[$scope.param.length-1]+'}';
         }
         $scope.textValue=$scope.str;
+        console.log($scope.str)
     }
 
     $scope.addParam1=function(){
