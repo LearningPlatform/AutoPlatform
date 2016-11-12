@@ -81,7 +81,7 @@ class Case(models.Model):
     check_type = models.IntegerField(null=True)
     case_desc = models.TextField(null=True)
     is_set = models.IntegerField(null=True)
-
+    depnd_api_id = models.IntegerField(null=True)
 
 class Suite(models.Model):
     """
@@ -132,17 +132,17 @@ class ResultDetail(models.Model):
     is_pass = models.IntegerField(null=True)
 
 
-class D_Api(models.Model):
+class DepndApi(models.Model):
     """
     接口依赖，参数提取
     """
-    D_api_id = models.AutoField(primary_key=True)
+    depnd_api_id = models.AutoField(primary_key=True)
     pro_id = models.IntegerField(null=True)
-    D_api_name = models.CharField(max_length=20, null=True)
-    D_api_protocol = models.CharField(max_length=10, null=True)
-    D_api_method = models.CharField(max_length=10, null=True)
-    D_api_url = models.CharField(max_length=50, null=True)
-    D_api_type = models.CharField(max_length=20, null=True)
-    D_api_desc = models.TextField(null=True)
-    D_api_param = models.TextField(null=True)
-    D_pick_param = models.TextField(null=True)
+    depnd_api_name = models.CharField(max_length=20, null=True)
+    depnd_api_protocol = models.CharField(max_length=10, null=True)
+    depnd_api_method = models.CharField(max_length=10, null=True)
+    depnd_api_url = models.CharField(max_length=50, null=True)
+    depnd_api_type = models.CharField(max_length=20, null=True)
+    depnd_api_desc = models.TextField(null=True)
+    depnd_api_param = models.TextField(null=True)
+    depnd_id = models.IntegerField(null=True)

@@ -1,5 +1,6 @@
-from ...models import Case, CaseSuite, Api, Result, ResultDetail
+from ...models import Case, CaseSuite, Api, Result, ResultDetail, DepndApi
 from ..tools import strtool
+from .dapi import Interface
 
 import requests
 import json
@@ -45,7 +46,14 @@ class CaseEntity:
         self.param = self.case.input_data
         while "{{" in self.param:
             self.param = strtool.str_replace(self.param, self.var_map)
+        while "$." in self.param:
+            a = self.param.find('$.')
+            b = self.param.find('"',a)
+            path = self.param[a:b]
+            self.d_api = Interface(self.case.depnd_api_id,var_map=self.var_map)
+            self.param = self.param.replace(path,str(self.d_api.get_param_value(path)))
         self.param = self.param.replace("\'", "\"")
+        print(self.param)
         self.result_detail.input_data = self.param
 
     def sendRequest(self):
