@@ -2,26 +2,100 @@
     <div>
         <h1 class="page-header text-primary">测试报告</h1>
     </div>
-
+ <!--
     <div class="row">
-        <div class="col-md-12">
-            <ul class="nav nav-pills">
-                <li ng-repeat="result in resultList" class="{$List[$index]$}">
-                    <a class="bind_hover_card" ng-click="active($index,result)" ng-bind="result.report_name"></a>
-                </li>
+        <div class="pull-right col-xs-2 top4">
+            <form class="bs-example bs-example-form">
+                <div class="input-group">
+                    <input type="text" class="form-control">
+                    <span class="input-group-addon">查询</span>
+                </div>
+            </form>
+            <ul class="contain nav nav-pills nav-stacked">
+               <li ng-repeat="result in resultList" class="{$List[$index]$}">
+                   <a class="bind_hover_card" ng-click="active($index,result)" ng-bind="result.report_name"></a>
+               </li>
             </ul>
         </div>
+        <div class="col-xs-10">-->
+    <div class="row top4" ng-show="repList">
+        <form class="col-md-2 bs-example bs-example-form">
+            <div class="input-group">
+                <span class="input-group-addon">套件</span>
+                <select class="form-control">
+                    <option value=""></option>
+                </select>
+            </div>
+        </form>
+        <form class="col-md-3 bs-example bs-example-form">
+            <div class="input-group">
+                <span class="input-group-addon">起始时间</span>
+                <input type="text" class="form-control">
+            </div>
+        </form>
+        <form class="col-md-3 bs-example bs-example-form">
+            <div class="input-group">
+                <span class="input-group-addon">结束时间</span>
+                <input type="text" class="form-control">
+            </div>
+        </form>
+        <form class="col-md-2 bs-example bs-example-form">
+            <div class="input-group">
+                <span class="input-group-addon">标题</span>
+                <input type="text" class="form-control">
+            </div>
+        </form>
+        <div class="col-md-1">
+            <button class="btn btn-info" ng-click="inquiry(reportName)">查询</button>
+        </div>
+        <div class="top4 col-md-11">
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th>序号</th>
+                        <th>标题</th>
+                        <th>套件</th>
+                        <th>时间</th>
+                        <th>运行时长</th>
+                        <th>成功用例数</th>
+                        <th>失败用例数</th>
+                        <th>操作</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr ng-repeat="result in resultList">
+                        <td ng-bind="$index+1"></td>
+                        <td ng-bind="result.report_name"></td>
+                        <td ng-bind="result.suite_name"></td>
+                        <td ng-bind="result.start_time"></td>
+                        <td ng-bind="result.end_time-result.start_time"></td>
+                        <td ng-bind="result.pass_num"></td>
+                        <td ng-bind="result.fail_num"></td>
+                        <td>
+                            <a ng-click="showDetail(result)">查看详情</a>
+                            <a ng-click="delReport()">删除</a>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
     </div>
-    <div class="row top2">
+
+    <div class="row top4" ng-show="repDetail">
+        <div class="col-md-1">
+            <button class="btn btn-info" ng-click="returnList()">返回</button>
+        </div>
+        <h4 class="col-md-2" ng-bind="result.report_name">
+        </h4>
         <span class="col-md-3">
             开始时间：<span ng-bind="result.start_time"></span></br>
             结束时间：<span ng-bind="result.end_time"></span>
         </span>
-        <div class="pull-right">
-            <button type="button" class="textsize btn btn-lg btn-success">
+        <div class="pull-right marginRight">
+            <button type="button" class="textsize1 btn btn-lg btn-success">
                 <span ng-bind="result.pass_num"></span></br>Passed
             </button>
-            <button type="button" class="textsize btn btn-lg btn-danger">
+            <button type="button" class="textsize1 btn btn-lg btn-danger">
                 <span ng-bind="result.fail_num"></span></br>Failed
             </button>
             <button type="button" class="textsize btn btn-lg btn-info">
@@ -30,51 +104,52 @@
             <button type="button" class="textsize btn btn-lg btn-danger">
                 0</br>ERROR
             </button>
-            <button type="button" class="textsize btn btn-lg btn-info">
+            <button type="button" class="textsize1 btn btn-lg btn-info">
                 <span ng-bind="result.pass_num+result.fail_num"></span></br>Total
             </button>
         </div>
-    </div>
-    <div class="top2">
-        <table class="table table-striped">
-            <thead>
-                <tr>
-                    <th>ID</th>
-                    <th>接口名称</th>
-                    <th>用例名称</th>
-                    <th>请求方法</th>
-                    <th>场景</th>
-                    <th>验证器</th>
-                    <th>结果</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr ng-repeat="res in allResult">
-                    <td ng-bind="$index+1"></td>
-                    <td ng-bind="res.api_name"></td>
-                    <td ng-bind="res.case_name"></td>
-                    <td ng-bind="res.api_method"></td>
-                    <td></td>
-                    <td></td>
-                    <td>
-                        <button type="button" class="btn btn-success" ng-show="res.is_pass==1">
-                            PASS
-                        </button>
-                        <button type="button" class="btn btn-danger" ng-show="res.is_pass==0">
-                            FAILE
-                        </button>
-                    </td>
-                </tr>
-            </tbody>
-        </table>
-        <div ng-bind="resultStr">
+        <div class="top2 col-md-11">
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>接口名称</th>
+                        <th>用例名称</th>
+                        <th>请求方法</th>
+                        <th>场景</th>
+                        <th>验证器</th>
+                        <th>结果</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr ng-repeat="res in allResult">
+                        <td ng-bind="$index+1"></td>
+                        <td ng-bind="res.api_name"></td>
+                        <td ng-bind="res.case_name"></td>
+                        <td ng-bind="res.api_method"></td>
+                        <td></td>
+                        <td></td>
+                        <td>
+                            <button type="button" class="btn btn-success" ng-show="res.is_pass==1">
+                                PASS
+                            </button>
+                            <button type="button" class="btn btn-danger" ng-show="res.is_pass==0">
+                                FAILE
+                            </button>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+            <textarea class="form-control" rows="3" ng-model="resultStr">
+            </textarea>
         </div>
     </div>
 
+</div>
 
 
 
 
 
 
-</span>
+
