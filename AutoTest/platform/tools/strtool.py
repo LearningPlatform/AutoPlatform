@@ -14,10 +14,20 @@ def byteToStr(byte, encoding="utf-8"):
     return str(byte, encoding=encoding)
 
 
-def str_replace(str1, var_map):
-    a = str1.find('{{')
-    b = str1.find('}}')
-    str = str1[a + 2:b]
-    str1 = str1.replace(str1[a:b + 2], var_map[str])
-    print(str1)
-    return str1
+def str_replace(str_re, str_type):
+    if str_type == 1:
+        a = str_re.find('{{')
+        b = str_re.find('}}')
+        str1 = str_re[a + 2:b]
+        return a, b+2, str1
+    if str_type == 2:
+        a = str_re.find('$.')
+        b_list = [str_re.find('"', a), str_re.find(',', a), str_re.find('}', a)]
+        b = len(str_re)
+        for i in b_list:
+            if 0 < i < b:
+                b = i
+        path = str_re[a:b]
+        return path
+
+

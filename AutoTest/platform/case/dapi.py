@@ -14,33 +14,27 @@ class Interface:
         self.param = ""
         self.resp = {}
         self.pick_param = {}
-        self.selApi()
+        self.setApi()
         self.setUrl()
         self.setReqParam()
         self.sendRequest()
 
-    def selApi(self):
+    def setApi(self):
         self.depnd_api = DepndApi.objects.all().get(depnd_api_id=self.depnd_api_id)
 
     def setUrl(self):
         self.url = self.depnd_api.depnd_api_protocol + "://" + self.depnd_api.depnd_api_url
         while "{{" in self.url:
-            self.url = strtool.str_replace(self.url, self.var_map)
+            a, b, str_param = strtool.str_replace(self.url, 1)
+            self.url = self.url.replace(self.url[a:b], self.var_map[str_param])
 
     def setReqParam(self):
         self.param = self.depnd_api.depnd_api_param
         while "{{" in self.param:
-            self.param = strtool.str_replace(self.param, self.var_map)
-        print(self.param)
+            a, b, str_param = strtool.str_replace(self.param, 1)
+            self.param = self.param.replace(self.param[a:b], self.var_map[str_param])
         while "$." in self.param:
-            a = self.param.find('$.')
-            b_list = [self.param.find('"', a),self.param.find(',', a),self.param.find('}', a)]
-            b = len(self.param)
-            print(b_list)
-            for i in b_list:
-                if 0 < i < b:
-                    b = i
-            path = self.param[a:b]
+            path = strtool.str_replace(self.param, 2)
             self.d_api = Interface(self.depnd_api.depnd_id,var_map=self.var_map)
             self.param = self.param.replace(path,str(self.d_api.get_param_value(path)))
         self.param = self.param.replace("\'", "\"")
@@ -60,7 +54,6 @@ class Interface:
             else:
                 re = requests.get(self.url, params=self.param)
         self.resp = re.json()
-        print(self.resp)
 
     def get_param_value(self, param_path):
         param_path = param_path[2:]

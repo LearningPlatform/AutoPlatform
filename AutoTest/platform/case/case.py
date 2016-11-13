@@ -40,25 +40,22 @@ class CaseEntity:
     def setUrl(self):
         self.url = self.api.api_protocol + "://" + self.api.api_url
         while "{{" in self.url:
-            self.url = strtool.str_replace(self.url, self.var_map)
+            a, b, str_param = strtool.str_replace(self.url, 1)
+            self.url = self.url.replace(self.url[a:b], self.var_map[str_param])
 
     def setReqParam(self):
         self.param = self.case.input_data
         while "{{" in self.param:
-            self.param = strtool.str_replace(self.param, self.var_map)
+            a, b, str_param = strtool.str_replace(self.param, 1)
+            self.param = self.param.replace(self.param[a:b], self.var_map[str_param])
         while "$." in self.param:
-            a = self.param.find('$.')
-            b = self.param.find('"',a)
-            path = self.param[a:b]
+            path = strtool.str_replace(self.param, 2)
             self.d_api = Interface(self.case.depnd_api_id,var_map=self.var_map)
             self.param = self.param.replace(path,str(self.d_api.get_param_value(path)))
         self.param = self.param.replace("\'", "\"")
-        print(self.param)
         self.result_detail.input_data = self.param
 
     def sendRequest(self):
-        # 使用json
-        # re = requests.post(self.url, json=json.loads(self.param))
         if self.api.api_method == "post":
             if "headers" in self.var_map.keys():
                 headers = json.loads(self.var_map["headers"])
@@ -90,9 +87,6 @@ class CaseEntity:
         else:
             self.is_pass = 1
         self.result_detail.is_pass = self.is_pass
-
-    def run(self):
-        pass
 
     def get_passnum(self):
         return self.is_pass
