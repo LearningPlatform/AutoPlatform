@@ -19,27 +19,23 @@
         </div>
         <div class="col-xs-10">-->
     <div class="row top4" ng-show="repList">
-        <form class="col-md-2 bs-example bs-example-form">
+        <form class="col-md-3 bs-example bs-example-form">
             <div class="input-group">
                 <span class="input-group-addon">套件</span>
-                <select class="form-control">
-                    <option value=""></option>
+                <select class="form-control" ng-model="suite" ng-options="suite.suite_name for suite in suiteList">
+                    <option value="">请选择</option>
                 </select>
             </div>
         </form>
-        <form class="col-md-3 bs-example bs-example-form">
+        <form class="col-md-4 bs-example bs-example-form">
             <div class="input-group">
-                <span class="input-group-addon">起始时间</span>
-                <input type="text" class="form-control">
+                <span class="input-group-addon">时间</span>
+                <input type="text" class="form-control" placeholder="起始时间">
+                <span class="input-group-addon">--</span>
+                <input type="text" class="form-control" placeholder="结束时间">
             </div>
         </form>
         <form class="col-md-3 bs-example bs-example-form">
-            <div class="input-group">
-                <span class="input-group-addon">结束时间</span>
-                <input type="text" class="form-control">
-            </div>
-        </form>
-        <form class="col-md-2 bs-example bs-example-form">
             <div class="input-group">
                 <span class="input-group-addon">标题</span>
                 <input type="text" class="form-control">
@@ -109,42 +105,85 @@
             </button>
         </div>
         <div class="top2 col-md-11">
-            <table class="table table-striped">
-                <thead>
-                    <tr>
-                        <th>ID</th>
-                        <th>接口名称</th>
-                        <th>用例名称</th>
-                        <th>请求方法</th>
-                        <th>场景</th>
-                        <th>验证器</th>
-                        <th>结果</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr ng-repeat="res in allResult">
-                        <td ng-bind="$index+1"></td>
-                        <td ng-bind="res.api_name"></td>
-                        <td ng-bind="res.case_name"></td>
-                        <td ng-bind="res.api_method"></td>
-                        <td></td>
-                        <td></td>
-                        <td>
-                            <button type="button" class="btn btn-success" ng-show="res.is_pass==1">
-                                PASS
-                            </button>
-                            <button type="button" class="btn btn-danger" ng-show="res.is_pass==0">
-                                FAILE
-                            </button>
-                        </td>
-                    </tr>
-                </tbody>
+            <table class="design">
+                <tr>
+                    <th class="wid3">ID</th>
+                    <th class="wid4">接口名称</th>
+                    <th class="wid4">用例名称</th>
+                    <th class="wid4">请求方法</th>
+                    <th class="wid4">场景</th>
+                    <th class="wid4">验证器</th>
+                    <th class="wid4">结果</th>
+                </tr>
+                <tr ng-repeat="res in allResult">
+                    <td ng-show="reportDetal[$index]" colspan="7">
+                        <table>
+                            <tr>
+                                <td class="wid3">
+                                    <a ng-bind="$index+1+'>'" ng-click="showReport(res,$index)"></a>
+                                </td>
+                                <td class="wid4" ng-bind="res.api_name"></td>
+                                <td class="wid4" ng-bind="res.case_name"></td>
+                                <td class="wid4" ng-bind="res.api_method"></td>
+                                <td class="wid4">434</td>
+                                <td class="wid4">4343</td>
+                                <td class="wid4">
+                                    <button type="button" class="btn btn-success" ng-show="res.is_pass==1">
+                                        PASS
+                                    </button>
+                                    <button type="button" class="btn btn-danger" ng-show="res.is_pass==0">
+                                        FAILE
+                                    </button>
+                                </td>
+                            </tr>
+                        </table>
+                        <h4 class="text-info">
+                        请求信息：
+                        </h4>
+                        <div class="row">
+                             <span class="container col-xs-2 input11">URL</span>
+                             <textarea class="input21 form-control" rows="3" ng-bind="api.api_url"></textarea>
+                        </div>
+                        <div class="row">
+                             <span class="container col-xs-2 input12">body参数</span>
+                             <input type="text" class="input22 form-control">
+                        </div>
+                        <h4 class="text-info">
+                        响应信息：
+                        </h4>
+                        <div class="row">
+                             <span class="container col-xs-2 input12">是否有错误</span>
+                             <input type="text" class="input22 form-control">
+                        </div>
+                        <div class="row">
+                             <span class="container col-xs-2 input12">运行时变量</span>
+                             <input type="text" class="input22 form-control">
+                        </div>
+                        <div class="row">
+                             <span class="container col-xs-2 input12">提取失败的变量</span>
+                             <input type="text" class="input22 form-control">
+                        </div>
+                    </td>
+                    <td>
+                        <a ng-show="!reportDetal[$index]" ng-bind="$index+1+'>'" ng-click="showReport(res,$index)"></a>
+                    </td>
+                    <td  ng-show="!reportDetal[$index]" ng-bind="res.api_name"></td>
+                    <td  ng-show="!reportDetal[$index]" ng-bind="res.case_name"></td>
+                    <td  ng-show="!reportDetal[$index]" ng-bind="res.api_method"></td>
+                    <td ng-show="!reportDetal[$index]"></td>
+                    <td ng-show="!reportDetal[$index]"></td>
+                    <td ng-show="!reportDetal[$index]">
+                        <button type="button" class="btn btn-success" ng-show="res.is_pass==1">
+                            PASS
+                        </button>
+                        <button type="button" class="btn btn-danger" ng-show="res.is_pass==0">
+                            FAILE
+                        </button>
+                    </td>
+                </tr>
             </table>
-            <textarea class="form-control" rows="3" ng-model="resultStr">
-            </textarea>
         </div>
     </div>
-
 </div>
 
 
