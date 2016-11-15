@@ -1,6 +1,8 @@
 myApp.controller('testReportCtrl',function($scope,$http,$cookieStore,$timeout) {
     var pro_id = $cookieStore.get("currProID");
     $scope.List=['active'];
+    $scope.reportDetal=[];
+    $scope.suiteList="";
     $scope.resultList="";
     $scope.result={
         "result_id": 1,
@@ -13,8 +15,29 @@ myApp.controller('testReportCtrl',function($scope,$http,$cookieStore,$timeout) {
         "pro_id": 1
     }
     $scope.allResult=[];
+    $scope.api={
+        "api_param": "username,pwd",
+        "api_id": 1,
+        "module_id": 1,
+        "pro_id": pro_id,
+        "api_url": "{host}/login",
+        "api_method": "post",
+        "api_type": "34",
+        "api_protocol": "http",
+        "api_name": "登录接口",
+        "api_desc": "登录"
+    }
 
      $timeout(function(){
+         $http.post('project/suite/list',{
+             "pro_id":pro_id
+         }).success(function(response){
+             if(response.code==1){
+                 $scope.suiteList=response.data;
+             }else{
+                 alert(response.msg)
+             }
+         })
          $scope.repDetail=false;
          $scope.repList=true;
          $http.post('project/result/list',{
@@ -42,10 +65,13 @@ myApp.controller('testReportCtrl',function($scope,$http,$cookieStore,$timeout) {
                      for(var i=0; i<$scope.allResult.length-1;i++){
                          var str= angular.toJson($scope.allResult[i]);
                          $scope.resultStr = $scope.resultStr + str + " ";
+                         $scope.reportDetal[i]=false;
                      }
+                     $scope.reportDetal[$scope.allResult.length-1]=false;
                      str= angular.toJson($scope.allResult[$scope.allResult.length-1]);
                      $scope.resultStr=$scope.resultStr+str;
                  }else{
+                     $scope.reportDetal[0]=false;
                      str= angular.toJson($scope.allResult[$scope.allResult.length-1]);
                      $scope.resultStr=$scope.resultStr+str;
                  }
@@ -53,6 +79,19 @@ myApp.controller('testReportCtrl',function($scope,$http,$cookieStore,$timeout) {
                  alert(response1.msg)
              }
         })
+    }
+
+    $scope.showReport=function(obj,index){
+        $http.post("project/api/detail",{
+            "api_id":obj.api_id
+        }).success(function(response){
+            if(response.code==1){
+                $scope.api=response.data;
+            }else{
+                alert(response.msg);
+            }
+        })
+        $scope.reportDetal[index]=!$scope.reportDetal[index];
     }
 
     $scope.returnList=function(){
