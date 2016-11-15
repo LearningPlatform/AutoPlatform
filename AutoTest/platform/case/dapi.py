@@ -1,72 +1,35 @@
-from ...models import D_Api
+from ...models import DepndApi
+from .req import ReqResp
 from ..tools import strtool
 
-import json
-import requests
 
-
-class Interface:
+class Interface(ReqResp):
+    case = object
+    depnd_api = object
 
     def __init__(self, D_api_id, var_map):
-        self.D_api_id = D_api_id
+        ReqResp.__init__(self)
+        self.depnd_api_id = D_api_id
+        self.depnd_api = DepndApi.objects.all().get(depnd_api_id=self.depnd_api_id)
+        self.url = self.depnd_api.depnd_api_url
+        self.param = self.depnd_api.depnd_api_param
+        self.api_protocol = self.depnd_api.depnd_api_protocol
+        self.depnd_api_id = self.depnd_api.depnd_id
+        self.api_method = self.depnd_api.depnd_api_method
         self.var_map = var_map
-        self.D_api = object
-        self.url = ""
-        self.param = ""
-        self.resp = {}
-        self.pick_param = {}
-        self.selApi()
-        self.setUrl()
-        self.setReqParam()
-        self.sendRequest()
+        self.handle_depnd_param()
 
-    def selApi(self):
-        self.D_api = D_Api.objects.all().get(D_api_id=self.D_api_id)
+    def handle_depnd_param(self):
+        while "$." in self.param:
+            path = strtool.str_replace(self.param, 2)
+            self.d_api = Interface(self.depnd_api_id, var_map=self.var_map)
+            self.d_api.run()
+            self.param = self.param.replace(path, str(self.d_api.get_param_value(path)))
 
-    def setUrl(self):
-        self.url = self.D_api.D_api_protocol + "://" + self.D_api.D_api_url
-        while "{{" in self.url:
-            self.url = strtool.str_replace(self.url, self.var_map)
-
-    def setReqParam(self):
-        self.param = self.D_api.D_api_param
-        while "{{" in self.param:
-            self.param = strtool.str_replace(self.param, self.var_map)
-        self.param = self.param.replace("\'", "\"")
-
-    def sendRequest(self):
-        if self.D_api.D_api_method == "post":
-            if "headers" in self.var_map.keys():
-                headers = json.loads(self.var_map["headers"])
-                re = requests.post(self.url, data=self.param, headers=headers)
-            else:
-                re = requests.post(self.url, data=self.param)
-            self.resp = {
-                "header": re.headers,
-                "status_code": re.status_code,
-                "content": re.json()
-            }
-        if self.D_api.D_api_method == "get":
-            if "headers" in self.var_map.keys():
-                headers = json.loads(self.var_map["headers"])
-                self.param = json.loads(self.param)
-                re = requests.get(self.url, params=self.param, headers=headers)
-            else:
-                re = requests.get(self.url, params=self.param)
-            self.resp = {
-                "header": re.headers,
-                "status_code": re.status_code,
-                "content": re.json()
-            }
-
-    def set_pick_param(self):
-        pick_param_list = json.loads(self.D_api.D_pick_param)
-        for pick_param in pick_param_list:
-            param_path = pick_param["path"].split('.')
-            param = self.resp["content"]
-            for p in param_path:
-                param = param[p]
-                self.pick_param[pick_param["param_name"]]=param
-
-    def get_pick_param(self):
-        return self.pick_param
+    def get_param_value(self, param_path):
+        param_path = param_path[2:]
+        param_path = param_path.split('.')
+        param = self.resp["content"]
+        for p in param_path:
+            param = param[p]
+        return param

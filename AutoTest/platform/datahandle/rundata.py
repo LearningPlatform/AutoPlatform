@@ -17,6 +17,9 @@ def get_run_info(data):
     start_time = int(time.time())
     for a in case_list:
         c = CaseEntity(a, var_map, result.result_id)
+        c.run()
+        c.check_result()
+        c.save_result()
         if c.get_passnum() ==1:
             pass_num = pass_num + 1
         else:
