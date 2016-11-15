@@ -103,8 +103,56 @@ a:active {text-decoration:none ;color: #3c3c3c}
 
 .marginRight{
     margin-right: 10%;
+}
+
+.input11{
+    background-color:#999999;
+    height:69px;
+    width:150px;
+    text-align: right;
+    padding-top:30px;
+    margin-left: 5%;
+}
+
+.input21{
+    width:60%;
+}
+
+.input12{
+    background-color:#999999;
+    height:33px;
+    width:150px;
+    text-align: right;
+    padding-top:10px;
+    margin-left: 5%;
+}
+
+.input22{
+    width:60%;
+    height:34px;
+}
+
+.wid3{
+    width:60px;
+    text-align: left;
+    color:#3c3c3c;
+    padding-bottom: 8px;
 
 }
+
+.wid4{
+    width:180px;
+    text-align: left;
+    color:#3c3c3c;
+    padding-bottom: 8px;
+}
+
+.design tr:nth-child(2n)
+{
+         background:#eeeeee;
+}
+
+
 
 
 
