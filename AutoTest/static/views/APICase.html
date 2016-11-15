@@ -2,12 +2,6 @@
     <div>
         <h1 class="page-header text-primary">API用例库</h1>
     </div>
-    <div>
-        <div class="alert alert-info" ng-show="varInfoShow">
-            项目中的接口测试用例
-            <button class="btn bg-info pull-right" ng-click="varInfoShow = !varInfoShow"><span class="glyphicon glyphicon-remove"></span></button>
-        </div>
-    </div>
     <div class="panel panel-default">
         <div class="panel-body">
             <div class="row">
@@ -38,41 +32,39 @@
             </div>
         </div>
         <div class="panel-body">
-            <div class="panel-body">
-                <div class="row">
-                    <div class="col-md-6">
-                        <div class="btn-group">
-                            <button type="button" class="btn btn-info" ng-click="run()">
-                                <span class="glyphicon glyphicon-play"></span>运行
-                            </button>
-                            <button type="button" class="btn btn-default" ng-click="addCase()">
-                                添加用例
-                            </button>
-                            <button type="button" class="btn btn-default" ng-click="addSuite()">
-                                添加套件
-                            </button>
-                            <button type="button" class="btn btn-default" ng-click="addApi()">
-                                添加接口
-                            </button>
-                            <button type="button" class="btn btn-default" ng-click="addModule()">
-                                添加模块
-                            </button>
-                        </div>
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="btn-group">
+                        <button type="button" class="btn btn-info" ng-click="run()">
+                            <span class="glyphicon glyphicon-play"></span>运行
+                        </button>
+                        <button type="button" class="btn btn-default" ng-click="addCase()">
+                            添加用例
+                        </button>
+                        <button type="button" class="btn btn-default" ng-click="addSuite()">
+                            添加套件
+                        </button>
+                        <button type="button" class="btn btn-default" ng-click="addApi()">
+                            添加接口
+                        </button>
+                        <button type="button" class="btn btn-default" ng-click="addModule()">
+                            添加模块
+                        </button>
                     </div>
-                    <form>
-                        <div class="col-md-1 col-md-offset-2">
-                            <select class="form-control" ng-model="var.var_type" ng-options="type for type in varType">
-                                <option value="">全部</option>
-                            </select>
-                        </div>
-                        <div class="col-md-2">
-                            <input class="form-control">
-                        </div>
-                        <div class="col-md-1">
-                            <button class="btn btn-info">查询</button>
-                        </div>
-                    </form>
                 </div>
+                <form>
+                    <div class="col-md-1 col-md-offset-2">
+                        <select class="form-control" ng-model="var.var_type" ng-options="type for type in varType">
+                            <option value="">全部</option>
+                        </select>
+                    </div>
+                    <div class="col-md-2">
+                        <input class="form-control">
+                    </div>
+                    <div class="col-md-1">
+                        <button class="btn btn-info">查询</button>
+                    </div>
+                </form>
             </div>
         </div>
         <div class="panel-body" ng-show="showAllAPI">
