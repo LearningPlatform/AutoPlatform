@@ -11,7 +11,7 @@ def get_run_info(data):
     suite_id = data["suite_id"]
     pass_num = 0
     fail_num = 0
-    result = Result.objects.create(report_name=report_name,pro_id=pro_id,suite_id=suite_id)
+    result = Result.objects.create(report_name=report_name, pro_id=pro_id, suite_id=suite_id)
     var_map = get_env_var_map(env_id)
     case_list = get_run_case_id_list(suite_id)
     start_time = int(time.time())

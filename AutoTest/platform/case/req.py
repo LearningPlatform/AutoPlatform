@@ -17,8 +17,6 @@ class ReqResp:
 
     def __init__(self):
         pass
-        # self.var_map = var_map
-        # self.d_api = Interface(self.depnd_api_id, var_map=self.var_map)
 
     def setUrl(self):
         self.url = self.api_protocol + "://" + self.url
@@ -40,9 +38,11 @@ class ReqResp:
             else:
                 re = requests.post(self.url, data=self.param)
             self.resp = {
-                "header": re.headers,
                 "status_code": re.status_code,
-                "content": re.json()
+                "response_data": {
+                    "header": re.headers,
+                    "body": re.json()
+                }
             }
         if self.api_method == "get":
             if "headers" in self.var_map.keys():
@@ -52,9 +52,11 @@ class ReqResp:
             else:
                 re = requests.get(self.url, params=self.param)
             self.resp = {
-                "header": re.headers,
                 "status_code": re.status_code,
-                "content": re.json()
+                "response_data": {
+                    "header": re.headers,
+                    "body": re.json()
+                }
             }
 
     def run(self):

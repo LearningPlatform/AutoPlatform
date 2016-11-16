@@ -37,17 +37,24 @@ class CaseEntity(ReqResp):
             self.param = self.param.replace(path, str(self.d_api.get_param_value(path)))
 
     def check_result(self):
-        if json.dumps(self.resp["content"], ensure_ascii=False).find(self.case.exp_data) == -1:
+        if json.dumps(self.resp["response_data"]["body"], ensure_ascii=False).find(self.case.exp_data) == -1:
             self.is_pass = 0
         else:
             self.is_pass = 1
 
     def save_result(self):
+        if self.api.api_type != "json":
+            self.param = json.dumps(self.param)
+        self.param = json.loads(self.param)
+        input_data = {
+            "url": self.url,
+            "body": self.param
+        }
         self.result_detail.case_id = self.case.case_id
         self.result_detail.exp_data = self.case.exp_data
         self.result_detail.case_desc = self.case.case_desc
         self.result_detail.api_id = self.api.api_id
-        self.result_detail.input_data = self.param
+        self.result_detail.input_data = input_data
         self.result_detail.out_data = self.resp
         self.result_detail.is_pass = self.is_pass
         self.result_detail.save()

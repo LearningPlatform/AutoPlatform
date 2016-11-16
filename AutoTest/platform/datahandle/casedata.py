@@ -54,22 +54,6 @@ def create_case(data):
     case_name = data['case_name']
     case_id = Case.objects.create(pro_id=pro_id, api_id=api_id, case_desc=case_desc, case_name=case_name).case_id
     suite_list_data = data['suite_list']
-    for suite in suite_list_data:
-        if suite['checked']:
-            CaseSuite.objects.create(pro_id=pro_id, api_id=api_id, case_id=case_id, suite_id=suite['suite_id'])
-    return {
-        "code": 1,
-        "msg": "保存成功"
-    }
-
-
-def create_case2(data):
-    pro_id = data['pro_id']
-    api_id = data['api_id']
-    case_desc = data['case_desc']
-    case_name = data['case_name']
-    case_id = Case.objects.create(pro_id=pro_id, api_id=api_id, case_desc=case_desc, case_name=case_name).case_id
-    suite_list_data = data['suite_list']
     for suite_id in suite_list_data:
         CaseSuite.objects.create(pro_id=pro_id, api_id=api_id, case_id=case_id, suite_id=suite_id)
     return {
@@ -79,25 +63,6 @@ def create_case2(data):
 
 
 def edit_case_info(data):
-    case_id = data['case_id']
-    pro_id = data['pro_id']
-    api_id = data['api_id']
-    case_desc = data['case_desc']
-    case_name = data['case_name']
-    Case.objects.all().filter(case_id=case_id).update(pro_id=pro_id, api_id=api_id, case_desc=case_desc,
-                                                      case_name=case_name)
-    CaseSuite.objects.all().filter(case_id=case_id).delete()
-    suite_list_data = data['suite_list']
-    for suite in suite_list_data:
-        if suite['checked']:
-            CaseSuite.objects.create(pro_id=pro_id, api_id=api_id, case_id=case_id, suite_id=suite['suite_id'])
-    return {
-        "code": 1,
-        "msg": "保存成功"
-    }
-
-
-def edit_case_info2(data):
     case_id = data['case_id']
     pro_id = data['pro_id']
     api_id = data['api_id']
@@ -118,7 +83,8 @@ def edit_case_info2(data):
 def edit_req(data):
     case_id = data['case_id']
     input_data = data['input_data']
-    Case.objects.all().filter(case_id=case_id).update(input_data=input_data, is_set=1)
+    depnd_api_id = data['depnd_api_id']
+    Case.objects.all().filter(case_id=case_id).update(input_data=input_data, is_set=1, depnd_api_id=depnd_api_id)
     return {
         "code": 1,
         "msg": "保存成功"

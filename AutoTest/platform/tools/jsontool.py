@@ -2,7 +2,7 @@
 """
 @author:liujing
 """
-
+import json
 
 def convert_to_dict(obj):
     """
@@ -54,3 +54,9 @@ def class_to_dict(obj):
         dict = {}
         dict.update(obj.__dict__)
         return dict
+
+
+def str_to_json(str1):
+    test = str1
+    test = test.replace("\'", "\"")
+    return json.loads(test)

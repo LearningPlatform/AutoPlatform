@@ -22,7 +22,7 @@ def str_replace(str_re, str_type):
         return a, b+2, str1
     if str_type == 2:
         a = str_re.find('$.')
-        b_list = [str_re.find('"', a), str_re.find(',', a), str_re.find('}', a)]
+        b_list = [str_re.find('"', a), str_re.find(',', a), str_re.find('}', a), str_re.find('\'', a)]
         b = len(str_re)
         for i in b_list:
             if 0 < i < b:

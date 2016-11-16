@@ -29,7 +29,7 @@ class Interface(ReqResp):
     def get_param_value(self, param_path):
         param_path = param_path[2:]
         param_path = param_path.split('.')
-        param = self.resp["content"]
+        param = self.resp["response_data"]["body"]
         for p in param_path:
             param = param[p]
         return param

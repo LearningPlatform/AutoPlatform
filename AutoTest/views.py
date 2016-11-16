@@ -3,7 +3,6 @@ import json
 
 from .platform.datahandle import prodata, envdata, vardata, moduledata, suitedata, \
     casedata, apidata, rundata, resultdata, dapidata
-from .platform.case import case
 from .platform.tools import strtool
 
 
@@ -1247,8 +1246,7 @@ def case_create(req):
       "pro_id": 5,     项目id
       "case_desc": "正向验证",     case描述
       "case_name": "正确登录",     case名字
-      "suite_list":[{"checked":1,"suite_id":1},{"checked":0,"suite_id":2}]     套件列表对象，checked为1，表示被勾选，
-                                                                                checked为0，表示未被勾选；
+      "suite_list":[1,2]     套件列表对象，列表中为所属的suite_id
     }
     :return:
     如：
@@ -1263,59 +1261,7 @@ def case_create(req):
     return HttpResponse(json.dumps(resp), content_type="application/json")
 
 
-def case_create2(req):
-    """
-    创建case
-    请求方法：post
-    如：
-    {
-      "api_id": 1,     接口id
-      "pro_id": 5,     项目id
-      "case_desc": "正向验证",     case描述
-      "case_name": "正确登录",     case名字
-      "suite_list":[1,2]     套件列表对象，列表中为所属的suite_id
-    }
-    :return:
-    如：
-    成功：
-    {
-      "code": 1,
-      "msg": "保存成功"
-    }
-    """
-    data = json.loads(str(req.body, encoding="utf-8"))
-    resp = casedata.create_case2(data)
-    return HttpResponse(json.dumps(resp), content_type="application/json")
-
-
 def case_info_edit(req):
-    """
-    编辑case的基本信息
-    请求方法：post
-    如：
-    {
-      "api_id": 1,     接口id
-      "case_id": 1,    case的id
-      "pro_id": 5,     项目id
-      "case_desc": "正向验证",     case描述
-      "case_name": "正确登录",     case名字
-      "suite_list":[{"checked":1,"suite_id":1},{"checked":0,"suite_id":2}]     套件列表对象，checked为1，表示被勾选，
-                                                                                checked为0，表示未被勾选；
-    }
-    :return:
-    如：
-    成功：
-    {
-      "code": 1,
-      "msg": "保存成功"
-    }
-    """
-    data = json.loads(str(req.body, encoding="utf-8"))
-    resp = casedata.edit_case_info(data)
-    return HttpResponse(json.dumps(resp), content_type="application/json")
-
-
-def case_info_edit2(req):
     """
     编辑case的基本信息
     请求方法：post
@@ -1338,7 +1284,7 @@ def case_info_edit2(req):
     }
     """
     data = json.loads(str(req.body, encoding="utf-8"))
-    resp = casedata.edit_case_info2(data)
+    resp = casedata.edit_case_info(data)
     return HttpResponse(json.dumps(resp), content_type="application/json")
 
 
@@ -1350,6 +1296,7 @@ def case_req_edit(req):
     {
       "case_id": 1,    case的id
       "input_data": xx,   根据设定的参数的格式，传入对应的的格式的值。如json的话，就直接传入json格式的对象等，数组就传入数组
+      "depnd_api_id":2    依赖接口id，若没有添加依赖接口，则默认置为0
     }
     :return:
     如：
@@ -1540,9 +1487,229 @@ def result_detail_list(req):
     return HttpResponse(json.dumps(resp), content_type="application/json")
 
 
-def test(req):
+def result_detail(req):
+    """
+      获取单个用例结果详情
+      请求方法：post
+      如：
+      {
+       "result_detail_id":50      结果用例id
+       }
+      :return:
+      如：
+      成功：
+      {
+      "data": {
+        "out_data": {
+          "response_data": {
+            "header": {
+              "Connection": "keep-alive",
+              "Content-Type": "application/json",
+              "Transfer-Encoding": "chunked",
+              "X-Powered-By": "PHP/5.4.16",
+              "Date": "Wed, 16 Nov 2016 06:22:24 GMT",
+              "Server": "nginx/1.6.3"
+            },
+            "body": {
+              "data": {},
+              "msg": "用户名或者密码错误",
+              "code": 20010
+            }
+          },
+          "status_code": 200
+        },
+        "depnd_api_id": null,
+        "module_id": 2,
+        "input_data": {
+          "url": "http://oa.supernano.com/index.php?r=api/login/login",
+          "body": {
+            "username": "liujing3@supernano.com",
+            "pwd": "000000"
+          }
+        },
+        "is_set": 1,
+        "exp_data": "错误",
+        "api_url": "{{host}}/index.php?r=api/login/login",
+        "pro_id": 2,
+        "case_id": 2,
+        "api_method": "post",
+        "api_desc": "无",
+        "api_name": "登录接口",
+        "api_type": "json",
+        "api_id": 2,
+        "result_detail_id": 163,
+        "case_name": "错误登录-密码未加密",
+        "is_pass": 1,
+        "api_protocol": "http",
+        "api_param": "username,pwd",
+        "result_id": 94,
+        "case_desc": "无",
+        "check_type": null
+      },
+      "msg": "返回成功",
+      "code": 1
+    }
+      """
     data = json.loads(str(req.body, encoding="utf-8"))
-    resp = dapidata.test(data)
+    resp = resultdata.get_result_detail(data)
     return HttpResponse(json.dumps(resp), content_type="application/json")
 
+
+def dapi_list(req):
+    """
+       获取项目所有的依赖接口列表
+       请求方法：post
+       如：
+       {
+        "pro_id":50      项目id
+        }
+       :return:
+       如：
+       成功：
+       {
+  "msg": "获取成功",
+  "code": 1,
+  "data": [
+        {
+          "depnd_api_url": "{{host}}/index.php?r=api/login/login",
+          "depnd_api_id": 1,
+          "depnd_id": 0,
+          "depnd_api_param": "{'username': 'liujing3@supernano.com', 'pwd': '670b14728ad9902aecba32e22fa4f6bd'}",
+          "depnd_api_method": "post",
+          "depnd_api_desc": "测试描述",
+          "depnd_api_type": "json",
+          "depnd_api_name": "获取uid",
+          "pro_id": 2,
+          "depnd_api_protocol": "http"
+        },
+        {
+          "depnd_api_url": "{{host}}/index.php?r=api/login/login",
+          "depnd_api_id": 4,
+          "depnd_id": 0,
+          "depnd_api_param": "{'username': 'liujing3@supernano.com', 'pwd': '670b14728ad9902aecba32e22fa4f6bd'}",
+          "depnd_api_method": "post",
+          "depnd_api_desc": "测试描述",
+          "depnd_api_type": "json",
+          "depnd_api_name": "获取uid",
+          "pro_id": 2,
+          "depnd_api_protocol": "http"
+        }
+      ]
+    }
+       """
+    data = json.loads(str(req.body, encoding="utf-8"))
+    resp = dapidata.get_dapi_list(data)
+    return HttpResponse(json.dumps(resp), content_type="application/json")
+
+
+def dapi_detail(req):
+    """
+       获取单个依赖接口详情
+       请求方法：post
+       如：
+      {
+    "depnd_api_id":1    依赖接口id
+    }
+       :return:
+       如：
+       成功：
+       {
+  "data": {
+    "depnd_api_name": "获取uid",
+    "depnd_api_protocol": "http",
+    "depnd_api_desc": "测试描述",
+    "depnd_api_method": "post",
+    "depnd_api_type": "json",
+    "depnd_api_id": 1,
+    "depnd_api_url": "{{host}}/index.php?r=api/login/login",
+    "depnd_api_param": "{'username': 'liujing3@supernano.com', 'pwd': '670b14728ad9902aecba32e22fa4f6bd'}",
+    "pro_id": 2,
+    "depnd_id": 0
+  },
+  "msg": "获取成功",
+  "code": 1
+}
+       """
+    data = json.loads(str(req.body, encoding="utf-8"))
+    resp = dapidata.get_dapi_detail(data)
+    return HttpResponse(json.dumps(resp), content_type="application/json")
+
+
+def dapi_create(req):
+    """
+       创建依赖接口
+       请求方法：post
+       如：
+       {"depnd_api_name": "获取uid",      依赖接口名
+        "depnd_api_protocol": "http",       依赖接口请求协议
+        "depnd_api_desc": "测试描述",       依赖接口描述
+        "depnd_api_method": "get",          依赖接口请求方式
+        "depnd_api_type": "post",            依赖接口请求数据格式
+        "depnd_api_url": "{{host}}/index.php?r=api/login/login",    依赖接口请求url
+        "depnd_api_param": "{'username': 'liujing3@supernano.com', 'pwd': '670b14728ad9902aecba32e22fa4f6bd'}",    请求体
+        "pro_id": 2,    项目id
+        "depnd_id": 0   当前依赖接口所需依赖的接口id
+        }
+       :return:
+       如：
+       成功：
+       {
+  "msg": "创建成功",
+  "code": 1
+}
+       """
+    data = json.loads(str(req.body, encoding="utf-8"))
+    resp = dapidata.create_dapi(data)
+    return HttpResponse(json.dumps(resp), content_type="application/json")
+
+
+def dapi_edit(req):
+    """
+       创建依赖接口
+       请求方法：post
+       如：
+       {
+           "depnd_api_id": 3,       需要修改的依赖接口id
+       "depnd_api_name": "获取uid",      依赖接口名
+        "depnd_api_protocol": "http",       依赖接口请求协议
+        "depnd_api_desc": "测试描述",       依赖接口描述
+        "depnd_api_method": "get",          依赖接口请求方式
+        "depnd_api_type": "post",            依赖接口请求数据格式
+        "depnd_api_url": "{{host}}/index.php?r=api/login/login",    依赖接口请求url
+        "depnd_api_param": "{'username': 'liujing3@supernano.com', 'pwd': '670b14728ad9902aecba32e22fa4f6bd'}",    请求体
+        "pro_id": 2,    项目id
+        "depnd_id": 0   当前依赖接口所需依赖的接口id
+        }
+       :return:
+       如：
+       成功：
+       {
+  "msg": "修改成功",
+  "code": 1
+}
+       """
+    data = json.loads(str(req.body, encoding="utf-8"))
+    resp = dapidata.edit_dapi(data)
+    return HttpResponse(json.dumps(resp), content_type="application/json")
+
+
+def dapi_delete(req):
+    """
+           删除依赖接口
+           请求方法：post
+           如：
+           {
+         "depnd_api_id": 3   依赖接口id
+    }
+           :return:
+           如：
+           成功：
+         {
+      "msg": "删除成功",
+      "code": 1
+    }
+       """
+    data = json.loads(str(req.body, encoding="utf-8"))
+    resp = dapidata.del_dapi(data)
+    return HttpResponse(json.dumps(resp), content_type="application/json")
 

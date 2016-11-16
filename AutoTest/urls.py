@@ -46,25 +46,22 @@ urlpatterns = [
     url(r'project/api/caseList$', views.api_case_list, name="获取接口下的case列表"),
 
     url(r'project/caseList$', views.case_list, name="获取项目中的case列表"),
-    # ############有两个方法，看哪个参数你觉得简单就用哪个吧
-    # url(r'project/case/create$', views.case_create, name="创建case"),
-    # url(r'project/case/edit/info$', views.case_info_edit, name="编辑case的基本信息"),
-    url(r'project/case/create$', views.case_create2, name="创建case"),
-    url(r'project/case/edit/info$', views.case_info_edit2, name="编辑case的基本信息"),
-    # ##########
-
+    url(r'project/case/create$', views.case_create, name="创建case"),
+    url(r'project/case/edit/info$', views.case_info_edit, name="编辑case的基本信息"),
     url(r'project/case/edit/req$', views.case_req_edit, name="编辑case的请求信息"),
     url(r'project/case/edit/resp$', views.case_resp_edit, name="编辑case的响应信息"),
     url(r'project/case/delete$', views.case_del, name="删除case"),
 
-    #######################################################################################
-    # 新加
     url(r'project/case/run$', views.case_run, name="运行用例"),
 
-    url(r'project/result/list$', views.result_list, name="删除case"),
-    url(r'project/result/detailList$', views.result_detail_list, name="删除case"),
+    url(r'project/result/list$', views.result_list, name="获取项目的结果列表"),
+    url(r'project/result/detailList$', views.result_detail_list, name="获取结果的详细信息列表"),
+    url(r'project/result/caseDetail$', views.result_detail, name="获取单个用例运行结果的详细信息"),
 
-
-    url(r'test$', views.test, name="调试用"),
+    url(r'project/dapi/list$', views.dapi_list, name="获取项目下的依赖接口列表"),
+    url(r'project/dapi/detail$', views.dapi_detail, name="获取项目下的依赖接口列表"),
+    url(r'project/dapi/create$', views.dapi_create, name="新建依赖接口"),
+    url(r'project/dapi/edit$', views.dapi_edit, name="编辑依赖接口"),
+    url(r'project/dapi/delete$', views.dapi_delete, name="编辑依赖接口"),
 
 ]

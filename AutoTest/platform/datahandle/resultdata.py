@@ -2,6 +2,8 @@ from ...models import Result, ResultDetail, Case, Api, Suite
 
 from ..tools import jsontool
 
+import json
+
 
 def get_result_list(data):
     pro_id = data["pro_id"]
@@ -26,7 +28,10 @@ def get_result_detail_list(data):
     result_detail_list = ResultDetail.objects.all().filter(result_id=result_id)
     for result_datail in result_detail_list:
         a = jsontool.class_to_dict(result_datail)
+        a["input_data"] = jsontool.str_to_json(a["input_data"])
+        a["out_data"] = jsontool.str_to_json(a["out_data"])
         b = jsontool.class_to_dict(Case.objects.all().get(case_id=a["case_id"]))
+        del (b['input_data'])
         c = jsontool.class_to_dict(Api.objects.all().get(api_id=a["api_id"]))
         var = dict(a, **b)
         var = dict(var, **c)
@@ -36,4 +41,23 @@ def get_result_detail_list(data):
         "code": 1,
         "msg": "返回成功",
         "data": body_list
+    }
+
+
+def get_result_detail(data):
+    result_detail_id = data["result_detail_id"]
+    result_detail = ResultDetail.objects.all().get(result_detail_id=result_detail_id)
+    a = jsontool.class_to_dict(result_detail)
+    a["input_data"] = jsontool.str_to_json(a["input_data"])
+    a["out_data"] = jsontool.str_to_json(a["out_data"])
+    b = jsontool.class_to_dict(Case.objects.all().get(case_id=a["case_id"]))
+    del (b['input_data'])
+    c = jsontool.class_to_dict(Api.objects.all().get(api_id=a["api_id"]))
+    var = dict(a, **b)
+    var = dict(var, **c)
+    del (var['_state'])
+    return {
+        "code": 1,
+        "msg": "返回成功",
+        "data": var
     }
