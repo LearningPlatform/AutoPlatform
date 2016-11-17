@@ -57,11 +57,15 @@ urlpatterns = [
     url(r'project/result/list$', views.result_list, name="获取项目的结果列表"),
     url(r'project/result/detailList$', views.result_detail_list, name="获取结果的详细信息列表"),
     url(r'project/result/caseDetail$', views.result_detail, name="获取单个用例运行结果的详细信息"),
+    url(r'project/result/delete$', views.result_delete, name="删除结果"),
 
     url(r'project/dapi/list$', views.dapi_list, name="获取项目下的依赖接口列表"),
     url(r'project/dapi/detail$', views.dapi_detail, name="获取项目下的依赖接口列表"),
     url(r'project/dapi/create$', views.dapi_create, name="新建依赖接口"),
     url(r'project/dapi/edit$', views.dapi_edit, name="编辑依赖接口"),
     url(r'project/dapi/delete$', views.dapi_delete, name="编辑依赖接口"),
+
+
+    url(r'project/code/create$', views.code_create, name="编辑依赖接口"),
 
 ]

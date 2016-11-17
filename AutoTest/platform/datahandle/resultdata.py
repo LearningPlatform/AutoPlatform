@@ -61,3 +61,13 @@ def get_result_detail(data):
         "msg": "返回成功",
         "data": var
     }
+
+
+def del_result(data):
+    result_id = data["result_id"]
+    Result.objects.all().get(result_id=result_id).delete()
+    ResultDetail.objects.all().filter(result_id=result_id).delete()
+    return {
+        "code": 1,
+        "msg": "删除成功"
+    }

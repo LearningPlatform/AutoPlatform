@@ -2,7 +2,7 @@ from django.shortcuts import render_to_response,HttpResponse
 import json
 
 from .platform.datahandle import prodata, envdata, vardata, moduledata, suitedata, \
-    casedata, apidata, rundata, resultdata, dapidata
+    casedata, apidata, rundata, resultdata, dapidata, funcdata
 from .platform.tools import strtool
 
 
@@ -1555,6 +1555,27 @@ def result_detail(req):
     return HttpResponse(json.dumps(resp), content_type="application/json")
 
 
+def result_delete(req):
+    """
+      删除结果
+      请求方法：post
+      如：
+      {
+       "result_id":50      结果id
+       }
+      :return:
+      如：
+      成功：
+      {
+      "code": 1,
+      "msg": "删除成功"
+    }
+      """
+    data = json.loads(str(req.body, encoding="utf-8"))
+    resp = resultdata.del_result(data)
+    return HttpResponse(json.dumps(resp), content_type="application/json")
+
+
 def dapi_list(req):
     """
        获取项目所有的依赖接口列表
@@ -1711,5 +1732,11 @@ def dapi_delete(req):
        """
     data = json.loads(str(req.body, encoding="utf-8"))
     resp = dapidata.del_dapi(data)
+    return HttpResponse(json.dumps(resp), content_type="application/json")
+
+
+def code_create(req):
+    data = json.loads(str(req.body, encoding="utf-8"))
+    resp = funcdata.code_create(data)
     return HttpResponse(json.dumps(resp), content_type="application/json")
 
