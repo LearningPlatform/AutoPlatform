@@ -73,6 +73,7 @@ def edit_suite(data):
 def del_suite(data):
     suite_id = data["suite_id"]
     Suite.objects.all().get(suite_id=suite_id).delete()
+    CaseSuite.objects.all().filter(suite_id=suite_id).delete()
     return {
         "code": 1,
         "msg": "删除成功"
@@ -87,7 +88,6 @@ def get_suite_case_list(data):
         a = jsontool.class_to_dict(Case.objects.all().get(case_id=a.case_id))
         del (a['_state'])
         body.append(a)
-    print(test)
     return {
         "code": 1,
         "msg": "获取成功",
