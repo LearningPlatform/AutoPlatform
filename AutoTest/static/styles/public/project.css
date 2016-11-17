@@ -133,7 +133,7 @@ a:active {text-decoration:none ;color: #3c3c3c}
 }
 
 .wid3{
-    width:60px;
+    width:10%;
     text-align: left;
     color:#3c3c3c;
     padding-bottom: 8px;
@@ -141,10 +141,14 @@ a:active {text-decoration:none ;color: #3c3c3c}
 }
 
 .wid4{
-    width:180px;
+    width:20%;
     text-align: left;
     color:#3c3c3c;
     padding-bottom: 8px;
+}
+
+.wid5{
+    width:100%;
 }
 
 .design tr:nth-child(2n)
