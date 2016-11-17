@@ -641,7 +641,8 @@ myApp.controller('APICaseCtrl',function($scope,$http,$cookieStore,$timeout) {
          $scope.case.input_data=angular.fromJson($scope.str);
          $http.post('project/case/edit/req',{
              "case_id":id,
-             "input_data":$scope.case.input_data
+             "input_data":$scope.case.input_data,
+             "depnd_api_id":0
          }).success(function(response){
              if(response.code==0){
                  alert(response.msg);
@@ -653,7 +654,8 @@ myApp.controller('APICaseCtrl',function($scope,$http,$cookieStore,$timeout) {
         $scope.case.input_data=angular.fromJson(abc);
         $http.post('project/case/edit/req',{
             "case_id":id,
-            "input_data":$scope.case.input_data
+            "input_data":$scope.case.input_data,
+            "depnd_api_id":0
         }).success(function(response){
             if(response.code==0){
                 alert(response.msg);
