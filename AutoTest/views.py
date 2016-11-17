@@ -2,7 +2,7 @@ from django.shortcuts import render_to_response,HttpResponse
 import json
 
 from .platform.datahandle import prodata, envdata, vardata, moduledata, suitedata, \
-    casedata, apidata, rundata, resultdata, dapidata
+    casedata, apidata, rundata, resultdata, dapidata, funcdata
 from .platform.tools import strtool
 
 
@@ -1732,5 +1732,11 @@ def dapi_delete(req):
        """
     data = json.loads(str(req.body, encoding="utf-8"))
     resp = dapidata.del_dapi(data)
+    return HttpResponse(json.dumps(resp), content_type="application/json")
+
+
+def code_create(req):
+    data = json.loads(str(req.body, encoding="utf-8"))
+    resp = funcdata.code_create(data)
     return HttpResponse(json.dumps(resp), content_type="application/json")
 
