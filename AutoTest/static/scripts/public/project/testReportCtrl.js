@@ -52,6 +52,7 @@ myApp.controller('testReportCtrl',function($scope,$http,$cookieStore,$timeout) {
      })
 
     $scope.showDetail=function(obj){
+        console.log(obj.result_id)
         $scope.result=obj;
         $scope.repList=false;
         $scope.repDetail=true;
@@ -61,19 +62,8 @@ myApp.controller('testReportCtrl',function($scope,$http,$cookieStore,$timeout) {
              if(response.code=1){
                  $scope.allResult=response.data;
                  $scope.resultStr="";
-                 if($scope.allResult.length>1){
-                     for(var i=0; i<$scope.allResult.length-1;i++){
-                         var str= angular.toJson($scope.allResult[i]);
-                         $scope.resultStr = $scope.resultStr + str + " ";
-                         $scope.reportDetal[i]=false;
-                     }
-                     $scope.reportDetal[$scope.allResult.length-1]=false;
-                     str= angular.toJson($scope.allResult[$scope.allResult.length-1]);
-                     $scope.resultStr=$scope.resultStr+str;
-                 }else{
-                     $scope.reportDetal[0]=false;
-                     str= angular.toJson($scope.allResult[$scope.allResult.length-1]);
-                     $scope.resultStr=$scope.resultStr+str;
+                 for(var i=0; i<$scope.allResult.length-1;i++){
+                     $scope.reportDetal[i]=false;
                  }
              }else{
                  alert(response1.msg)
