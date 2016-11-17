@@ -2,22 +2,6 @@
     <div>
         <h1 class="page-header text-primary">测试报告</h1>
     </div>
- <!--
-    <div class="row">
-        <div class="pull-right col-xs-2 top4">
-            <form class="bs-example bs-example-form">
-                <div class="input-group">
-                    <input type="text" class="form-control">
-                    <span class="input-group-addon">查询</span>
-                </div>
-            </form>
-            <ul class="contain nav nav-pills nav-stacked">
-               <li ng-repeat="result in resultList" class="{$List[$index]$}">
-                   <a class="bind_hover_card" ng-click="active($index,result)" ng-bind="result.report_name"></a>
-               </li>
-            </ul>
-        </div>
-        <div class="col-xs-10">-->
     <div class="row top4" ng-show="repList">
         <form class="col-md-3 bs-example bs-example-form">
             <div class="input-group">
@@ -69,7 +53,7 @@
                         <td ng-bind="result.fail_num"></td>
                         <td>
                             <a ng-click="showDetail(result)">查看详情</a>
-                            <a ng-click="delReport()">删除</a>
+                            <a ng-click="delReport(result.result_id)">删除</a>
                         </td>
                     </tr>
                 </tbody>
