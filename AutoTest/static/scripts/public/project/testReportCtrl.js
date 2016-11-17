@@ -46,7 +46,7 @@ myApp.controller('testReportCtrl',function($scope,$http,$cookieStore,$timeout) {
              if(response1.code=1){
                  $scope.resultList=response1.data;
              }else{
-                 alert(response.msg)
+                 alert(response1.msg)
              }
          })
      })
@@ -98,65 +98,24 @@ myApp.controller('testReportCtrl',function($scope,$http,$cookieStore,$timeout) {
          })
     }
 
-    /*
-    $scope.inquiry=function(str){
-        for (var i=0; i<$scope.resultList.length;i++){
-            if($scope.resultList[i].report_name==str){
-                $scope.result=$scope.resultList[i];
-            }
-            break;
-        }
-        console.log($scope.result)
-        $http.post('project/result/detailList',{
-            "result_id":$scope.result.result_id
+    $scope.delReport=function(id){
+        $http.post("project/result/delete",{
+            "result_id":id
         }).success(function(response){
-            if(response.code=1){
-                $scope.allResult=response.data;
-                console.log($scope.allResult)
-                $scope.resultStr="";
-                if($scope.allResult.length>1){
-                    for(var i=0; i<$scope.allResult.length-1;i++){
-                        var str= angular.toJson($scope.allResult[i]);
-                        $scope.resultStr = $scope.resultStr + str + " ";
-                    }
-                    str= angular.toJson($scope.allResult[$scope.allResult.length-1]);
-                    $scope.resultStr=$scope.resultStr+str;
-                }else{
-                    str= angular.toJson($scope.allResult[$scope.allResult.length-1]);
-                    $scope.resultStr=$scope.resultStr+str;
-                }
+            if(response.code==1){
+                $http.post('project/result/list',{
+                     "pro_id":pro_id
+                }).success(function(response1){
+                     if(response1.code=1){
+                         $scope.resultList=response1.data;
+                     }else{
+                         alert(response1.msg)
+                     }
+                })
             }else{
                 alert(response.msg)
             }
         })
     }
-    $scope.active=function(id,obj){
-        $scope.result=$scope.resultList[id];
-        for(var i=0;i<$scope.resultList.length;i++){
-            $scope.List[i]="disactive";
-        }
-        $scope.List[id]="active";
-        $http.post('project/result/detailList',{
-            "result_id":obj.result_id
-        }).success(function(response){
-            if(response.code=1){
-                $scope.allResult=response.data;
-                $scope.resultStr="";
-                if($scope.allResult.length>1){
-                    for(var i=0; i<$scope.allResult.length-1;i++){
-                        var str= angular.toJson($scope.allResult[i]);
-                        $scope.resultStr = $scope.resultStr + str + " ";
-                    }
-                    str= angular.toJson($scope.allResult[$scope.allResult.length-1]);
-                    $scope.resultStr=$scope.resultStr+str;
-                }else{
-                    str= angular.toJson($scope.allResult[$scope.allResult.length-1]);
-                    $scope.resultStr=$scope.resultStr+str;
-                }
-            }else{
-                alert(response.msg)
-            }
-        })
-    }*/
 
 })
