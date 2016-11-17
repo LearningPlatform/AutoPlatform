@@ -78,12 +78,12 @@
     </div>
 
     <div class="row top4" ng-show="repDetail">
-        <div class="col-md-1">
-            <button class="btn btn-info" ng-click="returnList()">返回</button>
+        <div class="col-md-2">
+            <a ng-click="returnList()">>>返回报告列表</a>
         </div>
         <h4 class="col-md-2" ng-bind="result.report_name">
         </h4>
-        <span class="col-md-3">
+        <span class="col-md-2">
             开始时间：<span ng-bind="result.start_time"></span></br>
             结束时间：<span ng-bind="result.end_time"></span>
         </span>
