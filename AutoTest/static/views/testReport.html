@@ -2,22 +2,6 @@
     <div>
         <h1 class="page-header text-primary">测试报告</h1>
     </div>
- <!--
-    <div class="row">
-        <div class="pull-right col-xs-2 top4">
-            <form class="bs-example bs-example-form">
-                <div class="input-group">
-                    <input type="text" class="form-control">
-                    <span class="input-group-addon">查询</span>
-                </div>
-            </form>
-            <ul class="contain nav nav-pills nav-stacked">
-               <li ng-repeat="result in resultList" class="{$List[$index]$}">
-                   <a class="bind_hover_card" ng-click="active($index,result)" ng-bind="result.report_name"></a>
-               </li>
-            </ul>
-        </div>
-        <div class="col-xs-10">-->
     <div class="row top4" ng-show="repList">
         <form class="col-md-3 bs-example bs-example-form">
             <div class="input-group">
@@ -45,7 +29,7 @@
             <button class="btn btn-info" ng-click="inquiry(reportName)">查询</button>
         </div>
         <div class="top4 col-md-11">
-            <table class="table table-responsive table-hover">
+            <table class="table table-striped">
                 <thead>
                     <tr>
                         <th>序号</th>
@@ -69,7 +53,7 @@
                         <td ng-bind="result.fail_num"></td>
                         <td>
                             <a ng-click="showDetail(result)">查看详情</a>
-                            <a ng-click="delReport()">删除</a>
+                            <a ng-click="delReport(result.result_id)">删除</a>
                         </td>
                     </tr>
                 </tbody>
@@ -77,15 +61,13 @@
         </div>
     </div>
 
-    <div class="row"> <a ng-click="returnList()"><span class="glyphicon glyphicon-chevron-left">返回列表</span></a></div>
     <div class="row top4" ng-show="repDetail">
-        <!--<div class="col-md-1">
-            <!--<a ng-click="returnList()">&lt;返回列表</a>
-            <!--<button class="btn btn-info" ng-click="returnList()">返回</button>
-        </div>-->
+        <div class="col-md-2">
+            <a ng-click="returnList()">>>返回报告列表</a>
+        </div>
         <h4 class="col-md-2" ng-bind="result.report_name">
         </h4>
-        <span class="col-md-3">
+        <span class="col-md-2">
             开始时间：<span ng-bind="result.start_time"></span></br>
             结束时间：<span ng-bind="result.end_time"></span>
         </span>

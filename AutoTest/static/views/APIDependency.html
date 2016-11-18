@@ -1,3 +1,123 @@
-<div class="container top">
-    <h1 class="page-header text-primary">API依赖库</h1>
+<div class="top1">
+    <div>
+        <h1 class="page-header text-primary">API依赖库</h1>
+    </div>
+    <div class="marginRight pull-right">
+        <button type="button" class="btn btn-default btn-lg" ng-click="addAPIDep()">
+            <span class="glyphicon glyphicon-plus"></span> 添加依赖接口
+        </button>
+    </div>
+    <div class="col-md-11 top3">
+        <div class="panel panel-default">
+            <div class="panel-body">
+                <div ng-repeat="Dep in apiDepList">
+                    <div class="panel panel-info">
+                        <div class="panel-heading">
+                            <h4 class="panel-title"  ng-mouseenter="shownCom=true" ng-mouseleave="shownCom=false" >
+                                <div class="row">
+                                    <div class="col-xs-4">
+                                    <input type="text" class="form-control" ng-show="edit && editId==Dep.depnd_api_id" ng-model="Dep.depnd_api_name">
+                                    <a class="marginLeft" ng-bind="Dep.depnd_api_name" ng-show="!(edit && editId==Dep.depnd_api_id)" ng-click="apiDepDetail(Dep)"></a>
+                                    </div>
+                                    <div class="pull-right">
+                                        <a ng-show="shownCom" ng-click="editApiDep(Dep)"><span class="glyphicon glyphicon-pencil"></span>编辑</a>
+                                        <a ng-show="shownCom" ng-click="cfdelapiDep(Dep.depnd_api_id)"><span class="glyphicon glyphicon-remove"></span>删除</a>
+                                    </div>
+                                </div>
+                            </h4>
+                        </div>
+                        <div class="panel-body" ng-show="showDetail && (apiDepId==Dep.depnd_api_id || Dep.depnd_api_id == null )">
+                            <div class="row">
+                                 <span class="container col-xs-2 input12">depnd_api_protocol</span>
+                                 <input type="text" class="input22 form-control" ng-model="apiDep.depnd_api_protocol">
+                            </div>
+                            <div class="row">
+                                 <span class="container col-xs-2 input12">depnd_api_method</span>
+                                 <input type="text" class="input22 form-control" ng-model="apiDep.depnd_api_method">
+                            </div>
+                            <div class="row">
+                                 <span class="container col-xs-2 input12">depnd_api_type</span>
+                                 <input type="text" class="input22 form-control" ng-model="apiDep.depnd_api_type">
+                            </div>
+                            <div class="row">
+                                 <span class="container col-xs-2 input12">depnd_api_url</span>
+                                 <input type="text" class="input22 form-control" ng-model="apiDep.depnd_api_url">
+                            </div>
+                            <div class="row">
+                                 <span class="container col-xs-2 input12">depnd_api_param</span>
+                                 <input type="text" class="input22 form-control" ng-model="apiDep.depnd_api_param">
+                            </div>
+                            <div class="row">
+                                 <span class="container col-xs-2 input12">depnd_api_desc</span>
+                                 <input type="text" class="input22 form-control" ng-model="apiDep.depnd_api_desc">
+                            </div>
+                            <div class="row">
+                                 <span class="container col-xs-2 input12">depnd_id</span>
+                                 <input type="text" class="input22 form-control" ng-model="apiDep.depnd_id">
+                            </div>
+                            <button type="button" class="pull-right btn btn-default" ng-click="saveapiDep(apiDep)">保存
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="addapiDep" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+                        &times;
+                    </button>
+                    <h4 class="modal-title">
+                        添加依赖接口
+                    </h4>
+                </div>
+                <div class="modal-body">
+                    <form class="form-horizontal">
+                        <div class="form-group">
+                            <label class="col-md-3 control-label">依赖接口名：</label>
+                            <div class="col-md-8">
+                                <input type="text" class="form-control" placeholder="请输入依赖接口名称" ng-model="apiDep.depnd_api_name">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-md-3 control-label">描述：</label>
+                            <div class="col-md-8">
+                                <input type="text" class="form-control" placeholder="请输入依赖接口描述" ng-model="apiDep.depnd_api_desc">
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal" ng-click="moreDetail(apiDep)">关闭
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="cfapiDep" >
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header alert alert-danger">
+                    <h4 class="modal-title">
+                        删除依赖接口
+                    </h4>
+                </div>
+                <div class="modal-body">
+                    确定删除该依赖接口？？
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">取消
+                    </button>
+                    <button type="button" class="btn btn-primary" ng-click="delapiDep()">
+                        确定
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>

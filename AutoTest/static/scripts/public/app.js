@@ -78,6 +78,7 @@ myApp.config(function($stateProvider,$urlRouterProvider,$interpolateProvider) {
             views:{
                 'intro@project':{
                     templateUrl: '/static/views/APIDependency.html',
+                    controller:'APIDependencyCtrl'
                 }
             }
         })
