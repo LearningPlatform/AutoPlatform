@@ -146,3 +146,13 @@ class DepndApi(models.Model):
     depnd_api_desc = models.TextField(null=True)
     depnd_api_param = models.TextField(null=True)
     depnd_id = models.IntegerField(null=True)
+
+
+class Functions(models.Model):
+    """
+    常用方法
+    """
+    func_id = models.AutoField(primary_key=True)
+    pro_id = models.IntegerField(null=True)
+    func_name = models.CharField(max_length=30, null=True)
+    func_code = models.TextField(null=True)
