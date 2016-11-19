@@ -1,3 +1,144 @@
-<div class="top1 size">
-    <h1 class="page-header text-primary">常用方法</h1>
+<div class="top1">
+    <div>
+        <h1 class="page-header text-primary">常用方法配置</h1>
+    </div>
+    <div class="top3">
+        <button class="btn btn-default" ng-click="addFunc()">添加</button>
+    </div>
+    <div class="col-md-11 top3">
+        <div class="panel panel-default">
+            <div class="panel-body">
+                <div ng-repeat="func in funcList">
+                    <div class="panel panel-info">
+                        <div class="panel-heading">
+                            <h4 class="panel-title"  ng-mouseenter="shownCom=true" ng-mouseleave="shownCom=false" >
+                                 <div class="row">
+                                     <div class="col-xs-4">
+                                     <input type="text" class="form-control" ng-show="edit && editFuncId==func.func_id" ng-model="func.func_name">
+                                     <a class="marginLeft" ng-bind="func.func_name" ng-show="!(edit && editFuncId==func.func_id)" ng-click="funcDetail(func.func_id)"></a>
+                                     </div>
+                                     <div class="pull-right">
+                                         <a ng-show="shownCom" ng-click="editFunc(func.func_id)"><span class="glyphicon glyphicon-pencil"></span>编辑</a>
+                                         <a ng-show="shownCom" ng-click="cfDelFunc(func.func_id)"><span class="glyphicon glyphicon-remove"></span>删除</a>
+                                     </div>
+                                </div>
+
+                            </h4>
+                        </div>
+                        <div class="panel-body" ng-show="showfunc&&(funcId==func.func_id || func.func_id==null)">
+                            <div class="row">
+                                <div class="col-md-10">
+                                    <ul class="nav nav-tabs">
+                                        <li class="{$activeList1[0]$}" >
+                                            <a ng-click="active3(0)">基本信息</a>
+                                        </li>
+                                        <li class="{$activeList1[1]$}" >
+                                            <a ng-click="active3(1)">代码</a>
+                                        </li>
+                                    </ul>
+                                </div>
+                                <div class="pull-right marginRight">
+                                    <button class="btn btn-info" ng-click="saveFunc(func)">保存</button>
+                                </div>
+                            </div>
+                            <div class="top3">
+                                <table class="table" ng-show="formation && !edit">
+                                    <thead>
+                                        <tr>
+                                            <td class="wid6">名称</td>
+                                            <td class="wid7" ng-bind="func.func_name"></td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td class="wid6">描述</td>
+                                            <td class="wid7" ng-bind="func.func_desc"></td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                                <div ng-show="edit">
+                                    <form class="col-md-10 bs-example bs-example-form">
+                                        <div class="input-group">
+                                            <span class="input-group-addon">名字</span>
+                                            <input type="text" class="form-control" ng-model="func.func_name">
+                                        </div>
+                                    </form>
+                                    <form class="col-md-10 bs-example bs-example-form">
+                                        <div class="input-group">
+                                            <span class="input-group-addon">描述</span>
+                                            <input type="text" class="form-control" ng-model="func.func_desc">
+                                        </div>
+                                    </form>
+                                </div>
+                                <div ng-show="code">
+                                    <textarea class="form-control" rows="3"  ng-model="func.func_code">
+                                    </textarea>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="addFunc" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+                        &times;
+                    </button>
+                    <h4 class="modal-title">
+                        添加常用方法
+                    </h4>
+                </div>
+                <div class="modal-body">
+                    <form class="form-horizontal">
+                        <div class="form-group">
+                            <label class="col-md-3 control-label">常用方法名：</label>
+                            <div class="col-md-8">
+                                <input type="text" class="form-control" placeholder="请输入常用方法名称" ng-model="func.func_name">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-md-3 control-label">描述：</label>
+                            <div class="col-md-8">
+                                <input type="text" class="form-control" placeholder="请输入常用方法描述" ng-model="func.func_desc">
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">关闭
+                    </button>
+                    <button type="button" class="btn btn-default" data-dismiss="modal" ng-click="moreFuncDetail(func)">确定
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="cfDelFunc" >
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header alert alert-danger">
+                    <h4 class="modal-title">
+                        删除常用方法
+                    </h4>
+                </div>
+                <div class="modal-body">
+                    确定删除该方法？？
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">取消
+                    </button>
+                    <button type="button" class="btn btn-primary" ng-click="delFunc()">
+                        确定
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
 </div>
