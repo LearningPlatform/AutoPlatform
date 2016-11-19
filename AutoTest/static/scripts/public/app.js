@@ -51,6 +51,7 @@ myApp.config(function($stateProvider,$urlRouterProvider,$interpolateProvider) {
             views:{
                 'intro@project':{
                     templateUrl: '/static/views/method.html',
+                    controller: 'methodCtrl',
                 }
             }
         })
