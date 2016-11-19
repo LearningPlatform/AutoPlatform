@@ -69,5 +69,7 @@ urlpatterns = [
     url(r'project/func/create$', views.func_create, name="编辑依赖接口"),
     url(r'project/func/list$', views.func_list, name="编辑依赖接口"),
     url(r'project/func/detail$', views.func_detail, name="编辑依赖接口"),
+    url(r'project/func/edit$', views.func_edit, name="编辑依赖接口"),
+    url(r'project/func/delete$', views.func_delete, name="编辑依赖接口"),
 
 ]
