@@ -57,6 +57,5 @@ def class_to_dict(obj):
 
 
 def str_to_json(str1):
-    test = str1
-    test = test.replace("\'", "\"")
+    test = str1.replace("\'", "\"")
     return json.loads(test)

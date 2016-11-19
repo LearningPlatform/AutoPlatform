@@ -156,3 +156,4 @@ class Functions(models.Model):
     pro_id = models.IntegerField(null=True)
     func_name = models.CharField(max_length=30, null=True)
     func_code = models.TextField(null=True)
+    func_desc = models.TextField(null=True)

@@ -33,8 +33,30 @@ def create_func(data):
     pro_id = data["pro_id"]
     func_name = data["func_name"]
     func_code = data["func_code"]
-    Functions.objects.all().create(pro_id=pro_id,func_name=func_name,func_code=func_code)
+    func_desc = data['func_desc']
+    Functions.objects.all().create(pro_id=pro_id,func_name=func_name,func_code=func_code,func_desc=func_desc)
     return {
         "code": 1,
         "msg": "创建成功",
+    }
+
+
+def edit_func(data):
+    func_id = data["func_id"]
+    func_name = data['func_name']
+    func_desc = data['func_desc']
+    func_code = data["func_code"]
+    Functions.objects.all().filter(func_id=func_id).update(func_name=func_name,func_code=func_code,func_desc=func_desc)
+    return {
+        "code": 1,
+        "msg": "修改成功"
+    }
+
+
+def del_func(data):
+    func_id = data["func_id"]
+    Functions.objects.all().get(func_id=func_id).delete()
+    return {
+        "code": 1,
+        "msg": "删除成功"
     }
