@@ -66,10 +66,11 @@ urlpatterns = [
     url(r'project/dapi/delete$', views.dapi_delete, name="编辑依赖接口"),
 
 
-    url(r'project/func/create$', views.func_create, name="编辑依赖接口"),
-    url(r'project/func/list$', views.func_list, name="编辑依赖接口"),
-    url(r'project/func/detail$', views.func_detail, name="编辑依赖接口"),
-    url(r'project/func/edit$', views.func_edit, name="编辑依赖接口"),
-    url(r'project/func/delete$', views.func_delete, name="编辑依赖接口"),
+    url(r'project/func/create$', views.func_create, name="创建方法"),
+    url(r'project/func/list$', views.func_list, name="获取方法列表"),
+    url(r'project/func/detail$', views.func_detail, name="获取方法详情"),
+    url(r'project/func/edit$', views.func_edit, name="编辑方法"),
+    url(r'project/func/delete$', views.func_delete, name="删除方法"),
+    url(r'project/func/run$', views.func_run, name="运行方法"),
 
 ]

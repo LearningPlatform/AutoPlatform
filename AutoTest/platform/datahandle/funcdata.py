@@ -1,5 +1,5 @@
 from ...models import Functions
-from ..tools import jsontool
+from ..tools import jsontool, functool
 
 
 def get_func_list(data):
@@ -18,6 +18,7 @@ def get_func_list(data):
 
 
 def get_func_detail(data):
+    functool.test()
     func_id = data['func_id']
     data = Functions.objects.all().get(func_id=func_id)
     data_json = jsontool.convert_to_dict(data)
@@ -59,4 +60,15 @@ def del_func(data):
     return {
         "code": 1,
         "msg": "删除成功"
+    }
+
+
+def run_func(data):
+    func_name = data['func_name']
+    func_code = data["func_code"]
+    result = functool.run_code(func_name,func_code)
+    return {
+        "data": result,
+        "code": 1,
+        "msg": "运行成功"
     }

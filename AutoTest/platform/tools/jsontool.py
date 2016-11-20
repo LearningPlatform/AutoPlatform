@@ -4,6 +4,7 @@
 """
 import json
 
+
 def convert_to_dict(obj):
     """
     把Object对象转换成Dict对象

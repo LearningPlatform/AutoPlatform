@@ -1861,3 +1861,24 @@ def func_delete(req):
     resp = funcdata.del_func(data)
     return HttpResponse(json.dumps(resp), content_type="application/json")
 
+
+def func_run(req):
+    """
+    运行方法
+    请求方法：post
+    如：
+    {
+         "func_code":"jdshgjegdj"              方法代码
+     }
+    :return:
+    如：
+    成功：
+    {
+      "code": 1,
+      "msg": "删除成功"
+    }
+    """
+    data = json.loads(str(req.body, encoding="utf-8"))
+    resp = funcdata.run_func(data)
+    return HttpResponse(json.dumps(resp), content_type="application/json")
+
