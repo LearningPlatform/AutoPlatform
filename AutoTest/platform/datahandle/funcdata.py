@@ -18,8 +18,8 @@ def get_func_list(data):
 
 
 def get_func_detail(data):
-    functool.test()
     func_id = data['func_id']
+    functool.test(func_id)
     data = Functions.objects.all().get(func_id=func_id)
     data_json = jsontool.convert_to_dict(data)
     del(data_json['_state'])
