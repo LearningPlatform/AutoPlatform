@@ -16,7 +16,6 @@ myApp.controller('methodCtrl',function($scope,$http,$cookieStore,$timeout) {
         }).success(function (response) {
              if(response.code==1) {
                  $scope.funcList=response.data;
-                 console.log($scope.funcList)
              }else{
                 alert(response.msg);
             }
@@ -31,7 +30,6 @@ myApp.controller('methodCtrl',function($scope,$http,$cookieStore,$timeout) {
     $scope.moreFuncDetail=function(obj){
         $scope.func=obj;
         $scope.funcList.push($scope.func);
-        console.log($scope.funcList)
         $scope.showfunc=true;
         $scope.activeList1=["disactive","active"];
         $scope.formation=false;
@@ -72,42 +70,64 @@ myApp.controller('methodCtrl',function($scope,$http,$cookieStore,$timeout) {
     }
 
     $scope.saveFunc=function(obj){
+        if(obj.func_desc==""){
+            obj.func_desc=" ";
+        }
+        if(obj.func_code==null){
+            obj.func_code=" ";
+        }
         if(obj.func_id==null){
-            $http.post("project/func/create",{
-                "pro_id":pro_id,
+            $http.post("project/func/run",{
                 "func_name":obj.func_name,
-                "func_code":obj.func_code,
-                "func_desc":obj.func_desc
-            }).success(function(response1){
-                if(response1.code==1){
-                    $http.post("project/func/list",{
-                         "pro_id": pro_id
-                    }).success(function (response) {
-                         if(response.code==1) {
-                             $scope.funcList=response.data;
-                             console.log($scope.funcList)
-                         }else{
-                            alert(response.msg);
+                "func_code":obj.func_code
+            }).success(function(response){
+                if(response.code==1){
+                    $http.post("project/func/create",{
+                        "pro_id":pro_id,
+                        "func_name":obj.func_name,
+                        "func_code":obj.func_code,
+                        "func_desc":obj.func_desc
+                    }).success(function(response1){
+                        if(response1.code==1){
+                            $http.post("project/func/list",{
+                                 "pro_id": pro_id
+                            }).success(function (response2) {
+                                 if(response2.code==1) {
+                                     $scope.funcList=response2.data;
+                                 }else{
+                                    alert(response2.msg);
+                                }
+                            });
+                        }else{
+                            alert(response1.msg)
                         }
-                    });
+                    })
                 }else{
-                    alert(response1.msg)
+                    alert(response.msg)
                 }
             })
         }else{
-            $http.post("project/func/edit",{
-                "func_id":obj.func_id,
+            $http.post("project/func/run",{
                 "func_name":obj.func_name,
-                "func_code":obj.func_code,
-                "func_desc":obj.func_desc,
+                "func_code":obj.func_code
             }).success(function(response){
-                if(response.code==0){
-                    alert(response.msg)
+                if(response.code==1){
+                    $http.post("project/func/edit",{
+                        "func_id":obj.func_id,
+                        "func_name":obj.func_name,
+                        "func_code":obj.func_code,
+                        "func_desc":obj.func_desc,
+                    }).success(function(response1){
+                        if(response1.code==0){
+                            alert(response1.msg)
+                        }
+                    })
                 }
             })
         }
         $scope.edit=false;
     }
+
 
     $scope.editFunc=function(id){
         $scope.editFuncId=id;
@@ -145,7 +165,6 @@ myApp.controller('methodCtrl',function($scope,$http,$cookieStore,$timeout) {
                 }).success(function (response) {
                      if(response.code==1) {
                          $scope.funcList=response.data;
-                         console.log($scope.funcList)
                      }else{
                         alert(response.msg);
                     }

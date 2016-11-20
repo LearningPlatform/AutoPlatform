@@ -3,7 +3,7 @@
         <h1 class="page-header text-primary">常用方法配置</h1>
     </div>
     <div class="top3">
-        <button class="btn btn-default" ng-click="addFunc()">添加</button>
+        <button class="btn btn-info" ng-click="addFunc()">添加</button>
     </div>
     <div class="col-md-11 top3">
         <div class="panel panel-default">
@@ -39,6 +39,7 @@
                                 </div>
                                 <div class="pull-right marginRight">
                                     <button class="btn btn-info" ng-click="saveFunc(func)">保存</button>
+
                                 </div>
                             </div>
                             <div class="top3">
@@ -71,7 +72,7 @@
                                     </form>
                                 </div>
                                 <div ng-show="code">
-                                    <textarea class="form-control" rows="3"  ng-model="func.func_code">
+                                    <textarea class="form-control msd-elastic: \n;" rows="5"  ng-model="func.func_code">
                                     </textarea>
                                 </div>
                             </div>

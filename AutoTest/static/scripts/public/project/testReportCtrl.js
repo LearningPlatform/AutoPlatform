@@ -66,7 +66,7 @@ myApp.controller('testReportCtrl',function($scope,$http,$cookieStore,$timeout) {
                      $scope.reportDetal[i]=false;
                  }
              }else{
-                 alert(response1.msg)
+                 alert(response.msg)
              }
         })
     }

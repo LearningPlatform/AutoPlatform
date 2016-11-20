@@ -89,7 +89,7 @@
             </button>
         </div>
         <div class="top2 col-md-11">
-            <table class="design">
+            <table class="design col-xs-12">
                 <tr>
                     <th class="wid3">ID</th>
                     <th class="wid4">接口名称</th>
@@ -101,7 +101,7 @@
                 </tr>
                 <tr ng-repeat="res in allResult">
                     <td ng-show="reportDetal[$index]" colspan="7">
-                        <table>
+                        <table class="col-xs-12">
                             <tr>
                                 <td class="wid3">
                                     <a ng-bind="$index+1+'>'" ng-click="showReport(res,$index)"></a>
@@ -121,31 +121,33 @@
                                 </td>
                             </tr>
                         </table>
-                        <h4 class="text-info">
-                        请求信息：
-                        </h4>
-                        <div class="row">
-                             <span class="container col-xs-2 input11">URL</span>
-                             <textarea class="input21 form-control" rows="3" ng-bind="api.api_url"></textarea>
-                        </div>
-                        <div class="row">
-                             <span class="container col-xs-2 input12">body参数</span>
-                             <input type="text" class="input22 form-control">
-                        </div>
-                        <h4 class="text-info">
-                        响应信息：
-                        </h4>
-                        <div class="row">
-                             <span class="container col-xs-2 input12">是否有错误</span>
-                             <input type="text" class="input22 form-control">
-                        </div>
-                        <div class="row">
-                             <span class="container col-xs-2 input12">运行时变量</span>
-                             <input type="text" class="input22 form-control">
-                        </div>
-                        <div class="row">
-                             <span class="container col-xs-2 input12">提取失败的变量</span>
-                             <input type="text" class="input22 form-control">
+                        <div>
+                            <h4 class="text-info">
+                            请求信息：
+                            </h4>
+                            <div class="row">
+                                 <span class="container col-xs-2 input11">URL</span>
+                                 <textarea class="input21 form-control" rows="3" ng-bind="api.api_url"></textarea>
+                            </div>
+                            <div class="row">
+                                 <span class="container col-xs-2 input12">body参数</span>
+                                 <input type="text" class="input22 form-control">
+                            </div>
+                            <h4 class="text-info">
+                            响应信息：
+                            </h4>
+                            <div class="row">
+                                 <span class="container col-xs-2 input12">是否有错误</span>
+                                 <input type="text" class="input22 form-control">
+                            </div>
+                            <div class="row">
+                                 <span class="container col-xs-2 input12">运行时变量</span>
+                                 <input type="text" class="input22 form-control">
+                            </div>
+                            <div class="row">
+                                 <span class="container col-xs-2 input12">提取失败的变量</span>
+                                 <input type="text" class="input22 form-control">
+                            </div>
                         </div>
                     </td>
                     <td>

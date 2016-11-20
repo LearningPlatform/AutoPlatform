@@ -1,5 +1,5 @@
 
-var myApp = angular.module('autoTest',['ui.router','ngCookies']);
+var myApp = angular.module('autoTest',['ui.router','ngCookies','monospaced.elastic']);
 
 myApp.config(function($stateProvider,$urlRouterProvider,$interpolateProvider) {
     $interpolateProvider.startSymbol('{$');
@@ -61,6 +61,7 @@ myApp.config(function($stateProvider,$urlRouterProvider,$interpolateProvider) {
             views:{
                 'intro@project':{
                     templateUrl: '/static/views/validation.html',
+                    controller: 'validationCtrl',
                 }
             }
         })
@@ -70,6 +71,7 @@ myApp.config(function($stateProvider,$urlRouterProvider,$interpolateProvider) {
             views:{
                 'intro@project':{
                     templateUrl: '/static/views/response.html',
+                    controller: 'responseCtrl',
                 }
             }
         })
@@ -99,6 +101,7 @@ myApp.config(function($stateProvider,$urlRouterProvider,$interpolateProvider) {
             views:{
                 'intro@project':{
                     templateUrl: '/static/views/task.html',
+                    controller:'taskCtrl'
                 }
             }
         })

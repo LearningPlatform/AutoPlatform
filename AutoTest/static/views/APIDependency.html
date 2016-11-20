@@ -3,7 +3,7 @@
         <h1 class="page-header text-primary">API依赖库</h1>
     </div>
     <div class="marginRight pull-right">
-        <button type="button" class="btn btn-default btn-lg" ng-click="addAPIDep()">
+        <button type="button" class="btn btn-info btn-lg" ng-click="addAPIDep()">
             <span class="glyphicon glyphicon-plus"></span> 添加依赖接口
         </button>
     </div>
@@ -28,34 +28,34 @@
                         </div>
                         <div class="panel-body" ng-show="showDetail && (apiDepId==Dep.depnd_api_id || Dep.depnd_api_id == null )">
                             <div class="row">
-                                 <span class="container col-xs-2 input12">depnd_api_protocol</span>
+                                 <span class="container col-xs-2 input12">请求协议</span>
                                  <input type="text" class="input22 form-control" ng-model="apiDep.depnd_api_protocol">
                             </div>
                             <div class="row">
-                                 <span class="container col-xs-2 input12">depnd_api_method</span>
+                                 <span class="container col-xs-2 input12">请求方式</span>
                                  <input type="text" class="input22 form-control" ng-model="apiDep.depnd_api_method">
                             </div>
                             <div class="row">
-                                 <span class="container col-xs-2 input12">depnd_api_type</span>
+                                 <span class="container col-xs-2 input12">请求数据格式</span>
                                  <input type="text" class="input22 form-control" ng-model="apiDep.depnd_api_type">
                             </div>
                             <div class="row">
-                                 <span class="container col-xs-2 input12">depnd_api_url</span>
+                                 <span class="container col-xs-2 input12">请求url</span>
                                  <input type="text" class="input22 form-control" ng-model="apiDep.depnd_api_url">
                             </div>
                             <div class="row">
-                                 <span class="container col-xs-2 input12">depnd_api_param</span>
+                                 <span class="container col-xs-2 input12">请求体</span>
                                  <input type="text" class="input22 form-control" ng-model="apiDep.depnd_api_param">
                             </div>
                             <div class="row">
-                                 <span class="container col-xs-2 input12">depnd_api_desc</span>
+                                 <span class="container col-xs-2 input12">描述</span>
                                  <input type="text" class="input22 form-control" ng-model="apiDep.depnd_api_desc">
                             </div>
                             <div class="row">
-                                 <span class="container col-xs-2 input12">depnd_id</span>
+                                 <span class="container col-xs-2 input12">依赖的接口id</span>
                                  <input type="text" class="input22 form-control" ng-model="apiDep.depnd_id">
                             </div>
-                            <button type="button" class="pull-right btn btn-default" ng-click="saveapiDep(apiDep)">保存
+                            <button type="button" class="pull-right btn btn-info" ng-click="saveapiDep(apiDep)">保存
                             </button>
                         </div>
                     </div>

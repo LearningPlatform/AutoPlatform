@@ -55,7 +55,6 @@
                             <th> 类型</th>
                             <th> 变量值</th>
                             <th> 描述</th>
-                            <th> 操作</th>
                             </thead>
                             <tbody>
                                 <tr ng-repeat="varEnv in envVarList">
@@ -63,9 +62,6 @@
                                     <td ng-bind="varEnv.var_type"></td>
                                     <td ng-bind="varEnv.var_value"></td>
                                     <td ng-bind="varEnv.var_desc"></td>
-                                    <td >
-                                        <a><span class="glyphicon glyphicon-remove" ng-click="delVarCom(varEnv.env_id,varEnv.var_id)">删除</span></a>
-                                    </td>
                                 </tr>
                             </tbody>
                         </table>
@@ -92,7 +88,6 @@
                             <th> 类型</th>
                             <th> 变量值</th>
                             <th> 描述</th>
-                            <th> 操作</th>
                             </thead>
                             <tbody>
                                 <tr ng-repeat="envVar in var.value">
@@ -100,9 +95,6 @@
                                     <td ng-bind="varNum.var_type"></td>
                                     <td ng-bind="envVar.var_value"></td>
                                     <td ng-bind="varNum.var_desc"></td>
-                                    <td >
-                                        <a><span class="glyphicon glyphicon-remove" ng-click="delEnvCom(varNum.var_id,envVar.env_id)">删除</span></a>
-                                    </td>
                                 </tr>
                             </tbody>
                         </table>
