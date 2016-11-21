@@ -37,9 +37,9 @@
                                         </li>
                                     </ul>
                                 </div>
-                                <div class="pull-right marginRight">
+                                <div class="pull-right">
                                     <button class="btn btn-info" ng-click="saveFunc(func)">保存</button>
-
+                                    <button class="btn btn-info" ng-click="runFunc(func)">运行</button>
                                 </div>
                             </div>
                             <div class="top3">
@@ -114,6 +114,27 @@
                     <button type="button" class="btn btn-default" data-dismiss="modal">关闭
                     </button>
                     <button type="button" class="btn btn-default" data-dismiss="modal" ng-click="moreFuncDetail(func)">确定
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="runFunc" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+                        &times;
+                    </button>
+                    <h4 class="modal-title">
+                        代码运行结果
+                    </h4>
+                </div>
+                <div class="modal-body" ng-model="runResult">
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-info" data-dismiss="modal">关闭
                     </button>
                 </div>
             </div>
