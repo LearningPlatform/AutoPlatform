@@ -128,6 +128,22 @@ myApp.controller('methodCtrl',function($scope,$http,$cookieStore,$timeout) {
         $scope.edit=false;
     }
 
+    $scope.runResult="";
+    $scope.runFunc=function(obj){
+        $("#runFunc").modal();
+        $http.post("project/func/run",{
+            "func_name":obj.func_name,
+            "func_code":obj.func_code
+        }).success(function(response) {
+            if(response.code==1){
+                $scope.runResult=response.data.output;
+            }else{
+                alert(response.msg)
+            }
+        })
+    }
+
+
 
     $scope.editFunc=function(id){
         $scope.editFuncId=id;
