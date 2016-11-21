@@ -6,6 +6,8 @@ def get_func_list(data):
     pro_id = data["pro_id"]
     body = []
     test = Functions.objects.all().filter(pro_id=pro_id)
+    func_id_list = list(test.values_list("func_id", flat=True))
+    functool.test(func_id_list)
     for a in list(test):
         a = jsontool.class_to_dict(a)
         del (a['_state'])
@@ -19,9 +21,8 @@ def get_func_list(data):
 
 def get_func_detail(data):
     func_id = data['func_id']
-    functool.test(func_id)
-    data = Functions.objects.all().get(func_id=func_id)
-    data_json = jsontool.convert_to_dict(data)
+    data1 = Functions.objects.all().get(func_id=func_id)
+    data_json = jsontool.convert_to_dict(data1)
     del(data_json['_state'])
     return {
         "code": 1,

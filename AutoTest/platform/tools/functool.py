@@ -6,21 +6,25 @@ TEMP = tempfile.mkdtemp(suffix='_py', prefix='auto_')
 EXEC = sys.executable
 
 
-def test(func_id):
-    write_code([3,4,5])
+def test(func_id_list):
+    write_code(func_id_list)
+    print(get_return("get_md5_value",["000000"]))
 
 
 def write_code(func_id_list):
-    func_file = open('AutoTest/platform/tools/func.py', 'w', encoding='utf-8', )
+    fpath = os.path.join(TEMP, '%s.py' % "func")
+    func_file = open(fpath, 'w', encoding='utf-8', )
     for i in func_id_list:
         data = Functions.objects.all().get(func_id=i)
         func_file.write(data.func_code)
         func_file.write("\n\n")
     func_file.close()
+    sys.path.append(TEMP)
+    return fpath
 
 
-def get_return(func_name, *param):
-    module = __import__("AutoTest.platform.tools.func", {}, {}, ['func'])
+def get_return(func_name, param):
+    module = __import__("func", {}, {}, ['func'])
     func = getattr(module, func_name)
     len_param = len(param)
     if len_param == 0:
