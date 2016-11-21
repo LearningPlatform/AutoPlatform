@@ -1,4 +1,4 @@
-from ..tools import strtool
+from ..tools import strtool,functool
 
 import requests
 import json
@@ -28,6 +28,9 @@ class ReqResp:
         while "{{" in self.param:
             a, b, str_param = strtool.str_replace(self.param, 1)
             self.param = self.param.replace(self.param[a:b], self.var_map[str_param])
+        while "{$" in self.param:
+            a, b, func_name, func_param = strtool.str_replace(self.param, 3)
+            self.param = self.param.replace(self.param[a:b], functool.get_return(func_name,func_param))
         self.param = self.param.replace("\'", "\"")
 
     def sendRequest(self):

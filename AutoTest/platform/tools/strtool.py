@@ -29,5 +29,20 @@ def str_replace(str_re, str_type):
                 b = i
         path = str_re[a:b]
         return path
+    if str_type == 3:
+        a = str_re.find('{$')
+        b = str_re.find('$}')
+        str1 = str_re[a + 2:b]
+        str_func_name = str1[0:str1.find('(')]
+        str_func_param = str1[str1.find('(') + 1:-1].split(',')
+        for index, param in enumerate(str_func_param):
+            if param.find("\'") != -1 or param.find("\"") != -1:
+                str_func_param[index] = str_func_param[index][1:-1]
+            else:
+                if param.find('.') != -1:
+                    str_func_param[index] = float(param)
+                else:
+                    str_func_param[index] = int(param)
+        return a, b + 2, str_func_name, str_func_param
 
 

@@ -1,6 +1,6 @@
-from ...models import Vars, VarValue, CaseSuite, Result
+from ...models import Vars, VarValue, CaseSuite, Result, Functions
 from ..case.case import CaseEntity
-from ..tools import jsontool
+from ..tools import jsontool, functool
 import time
 
 
@@ -9,6 +9,9 @@ def get_run_info(data):
     pro_id = data["pro_id"]
     env_id = data["env_id"]
     suite_id = data["suite_id"]
+    test = Functions.objects.all().filter(pro_id=pro_id)
+    func_id_list = list(test.values_list("func_id", flat=True))
+    functool.write_code(func_id_list)
     pass_num = 0
     fail_num = 0
     result = Result.objects.create(report_name=report_name, pro_id=pro_id, suite_id=suite_id)
