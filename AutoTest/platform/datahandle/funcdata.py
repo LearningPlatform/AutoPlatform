@@ -6,8 +6,6 @@ def get_func_list(data):
     pro_id = data["pro_id"]
     body = []
     test = Functions.objects.all().filter(pro_id=pro_id)
-    func_id_list = list(test.values_list("func_id", flat=True))
-    functool.test(func_id_list)
     for a in list(test):
         a = jsontool.class_to_dict(a)
         del (a['_state'])

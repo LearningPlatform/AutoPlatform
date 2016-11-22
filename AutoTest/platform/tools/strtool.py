@@ -34,6 +34,12 @@ def str_replace(str_re, str_type):
         b = str_re.find('$}')
         str1 = str_re[a + 2:b]
         str_func_name = str1[0:str1.find('(')]
+        return a, b + 2, str1, str_func_name
+    if str_type == 4:
+        a = str_re.find('{$')
+        b = str_re.find('$}')
+        str1 = str_re[a + 2:b]
+        str_func_name = str1[0:str1.find('(')]
         str_func_param = str1[str1.find('(') + 1:-1].split(',')
         for index, param in enumerate(str_func_param):
             if param.find("\'") != -1 or param.find("\"") != -1:
