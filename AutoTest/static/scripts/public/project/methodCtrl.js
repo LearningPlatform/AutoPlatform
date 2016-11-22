@@ -81,28 +81,33 @@ myApp.controller('methodCtrl',function($scope,$http,$cookieStore,$timeout) {
                 "func_name":obj.func_name,
                 "func_code":obj.func_code
             }).success(function(response){
-                if(response.code==1){
-                    $http.post("project/func/create",{
-                        "pro_id":pro_id,
-                        "func_name":obj.func_name,
-                        "func_code":obj.func_code,
-                        "func_desc":obj.func_desc
-                    }).success(function(response1){
-                        if(response1.code==1){
-                            $http.post("project/func/list",{
-                                 "pro_id": pro_id
-                            }).success(function (response2) {
-                                 if(response2.code==1) {
-                                     $scope.funcList=response2.data;
-                                 }else{
-                                    alert(response2.msg);
-                                }
-                            });
-                        }else{
-                            alert(response1.msg)
-                        }
-                    })
-                }else{
+                if(response.code==1) {
+                    if (response.data.status == 1) {
+                        $http.post("project/func/create", {
+                            "pro_id": pro_id,
+                            "func_name": obj.func_name,
+                            "func_code": obj.func_code,
+                            "func_desc": obj.func_desc
+                        }).success(function (response1) {
+                            if (response1.code == 1) {
+                                $http.post("project/func/list", {
+                                    "pro_id": pro_id
+                                }).success(function (response2) {
+                                    if (response2.code == 1) {
+                                        $scope.funcList = response2.data;
+                                    } else {
+                                        alert(response2.msg);
+                                    }
+                                });
+                            } else {
+                                alert(response1.msg)
+                            }
+                        })
+                    } else {
+                        alert("【异常】："+response.data.error + "【具体信息】:"+response.data.output)
+                    }
+                }
+                else {
                     alert(response.msg)
                 }
             })
@@ -112,23 +117,30 @@ myApp.controller('methodCtrl',function($scope,$http,$cookieStore,$timeout) {
                 "func_code":obj.func_code
             }).success(function(response){
                 if(response.code==1){
-                    $http.post("project/func/edit",{
-                        "func_id":obj.func_id,
-                        "func_name":obj.func_name,
-                        "func_code":obj.func_code,
-                        "func_desc":obj.func_desc,
-                    }).success(function(response1){
-                        if(response1.code==0){
-                            alert(response1.msg)
-                        }
-                    })
+                    if (response.data.status == 1) {
+                        $http.post("project/func/edit", {
+                            "func_id": obj.func_id,
+                            "func_name": obj.func_name,
+                            "func_code": obj.func_code,
+                            "func_desc": obj.func_desc,
+                        }).success(function (response1) {
+                            if (response1.code == 0) {
+                                alert(response1.msg)
+                            }
+                        })
+                    } else {
+                        alert("【异常】："+response.data.error + "【具体信息】:"+response.data.output)
+                    }
+                }
+                else {
+                    alert(response.msg)
                 }
             })
         }
         $scope.edit=false;
     }
 
-    $scope.runResult="";
+    $scope.runResult={};
     $scope.runFunc=function(obj){
         $("#runFunc").modal();
         $http.post("project/func/run",{
@@ -136,14 +148,23 @@ myApp.controller('methodCtrl',function($scope,$http,$cookieStore,$timeout) {
             "func_code":obj.func_code
         }).success(function(response) {
             if(response.code==1){
-                $scope.runResult=response.data.output;
+                if(response.data.status == 1){
+                    $scope.runResult=response.data;
+                }
+                else {
+                    console.log(response)
+                    $scope.runResult = {
+                        status: response.data.status,
+                        output: "【异常】："+response.data.error + "【具体信息】:"+response.data.output
+                    }
+                    console.log(response.data.output)
+                }
+                console.log($scope.runResult)
             }else{
                 alert(response.msg)
             }
         })
     }
-
-
 
     $scope.editFunc=function(id){
         $scope.editFuncId=id;
