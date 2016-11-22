@@ -1,4 +1,5 @@
 from ..tools import strtool,functool
+from ...models import Functions
 
 import requests
 import json
@@ -6,6 +7,7 @@ import json
 
 class ReqResp:
 
+    pro_id = 0
     var_map = {}
     url = ""
     param = ""
@@ -29,8 +31,9 @@ class ReqResp:
             a, b, str_param = strtool.str_replace(self.param, 1)
             self.param = self.param.replace(self.param[a:b], self.var_map[str_param])
         while "{$" in self.param:
-            a, b, func_name, func_param = strtool.str_replace(self.param, 3)
-            self.param = self.param.replace(self.param[a:b], functool.get_return(func_name,func_param))
+            a, b, func_str_re, func_name = strtool.str_replace(self.param, 3)
+            func_code = self.setFuncCode(func_name, func_str_re)
+            self.param = self.param.replace(self.param[a:b], functool.get_return(func_name, func_code))
         self.param = self.param.replace("\'", "\"")
 
     def sendRequest(self):
@@ -61,6 +64,11 @@ class ReqResp:
                     "body": re.json()
                 }
             }
+
+    def setFuncCode(self, func_name, func_str_re):
+        func = Functions.objects.all().get(pro_id=self.pro_id, func_name=func_name)
+        func_code = func.func_code + '\nprint('+ func_str_re + ')'
+        return func_code
 
     def run(self):
         self.setUrl()

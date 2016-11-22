@@ -169,6 +169,15 @@ a:active {text-decoration:none ;color: #3c3c3c}
          background:#eeeeee;
 }
 
+textarea{
+    resize: none;
+    font-size: 14px;
+    font-family: Consolas, monospace, serif;
+    overflow: scroll;
+    border-top-left-radius: 0;
+    border-top-right-radius: 0;
+}
+
 
 
 

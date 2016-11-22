@@ -9,9 +9,6 @@ def get_run_info(data):
     pro_id = data["pro_id"]
     env_id = data["env_id"]
     suite_id = data["suite_id"]
-    test = Functions.objects.all().filter(pro_id=pro_id)
-    func_id_list = list(test.values_list("func_id", flat=True))
-    functool.write_code(func_id_list)
     pass_num = 0
     fail_num = 0
     result = Result.objects.create(report_name=report_name, pro_id=pro_id, suite_id=suite_id)
@@ -24,9 +21,9 @@ def get_run_info(data):
         c.check_result()
         c.save_result()
         if c.get_passnum() ==1:
-            pass_num = pass_num + 1
+            pass_num += 1
         else:
-            fail_num = fail_num + 1
+            fail_num += 1
     end_time = int(time.time())
     result.start_time = start_time
     result.end_time = end_time
