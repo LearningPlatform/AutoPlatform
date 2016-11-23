@@ -2,8 +2,8 @@
     <div>
         <h1 class="page-header text-primary">常用方法配置</h1>
     </div>
-    <div class="top3">
-        <button class="btn btn-info" ng-click="addFunc()">添加</button>
+    <div class="marginRight pull-right">
+        <button class="btn btn-info" ng-click="addFunc()"><span class="glyphicon glyphicon-plus"></span>添加</button>
     </div>
     <div class="col-md-11 top3">
         <div class="panel panel-default">
@@ -36,9 +36,11 @@
                                         </li>
                                     </ul>
                                 </div>
-                                <div class="pull-right">
-                                    <button class="btn btn-info" ng-click="saveFunc(func)">保存</button>
-                                    <button class="btn btn-info" ng-click="runFunc(func)">运行</button>
+                                <div class="col-md-2">
+                                    <div class="pull-right">
+                                    <button class="btn btn-default" ng-click="saveFunc(func)">保存</button>
+                                    <button class="btn btn-default" ng-click="runFunc(func)"><span class="glyphicon glyphicon-play"></span>运行</button>
+                                        </div>
                                 </div>
                             </div>
                             <div class="top3">
