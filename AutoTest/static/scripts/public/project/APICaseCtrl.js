@@ -55,7 +55,8 @@ myApp.controller('APICaseCtrl',function($scope,$http,$cookieStore,$timeout) {
         "check_type": 0,
         "case_id": 1,
         "api_id": 1,
-        "is_set": 1
+        "is_set": 1,
+        "depnt_api":{depnt_api_name:"",depnt_api_id:0}
     }
 
     $scope.report={
@@ -503,6 +504,15 @@ myApp.controller('APICaseCtrl',function($scope,$http,$cookieStore,$timeout) {
         for(var i=0;i<$scope.suiteList.length;i++){
             $scope.check[i]=false;
         }
+        $http.post("project/dapi/list",{
+            "pro_id":pro_id
+        }).success(function(response){
+            if(response.code==1){
+                $scope.apiDepList=response.data;
+            }else{
+                alert(response.msg)
+            }
+        })
         $("#AddCase").modal();
     }
 
@@ -519,12 +529,21 @@ myApp.controller('APICaseCtrl',function($scope,$http,$cookieStore,$timeout) {
         if($scope.case.case_desc==null){
             $scope.case.case_desc="无";
         }
+        if($scope.case.check_type==null){
+            $scope.case.check_type=0;
+        }
+        if($scope.case.depnt_api==null){
+            $scope.case.depnt_api={depnt_api_name:"",depnt_api_id:0};
+        }
+        console.log($scope.case.depnt_api)
         $http.post('project/case/create',{
-            "api_id": id,
-            "pro_id": pro_id,
-            "case_desc": $scope.case.case_desc,
-            "case_name": $scope.case.case_name,
-            "suite_list":$scope.suite_list
+            api_id: id,
+            pro_id: pro_id,
+            case_desc: $scope.case.case_desc,
+            case_name: $scope.case.case_name,
+            suite_list:$scope.suite_list,
+            check_type:0,
+            depnd_api_id:$scope.case.depnt_api.depnd_api_id
         }).success(function(response){
             if(response.code==1) {
                 $http.post('project/api/caseList',{
@@ -718,5 +737,23 @@ myApp.controller('APICaseCtrl',function($scope,$http,$cookieStore,$timeout) {
                 alert(response.msg);
             }
         })
+    }
+
+    $scope.addDepntApi = function () {
+        $http.post("project/dapi/list",{
+            "pro_id":pro_id
+        }).success(function(response){
+            if(response.code==1){
+                $scope.apiDepList=response.data;
+            }else{
+                alert(response.msg)
+            }
+        })
+        $("#cfDepnt").modal();
+    }
+    $scope.addDepnt = function () {
+
+
+        $("#cfDepnt").modal('hide');
     }
 })

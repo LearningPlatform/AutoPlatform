@@ -52,8 +52,11 @@ def create_case(data):
     api_id = data['api_id']
     case_desc = data['case_desc']
     case_name = data['case_name']
-    case_id = Case.objects.create(pro_id=pro_id, api_id=api_id, case_desc=case_desc, case_name=case_name).case_id
+    depnd_api_id = data['depnd_api_id']
+    check_type = data['check_type']
+    case_id = Case.objects.create(pro_id=pro_id, api_id=api_id, case_desc=case_desc, case_name=case_name,depnd_api_id=depnd_api_id, check_type=check_type).case_id
     suite_list_data = data['suite_list']
+
     for suite_id in suite_list_data:
         CaseSuite.objects.create(pro_id=pro_id, api_id=api_id, case_id=case_id, suite_id=suite_id)
     return {
@@ -68,8 +71,10 @@ def edit_case_info(data):
     api_id = data['api_id']
     case_desc = data['case_desc']
     case_name = data['case_name']
+    depnt_id = data['depnt_id']
+    check_type = data['check_type']
     Case.objects.all().filter(case_id=case_id).update(pro_id=pro_id, api_id=api_id, case_desc=case_desc,
-                                                      case_name=case_name)
+                                                      case_name=case_name, depnt_id=depnt_id, check_type=check_type)
     CaseSuite.objects.all().filter(case_id=case_id).delete()
     suite_list_data = data['suite_list']
     for suite_id in suite_list_data:

@@ -18,10 +18,12 @@
                         </li>
                         <li ng-repeat="md in moduleList" class="{$List[$index+1]$}">
                             <div class="btn-group">
-                                <button type="button" ng-show="showBtn&&(showId==md.module_id)" class="opt btn btn-xs btn-default" ng-click="editModule()">
+                                <button type="button" ng-show="showBtn&&(showId==md.module_id)"
+                                        class="opt btn btn-xs btn-default" ng-click="editModule()">
                                     编辑
                                 </button>
-                                <button type="button" ng-show="showBtn&&(showId==md.module_id)" class="opt btn btn-xs btn-default" ng-click="cfModoule(module.module_id)">
+                                <button type="button" ng-show="showBtn&&(showId==md.module_id)"
+                                        class="opt btn btn-xs btn-default" ng-click="cfModoule(module.module_id)">
                                     删除
                                 </button>
                             </div>
@@ -71,11 +73,13 @@
             <div ng-repeat="list in apiList">
                 <div class="panel panel-info">
                     <div class="panel-heading">
-                        <h4 class="panel-title"  ng-mouseenter="shownCom=true" ng-mouseleave="shownCom=false" >
-                            <a ng-click="getAPICase(list.api_id)" ng-bind="list.api_name" ></a>
+                        <h4 class="panel-title" ng-mouseenter="shownCom=true" ng-mouseleave="shownCom=false">
+                            <a ng-click="getAPICase(list.api_id)" ng-bind="list.api_name"></a>
                             <div class="pull-right">
-                                <a ng-show="shownCom" ng-click="editapi(list.api_id)"><span class="glyphicon glyphicon-pencil"></span>编辑</a>
-                                <a ng-show="shownCom" ng-click="cfDelapi(list.api_id)"><span class="glyphicon glyphicon-remove"></span>删除</a>
+                                <a ng-show="shownCom" ng-click="editapi(list.api_id)"><span
+                                        class="glyphicon glyphicon-pencil"></span>编辑</a>
+                                <a ng-show="shownCom" ng-click="cfDelapi(list.api_id)"><span
+                                        class="glyphicon glyphicon-remove"></span>删除</a>
                             </div>
                         </h4>
                     </div>
@@ -83,29 +87,33 @@
                         <div ng-repeat="case in caseList">
                             <div class="panel panel-info">
                                 <div class="panel-heading">
-                                    <h4 class="panel-title" ng-mouseenter="shownCom1=true" ng-mouseleave="shownCom1=false">
+                                    <h4 class="panel-title" ng-mouseenter="shownCom1=true"
+                                        ng-mouseleave="shownCom1=false">
                                         <a ng-bind="case.case_name" ng-click="infoCase(case)"></a>
                                         <div class="pull-right">
-                                            <a ng-show="shownCom1" ng-click="cfDelCase(case.case_id,case.api_id)"><span class="glyphicon glyphicon-remove"></span>删除</a>
+                                            <a ng-show="shownCom1" ng-click="cfDelCase(case.case_id,case.api_id)"><span
+                                                    class="glyphicon glyphicon-remove"></span>删除</a>
                                         </div>
                                     </h4>
                                 </div>
                                 <div class="panel-body" ng-show="showinfo&&(showCaseID==case.case_id)">
                                     <ul class="nav nav-tabs">
-                                        <li class="{$al[0]$}" >
+                                        <li class="{$al[0]$}">
                                             <a ng-click="active2(0,case)">基本信息</a>
                                         </li>
                                         <li class="{$al[1]$} dropdown">
-                                            <a  class="dropdown-toggle" data-toggle="dropdown" ng-click="active2(1,case)">
+                                            <a class="dropdown-toggle" data-toggle="dropdown"
+                                               ng-click="active2(1,case)">
                                                 请求<span class="caret"></span>
                                             </a>
                                             <ul class="dropdown-menu">
-                                                <li><a ng-click="showParam1()">1</a></li>
-                                                <li><a ng-click="showParam2()">2</a></li>
+                                                <li><a ng-click="showParam1()">表单形式</a></li>
+                                                <li><a ng-click="showParam2()">字符串形式</a></li>
                                             </ul>
                                         </li>
                                         <li class="{$al[2]$} dropdown">
-                                            <a  class="dropdown-toggle" data-toggle="dropdown" ng-click="active2(2,case)">
+                                            <a class="dropdown-toggle" data-toggle="dropdown"
+                                               ng-click="active2(2,case)">
                                                 响应<span class="caret"></span>
                                             </a>
                                         </li>
@@ -115,16 +123,13 @@
                                             <thead>
                                             <tr>
                                                 <td class="wid1">名称</td>
-                                                <td class="wid2" ng-bind="case.case_name"></td>
-                                                <td class="wid1 cos-md-offset-1"></td>
-                                                <td class="wid2"></td>
+                                                <td class="wid2" colspan="3" ng-bind="case.case_name"></td>
                                             </tr>
                                             </thead>
                                             <tr>
                                                 <td class="wid1">URL</td>
-                                                <td class="wid2" ng-bind="api.api_url"></td>
-                                                <td class="wid1"></td>
-                                                <td class="wid2"></td>
+                                                <td class="wid2" colspan="3" ng-bind="api.api_url"></td>
+
                                             </tr>
                                             <tr>
                                                 <td class="wid1">请求方法</td>
@@ -133,28 +138,23 @@
                                                 <td class="wid2" ng-bind="api.api_name"></td>
                                             </tr>
                                             <tr>
-                                                <td class="wid1">场景</td>
-                                                <td class="wid2"></td>
+
                                                 <td class="wid1">校验器</td>
-                                                <td class="wid2"></td>
+                                                <td class="wid2">默认 <a ng-click="">
+                                                    <span class="glyphicon glyphicon-plus"></span>
+                                                </a></td>
+                                                </td></td>
+                                                <td class="wid1">依赖
+
+                                                <td class="wid2">我是依赖接口的名字
+                                                    <a ng-click="addDepntApi()">
+                                                        <span class="glyphicon glyphicon-plus"></span>
+                                                    </a></td>
                                             </tr>
-                                            <tr>
-                                                <td class="wid1">请求超时(秒)</td>
-                                                <td class="wid2"></td>
-                                                <td class="wid1">依赖</td>
-                                                <td class="wid2"></td>
-                                            </tr>
-                                            <tr>
-                                                <td class="wid1">创建者</td>
-                                                <td class="wid2"></td>
-                                                <td class="wid1">最近修改者</td>
-                                                <td class="wid2"></td>
                                             </tr>
                                             <tr>
                                                 <td class="wid1">描述</td>
-                                                <td class="wid2" ng-bind="case.case_desc"></td>
-                                                <td class="wid1"></td>
-                                                <td class="wid2"></td>
+                                                <td class="wid2" colspan="3" ng-bind="case.case_desc"></td>
                                             </tr>
                                             <tr>
                                                 <td class="wid1"></td>
@@ -165,40 +165,53 @@
                                         </table>
                                         <div ng-show="showSelectId==1">
                                             <div ng-show="showParamId==1">
-                                                <table class="table table-bordered" >
-                                                    <tr>
-                                                        <th>参数</th>
-                                                        <th>参数值</th>
-                                                        <th>操作</th>
-                                                    </tr>
-                                                    <tr ng-repeat="ex in param">
-                                                        <td>
-                                                            <input type="text" class="form-control" ng-model="param[$index]">
-                                                        </td>
-                                                        <td>
-                                                            <input type="text" class="form-control" ng-model="canshu[$index]">
-                                                        </td>
-                                                        <td>
-                                                            <a ng-click="cfDelParam(case.case_id,ex)"><span class="glyphicon glyphicon-remove"></span>删除</a>
-                                                        </td>
-                                                    </tr>
-                                                </table>
-                                                <button type="button" class="pull-right btn btn-primary" ng-click="saveParam1(case.case_id)">
-                                                        保存
-                                                </button>
-                                                <button type="button" class="pull-right btn btn-primary" ng-click="addParam1()">
-                                                        添加
-                                                </button>
+                                                <div>
+                                                    <div class="btn-group pull-right">
+                                                        <button type="button" class="btn btn-default"
+                                                                ng-click="addParam1()">
+                                                            添加参数
+                                                        </button>
+                                                        <button type="button" class="btn btn-default"
+                                                                ng-click="saveParam1(case.case_id)">
+                                                            保存
+                                                        </button>
+
+                                                    </div>
+                                                </div>
                                             </div>
-                                            <div  ng-show="showParamId==2">
+                                            <table class="table table-bordered">
+                                                <tr>
+                                                    <th>参数</th>
+                                                    <th>参数值</th>
+                                                    <th>操作</th>
+                                                </tr>
+                                                <tr ng-repeat="ex in param">
+                                                    <td>
+                                                        <input type="text" class="form-control"
+                                                               ng-model="param[$index]">
+                                                    </td>
+                                                    <td>
+                                                        <input type="text" class="form-control"
+                                                               ng-model="canshu[$index]">
+                                                    </td>
+                                                    <td>
+                                                        <a ng-click="cfDelParam(case.case_id,ex)"><span
+                                                                class="glyphicon glyphicon-remove"></span>删除</a>
+                                                    </td>
+                                                </tr>
+                                            </table>
+
+                                            <div ng-show="showParamId==2">
                                                 <form role="form">
                                                     <div class="form-group">
-                                                        <textarea class="form-control" rows="3" ng-model="str" ng-blur="saveParam2(case.case_id,str)">
+                                                        <textarea class="form-control" rows="3" ng-model="str"
+                                                                  ng-blur="saveParam2(case.case_id,str)">
                                                         </textarea>
                                                         <div ng-bind="textValue"></div>
                                                     </div>
                                                 </form>
-                                                <button type="button" class="pull-right btn btn-primary" ng-click="saveParam2(case.case_id,str)">
+                                                <button type="button" class="pull-right btn btn-primary"
+                                                        ng-click="saveParam2(case.case_id,str)">
                                                     保存
                                                 </button>
                                             </div>
@@ -234,7 +247,8 @@
                                             <form role="form">
                                                 <textarea class="form-control" rows="3" ng-model="exp">
                                                 </textarea>
-                                                <button type="button" class="pull-right btn btn-primary" ng-click="saveExp(case.case_id,exp)">
+                                                <button type="button" class="pull-right btn btn-primary"
+                                                        ng-click="saveExp(case.case_id,exp)">
                                                     保存
                                                 </button>
                                             </form>
@@ -251,11 +265,13 @@
             <div ng-repeat="list in apiList">
                 <div class="panel panel-info">
                     <div class="panel-heading">
-                        <h4 class="panel-title"  ng-mouseenter="shownCom=true" ng-mouseleave="shownCom=false" >
-                            <a ng-click="getAPICase(list.api_id)" ng-bind="list.api_name" ></a>
+                        <h4 class="panel-title" ng-mouseenter="shownCom=true" ng-mouseleave="shownCom=false">
+                            <a ng-click="getAPICase(list.api_id)" ng-bind="list.api_name"></a>
                             <div class="pull-right">
-                                <a ng-show="shownCom" ng-click="editapi(list.api_id)"><span class="glyphicon glyphicon-pencil"></span>编辑</a>
-                                <a ng-show="shownCom" ng-click="cfDelapi(list.api_id)"><span class="glyphicon glyphicon-remove"></span>删除</a>
+                                <a ng-show="shownCom" ng-click="editapi(list.api_id)"><span
+                                        class="glyphicon glyphicon-pencil"></span>编辑</a>
+                                <a ng-show="shownCom" ng-click="cfDelapi(list.api_id)"><span
+                                        class="glyphicon glyphicon-remove"></span>删除</a>
                             </div>
                         </h4>
                     </div>
@@ -263,20 +279,26 @@
                         <div ng-repeat="case in caseList">
                             <div class="panel panel-info">
                                 <div class="panel-heading">
-                                    <h4 class="panel-title" ng-mouseenter="shownCom1=true" ng-mouseleave="shownCom1=false">
+                                    <h4 class="panel-title" ng-mouseenter="shownCom1=true"
+                                        ng-mouseleave="shownCom1=false">
                                         <a ng-bind="case.case_name" ng-click="infoCase(case)"></a>
                                         <div class="pull-right">
-                                            <a ng-show="shownCom1" ng-click="cfDelCase(case.case_id,case.api_id)"><span class="glyphicon glyphicon-remove"></span>删除</a>
+                                            <a ng-show="shownCom1" ng-click=""><span
+                                                    class="glyphicon glyphicon-pencil"></span>编辑</a>
+                                            <a  ng-click="cfDelCase(case.case_id,case.api_id)">
+                                                <span
+                                                    class="glyphicon glyphicon-remove"></span>删除</a>
                                         </div>
                                     </h4>
                                 </div>
                                 <div class="panel-body" ng-show="showinfo&&(showCaseID==case.case_id)">
                                     <ul class="nav nav-tabs">
-                                        <li class="{$al[0]$}" >
+                                        <li class="{$al[0]$}">
                                             <a ng-click="active2(0,case.input_data)">基本信息</a>
                                         </li>
                                         <li class="{$al[1]$} dropdown">
-                                            <a  class="dropdown-toggle" data-toggle="dropdown" ng-click="active2(1,case)">
+                                            <a class="dropdown-toggle" data-toggle="dropdown"
+                                               ng-click="active2(1,case)">
                                                 请求<span class="caret"></span>
                                             </a>
                                             <ul class="dropdown-menu">
@@ -285,7 +307,8 @@
                                             </ul>
                                         </li>
                                         <li class="{$al[2]$} dropdown">
-                                            <a  class="dropdown-toggle" data-toggle="dropdown" ng-click="active2(2,case)">
+                                            <a class="dropdown-toggle" data-toggle="dropdown"
+                                               ng-click="active2(2,case)">
                                                 响应<span class="caret"></span>
                                             </a>
                                         </li>
@@ -345,7 +368,7 @@
                                         </table>
                                         <div ng-show="showSelectId==1">
                                             <div ng-show="showParamId==1">
-                                                <table class="table table-bordered" >
+                                                <table class="table table-bordered">
                                                     <tr>
                                                         <th>参数</th>
                                                         <th>参数值</th>
@@ -354,29 +377,35 @@
                                                     <tr ng-repeat="ex in param">
                                                         <td ng-bind="ex"></td>
                                                         <td>
-                                                            <input type="text" class="form-control" placeholder="请输入参数值" ng-model="canshu[$index]">
+                                                            <input type="text" class="form-control" placeholder="请输入参数值"
+                                                                   ng-model="canshu[$index]">
                                                         </td>
                                                         <td>
-                                                            <a ng-click="cfDelParam(case.case_id,ex)"><span class="glyphicon glyphicon-remove"></span>删除</a>
+                                                            <a ng-click="cfDelParam(case.case_id,ex)"><span
+                                                                    class="glyphicon glyphicon-remove"></span>删除</a>
                                                         </td>
                                                     </tr>
                                                 </table>
-                                                <button type="button" class="pull-right btn btn-primary" ng-click="saveParam1(case.case_id)">
-                                                        保存
+                                                <button type="button" class="pull-right btn btn-primary"
+                                                        ng-click="saveParam1(case.case_id)">
+                                                    保存
                                                 </button>
-                                                <button type="button" class="pull-right btn btn-primary" ng-click="addParam1()">
-                                                        添加
+                                                <button type="button" class="pull-right btn btn-primary"
+                                                        ng-click="addParam1()">
+                                                    添加
                                                 </button>
                                             </div>
-                                            <div  ng-show="showParamId==2">
+                                            <div ng-show="showParamId==2">
                                                 <form role="form">
                                                     <div class="form-group">
-                                                        <textarea class="form-control" rows="3" ng-model="str" ng-blur="saveParam2(case.case_id,str)">
+                                                        <textarea class="form-control" rows="3" ng-model="str"
+                                                                  ng-blur="saveParam2(case.case_id,str)">
                                                         </textarea>
                                                         <div ng-bind="textValue"></div>
                                                     </div>
                                                 </form>
-                                                <button type="button" class="pull-right btn btn-primary" ng-click="saveParam2(case.case_id)">
+                                                <button type="button" class="pull-right btn btn-primary"
+                                                        ng-click="saveParam2(case.case_id)">
                                                     保存
                                                 </button>
                                             </div>
@@ -412,7 +441,8 @@
                                             <form role="form">
                                                 <textarea class="form-control" rows="3" ng-model="exp">
                                                 </textarea>
-                                                <button type="button" class="pull-right btn btn-primary" ng-click="saveExp(case.case_id,exp)">
+                                                <button type="button" class="pull-right btn btn-primary"
+                                                        ng-click="saveExp(case.case_id,exp)">
                                                     保存
                                                 </button>
                                             </form>
@@ -449,7 +479,8 @@
                         <div class="form-group">
                             <label class="col-md-3 control-label">所属环境：</label>
                             <div class="col-md-8">
-                                <select class="form-control" ng-model="env" ng-options="env.env_name for env in envList">
+                                <select class="form-control" ng-model="env"
+                                        ng-options="env.env_name for env in envList">
                                     <option value="">请选择</option>
                                 </select>
                             </div>
@@ -457,7 +488,8 @@
                         <div class="form-group">
                             <label class="col-md-3 control-label">所属套件：</label>
                             <div class="col-md-8">
-                                <select class="form-control" ng-model="suite" ng-options="suite.suite_name for suite in suiteList">
+                                <select class="form-control" ng-model="suite"
+                                        ng-options="suite.suite_name for suite in suiteList">
                                     <option value="">请选择</option>
                                 </select>
                             </div>
@@ -491,13 +523,15 @@
                         <div class="form-group">
                             <label class="col-md-2 control-label">模块名：</label>
                             <div class="col-md-9">
-                                <input type="text" class="form-control" placeholder="请输入模块名称" ng-model="module.module_name">
+                                <input type="text" class="form-control" placeholder="请输入模块名称"
+                                       ng-model="module.module_name">
                             </div>
                         </div>
                         <div class="form-group">
                             <label class="col-md-2 control-label">描述：</label>
                             <div class="col-md-9">
-                                <input type="text" class="form-control" placeholder="请输入模块描述" ng-model="module.module_desc">
+                                <input type="text" class="form-control" placeholder="请输入模块描述"
+                                       ng-model="module.module_desc">
                             </div>
                         </div>
                     </form>
@@ -529,13 +563,15 @@
                         <div class="form-group">
                             <label class="col-md-2 control-label">套件名：</label>
                             <div class="col-md-9">
-                                <input type="text" class="form-control" placeholder="请输入套件名称" ng-model="suite.suite_name">
+                                <input type="text" class="form-control" placeholder="请输入套件名称"
+                                       ng-model="suite.suite_name">
                             </div>
                         </div>
                         <div class="form-group">
                             <label class="col-md-2 control-label">描述：</label>
                             <div class="col-md-9">
-                                <input type="text" class="form-control" placeholder="请输入套件描述" ng-model="suite.suite_desc">
+                                <input type="text" class="form-control" placeholder="请输入套件描述"
+                                       ng-model="suite.suite_desc">
                             </div>
                         </div>
                     </form>
@@ -567,13 +603,15 @@
                         <div class="form-group">
                             <label class="col-md-2 control-label">模块名：</label>
                             <div class="col-md-9">
-                                <input type="text" class="form-control" placeholder="请输入模块名称" ng-model="module.module_name">
+                                <input type="text" class="form-control" placeholder="请输入模块名称"
+                                       ng-model="module.module_name">
                             </div>
                         </div>
                         <div class="form-group">
                             <label class="col-md-2 control-label">描述：</label>
                             <div class="col-md-9">
-                                <input type="text" class="form-control" placeholder="请输入模块描述" ng-model="module.module_desc">
+                                <input type="text" class="form-control" placeholder="请输入模块描述"
+                                       ng-model="module.module_desc">
                             </div>
                         </div>
                     </form>
@@ -589,7 +627,7 @@
         </div>
     </div>
 
-    <div class="modal fade" id="cfModule" >
+    <div class="modal fade" id="cfModule">
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header alert alert-danger">
@@ -609,7 +647,7 @@
                 </div>
             </div>
         </div>
-     </div>
+    </div>
 
     <div class="modal fade" id="addapi" aria-hidden="true">
         <div class="modal-dialog">
@@ -633,7 +671,8 @@
                         <div class="form-group">
                             <label class="col-md-3 control-label">所属模块：</label>
                             <div class="col-md-8">
-                                <select class="form-control" ng-model="module" ng-options="module.module_name for module in moduleList">
+                                <select class="form-control" ng-model="module"
+                                        ng-options="module.module_name for module in moduleList">
                                     <option value="">请选择</option>
                                 </select>
                             </div>
@@ -641,7 +680,8 @@
                         <div class="form-group">
                             <label class="col-md-3 control-label">接口协议：</label>
                             <div class="col-md-8">
-                                <select class="form-control" ng-model="api.api_protocol" ng-options="type for type in protocolType">
+                                <select class="form-control" ng-model="api.api_protocol"
+                                        ng-options="type for type in protocolType">
                                     <option value="">请选择</option>
                                 </select>
                             </div>
@@ -655,7 +695,8 @@
                         <div class="form-group">
                             <label class="col-md-3 control-label">请求方法：</label>
                             <div class="col-md-8">
-                                <select class="form-control" ng-model="api.api_method" ng-options="type for type in methodType">
+                                <select class="form-control" ng-model="api.api_method"
+                                        ng-options="type for type in methodType">
                                     <option value="">请选择</option>
                                 </select>
                             </div>
@@ -663,7 +704,8 @@
                         <div class="form-group">
                             <label class="col-md-3 control-label">格式：</label>
                             <div class="col-md-8">
-                                <select class="form-control" ng-model="api.api_type" ng-options="type for type in typeType">
+                                <select class="form-control" ng-model="api.api_type"
+                                        ng-options="type for type in typeType">
                                     <option value="">请选择</option>
                                 </select>
                             </div>
@@ -671,7 +713,8 @@
                         <div class="form-group">
                             <label class="col-md-3 control-label">参数：</label>
                             <div class="col-md-8">
-                                <input type="text" class="form-control" placeholder="请输入参数，各个参数请使用，分开" ng-model="api.api_param">
+                                <input type="text" class="form-control" placeholder="请输入参数，各个参数请使用，分开"
+                                       ng-model="api.api_param">
                             </div>
                         </div>
                         <div class="form-group">
@@ -714,7 +757,8 @@
                         <div class="form-group">
                             <label class="col-md-3 control-label">所属模块：</label>
                             <div class="col-md-8">
-                                <select class="form-control" ng-model="module" ng-options="module.module_name for module in moduleList">
+                                <select class="form-control" ng-model="module"
+                                        ng-options="module.module_name for module in moduleList">
                                     <option value="" ng-bind="module.module_name"></option>
                                 </select>
                             </div>
@@ -722,7 +766,8 @@
                         <div class="form-group">
                             <label class="col-md-3 control-label">接口协议：</label>
                             <div class="col-md-8">
-                                <select class="form-control" ng-model="api.api_protocol" ng-options="type for type in protocolType">
+                                <select class="form-control" ng-model="api.api_protocol"
+                                        ng-options="type for type in protocolType">
                                     <option value="" ng-bind="api.api_protocol">请选择</option>
                                 </select>
                             </div>
@@ -736,7 +781,8 @@
                         <div class="form-group">
                             <label class="col-md-3 control-label">请求方法：</label>
                             <div class="col-md-8">
-                                <select class="form-control" ng-model="api.api_method" ng-options="type for type in methodType">
+                                <select class="form-control" ng-model="api.api_method"
+                                        ng-options="type for type in methodType">
                                     <option value="" ng-bind="api.api_method">请选择</option>
                                 </select>
                             </div>
@@ -744,7 +790,8 @@
                         <div class="form-group">
                             <label class="col-md-3 control-label">格式：</label>
                             <div class="col-md-8">
-                                <select class="form-control" ng-model="api.api_type" ng-options="type for type in typeType">
+                                <select class="form-control" ng-model="api.api_type"
+                                        ng-options="type for type in typeType">
                                     <option value="" ng-bind="api.api_type">请选择</option>
                                 </select>
                             </div>
@@ -752,7 +799,8 @@
                         <div class="form-group">
                             <label class="col-md-3 control-label">参数：</label>
                             <div class="col-md-8">
-                                <input type="text" class="form-control" placeholder="请输入参数，各个参数请使用，分开" ng-model="api.api_param">
+                                <input type="text" class="form-control" placeholder="请输入参数，各个参数请使用，分开"
+                                       ng-model="api.api_param">
                             </div>
                         </div>
                         <div class="form-group">
@@ -774,7 +822,7 @@
         </div>
     </div>
 
-    <div class="modal fade" id="cfAPI" >
+    <div class="modal fade" id="cfAPI">
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header alert alert-danger">
@@ -818,7 +866,8 @@
                         <div class="form-group">
                             <label class="col-md-3 control-label">所属API：</label>
                             <div class="col-md-8">
-                                <select class="form-control" ng-model="api" ng-options="api.api_name for api in apiList">
+                                <select class="form-control" ng-model="api"
+                                        ng-options="api.api_name for api in apiList">
                                     <option value="">请选择</option>
                                 </select>
                             </div>
@@ -830,7 +879,9 @@
                                     <div class="panel-body">
                                         <div class="checkbox col-md-6" ng-repeat="st in suiteList">
                                             <label>
-                                                <input type="checkbox" ng-model="check[$index]" ng-click="addSuiteList(check[$index],st.suite_id)"><span ng-bind="st.suite_name"></span>
+                                                <input type="checkbox" ng-model="check[$index]"
+                                                       ng-click="addSuiteList(check[$index],st.suite_id)"><span
+                                                    ng-bind="st.suite_name"></span>
                                             </label>
                                         </div>
                                     </div>
@@ -841,6 +892,24 @@
                             <label class="col-md-3 control-label">描述：</label>
                             <div class="col-md-8">
                                 <input type="text" class="form-control" placeholder="请输入用例描述" ng-model="case.case_desc">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-md-3 control-label">依赖接口：</label>
+                            <div class="col-md-8">
+                                <select class="form-control" ng-model="case.depnt_api"
+                                        ng-options="apiDep.depnd_api_name for apiDep in apiDepList">
+                                    <option value="">请选择</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-md-3 control-label">校验器：</label>
+                            <div class="col-md-8">
+                                <select class="form-control" ng-model="case.check_type"
+                                        ng-options="api.api_name for api in apiList">
+                                    <option value="">请选择</option>
+                                </select>
                             </div>
                         </div>
                     </form>
@@ -856,7 +925,7 @@
         </div>
     </div>
 
-    <div class="modal fade" id="cfCase" >
+    <div class="modal fade" id="cfCase">
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header alert alert-danger">
@@ -878,7 +947,7 @@
         </div>
     </div>
 
-    <div class="modal fade" id="cfParam" >
+    <div class="modal fade" id="cfParam">
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header alert alert-danger">
@@ -893,6 +962,30 @@
                     <button type="button" class="btn btn-default" data-dismiss="modal">取消
                     </button>
                     <button type="button" class="btn btn-primary" ng-click="delParam()">
+                        确定
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="cfDepnt">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header alert alert-danger">
+                    <h4 class="modal-title">
+                        添加依赖接口
+                    </h4>
+                </div>
+                <div class="modal-body">
+                <select class="form-control" ng-model="depnt_api" ng-options="depnt_api.depnd_api_name for depnt_api in apiDepList">
+                                    <option value="">请选择</option>
+                </select>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">取消
+                    </button>
+                    <button type="button" class="btn btn-primary" ng-click="addDepnt()">
                         确定
                     </button>
                 </div>
