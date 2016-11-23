@@ -283,10 +283,7 @@
                                         ng-mouseleave="shownCom1=false">
                                         <a ng-bind="case.case_name" ng-click="infoCase(case)"></a>
                                         <div class="pull-right">
-                                            <a ng-show="shownCom1" ng-click=""><span
-                                                    class="glyphicon glyphicon-pencil"></span>编辑</a>
-                                            <a  ng-click="cfDelCase(case.case_id,case.api_id)">
-                                                <span
+                                            <a ng-show="shownCom1" ng-click="cfDelCase(case.case_id,case.api_id)"><span
                                                     class="glyphicon glyphicon-remove"></span>删除</a>
                                         </div>
                                     </h4>
