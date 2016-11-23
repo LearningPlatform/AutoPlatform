@@ -36,6 +36,10 @@ def get_result_detail_list(data):
         var = dict(a, **b)
         var = dict(var, **c)
         del (var['_state'])
+        var["input_data"]["body"] = str(var["input_data"]["body"]).replace("\'", "\"")
+        var["input_data"]["url"] = str(var["input_data"]["url"]).replace("\'", "\"")
+        var["out_data"]["response_data"]["body"] = str(var["out_data"]["response_data"]["body"]).replace("\'", "\"")
+        var["out_data"]["response_data"]["header"] = str(var["out_data"]["response_data"]["header"]).replace("\'", "\"")
         body_list.append(var)
     return {
         "code": 1,

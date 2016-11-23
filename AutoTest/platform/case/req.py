@@ -43,6 +43,7 @@ class ReqResp:
                 re = requests.post(self.url, data=self.param, headers=headers)
             else:
                 re = requests.post(self.url, data=self.param)
+                print(re.request)
             self.resp = {
                 "status_code": re.status_code,
                 "response_data": {
@@ -57,6 +58,7 @@ class ReqResp:
                 re = requests.get(self.url, params=self.param, headers=headers)
             else:
                 re = requests.get(self.url, params=self.param)
+                print(re.request)
             self.resp = {
                 "status_code": re.status_code,
                 "response_data": {
