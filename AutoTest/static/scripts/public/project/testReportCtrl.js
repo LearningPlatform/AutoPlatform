@@ -20,7 +20,7 @@ myApp.controller('testReportCtrl',function($scope,$http,$cookieStore,$timeout) {
         "api_id": 1,
         "module_id": 1,
         "pro_id": pro_id,
-        "api_url": "{host}/login",
+        "api_url": "",
         "api_method": "post",
         "api_type": "34",
         "api_protocol": "http",

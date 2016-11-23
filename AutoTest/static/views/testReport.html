@@ -63,7 +63,7 @@
 
     <div class="row top4" ng-show="repDetail">
         <div class="col-md-2">
-            <a ng-click="returnList()">>>返回报告列表</a>
+            <a ng-click="returnList()">&lt;&lt;&lt;返回报告列表</a>
         </div>
         <h4 class="col-md-2" ng-bind="result.report_name">
         </h4>
@@ -126,28 +126,29 @@
                             请求信息：
                             </h4>
                             <div class="row">
-                                 <span class="container col-xs-2 input11">URL</span>
-                                 <textarea class="input21 form-control" rows="3" ng-bind="api.api_url"></textarea>
+                                 <span class="container col-xs-2 input12">URL</span>
+                                 <input class="input22 form-control" readonly ng-model="res.input_data.url">
                             </div>
                             <div class="row">
-                                 <span class="container col-xs-2 input12">body参数</span>
-                                 <input type="text" class="input22 form-control">
+                                 <span class="container col-xs-2 input11">body参数</span>
+                                 <textarea type="text"  class="input21  form-control" readonly rows="3" ng-model="res.input_data.body"></textarea>
                             </div>
                             <h4 class="text-info">
                             响应信息：
                             </h4>
                             <div class="row">
-                                 <span class="container col-xs-2 input12">是否有错误</span>
-                                 <input type="text" class="input22 form-control">
+                                 <span class="container col-xs-2 input12">状态码</span>
+                                 <input type="text"class="input22 form-control" readonly ng-model="res.out_data.status_code">
                             </div>
                             <div class="row">
-                                 <span class="container col-xs-2 input12">运行时变量</span>
-                                 <input type="text" class="input22 form-control">
+                                 <span class="container col-xs-2 input11">响应头</span>
+                                 <textarea type="text" class="input21  form-control" readonly rows="3" ng-model="res.out_data.response_data.header"></textarea>
                             </div>
                             <div class="row">
-                                 <span class="container col-xs-2 input12">提取失败的变量</span>
-                                 <input type="text" class="input22 form-control">
+                                 <span class="container col-xs-2 input11">响应体</span>
+                                 <textarea type="text" class="input21 form-control" readonly rows="3" ng-model="res.out_data.response_data.body"></textarea>
                             </div>
+
                         </div>
                     </td>
                     <td>
