@@ -91,6 +91,8 @@
                                         ng-mouseleave="shownCom1=false">
                                         <a ng-bind="case.case_name" ng-click="infoCase(case)"></a>
                                         <div class="pull-right">
+                                            <a ng-show="shownCom1" ng-click="cfEditCase(case.case_id,case.api_id)"><span
+                                        class="glyphicon glyphicon-pencil"></span>编辑</a>
                                             <a ng-show="shownCom1" ng-click="cfDelCase(case.case_id,case.api_id)"><span
                                                     class="glyphicon glyphicon-remove"></span>删除</a>
                                         </div>
@@ -863,7 +865,7 @@
                         <div class="form-group">
                             <label class="col-md-3 control-label">所属API：</label>
                             <div class="col-md-8">
-                                <select class="form-control" ng-model="api"
+                                <select class="form-control" ng-model="case.api"
                                         ng-options="api.api_name for api in apiList">
                                     <option value="">请选择</option>
                                 </select>
@@ -915,6 +917,87 @@
                     <button type="button" class="btn btn-default" data-dismiss="modal">关闭
                     </button>
                     <button type="button" class="btn btn-primary" ng-click="saveCase(api.api_id)">
+                        保存
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="EditCase" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+                        &times;
+                    </button>
+                    <h4 class="modal-title">
+                        编辑用例信息
+                    </h4>
+                </div>
+                <div class="modal-body">
+                    <form class="form-horizontal">
+                        <div class="form-group">
+                            <label class="col-md-3 control-label">用例名：</label>
+                            <div class="col-md-8">
+                                <input type="text" class="form-control" placeholder="请输入用例名称" ng-model="case.case_name">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-md-3 control-label">所属API：</label>
+                            <div class="col-md-8">
+                                <select class="form-control" ng-model="api"
+                                        ng-options="api.api_name for api in apiList">
+                                    <option value="">请选择</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-md-3 control-label">所属套件：</label>
+                            <div class="col-md-8">
+                                <div class="panel panel-default">
+                                    <div class="panel-body">
+                                        <div class="checkbox col-md-6" ng-repeat="st in suiteList">
+                                            <label>
+                                                <input type="checkbox" ng-model="check[$index]"
+                                                       ng-click="addSuiteList(check[$index],st.suite_id)"><span
+                                                    ng-bind="st.suite_name"></span>
+                                            </label>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-md-3 control-label">描述：</label>
+                            <div class="col-md-8">
+                                <input type="text" class="form-control" placeholder="请输入用例描述" ng-model="case.case_desc">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-md-3 control-label">依赖接口：</label>
+                            <div class="col-md-8">
+                                <select class="form-control" ng-model="case.depnt_api"
+                                        ng-options="apiDep.depnd_api_name for apiDep in apiDepList">
+                                    <option value="">请选择</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-md-3 control-label">校验器：</label>
+                            <div class="col-md-8">
+                                <select class="form-control" ng-model="case.check_type"
+                                        ng-options="api.api_name for api in apiList">
+                                    <option value="">请选择</option>
+                                </select>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">关闭
+                    </button>
+                    <button type="button" class="btn btn-primary" ng-click="saveEditCase()">
                         保存
                     </button>
                 </div>

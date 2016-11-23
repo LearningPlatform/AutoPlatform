@@ -55,6 +55,7 @@ myApp.controller('APICaseCtrl',function($scope,$http,$cookieStore,$timeout) {
         "check_type": 0,
         "case_id": 1,
         "api_id": 1,
+        api:{api_name:"",api_id:0},
         "is_set": 1,
         "depnt_api":{depnt_api_name:"",depnt_api_id:0}
     }
@@ -535,9 +536,8 @@ myApp.controller('APICaseCtrl',function($scope,$http,$cookieStore,$timeout) {
         if($scope.case.depnt_api==null){
             $scope.case.depnt_api={depnt_api_name:"",depnt_api_id:0};
         }
-        console.log($scope.case.depnt_api)
         $http.post('project/case/create',{
-            api_id: id,
+            api_id: $scope.case.api.api_id,
             pro_id: pro_id,
             case_desc: $scope.case.case_desc,
             case_name: $scope.case.case_name,
@@ -547,7 +547,7 @@ myApp.controller('APICaseCtrl',function($scope,$http,$cookieStore,$timeout) {
         }).success(function(response){
             if(response.code==1) {
                 $http.post('project/api/caseList',{
-                    "api_id":id
+                    "api_id":$scope.case.api.api_id
                 }).success(function(response1){
                     $scope.caseList=response1.data;
                 })
@@ -737,6 +737,58 @@ myApp.controller('APICaseCtrl',function($scope,$http,$cookieStore,$timeout) {
                 alert(response.msg);
             }
         })
+    }
+
+    $scope.cfEditCase = function (case_id) {
+        $("#EditCase").modal();
+        $http.post('project/case/detail',{
+            "case_id":case_id
+        }).success(function(response) {
+            if (response.code == 1) {
+                $scope.case = response.data;
+                console.log($scope.case)
+            }else{
+                alert(response.msg);
+            }
+        })
+        caseId=case_id;
+    }
+
+
+    $scope.saveEditCase=function(){
+        if($scope.case.case_name==null){
+            $scope.case.case_name="";
+        }
+        if($scope.case.case_desc==null){
+            $scope.case.case_desc="无";
+        }
+        if($scope.case.check_type==null){
+            $scope.case.check_type=0;
+        }
+        if($scope.case.depnt_api==null){
+            $scope.case.depnt_api={depnt_api_name:"",depnt_api_id:0};
+        }
+        $http.post('project/case/edit/info',{
+            case_id:caseId,
+            api_id: $scope.case.api.api_id,
+            pro_id: pro_id,
+            case_desc: $scope.case.case_desc,
+            case_name: $scope.case.case_name,
+            suite_list:$scope.suite_list,
+            check_type:0,
+            depnd_api_id:$scope.case.depnt_api.depnd_api_id
+        }).success(function(response){
+            if(response.code==1) {
+                $http.post('project/api/caseList',{
+                    "api_id":$scope.case.api.api_id
+                }).success(function(response1){
+                    $scope.caseList=response1.data;
+                })
+            }else{
+                alert(response.msg);
+            }
+        })
+        $("#EditCase").modal('hide');
     }
 
     $scope.addDepntApi = function () {
