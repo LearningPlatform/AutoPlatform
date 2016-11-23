@@ -1,4 +1,4 @@
-from ...models import Api, Suite, CaseSuite, Case
+from ...models import Api, Suite, CaseSuite, Case, DepndApi
 from ..tools import jsontool
 
 
@@ -47,6 +47,24 @@ def get_pro_case_list(data):
     }
 
 
+def get_case_detail(data):
+    case_id = data["case_id"]
+    data_case = jsontool.convert_to_dict(Case.objects.all().get(case_id=case_id))
+    data_api = jsontool.convert_to_dict(Api.objects.all().get(api_id=data_case["api_id"]))
+    del (data_api['_state'])
+    depnt_api = jsontool.convert_to_dict(DepndApi.objects.all().get(depnd_api_id=data_case["depnd_api_id"]))
+    del (depnt_api['_state'])
+    data_case["api"] = data_api
+    data_case["depnt_api"] = depnt_api
+    del (data_case['_state'])
+    print(data_case)
+    return {
+        "code": 1,
+        "msg": "获取成功",
+        "data": data_case
+    }
+
+
 def create_case(data):
     pro_id = data['pro_id']
     api_id = data['api_id']
@@ -71,10 +89,10 @@ def edit_case_info(data):
     api_id = data['api_id']
     case_desc = data['case_desc']
     case_name = data['case_name']
-    depnt_id = data['depnt_id']
+    depnd_api_id = data['depnd_api_id']
     check_type = data['check_type']
     Case.objects.all().filter(case_id=case_id).update(pro_id=pro_id, api_id=api_id, case_desc=case_desc,
-                                                      case_name=case_name, depnt_id=depnt_id, check_type=check_type)
+                                                      case_name=case_name, depnd_api_id=depnd_api_id, check_type=check_type)
     CaseSuite.objects.all().filter(case_id=case_id).delete()
     suite_list_data = data['suite_list']
     for suite_id in suite_list_data:

@@ -1236,6 +1236,13 @@ def case_list(req):
     return HttpResponse(json.dumps(resp), content_type="application/json")
 
 
+def case_detail(req):
+    data = json.loads(str(req.body, encoding="utf-8"))
+    resp = casedata.get_case_detail(data)
+    print(json.dumps(resp))
+    return HttpResponse(json.dumps(resp), content_type="application/json")
+
+
 def case_create(req):
     """
     创建case

@@ -46,6 +46,7 @@ urlpatterns = [
     url(r'project/api/caseList$', views.api_case_list, name="获取接口下的case列表"),
 
     url(r'project/caseList$', views.case_list, name="获取项目中的case列表"),
+    url(r'project/case/detail$', views.case_detail, name="获取case详情"),
     url(r'project/case/create$', views.case_create, name="创建case"),
     url(r'project/case/edit/info$', views.case_info_edit, name="编辑case的基本信息"),
     url(r'project/case/edit/req$', views.case_req_edit, name="编辑case的请求信息"),
