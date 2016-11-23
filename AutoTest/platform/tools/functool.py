@@ -15,12 +15,13 @@ def run_code(func_name,func_code):
     try:
         fpath = write_py(func_name, func_code)
         r['output'] = decode(subprocess.check_output([EXEC, fpath], stderr=subprocess.STDOUT, timeout=5))
+        r['status'] = 1
     except subprocess.CalledProcessError as e:
-        r = dict(error='Exception', output=decode(e.output))
+        r = dict(status=2, error='Exception', output=decode(e.output))
     except subprocess.TimeoutExpired as e:
-        r = dict(error='Timeout', output='执行超时')
+        r = dict(status=3, error='Timeout', output='执行超时')
     except subprocess.CalledProcessError as e:
-        r = dict(error='Error', output='执行错误')
+        r = dict(status=4, error='Error', output='执行错误')
     return r
 
 
