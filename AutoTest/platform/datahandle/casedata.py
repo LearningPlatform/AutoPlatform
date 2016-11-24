@@ -57,7 +57,8 @@ def get_case_detail(data):
     data_case["api"] = data_api
     data_case["depnt_api"] = depnt_api
     del (data_case['_state'])
-    print(data_case)
+    suite_list = list(CaseSuite.objects.all().filter(case_id=case_id).values_list("suite_id", flat=True))
+    data_case["suite_list"] = suite_list
     return {
         "code": 1,
         "msg": "获取成功",
@@ -74,7 +75,6 @@ def create_case(data):
     check_type = data['check_type']
     case_id = Case.objects.create(pro_id=pro_id, api_id=api_id, case_desc=case_desc, case_name=case_name,depnd_api_id=depnd_api_id, check_type=check_type).case_id
     suite_list_data = data['suite_list']
-
     for suite_id in suite_list_data:
         CaseSuite.objects.create(pro_id=pro_id, api_id=api_id, case_id=case_id, suite_id=suite_id)
     return {
