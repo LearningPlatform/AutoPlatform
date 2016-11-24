@@ -1,5 +1,5 @@
 
-var myApp = angular.module('autoTest',['ui.router','ngCookies','monospaced.elastic']);
+var myApp = angular.module('autoTest',['ui.router','ngCookies','monospaced.elastic',"chart.js"]);
 
 myApp.config(function($stateProvider,$urlRouterProvider,$interpolateProvider) {
     $interpolateProvider.startSymbol('{$');
