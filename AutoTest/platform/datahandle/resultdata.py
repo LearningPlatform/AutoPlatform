@@ -1,6 +1,6 @@
 from ...models import Result, ResultDetail, Case, Api, Suite
 
-from ..tools import jsontool
+from ..tools import jsontool,timetool
 
 import json
 
@@ -14,6 +14,8 @@ def get_result_list(data):
         b = jsontool.class_to_dict(Suite.objects.all().get(suite_id=a["suite_id"]))
         var = dict(a, **b)
         del (var['_state'])
+        var['start_time'] = timetool.get_data(var['start_time'])
+        var['end_time'] = timetool.get_data(var['end_time'])
         body.append(var)
     return {
         "code": 1,
