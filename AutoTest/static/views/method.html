@@ -58,7 +58,7 @@
                                         </tr>
                                     </tbody>
                                 </table>
-                                <div ng-show="edit">
+                                <div ng-show="formation && edit">
                                     <form class="col-md-10 bs-example bs-example-form">
                                         <div class="input-group">
                                             <span class="input-group-addon">名字</span>
@@ -72,10 +72,10 @@
                                         </div>
                                     </form>
                                 </div>
-                                <div ng-show="code">
-                                    <textarea class="form-control msd-elastic: \n;" rows="10" ng-model="func.func_code">
-                                    </textarea>
-                                </div>
+                            </div>
+                            <div ng-show="code">
+                                <textarea class="form-control msd-elastic: \n;" rows="10" ng-model="func.func_code">
+                                </textarea>
                             </div>
                         </div>
                     </div>
