@@ -22,6 +22,10 @@ myApp.config(function($stateProvider,$urlRouterProvider,$interpolateProvider) {
                 '':{
                     templateUrl: '/static/views/projectIntro.html',
                     controller: 'proCtrl'
+                },
+                'intro@project':{
+                    templateUrl: '/static/views/homepage.html',
+                    controller: 'homepageCtrl'
                 }
             }
         })
