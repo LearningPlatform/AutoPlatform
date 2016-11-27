@@ -2,8 +2,6 @@ from ...models import Result, ResultDetail, Case, Api, Suite
 
 from ..tools import jsontool
 
-import json
-
 
 def get_result_list(data):
     pro_id = data["pro_id"]
