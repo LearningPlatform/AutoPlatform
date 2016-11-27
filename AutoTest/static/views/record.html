@@ -2,4 +2,80 @@
     <div>
         <h1 class="page-header text-primary">录制</h1>
     </div>
+
+    <div class="container-fluid">
+        <div class="pull-right">
+            <button class="btn btn-default" ng-click="dfRecord()">录制</button>
+            <button class="btn bg-danger" ng-click="stopRecord()">停止录制</button>
+            <button class="btn btn-default" ng-click="showRecord()">显示</button>
+            <button class="btn btn-default" ng-click="setRecord()">显示接口</button>
+        </div>
+        <div class="panel">
+            <div class="panel-body">
+                <iframe ng-show="showiframe" width="100%" marginwidth="0" height="100%"
+                        marginheight="0" scrolling="Yes" frameborder="0" vspace="0" id="Iframe1" border="0"
+                        framespacing="0" noresize="noResize"></iframe>
+                  <table class="table table-hover">
+                <thead ng-show="showtable">
+                    <tr>
+                        <th>序号</th>
+                        <th>标题</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr ng-repeat="req_data in reqData">
+                        <td ng-bind="$index+1"></td>
+                        <td ng-bind="req_data.content.url"></td>
+                    </tr>
+                </tbody>
+            </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!--编辑项目-->
+<div class="modal fade" id="recordModal">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+                    &times;
+                </button>
+                <h4 class="modal-title" id="myModalLabel">
+                    录制信息
+                </h4>
+            </div>
+            <div class="modal-body">
+                <form class="form-horizontal" role="form">
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label">host地址：</label>
+                        <div class="col-sm-10">
+                            <input type="text" class="form-control" ng-model="record_info.host">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label">端口号：</label>
+                        <div class="col-sm-10">
+                            <input type="text" class="form-control" ng-model="record_info.port">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label">过滤字段：</label>
+                        <div class="col-sm-10">
+                            <input type="text" class="form-control" ng-model="record_info.filter">
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">关闭
+                </button>
+                <button type="button" class="btn btn-primary" ng-click="startRecord()">
+                    开始录制
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
 </div>
