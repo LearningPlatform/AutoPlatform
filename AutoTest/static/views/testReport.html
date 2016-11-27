@@ -3,7 +3,7 @@
         <h1 class="page-header text-primary">测试报告</h1>
     </div>
     <div class="row top4" ng-show="repList">
-        <form class="col-md-3 bs-example bs-example-form">
+        <form class="col-md-2 bs-example bs-example-form">
             <div class="input-group">
                 <span class="input-group-addon">套件</span>
                 <select class="form-control" ng-model="suite" ng-options="suite.suite_name for suite in suiteList">
@@ -12,20 +12,21 @@
             </div>
         </form>
 
-        <form class="col-md-4 bs-example bs-example-form" >
+        <form class="col-md-3 bs-example bs-example-form" >
             <div class="input-group date form_date" data-date="" data-date-format="dd MM yyyy" data-link-field="dtp_input2" data-link-format="yyyy-mm-dd">
                 <span class="input-group-addon">起始时间</span>
-                <input type="text" class="form-control" ng-model="startDate" readonly>
+                <input type="text" class="form-control" ng-model="startDate" readonly style="background: white">
                 <span class=" input-group-addon"><span class="glyphicon glyphicon-calendar"></span></span>
             </div>
+        </form>
+        <form class="col-md-3 bs-example bs-example-form" >
             <div class="input-group date form_date" data-date="" data-date-format="dd MM yyyy" data-link-field="dtp_input2" data-link-format="yyyy-mm-dd">
                 <span class="input-group-addon">结束时间</span>
-                <input class="form-control" type="text" ng-model="endDate" readonly>
+                <input class="form-control" type="text" ng-model="endDate" readonly style="background: white">
                 <span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span></span>
             </div>
         </form>
-
-        <form class="col-md-3 bs-example bs-example-form">
+        <form class="col-md-2 bs-example bs-example-form">
             <div class="input-group">
                 <span class="input-group-addon">标题</span>
                 <input type="text" class="form-control" ng-model="title">
@@ -134,12 +135,12 @@
                                 <form class="col-md-12 bs-example bs-example-form">
                                     <div class="input-group">
                                         <span class="input-group-addon">  U R L  </span>
-                                        <textarea type="text" class="form-control  msd-elastic: \n" ng-model="res.input_data.url" readonly>
+                                        <textarea type="text" style="background: white" class="form-control  msd-elastic: \n" ng-model="res.input_data.url" readonly>
                                         </textarea>
                                     </div>
                                     <div class="input-group">
                                         <span class="input-group-addon">body</br>参数</span>
-                                        <textarea type="text" class="form-control  msd-elastic: \n"  ng-model="res.input_data.body" readonly>
+                                        <textarea type="text" style="background: white" class="form-control  msd-elastic: \n"  ng-model="res.input_data.body" readonly>
                                         </textarea>
                                     </div>
                                 </form>
@@ -149,17 +150,17 @@
                                 <form class="col-md-12 bs-example bs-example-form">
                                     <div class="input-group">
                                         <span class="input-group-addon">状态码</span>
-                                        <textarea type="text" rows="1" class="form-control  msd-elastic: \n" ng-model="res.out_data.status_code" readonly>
+                                        <textarea type="text" style="background: white" rows="1" class="form-control  msd-elastic: \n" ng-model="res.out_data.status_code" readonly>
                                         </textarea>
                                     </div>
                                     <div class="input-group">
                                         <span class="input-group-addon">响应头</span>
-                                        <textarea type="text" rows="1" class="form-control  msd-elastic: \n" ng-model="res.out_data.response_data.header" readonly>
+                                        <textarea type="text" rows="1"style="background: white"  class="form-control  msd-elastic: \n" ng-model="res.out_data.response_data.header" readonly>
                                         </textarea>
                                     </div>
                                     <div class="input-group">
                                         <span class="input-group-addon">响应体</span>
-                                        <textarea type="text" rows="1" class="form-control  msd-elastic: \n" ng-model="res.out_data.response_data.body" readonly>
+                                        <textarea type="text" style="background: white" rows="1" class="form-control  msd-elastic: \n" ng-model="res.out_data.response_data.body" readonly>
                                         </textarea>
                                     </div>
                                 </form>
