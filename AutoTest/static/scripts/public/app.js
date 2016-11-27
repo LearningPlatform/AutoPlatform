@@ -119,4 +119,14 @@ myApp.config(function($stateProvider,$urlRouterProvider,$interpolateProvider) {
                 }
             }
         })
+
+        .state('project.record',{
+            url:'/record',
+            views:{
+                'intro@project':{
+                    templateUrl: '/static/views/record.html',
+                    controller: 'recordCtrl'
+                }
+            }
+        })
 })
