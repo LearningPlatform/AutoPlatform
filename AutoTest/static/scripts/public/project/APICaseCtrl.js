@@ -60,6 +60,7 @@ myApp.controller('APICaseCtrl',function($scope,$http,$cookieStore,$timeout) {
         "depnt_api":{depnt_api_name:"",depnt_api_id:0}
     }
 
+
     $scope.report={
         "report_name": "",
         "start_time": "",
@@ -77,6 +78,15 @@ myApp.controller('APICaseCtrl',function($scope,$http,$cookieStore,$timeout) {
         }).success(function(response){
             if(response.code==1){
                 $scope.envList=response.data;
+            }else{
+                alert(response.msg)
+            }
+        })
+        $http.post("project/dapi/list",{
+            "pro_id":pro_id
+        }).success(function(response){
+            if(response.code==1){
+                $scope.apiDepList=response.data;
             }else{
                 alert(response.msg)
             }
@@ -375,21 +385,14 @@ myApp.controller('APICaseCtrl',function($scope,$http,$cookieStore,$timeout) {
         });
     }
 
+    $scope.selected=0;
     $scope.editapi=function(id){
         $http.post('project/api/detail',{
             "api_id":id
         }).success(function(response){
             if(response.code==1){
                 $scope.api=response.data;
-                $http.post('project/module/detail',{
-                    "module_id":$scope.api.module_id
-                }).success(function(response1){
-                    if(response1.code==1){
-                        $scope.module=response1.data;
-                    }else{
-                        alert(response1.msg);
-                    }
-                })
+                $scope.selected=$scope.api.module_id;
             }else{
                 alert(response.msg);
             }
@@ -398,6 +401,7 @@ myApp.controller('APICaseCtrl',function($scope,$http,$cookieStore,$timeout) {
     }
 
     $scope.saveEditAPI=function(id){
+        console.log(id)
         if($scope.api.api_name==null){
             $scope.api.api_name="";
         }
@@ -484,6 +488,7 @@ myApp.controller('APICaseCtrl',function($scope,$http,$cookieStore,$timeout) {
     }
 
     $scope.getAPICase=function(id){
+        console.log(id)
         $scope.showCase=!$scope.showCase;
         $scope.showAPIID=id;
         $http.post('project/api/caseList',{
@@ -505,25 +510,24 @@ myApp.controller('APICaseCtrl',function($scope,$http,$cookieStore,$timeout) {
         for(var i=0;i<$scope.suiteList.length;i++){
             $scope.check[i]=false;
         }
-        $http.post("project/dapi/list",{
-            "pro_id":pro_id
-        }).success(function(response){
-            if(response.code==1){
-                $scope.apiDepList=response.data;
-            }else{
-                alert(response.msg)
-            }
-        })
         $("#AddCase").modal();
     }
 
-    $scope.addSuiteList=function(checked,id){
-        if(checked==true){
-            $scope.suite_list.push(id);
+     var suite_list=[];
+    $scope.addSuiteList=function(index,id){
+        if($scope.check[index]==true){
+            suite_list[index]=id;
+        }else{
+            suite_list[index]="";
         }
     }
 
     $scope.saveCase=function(id){
+        for(var i=0;i<$scope.check.length;i++){
+             if($scope.check[i]==true){
+                $scope.suite_list.push(suite_list[i]);
+            }
+        }
         if($scope.case.case_name==null){
             $scope.case.case_name="";
         }
@@ -583,6 +587,7 @@ myApp.controller('APICaseCtrl',function($scope,$http,$cookieStore,$timeout) {
             }
         }
         $scope.exp = obj.exp_data;
+        $scope.showParam2();
     }
 
     var editApiId=0;
@@ -739,23 +744,41 @@ myApp.controller('APICaseCtrl',function($scope,$http,$cookieStore,$timeout) {
         })
     }
 
-    $scope.cfEditCase = function (case_id) {
+    var suiteIndex=0;
+    $scope.editCase = function (id) {
+        $scope.suite_list=[];
         $("#EditCase").modal();
         $http.post('project/case/detail',{
-            "case_id":case_id
+            "case_id":id
         }).success(function(response) {
             if (response.code == 1) {
-                $scope.case = response.data;
-                console.log($scope.case)
+                $scope.case=response.data;
+                $scope.selected1=$scope.case.api_id;
+                $scope.selected2=$scope.case.depnd_api_id;
+                for(var i=0;i<$scope.suiteList.length;i++){
+                    $scope.check[i]=false;
+                    suite_list[i]=-1;
+                }
+                for(var i=0;i<$scope.case.suite_list.length;i++){
+                    for(var j=0;j<$scope.suiteList.length;j++){
+                        if($scope.suiteList[j].suite_id==$scope.case.suite_list[i]){
+                            $scope.check[j]=true;
+                            suite_list[j]=$scope.suiteList[j].suite_id;
+                        }
+                    }
+                }
             }else{
                 alert(response.msg);
             }
         })
-        caseId=case_id;
     }
 
-
-    $scope.saveEditCase=function(){
+    $scope.saveEditCase=function(apiId,depntId){
+        for(var i=0;i<$scope.check.length;i++){
+             if($scope.check[i]==true){
+                $scope.suite_list.push(suite_list[i]);
+            }
+        }
         if($scope.case.case_name==null){
             $scope.case.case_name="";
         }
@@ -769,14 +792,14 @@ myApp.controller('APICaseCtrl',function($scope,$http,$cookieStore,$timeout) {
             $scope.case.depnt_api={depnt_api_name:"",depnt_api_id:0};
         }
         $http.post('project/case/edit/info',{
-            case_id:caseId,
-            api_id: $scope.case.api.api_id,
+            case_id:$scope.case.case_id,
+            api_id: apiId,
             pro_id: pro_id,
             case_desc: $scope.case.case_desc,
             case_name: $scope.case.case_name,
             suite_list:$scope.suite_list,
             check_type:0,
-            depnd_api_id:$scope.case.depnt_api.depnd_api_id
+            depnd_api_id:depntId
         }).success(function(response){
             if(response.code==1) {
                 $http.post('project/api/caseList',{
@@ -803,9 +826,8 @@ myApp.controller('APICaseCtrl',function($scope,$http,$cookieStore,$timeout) {
         })
         $("#cfDepnt").modal();
     }
+
     $scope.addDepnt = function () {
-
-
         $("#cfDepnt").modal('hide');
     }
 })
