@@ -1,5 +1,7 @@
 myApp.controller('testReportCtrl',function($scope,$http,$cookieStore,$timeout) {
     var pro_id = $cookieStore.get("currProID");
+    $scope.wid={
+    }
     $scope.List=['active'];
     $scope.reportDetal=[];
     $scope.suiteList="";
@@ -28,7 +30,15 @@ myApp.controller('testReportCtrl',function($scope,$http,$cookieStore,$timeout) {
         "api_desc": "登录"
     }
 
+    var date;
+    var m;
+    var s;
+    $scope.timeInval=[];
      $timeout(function(){
+         $scope.suite="";
+         $scope.startDate="";
+         $scope.endDate="";
+         $scope.title="";
          $http.post('project/suite/list',{
              "pro_id":pro_id
          }).success(function(response){
@@ -45,14 +55,30 @@ myApp.controller('testReportCtrl',function($scope,$http,$cookieStore,$timeout) {
          }).success(function(response1){
              if(response1.code=1){
                  $scope.resultList=response1.data;
+                 for(var i=0;i<$scope.resultList.length;i++){
+                     date = new Date(($scope.resultList[i].end_time - $scope.resultList[i].start_time) * 1000);
+                     m=date.getMinutes();
+                     s=date.getSeconds();
+                     if(m>0){
+                         $scope.timeInval[i]= m + "m" + s + "s";
+                     }else{
+                         $scope.timeInval[i]= s + "s";
+                     }
+                 }
              }else{
                  alert(response1.msg)
              }
          })
      })
 
+    $scope.clearSelect=function(){
+        $scope.suite="";
+        $scope.startDate="";
+        $scope.endDate="";
+        $scope.title="";
+    }
+
     $scope.showDetail=function(obj){
-        console.log(obj.result_id)
         $scope.result=obj;
         $scope.repList=false;
         $scope.repDetail=true;
@@ -118,4 +144,33 @@ myApp.controller('testReportCtrl',function($scope,$http,$cookieStore,$timeout) {
         })
     }
 
+    $scope.tableStyle={
+        "background-color" : "white",
+        "height" : "35px"
+    }
+
+    $scope.tableGray=function(){
+        $scope.tableStyle={
+            "background-color" : "#eeeeff",
+            "height" : "35px"
+        }
+    }
+
+    $scope.tableWhite=function(){
+        $scope.tableStyle={
+            "background-color" : "white",
+            "height" : "35px"
+        }
+    }
+
+	$('.form_date').datetimepicker({
+        language:  'fr',
+        weekStart: 1,
+        todayBtn:  1,
+		autoclose: 1,
+		todayHighlight: 1,
+		startView: 2,
+		minView: 2,
+		forceParse: 0
+    });
 })
