@@ -263,8 +263,8 @@
                         <div class="form-group">
                             <label for="var_type" class="col-md-2 control-label">类型：</label>
                             <div class="col-md-10">
-                                <select class="form-control" ng-model="var.var_type" ng-options="type for type in varType">
-                                    <option value="" ng-bind="var.var_type"></option>
+                                <select class="form-control" ng-model="var.var_type" >
+                                     <option ng-repeat="type in varType" value="{$type$}">{$type$}</option>
                                 </select>
                             </div>
                         </div>
