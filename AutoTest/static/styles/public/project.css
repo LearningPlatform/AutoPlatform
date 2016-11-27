@@ -95,17 +95,11 @@ a:active {text-decoration:none ;color: #3c3c3c}
 }
 
 .textsize{
-    padding-left: 5px;
+    padding-left: 0px;
+    padding-right: 0px;
+    text-align: center;
     margin-right: 20px;
-    font-size: 5px;
-    width:60px;
-    height:60px;
-}
-
-.textsize1{
-    padding-left: 8px;
-    margin-right: 20px;
-    font-size: 5px;
+    font-size: 10px;
     width:60px;
     height:60px;
 }
@@ -118,46 +112,11 @@ a:active {text-decoration:none ;color: #3c3c3c}
     margin-left: 20px;
 }
 
-.input11{
-    background-color:#cccccc;
-    width:13%;
-    text-align: right;
-    padding-top:2%;
-    padding-bottom: 2%;
-    margin-left: 5%;
-    font-family: Consolas, monospace, serif;
-    font-size: 14px;
-}
-
-.input21{
-    width:60%;
-    font-family: Consolas, monospace, serif;
-    font-size: 14px;
-    background-color:#ffffff;
-}
-
-.input12{
-    background-color:#cccccc;
-    width:13%;
-    text-align: right;
-    padding-top:0.5%;
-    padding-bottom: 0.5%;
-    margin-left: 5%;
-    font-family: Consolas, monospace, serif;
-}
-
-.input22{
-    width:60%;
-    font-family: Consolas, monospace, serif;
-    background-color:#ffffff;
-}
-
 .wid3{
-    width:8%;
+    width:10%;
     text-align: left;
     color:#3c3c3c;
     padding-bottom: 8px;
-
 }
 
 .wid4{
@@ -171,9 +130,8 @@ a:active {text-decoration:none ;color: #3c3c3c}
     width:100%;
 }
 
-.design tr:nth-child(2n)
-{
-         background:#eeeeee;
+.design th{
+    border-bottom: 1px solid #dddddd;
 }
 
 textarea{
@@ -183,6 +141,8 @@ textarea{
     border-top-left-radius: 0;
     border-top-right-radius: 0;
 }
+
+
 
 
 
