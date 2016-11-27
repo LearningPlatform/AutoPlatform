@@ -215,13 +215,13 @@
                                         </div>
                                         <div ng-show="showSelectId==2">
                                             <h3 class="container">期望的返回值</h3>
-                                            <div class="row form-group">
+                                            <div class="row container form-group">
                                                 <div class="col-md-3">
                                                     <select class="form-control">
                                                         <option value="">自定义</option>
                                                     </select>
                                                 </div>
-                                                <form class="col-md-3 bs-example bs-example-form">
+                                                <form class="col-md-3 col-md-offset-1 bs-example bs-example-form">
                                                     <div class="input-group">
                                                         <span class="input-group-addon">格式</span>
                                                         <select class="form-control">
@@ -229,26 +229,24 @@
                                                         </select>
                                                     </div>
                                                 </form>
-                                                <form class="col-md-3 bs-example bs-example-form">
+                                                <form class="col-md-3 col-md-offset-1 bs-example bs-example-form">
                                                     <div class="input-group">
                                                         <span class="input-group-addon">状态码</span>
                                                         <input type="text" class="form-control" placeholder="200">
                                                     </div>
                                                 </form>
                                                 <div class="col-md-1">
-                                                    <button type="button" class="btn btn-default">
+                                                    <button type="button" class="pull-right btn btn-primary" ng-click="saveExp(case.case_id,exp)">
                                                         保存
                                                     </button>
                                                 </div>
                                             </div>
-                                            <form role="form">
-                                                <textarea class="form-control" rows="3" ng-model="exp">
-                                                </textarea>
-                                                <button type="button" class="pull-right btn btn-primary"
-                                                        ng-click="saveExp(case.case_id,exp)">
-                                                    保存
-                                                </button>
-                                            </form>
+                                            <div>
+                                                <form role="form" class="col-md-12">
+                                                    <textarea class="form-control" rows="3" ng-model="exp">
+                                                    </textarea>
+                                                </form>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
