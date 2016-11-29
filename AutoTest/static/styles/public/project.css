@@ -51,7 +51,7 @@ a:active {text-decoration:none ;color: #3c3c3c}
 }
 
 .dis{
-    margin-left: 17%;
+    margin-left: 15%;
 }
 
 .nav-sidebar {
@@ -144,6 +144,8 @@ a:active {text-decoration:none ;color: #3c3c3c}
     text-align: left;
     color:#3c3c3c;
     padding-right: 1%;
+    font-size: 14px;
+    font-family: Consolas, monospace, serif;
 }
 
 .tableWid2{
@@ -151,6 +153,8 @@ a:active {text-decoration:none ;color: #3c3c3c}
     text-align: left;
     color:#3c3c3c;
     padding-right: 1%;
+    font-size: 14px;
+    font-family: Consolas, monospace, serif;
 }
 
 .tableWid3{
@@ -158,6 +162,8 @@ a:active {text-decoration:none ;color: #3c3c3c}
     text-align: left;
     color:#3c3c3c;
     padding-right: 1%;
+    font-size: 14px;
+    font-family: Consolas, monospace, serif;
 }
 
 textarea{
