@@ -1,9 +1,9 @@
 myApp.controller('recordCtrl', function ($scope, $http, $cookieStore, $timeout) {
     var pro_id = $cookieStore.get("currProID");
     $scope.record_info={
-        host:"10.170.18.55",
+        host:"192.168.36.32",
         port:8003,
-        filter:""
+        filter:"supernano"
     }
     $scope.servers_url = "";
     $scope.reqData=[];
@@ -17,23 +17,15 @@ myApp.controller('recordCtrl', function ($scope, $http, $cookieStore, $timeout) 
     }
 
     $scope.initSocket=function () {
-        //self.bodyCbMap = {};
         dataSocket = new WebSocket("ws://" + baseUrl + ":" + socketPort);
         dataSocket.onmessage = function (event) {
             data = JSON.parse(event.data);
-            /*type = data.type;
-            $scope.content = data.content;
-            reqRef = data.reqRef;
-            if (type == "update") {
-
-            } else if (type == "body") {
-                if (data.reqRef && self.bodyCbMap[reqRef]) {
-                    self.bodyCbMap[reqRef].call(self, content);
-                }
-            }*/
-            $scope.reqData.push(data);
+            reqData_str = JSON.stringify(data);
+            if(reqData_str.indexOf($scope.record_info.filter)!=-1){
+                data.content.reqHeader = JSON.stringify(data.content.reqHeader)
+                $scope.reqData.push(data);
+            }
         }
-        //self.dataSocket = dataSocket;
     }
 
     $scope.startRecord = function () {
@@ -42,6 +34,7 @@ myApp.controller('recordCtrl', function ($scope, $http, $cookieStore, $timeout) 
         $scope.initSocket();
         $("#recordModal").modal('hide');
         $scope.servers_url = "http://" + $scope.record_info.host+":"+"8002/";
+
         $("iframe").attr("src",$scope.servers_url);
     }
 
@@ -57,6 +50,7 @@ myApp.controller('recordCtrl', function ($scope, $http, $cookieStore, $timeout) 
     $scope.setRecord = function () {
         $scope.showiframe = false;
         $scope.showtable = true;
+        console.log($scope.reqData)
     }
 
 })
