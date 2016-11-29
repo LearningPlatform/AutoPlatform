@@ -106,7 +106,7 @@
                         <th class="wid4">验证器</th>
                         <th class="wid4">结果</th>
                     </tr>
-                    <tr ng-repeat="res in allResult" ng-style="tableStyle" ng-mouseenter="tableGray()" ng-mouseleave="tableWhite()">
+                    <tr ng-repeat="res in allResult" ng-style="styleList[$index]" ng-mouseenter="tableGray($index)" ng-mouseleave="tableWhite($index)">
                         <td ng-show="reportDetal[$index]" colspan="7">
                             <table class="col-xs-12">
                                 <tr>
