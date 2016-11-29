@@ -14,21 +14,32 @@
             <div class="panel-body">
                 <iframe ng-show="showiframe" width="100%" marginwidth="0" height="100%"
                         marginheight="0" scrolling="Yes" frameborder="0" vspace="0" id="Iframe1" border="0"
-                        framespacing="0" noresize="noResize"></iframe>
-                  <table class="table table-hover">
-                <thead ng-show="showtable">
-                    <tr>
-                        <th>序号</th>
-                        <th>标题</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr ng-repeat="req_data in reqData">
-                        <td ng-bind="$index+1"></td>
-                        <td ng-bind="req_data.content.url"></td>
-                    </tr>
-                </tbody>
-            </table>
+                        framespacing="0" noresize="noResize">
+                </iframe>
+                <div ng-show="showtable">
+                    <table class="table table-hover">
+                        <thead >
+                            <tr>
+                                <th>序号</th>
+                                <th>方法</th>
+                                <th>协议</th>
+                                <th>请求头</th>
+                                <th>请求体</th>
+                                <th>URL</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr ng-repeat="req_data in reqData">
+                                <td ng-bind="$index+1"></td>
+                                <td ng-bind="req_data.content.method"></td>
+                                <td ng-bind="req_data.content.protocol"></td>
+                                <td ng-bind="req_data.content.reqHeader"></td>
+                                <td ng-bind="req_data.content.reqBody"></td>
+                                <td ng-bind="req_data.content.url"></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
             </div>
         </div>
     </div>
