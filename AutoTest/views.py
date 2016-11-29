@@ -2,7 +2,7 @@ from django.shortcuts import render_to_response,HttpResponse
 import json
 
 from .platform.datahandle import prodata, envdata, vardata, moduledata, suitedata, \
-    casedata, apidata, rundata, resultdata, dapidata, funcdata
+    casedata, apidata, rundata, resultdata, dapidata, funcdata, recorddata
 from .platform.tools import strtool
 
 
@@ -1887,5 +1887,22 @@ def func_run(req):
     """
     data = json.loads(str(req.body, encoding="utf-8"))
     resp = funcdata.run_func(data)
+    return HttpResponse(json.dumps(resp), content_type="application/json")
+
+
+def record_anyproxy_req(req):
+    """
+        获取anyproxy录制的结果
+        请求方法：post
+        如：
+        {
+             req_id:5，    需要获取的请求的id
+             host:"192.168.1.102",     本机的anyproxy服务器的host
+             port:8002     GUI界面的端口地址（一般默认为8002）
+         }
+        :return:
+        """
+    data = json.loads(str(req.body, encoding="utf-8"))
+    resp = recorddata.get_anyproxy_resp(data)
     return HttpResponse(json.dumps(resp), content_type="application/json")
 

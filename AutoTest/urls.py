@@ -74,4 +74,6 @@ urlpatterns = [
     url(r'project/func/delete$', views.func_delete, name="删除方法"),
     url(r'project/func/run$', views.func_run, name="运行方法"),
 
+    url(r'project/record/reqdetail$', views.record_anyproxy_req, name="运行方法"),
+
 ]
