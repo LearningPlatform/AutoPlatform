@@ -10,37 +10,55 @@
             <button class="btn btn-default" ng-click="showRecord()">显示</button>
             <button class="btn btn-default" ng-click="setRecord()">显示接口</button>
         </div>
-        <div class="panel">
-            <div class="panel-body">
-                <iframe ng-show="showiframe" width="100%" marginwidth="0" height="100%"
-                        marginheight="0" scrolling="Yes" frameborder="0" vspace="0" id="Iframe1" border="0"
-                        framespacing="0" noresize="noResize">
-                </iframe>
-                <div ng-show="showtable">
-                    <table id="recordTable" class="table table-hover">
-                        <thead >
-                            <tr>
-                                <th>序号</th>
-                                <th>方法</th>
-                                <th>协议</th>
-                                <th>请求头</th>
-                                <th>请求体</th>
-                                <th>URL</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr ng-repeat="req_data in reqData">
-                                <td ng-bind="$index+1"></td>
-                                <td ng-bind="req_data.content.method"></td>
-                                <td ng-bind="req_data.content.protocol"></td>
-                                <td ng-bind="req_data.content.reqHeader"></td>
-                                <td ng-bind="req_data.content.reqBody"></td>
-                                <td ng-bind="req_data.content.url"></td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>
-            </div>
+        <div ng-show="showiframe">
+            <iframe width="100%" marginwidth="0" height="100%"
+                    marginheight="0" scrolling="Yes" frameborder="0" vspace="0" id="Iframe1" border="0"
+                    framespacing="0" noresize="noResize">
+            </iframe>
+        </div>
+        <div ng-show="showtable" class="col-md-12">
+            <!--
+            <table id="recordTable" class="table table-hover">
+                <thead>
+                    <tr>
+                        <th >序号</th>
+                        <th >方法</th>
+                        <th >协议</th>
+                        <th >请求头</th>
+                        <th >请求体</th>
+                        <th >URL</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr ng-repeat="req_data in reqData">
+                        <td  ng-bind="$index+1"></td>
+                        <td  ng-bind="req_data.method"></td>
+                        <td  ng-bind="req_data.protocol"></td>
+                        <td ng-bind="req_data.reqHeader"></td>
+                        <td ng-bind="req_data.reqBody"></td>
+                        <td ng-bind="req_data.url"></td>
+                    </tr>
+                </tbody>
+            </table>-->
+
+            <table class="design">
+                <tr>
+                    <th class="tableWid1">序号</th>
+                    <th class="tableWid2">方法</th>
+                    <th class="tableWid1">协议</th>
+                    <th class="tableWid3">请求头</th>
+                    <th class="tableWid2">请求体</th>
+                    <th class="tableWid3">URL</th>
+                </tr>
+                <tr ng-repeat="req_data in reqData"  ng-style="styleList[$index]" ng-mouseenter="tableGray($index)" ng-mouseleave="tableWhite($index)">
+                    <td class="tableWid1" ng-bind="$index+1"></td>
+                    <td class="tableWid2" ng-bind="req_data.method"></td>
+                    <td class="tableWid1" ng-bind="req_data.protocol"></td>
+                    <td class="tableWid3" ng-bind="req_data.reqHeader"></td>
+                    <td class="tableWid2" ng-bind="req_data.reqBody"></td>
+                    <td class="tableWid3" ng-bind="req_data.url"></td>
+                </tr>
+            </table>
         </div>
     </div>
 </div>
@@ -60,20 +78,20 @@
             <div class="modal-body">
                 <form class="form-horizontal" role="form">
                     <div class="form-group">
-                        <label class="col-sm-2 control-label">host地址：</label>
-                        <div class="col-sm-10">
+                        <label class="col-sm-3 control-label">host地址：</label>
+                        <div class="col-sm-8">
                             <input type="text" class="form-control" ng-model="record_info.host">
                         </div>
                     </div>
                     <div class="form-group">
-                        <label class="col-sm-2 control-label">端口号：</label>
-                        <div class="col-sm-10">
+                        <label class="col-sm-3 control-label">端口号：</label>
+                        <div class="col-sm-8">
                             <input type="text" class="form-control" ng-model="record_info.port">
                         </div>
                     </div>
                     <div class="form-group">
-                        <label class="col-sm-2 control-label">过滤字段：</label>
-                        <div class="col-sm-10">
+                        <label class="col-sm-3 control-label">过滤字段：</label>
+                        <div class="col-sm-8">
                             <input type="text" class="form-control" ng-model="record_info.filter">
                         </div>
                     </div>
