@@ -89,6 +89,7 @@ myApp.controller('testReportCtrl', function ($scope, $http, $cookieStore, $timeo
                 $scope.resultStr = "";
                 for (var i = 0; i < $scope.allResult.length - 1; i++) {
                     $scope.reportDetal[i] = false;
+                     $scope.styleList.push($scope.tableStyle);
                 }
             } else {
                 alert(response.msg)
@@ -143,23 +144,24 @@ myApp.controller('testReportCtrl', function ($scope, $http, $cookieStore, $timeo
         })
     }
 
+    $scope.styleList=[];
     $scope.tableStyle = {
         "background-color": "white",
-        "height": "35px"
+        //"height": "35px"
     }
 
-    $scope.tableGray = function () {
-        $scope.tableStyle = {
-            "background-color": "#eeeeff",
-            "height": "35px"
-        }
+    $scope.styleChange = {
+        "background-color": "#eeeeff",
+        //"height": "35px"
     }
 
-    $scope.tableWhite = function () {
-        $scope.tableStyle = {
-            "background-color": "white",
-            "height": "35px"
-        }
+    $scope.tableGray = function (index) {
+        $scope.styleList[index]=$scope.styleChange;
+
+    }
+
+    $scope.tableWhite = function (index) {
+        $scope.styleList[index]=$scope.tableStyle;
     }
 
     $('.form_date').datetimepicker({
