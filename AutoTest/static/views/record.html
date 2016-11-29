@@ -41,22 +41,22 @@
                 </tbody>
             </table>-->
 
-            <table class="design">
+            <table class="table table-bordered design ">
                 <tr>
                     <th class="tableWid1">序号</th>
-                    <th class="tableWid2">方法</th>
+                    <th class="tableWid1">方法</th>
                     <th class="tableWid1">协议</th>
-                    <th class="tableWid3">请求头</th>
-                    <th class="tableWid2">请求体</th>
-                    <th class="tableWid3">URL</th>
+                    <th class="tableWid2">host</th>
+                    <th class="tableWid2">path</th>
+                    <th class="tableWid3">请求体</th>
                 </tr>
                 <tr ng-repeat="req_data in reqData"  ng-style="styleList[$index]" ng-mouseenter="tableGray($index)" ng-mouseleave="tableWhite($index)">
                     <td class="tableWid1" ng-bind="$index+1"></td>
-                    <td class="tableWid2" ng-bind="req_data.method"></td>
+                    <td class="tableWid1" ng-bind="req_data.method"></td>
                     <td class="tableWid1" ng-bind="req_data.protocol"></td>
-                    <td class="tableWid3" ng-bind="req_data.reqHeader"></td>
-                    <td class="tableWid2" ng-bind="req_data.reqBody"></td>
-                    <td class="tableWid3" ng-bind="req_data.url"></td>
+                    <td class="tableWid2" ng-bind="req_data.host"></td>
+                    <td class="tableWid2" ng-bind="req_data.path"></td>
+                    <td class="tableWid3" ng-bind="req_data.reqBody"></td>
                 </tr>
             </table>
         </div>
