@@ -177,6 +177,8 @@ myApp.controller('APICaseCtrl',function($scope,$http,$cookieStore,$timeout) {
     $scope.run=function(){
         $("#runModule").modal();
         $scope.report_name="";
+        $scope.env="";
+        $scope.suite="";
     }
 
     $scope.report_name="";
