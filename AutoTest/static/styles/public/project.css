@@ -137,6 +137,7 @@ a:active {text-decoration:none ;color: #3c3c3c}
 
 .design{
     width:100%;
+    table-layout:fixed ;
 }
 
 .tableWid1{
@@ -149,12 +150,13 @@ a:active {text-decoration:none ;color: #3c3c3c}
 }
 
 .tableWid2{
-    width:10%;
+    width:20%;
     text-align: left;
     color:#3c3c3c;
     padding-right: 1%;
     font-size: 14px;
     font-family: Consolas, monospace, serif;
+    overflow-x:hidden;overflow-y:hidden;
 }
 
 .tableWid3{
@@ -164,6 +166,8 @@ a:active {text-decoration:none ;color: #3c3c3c}
     padding-right: 1%;
     font-size: 14px;
     font-family: Consolas, monospace, serif;
+    overflow-x:hidden;overflow-y:hidden;
+
 }
 
 textarea{
