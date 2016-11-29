@@ -1,9 +1,9 @@
 myApp.controller('recordCtrl', function ($scope, $http, $cookieStore, $timeout) {
     var pro_id = $cookieStore.get("currProID");
     $scope.record_info={
-        host:"192.168.36.32",
+        host:"10.170.56.122",
         port:8003,
-        filter:"supernano"
+        filter:"url"
     }
     $scope.servers_url = "";
     $scope.reqData=[];
@@ -14,8 +14,14 @@ myApp.controller('recordCtrl', function ($scope, $http, $cookieStore, $timeout) 
 
     $scope.dfRecord=function(){
         $("#recordModal").modal();
+        //$scope.record_info="";
     }
 
+    var reqURL="";
+    var reqString="";
+    var reqLength;
+    var data;
+    var reqData_str;
     $scope.initSocket=function () {
         dataSocket = new WebSocket("ws://" + baseUrl + ":" + socketPort);
         dataSocket.onmessage = function (event) {
@@ -23,7 +29,16 @@ myApp.controller('recordCtrl', function ($scope, $http, $cookieStore, $timeout) 
             reqData_str = JSON.stringify(data);
             if(reqData_str.indexOf($scope.record_info.filter)!=-1){
                 data.content.reqHeader = JSON.stringify(data.content.reqHeader)
-                $scope.reqData.push(data);
+                $scope.reqData.push(data.content);
+            }
+            reqLength=$scope.reqData.length;
+            for (var i=0;i<reqLength;i++){
+                $scope.styleList.push($scope.tableStyle);
+                reqURL="http://10.170.51.96:8002/fetchBody?id="+$scope.reqData[i].id;
+                $http.jsonp(reqURL).success(function(response){
+                    //response.setHeader("Access-Control-Allow-Origin", "http://127.0.0.1");
+                    $scope.reqData.push(response.content);
+                })
             }
         }
     }
@@ -50,7 +65,24 @@ myApp.controller('recordCtrl', function ($scope, $http, $cookieStore, $timeout) 
     $scope.setRecord = function () {
         $scope.showiframe = false;
         $scope.showtable = true;
-        console.log($scope.reqData)
     }
+
+    $scope.styleList=[];
+    $scope.tableStyle = {
+        "background-color": "white",
+    }
+
+    $scope.styleChange = {
+        "background-color": "#eeeeff",
+    }
+
+    $scope.tableGray = function (index) {
+        $scope.styleList[index]=$scope.styleChange;
+    }
+
+    $scope.tableWhite = function (index) {
+        $scope.styleList[index]=$scope.tableStyle;
+    }
+
 
 })
