@@ -103,6 +103,7 @@ class CaseSuite(models.Model):
     suite_id = models.IntegerField(null=True)
     case_id = models.IntegerField(null=True)
     api_id = models.IntegerField(null=True)
+    case_type = models.IntegerField(null=True)
 
 
 class Result(models.Model):
@@ -126,6 +127,7 @@ class ResultDetail(models.Model):
     result_detail_id = models.AutoField(primary_key=True)
     result_id = models.IntegerField(null=True)
     case_id = models.IntegerField(null=True)
+    case_type = models.IntegerField(null=True)
     api_id = models.IntegerField(null=True)
     input_data = models.TextField(null=True)
     out_data = models.TextField(null=True)
@@ -158,3 +160,24 @@ class Functions(models.Model):
     func_name = models.CharField(max_length=30, null=True)
     func_code = models.TextField(null=True)
     func_desc = models.TextField(null=True)
+
+
+class RecordCase(models.Model):
+    """
+    录制的case
+    """
+    rcd_case_id = models.AutoField(primary_key=True)
+    pro_id = models.IntegerField(null=True)
+    api_id = models.IntegerField(null=True)
+    module_id = models.IntegerField(null=True)
+    rcd_case_url = models.TextField(null=True)
+    rcd_case_method = models.TextField(null=True)
+    rcd_case_header = models.TextField(null=True)
+    rcd_case_input_data = models.TextField(null=True)
+    rcd_case_exp_data = models.TextField(null=True)
+    check_type = models.IntegerField(null=True)
+    rcd_case_name = models.TextField(null=True)
+    rcd_case_desc = models.TextField(null=True)
+    depnd_api_id = models.IntegerField(null=True)
+    resp_type = models.CharField(max_length=20, null=True)
+
