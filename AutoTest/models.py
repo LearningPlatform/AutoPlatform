@@ -82,9 +82,6 @@ class Case(models.Model):
     case_desc = models.TextField(null=True)
     is_set = models.IntegerField(null=True)
     depnd_api_id = models.IntegerField(null=True)
-    type = models.IntegerField(null=True)
-    case_url = models.CharField(max_length=50, null=True)
-    case_header = models.TextField(null=True)
 
 
 class Suite(models.Model):
