@@ -11,17 +11,17 @@ class ReqResp:
     var_map = {}
     url = ""
     param = ""
+    exp_data = ""
     api_method = ""
     api_protocol = ""
     resp = {}
     depnd_api_id = 0
-    d_api = object
+    resp_type = ""
 
     def __init__(self):
         pass
 
     def setUrl(self):
-        self.url = self.api_protocol + "://" + self.url
         while "{{" in self.url:
             a, b, str_param = strtool.str_replace(self.url, 1)
             self.url = self.url.replace(self.url[a:b], self.var_map[str_param])

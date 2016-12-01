@@ -1,5 +1,6 @@
 from ...models import Vars, VarValue, CaseSuite, Result, Functions
-from ..case.case import CaseEntity
+from ..case.mcase import MCase
+from ..case.rcdcase import RcdCase
 from ..tools import jsontool, functool
 import time
 
@@ -16,11 +17,14 @@ def get_run_info(data):
     case_list = get_run_case_id_list(suite_id)
     start_time = int(time.time())
     for a in case_list:
-        c = CaseEntity(a, var_map, result.result_id)
+        if a["case_type"]==1:
+            c = MCase(a["case_id"], var_map, result.result_id)
+        else:
+            c = RcdCase(a["case_id"], var_map, result.result_id)
         c.run()
         c.check_result()
         c.save_result()
-        if c.get_passnum() ==1:
+        if c.get_passnum() == 1:
             pass_num += 1
         else:
             fail_num += 1
@@ -49,6 +53,13 @@ def get_env_var_map(env_id):
 
 
 def get_run_case_id_list(suite_id):
-    case_list = list(CaseSuite.objects.all().filter(suite_id=suite_id).values_list("case_id", flat=True))
-    return case_list
+    case_list_json = []
+    case_ob_list = CaseSuite.objects.all().filter(suite_id=suite_id)
+    for case_ob in case_ob_list:
+        case_json = {
+            "case_id":case_ob.case_id,
+            "case_type":case_ob.case_type
+        }
+        case_list_json.append(case_json)
+    return case_list_json
 
