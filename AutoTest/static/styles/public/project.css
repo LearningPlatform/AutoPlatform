@@ -130,9 +130,14 @@ a:active {text-decoration:none ;color: #3c3c3c}
     width:100%;
 }
 
-.design th,td{
-    border-bottom: 1px solid #dddddd;
-    word-wrap:break-word;
+.design th{
+    background-color:#eeeeee;
+}
+
+.design td{
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
 
 .design{
@@ -142,32 +147,27 @@ a:active {text-decoration:none ;color: #3c3c3c}
 
 .tableWid1{
     width:5%;
-    text-align: left;
-    color:#3c3c3c;
-    padding-right: 1%;
     font-size: 14px;
     font-family: Consolas, monospace, serif;
 }
 
 .tableWid2{
-    width:20%;
-    text-align: left;
-    color:#3c3c3c;
-    padding-right: 1%;
+    width:7%;
     font-size: 14px;
     font-family: Consolas, monospace, serif;
     overflow-x:hidden;overflow-y:hidden;
 }
 
 .tableWid3{
-    width:35%;
-    text-align: left;
-    color:#3c3c3c;
-    padding-right: 1%;
+    width:14%;
     font-size: 14px;
     font-family: Consolas, monospace, serif;
-    overflow-x:hidden;overflow-y:hidden;
+}
 
+.tableWid4{
+    width:20%;
+    font-size: 14px;
+    font-family: Consolas, monospace, serif;
 }
 
 textarea{
