@@ -1,4 +1,4 @@
-from ...models import Api, Suite, CaseSuite, Case
+from ...models import Api, Suite, CaseSuite, Case, RecordCase
 from ..tools import jsontool
 
 
@@ -99,11 +99,18 @@ def del_api(data):
 def get_api_case_list(data):
     api_id = data["api_id"]
     body = []
-    test = list(set(CaseSuite.objects.all().filter(api_id=api_id).values_list("case_id" , flat=True)))
+    test = Case.objects.all().filter(api_id=api_id)
     for a in test:
-        a = jsontool.class_to_dict(Case.objects.all().get(case_id=a))
+        a = jsontool.class_to_dict(a)
         del (a['_state'])
+        a["case_type"] = 1
         body.append(a)
+    test2 = RecordCase.objects.all().filter(api_id=api_id)
+    for b in test2:
+        b = jsontool.class_to_dict(b)
+        del (b['_state'])
+        b["case_type"] = 2
+        body.append(b)
     return {
         "code": 1,
         "msg": "获取成功",
