@@ -1906,3 +1906,73 @@ def record_anyproxy_req(req):
     resp = recorddata.get_anyproxy_resp(data)
     return HttpResponse(json.dumps(resp), content_type="application/json")
 
+
+def rcd_case_create(req):
+    """
+    创建录制case
+    请求：post
+    参数：
+    {
+        "pro_id":2,     项目id
+        "api_id":2,     接口id
+        "module_id":1,      模块id
+       "case_url": "{{host}}/index.php?r=api/login/login",      用例的url。需要用host与path做拼接
+        "case_method" :"post",              接口的请求方式
+        "case_protocol":"http",         接口请求协议
+        "case_header":"",               接口请求头
+        "input_data":{"username":"$.data.email","pwd":"{$get_md5_value('000000')$}"},       接口参数
+        "exp_data": "刘静",           期望响应
+        "check_type":1,             校验方式
+        "case_name":"测试录制名字",        用例名
+        "case_desc":"测试录制描述",             用例描述
+        "depnd_api_id":1,           依赖接口id
+        "resp_type":"json",         参数格式
+        "suite_list":[1,2,3]            所属套件表
+    }
+    """
+    data = json.loads(str(req.body, encoding="utf-8"))
+    resp = recorddata.create_rcd_case(data)
+    return HttpResponse(json.dumps(resp), content_type="application/json")
+
+
+def rcd_case_edit(req):
+    """
+    创建录制case
+    请求：post
+    参数：
+    {
+        "case_id":8,    用例id
+        "pro_id":2,     项目id
+        "api_id":2,     接口id
+        "module_id":1,      模块id
+        "case_url": "{{host}}/index.php?r=api/login/login",      用例的url。需要用host与path做拼接
+        "case_method" :"post",              接口的请求方式
+        "case_protocol":"http",         接口请求协议
+        "case_header":"",               接口请求头
+        "input_data":{"username":"$.data.email","pwd":"{$get_md5_value('000000')$}"},       接口参数
+        "exp_data": "刘静",           期望响应
+        "check_type":1,             校验方式
+        "case_name":"测试录制名22222222222字",        用例名
+        "case_desc":"测试录制描222222述",             用例描述
+        "depnd_api_id":1,           依赖接口id
+        "resp_type":"json",         参数格式
+        "suite_list":[5]            所属套件表
+    }
+    """
+    data = json.loads(str(req.body, encoding="utf-8"))
+    resp = recorddata.edit_rcd_case(data)
+    return HttpResponse(json.dumps(resp), content_type="application/json")
+
+
+def rcd_case_delete(req):
+    """
+    删除录制case
+    请求：post
+    参数：
+    {
+        "case_id":8,    用例id
+    }
+    """
+    data = json.loads(str(req.body, encoding="utf-8"))
+    resp = recorddata.edit_rcd_case(data)
+    return HttpResponse(json.dumps(resp), content_type="application/json")

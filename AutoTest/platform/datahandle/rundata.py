@@ -1,4 +1,4 @@
-from ...models import Vars, VarValue, CaseSuite, Result, Functions
+from ...models import Vars, VarValue, CaseSuite, Result
 from ..case.mcase import MCase
 from ..case.rcdcase import RcdCase
 from ..tools import jsontool, functool

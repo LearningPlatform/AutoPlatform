@@ -74,6 +74,8 @@ urlpatterns = [
     url(r'project/func/delete$', views.func_delete, name="删除方法"),
     url(r'project/func/run$', views.func_run, name="运行方法"),
 
-    url(r'project/record/reqdetail$', views.record_anyproxy_req, name="运行方法"),
+    url(r'project/record/reqdetail$', views.record_anyproxy_req, name="从anyproxy服务器获取录制case的响应信息"),
+    url(r'project/rcd_case/create$', views.rcd_case_create, name="创建录制用例"),
+    url(r'project/rcd_case/edit$', views.rcd_case_edit, name="编辑录制用例"),
 
 ]

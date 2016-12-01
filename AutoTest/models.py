@@ -166,18 +166,19 @@ class RecordCase(models.Model):
     """
     录制的case
     """
-    rcd_case_id = models.AutoField(primary_key=True)
+    case_id = models.AutoField(primary_key=True)
     pro_id = models.IntegerField(null=True)
     api_id = models.IntegerField(null=True)
     module_id = models.IntegerField(null=True)
-    rcd_case_url = models.TextField(null=True)
-    rcd_case_method = models.TextField(null=True)
-    rcd_case_header = models.TextField(null=True)
-    rcd_case_input_data = models.TextField(null=True)
-    rcd_case_exp_data = models.TextField(null=True)
+    case_protocol = models.CharField(max_length=5, null=True)
+    case_url = models.TextField(null=True)
+    case_method = models.TextField(null=True)
+    case_header = models.TextField(null=True)
+    input_data = models.TextField(null=True)
+    exp_data = models.TextField(null=True)
     check_type = models.IntegerField(null=True)
-    rcd_case_name = models.TextField(null=True)
-    rcd_case_desc = models.TextField(null=True)
+    case_name = models.TextField(null=True)
+    case_desc = models.TextField(null=True)
     depnd_api_id = models.IntegerField(null=True)
     resp_type = models.CharField(max_length=20, null=True)
 

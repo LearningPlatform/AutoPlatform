@@ -133,17 +133,3 @@ def del_case(data):
         "code": 1,
         "msg": "删除成功"
     }
-
-
-def create_auto_case(data):
-    pro_id = data['pro_id']
-    api_id = data['api_id']
-    case_desc = data['case_desc']
-    case_name = data['case_name']
-    case_url = data['case_url']
-    case_header = data['case_header']
-    input_data = data['input_data']
-    depnd_api_id = data['depnd_api_id']
-    check_type = data['check_type']
-    exp_data = data['exp_data']
-    check_type = data['check_type']
