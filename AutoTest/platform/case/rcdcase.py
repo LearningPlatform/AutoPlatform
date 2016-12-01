@@ -11,15 +11,15 @@ class RcdCase(CaseEntity):
         CaseEntity.__init__(self)
         self.result_id = result_id
         self.result_detail = ResultDetail.objects.create(result_id=self.result_id)
-        self.rcd_case = RecordCase.objects.all().get(rcd_case_id=case_id)
-        self.url = self.rcd_case.rcd_case_url
-        self.param = self.rcd_case.rcd_case_input_data
+        self.rcd_case = RecordCase.objects.all().get(case_id=case_id)
+        self.url = self.rcd_case.case_protocol + "://" + self.rcd_case.case_url
+        self.param = self.rcd_case.input_data
         self.depnd_api_id = self.rcd_case.depnd_api_id
-        self.api_method = self.rcd_case.rcd_case_method
+        self.api_method = self.rcd_case.case_method
         self.var_map = var_map
         self.handle_depnd_param()
         self.pro_id = self.rcd_case.pro_id
-        self.exp_data = self.rcd_case.rcd_case_exp_data
+        self.exp_data = self.rcd_case.exp_data
         self.resp_type = self.rcd_case.resp_type
 
     def save_result(self):
@@ -28,9 +28,9 @@ class RcdCase(CaseEntity):
             "url": self.url,
             "body": self.param
         }
-        self.result_detail.case_id = self.rcd_case.rcd_case_id
-        self.result_detail.exp_data = self.rcd_case.rcd_case_exp_data
-        self.result_detail.case_desc = self.rcd_case.rcd_case_desc
+        self.result_detail.case_id = self.rcd_case.case_id
+        self.result_detail.exp_data = self.rcd_case.exp_data
+        self.result_detail.case_desc = self.rcd_case.case_desc
         self.result_detail.api_id = self.rcd_case.api_id
         self.result_detail.input_data = input_data
         self.result_detail.out_data = self.resp
