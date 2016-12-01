@@ -1,4 +1,4 @@
-from ...models import Result, ResultDetail, Case, Api, Suite
+from ...models import Result, ResultDetail, Case, Api, Suite, RecordCase
 
 from ..tools import jsontool
 
@@ -28,7 +28,10 @@ def get_result_detail_list(data):
         a = jsontool.class_to_dict(result_datail)
         a["input_data"] = jsontool.str_to_json(a["input_data"])
         a["out_data"] = jsontool.str_to_json(a["out_data"])
-        b = jsontool.class_to_dict(Case.objects.all().get(case_id=a["case_id"]))
+        if result_datail.case_type==1:
+            b = jsontool.class_to_dict(Case.objects.all().get(case_id=a["case_id"]))
+        else:
+            b = jsontool.class_to_dict(RecordCase.objects.all().get(case_id=a["case_id"]))
         del (b['input_data'])
         c = jsontool.class_to_dict(Api.objects.all().get(api_id=a["api_id"]))
         var = dict(a, **b)
@@ -52,7 +55,10 @@ def get_result_detail(data):
     a = jsontool.class_to_dict(result_detail)
     a["input_data"] = jsontool.str_to_json(a["input_data"])
     a["out_data"] = jsontool.str_to_json(a["out_data"])
-    b = jsontool.class_to_dict(Case.objects.all().get(case_id=a["case_id"]))
+    if result_detail.case_type == 1:
+        b = jsontool.class_to_dict(Case.objects.all().get(case_id=a["case_id"]))
+    else:
+        b = jsontool.class_to_dict(RecordCase.objects.all().get(case_id=a["case_id"]))
     del (b['input_data'])
     c = jsontool.class_to_dict(Api.objects.all().get(api_id=a["api_id"]))
     var = dict(a, **b)
