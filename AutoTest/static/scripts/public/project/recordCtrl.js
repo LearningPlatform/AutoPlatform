@@ -1,9 +1,9 @@
 myApp.controller('recordCtrl', function ($scope, $http, $cookieStore, $timeout) {
         var pro_id = $cookieStore.get("currProID");
         $scope.record_info = {
-            host: "192.168.36.32",
+            host: "10.170.24.52",
             port: 8003,
-            filter: "supernano"
+            filter: "url"
         }
         $scope.servers_url = "";
         $scope.reqData = [{}];
@@ -22,7 +22,8 @@ myApp.controller('recordCtrl', function ($scope, $http, $cookieStore, $timeout) 
         var reqLength;
         var data;
         var reqData_str;
-        var anyproxy_id_list = []
+        var anyproxy_id_list = [];
+        var temp;
         $scope.initSocket = function () {
             dataSocket = new WebSocket("ws://" + baseUrl + ":" + socketPort);
             dataSocket.onmessage = function (event) {
@@ -30,12 +31,10 @@ myApp.controller('recordCtrl', function ($scope, $http, $cookieStore, $timeout) 
                 reqData_str = JSON.stringify(data);
 
                 if (reqData_str.indexOf($scope.record_info.filter) != -1) {
-                    data.content.reqHeader = JSON.stringify(data.content.reqHeader)
-                    temp = data.content
-
+                    data.content.reqHeader = JSON.stringify(data.content.reqHeader);
+                    temp = data.content;
                     if (anyproxy_id_list.indexOf(data.content.id) != -1) {
-                        data.content.reqHeader = JSON.stringify(data.content.reqHeader)
-                        $scope.reqData[anyproxy_id_list.indexOf(data.content.id)] = temp
+                        $scope.reqData[anyproxy_id_list.indexOf(data.content.id)] = temp;
                     } else {
                         anyproxy_id_list.push(data.content.id)
                         $scope.reqData.push(temp);
@@ -64,26 +63,19 @@ myApp.controller('recordCtrl', function ($scope, $http, $cookieStore, $timeout) 
         }
 
         $scope.setRecord = function () {
-            var temp_resp = ""
-            var i = 0
-            for (; i < $scope.reqData.length; i++) {
+            var temp_resp = "";
+            $scope.reqData.forEach(function(value,index){
+                value.sex='male';
                 $http.post("project/record/reqdetail", {
                     host: $scope.record_info.host,
                     port: 8002,
-                    req_id: $scope.reqData[i].id
+                    req_id: value.id
                 }).success(function (response) {
                     if (typeof(response.content) != "undefined") {
-                        temp_resp = response.content
+                        value.resBody=response.content;
                     }
-                    $scope.reqData[i]["resBody"] = temp_resp
-                    console.log(response.content)
-                    console.log($scope.reqData[i])
-
                 })
-
-
-            }
-
+            });
             $scope.showiframe = false;
             $scope.showtable = true;
         }
@@ -92,19 +84,14 @@ myApp.controller('recordCtrl', function ($scope, $http, $cookieStore, $timeout) 
         $scope.tableStyle = {
             "background-color": "white",
         }
-
         $scope.styleChange = {
             "background-color": "#eeeeff",
         }
-
         $scope.tableGray = function (index) {
             $scope.styleList[index] = $scope.styleChange;
         }
-
         $scope.tableWhite = function (index) {
             $scope.styleList[index] = $scope.tableStyle;
         }
-
-
     }
 )
