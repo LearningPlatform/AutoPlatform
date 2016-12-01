@@ -1,9 +1,9 @@
-myApp.controller('recordCtrl', function ($scope, $http, $cookieStore, $timeout) {
+myApp.controller('recordCtrl', function ($scope, $http, $cookieStore,$sce) {
         var pro_id = $cookieStore.get("currProID");
         $scope.record_info = {
-            host: "10.170.24.52",
+            host: "192.168.36.32",
             port: 8003,
-            filter: "url"
+            filter: "supernano"
         }
         $scope.servers_url = "";
         $scope.reqData = [{}];
@@ -48,18 +48,13 @@ myApp.controller('recordCtrl', function ($scope, $http, $cookieStore, $timeout) 
             socketPort = $scope.record_info.port;
             $scope.initSocket();
             $("#recordModal").modal('hide');
-            $scope.servers_url = "http://" + $scope.record_info.host + ":" + "8002/";
-
-            $("iframe").attr("src", $scope.servers_url);
+            $scope.servers_url = $sce.trustAsResourceUrl("http://" + $scope.record_info.host + ":" + "8002/");
+            $scope.showiframe = true;
+            window.frames["Iframe1"];
         }
 
         $scope.stopRecord = function () {
             dataSocket.close();
-        }
-
-        $scope.showRecord = function () {
-            $scope.showtable = false;
-            $scope.showiframe = true;
         }
 
         $scope.setRecord = function () {

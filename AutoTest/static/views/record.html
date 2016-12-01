@@ -4,45 +4,55 @@
     </div>
 
     <div class="container-fluid">
-        <div class="pull-right">
-            <button class="btn btn-default" ng-click="dfRecord()">录制</button>
-            <button class="btn bg-danger" ng-click="stopRecord()">停止录制</button>
-            <button class="btn btn-default" ng-click="showRecord()">显示</button>
-            <button class="btn btn-default" ng-click="setRecord()">显示接口</button>
+        <div class="row">
+            <div class="col-md-12">
+                <div class="pull-right">
+                    <button class="btn btn-success" ng-click="dfRecord()">录制</button>
+                    <button class="btn btn-danger" ng-click="stopRecord()">停止录制</button>
+                    <button class="btn btn-primary" ng-click="setRecord()">生成接口列表</button>
+                </div>
+            </div>
         </div>
-        <div ng-show="showiframe">
-            <iframe width="100%" marginwidth="0" height="100%"
-                    marginheight="0" scrolling="Yes" frameborder="0" vspace="0" id="Iframe1" border="0"
-                    framespacing="0" noresize="noResize">
-            </iframe>
-        </div>
-        <div ng-show="showtable" class="col-md-12">
-            <table class="table table-bordered design ">
-                <tr>
-                    <th class="tableWid1">序号</th>
-                    <th class="tableWid2">方法</th>
-                    <th class="tableWid1">协议</th>
-                    <th class="tableWid3">host</th>
-                    <th class="tableWid3">path</th>
-                    <th class="tableWid4">请求体</th>
-                    <th class="tableWid4">返回</th>
-                     <th class="tableWid3">操作</th>
-                </tr>
-                <tr ng-repeat="req_data in reqData"  ng-style="styleList[$index]" ng-mouseenter="tableGray($index)" ng-mouseleave="tableWhite($index)">
-                    <td class="tableWid1" ng-bind="req_data.id"></td>
-                    <td class="tableWid1" ng-bind="req_data.method"></td>
-                    <td class="tableWid1" ng-bind="req_data.protocol"></td>
-                    <td class="tableWid2" ng-bind="req_data.host"></td>
-                    <td class="tableWid2" ng-bind="req_data.path"></td>
-                    <td class="tableWid3" ng-bind="req_data.reqBody"></td>
-                    <td class="tableWid3" ng-bind="req_data.resBody"></td>
-                    <td>
-                        <button class="btn btn-xs btn-default" ng-click="dfRecord()">详情</button>
-                        <button class="btn btn-xs btn-default" ng-click="dfRecord()">编辑</button>
-                        <button class="btn btn-xs btn-default" ng-click="dfRecord()">删除</button>
-                    </td>
-                </tr>
-            </table>
+        <div class="row">
+            <div class="panel-body">
+                <div ng-show="showiframe">
+                    <iframe src={$servers_url$} width="100%" marginwidth="0" height="100%"
+                            marginheight="0" scrolling="Yes" frameborder="0" vspace="0" id="Iframe1" border="0"
+                            framespacing="0" noresize="noResize">
+                    </iframe>
+                </div>
+                <div ng-show="showtable" class="col-md-12">
+                    <table class="table table-bordered design ">
+                        <tr>
+                            <th class="tableWid1">序号</th>
+                            <th class="tableWid1">方法</th>
+                            <th class="tableWid1">协议</th>
+                            <th class="tableWid5">host</th>
+                            <th class="tableWid3">path</th>
+                            <th class="tableWid4">请求体</th>
+                            <th class="tableWid4">返回</th>
+                            <th class="tableWid5">操作</th>
+                        </tr>
+                        <tr ng-repeat="req_data in reqData" ng-style="styleList[$index]"
+                            ng-mouseenter="tableGray($index)"
+                            ng-mouseleave="tableWhite($index)">
+                            <td class="tableWid1" ng-bind="req_data.id"></td>
+                            <td class="tableWid1" ng-bind="req_data.method"></td>
+                            <td class="tableWid1" ng-bind="req_data.protocol"></td>
+                            <td class="tableWid5" ng-bind="req_data.host"></td>
+                            <td class="tableWid3" ng-bind="req_data.path"></td>
+                            <td class="tableWid4" ng-bind="req_data.reqBody"></td>
+                            <td class="tableWid4" ng-bind="req_data.resBody"></td>
+                            <td>
+                                <button class="btn btn-xs btn-info" ng-click="dfRecord()">详情</button>
+                                <button class="btn btn-xs btn-primary" ng-click="dfRecord()">编辑</button>
+                                <button class="btn btn-xs btn-success" ng-click="dfRecord()">提交</button>
+                                <button class="btn btn-xs btn-danger" ng-click="dfRecord()">删除</button>
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
         </div>
     </div>
 </div>
@@ -90,5 +100,4 @@
             </div>
         </div>
     </div>
-</div>
 </div>

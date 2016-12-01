@@ -146,26 +146,32 @@ a:active {text-decoration:none ;color: #3c3c3c}
 }
 
 .tableWid1{
-    width:5%;
+    width:3%;
     font-size: 14px;
     font-family: Consolas, monospace, serif;
 }
 
 .tableWid2{
-    width:7%;
+    width:5%;
     font-size: 14px;
     font-family: Consolas, monospace, serif;
     overflow-x:hidden;overflow-y:hidden;
 }
 
 .tableWid3{
-    width:14%;
+    width:15%;
     font-size: 14px;
     font-family: Consolas, monospace, serif;
 }
 
 .tableWid4{
     width:20%;
+    font-size: 14px;
+    font-family: Consolas, monospace, serif;
+}
+
+.tableWid5{
+    width:10%;
     font-size: 14px;
     font-family: Consolas, monospace, serif;
 }
