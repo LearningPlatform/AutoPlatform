@@ -17,43 +17,18 @@
             </iframe>
         </div>
         <div ng-show="showtable" class="col-md-12">
-            <!--
-            <table id="recordTable" class="table table-hover">
-                <thead>
-                    <tr>
-                        <th >序号</th>
-                        <th >方法</th>
-                        <th >协议</th>
-                        <th >请求头</th>
-                        <th >请求体</th>
-                        <th >URL</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr ng-repeat="req_data in reqData">
-                        <td  ng-bind="$index+1"></td>
-                        <td  ng-bind="req_data.method"></td>
-                        <td  ng-bind="req_data.protocol"></td>
-                        <td ng-bind="req_data.reqHeader"></td>
-                        <td ng-bind="req_data.reqBody"></td>
-                        <td ng-bind="req_data.url"></td>
-                    </tr>
-                </tbody>
-            </table>-->
-
             <table class="table table-bordered design ">
                 <tr>
                     <th class="tableWid1">序号</th>
-                    <th class="tableWid1">id</th>
-                    <th class="tableWid1">方法</th>
+                    <th class="tableWid2">方法</th>
                     <th class="tableWid1">协议</th>
-                    <th class="tableWid2">host</th>
-                    <th class="tableWid2">path</th>
-                    <th class="tableWid3">请求体</th>
-                    <th class="tableWid3">返回</th>
+                    <th class="tableWid3">host</th>
+                    <th class="tableWid3">path</th>
+                    <th class="tableWid4">请求体</th>
+                    <th class="tableWid4">返回</th>
+                     <th class="tableWid3">操作</th>
                 </tr>
                 <tr ng-repeat="req_data in reqData"  ng-style="styleList[$index]" ng-mouseenter="tableGray($index)" ng-mouseleave="tableWhite($index)">
-                    <td class="tableWid1" ng-bind="$index+1"></td>
                     <td class="tableWid1" ng-bind="req_data.id"></td>
                     <td class="tableWid1" ng-bind="req_data.method"></td>
                     <td class="tableWid1" ng-bind="req_data.protocol"></td>
@@ -61,6 +36,11 @@
                     <td class="tableWid2" ng-bind="req_data.path"></td>
                     <td class="tableWid3" ng-bind="req_data.reqBody"></td>
                     <td class="tableWid3" ng-bind="req_data.resBody"></td>
+                    <td>
+                        <button class="btn btn-xs btn-default" ng-click="dfRecord()">详情</button>
+                        <button class="btn btn-xs btn-default" ng-click="dfRecord()">编辑</button>
+                        <button class="btn btn-xs btn-default" ng-click="dfRecord()">删除</button>
+                    </td>
                 </tr>
             </table>
         </div>
