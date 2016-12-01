@@ -170,6 +170,7 @@ class RecordCase(models.Model):
     pro_id = models.IntegerField(null=True)
     api_id = models.IntegerField(null=True)
     module_id = models.IntegerField(null=True)
+    rcd_case_protocol = models.CharField(max_length=5, null=True)
     rcd_case_url = models.TextField(null=True)
     rcd_case_method = models.TextField(null=True)
     rcd_case_header = models.TextField(null=True)
