@@ -82,6 +82,7 @@ class Case(models.Model):
     case_desc = models.TextField(null=True)
     is_set = models.IntegerField(null=True)
     depnd_api_id = models.IntegerField(null=True)
+    case_schema = models.TextField(null=True)
 
 
 class Suite(models.Model):
@@ -133,6 +134,7 @@ class ResultDetail(models.Model):
     out_data = models.TextField(null=True)
     exp_data = models.TextField(null=True)
     is_pass = models.IntegerField(null=True)
+    schema_check = models.IntegerField(null=True)
 
 
 class DepndApi(models.Model):
@@ -181,4 +183,5 @@ class RecordCase(models.Model):
     case_desc = models.TextField(null=True)
     depnd_api_id = models.IntegerField(null=True)
     resp_type = models.CharField(max_length=20, null=True)
+    case_schema = models.TextField(null=True)
 

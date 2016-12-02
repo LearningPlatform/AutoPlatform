@@ -21,6 +21,7 @@ class RcdCase(CaseEntity):
         self.pro_id = self.rcd_case.pro_id
         self.exp_data = self.rcd_case.exp_data
         self.resp_type = self.rcd_case.resp_type
+        self.schema = self.rcd_case.case_schema
 
     def save_result(self):
         CaseEntity.save_result(self)
@@ -36,6 +37,7 @@ class RcdCase(CaseEntity):
         self.result_detail.out_data = self.resp
         self.result_detail.is_pass = self.is_pass
         self.result_detail.case_type = 2
+        self.result_detail.schema_check = self.schema_result
         self.result_detail.save()
 
     def get_passnum(self):

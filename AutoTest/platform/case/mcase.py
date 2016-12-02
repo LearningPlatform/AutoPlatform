@@ -25,6 +25,7 @@ class MCase(CaseEntity, ReqResp):
         self.url = self.api_protocol + "://" + self.url
         self.exp_data = self.case.exp_data
         self.resp_type = self.api.api_type
+        self.schema = self.case.case_schema
 
     def save_result(self):
         CaseEntity.save_result(self)
@@ -40,4 +41,5 @@ class MCase(CaseEntity, ReqResp):
         self.result_detail.out_data = self.resp
         self.result_detail.is_pass = self.is_pass
         self.result_detail.case_type = 1
+        self.result_detail.schema_check = self.schema_result
         self.result_detail.save()

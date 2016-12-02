@@ -22,6 +22,7 @@ def get_run_info(data):
         else:
             c = RcdCase(a["case_id"], var_map, result.result_id)
         c.run()
+        c.check_schema()
         c.check_result()
         c.save_result()
         if c.get_passnum() == 1:
