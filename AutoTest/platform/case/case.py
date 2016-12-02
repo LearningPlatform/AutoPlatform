@@ -49,7 +49,6 @@ class CaseEntity(ReqResp):
                 self.is_pass = 1
             else:
                 self.is_pass = 0
-            #functool.get_return(check_name, check_code)
 
     def save_result(self):
         if self.resp_type != "json":
