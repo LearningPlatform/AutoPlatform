@@ -185,3 +185,14 @@ class RecordCase(models.Model):
     resp_type = models.CharField(max_length=20, null=True)
     case_schema = models.TextField(null=True)
 
+
+class CheckModel(models.Model):
+    """
+    验证器
+    """
+    check_id = models.AutoField(primary_key=True)
+    pro_id = models.IntegerField(null=True)
+    check_name = models.CharField(max_length=20, null=True)
+    check_code = models.TextField(null=True)
+    check_desc = models.CharField(max_length=40, null=True)
+

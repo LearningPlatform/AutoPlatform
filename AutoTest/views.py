@@ -2,7 +2,7 @@ from django.shortcuts import render_to_response,HttpResponse
 import json
 
 from .platform.datahandle import prodata, envdata, vardata, moduledata, suitedata, \
-    casedata, apidata, rundata, resultdata, dapidata, funcdata, recorddata
+    casedata, apidata, rundata, resultdata, dapidata, funcdata, recorddata, checkdata
 from .platform.tools import strtool
 
 
@@ -1975,4 +1975,152 @@ def rcd_case_delete(req):
     """
     data = json.loads(str(req.body, encoding="utf-8"))
     resp = recorddata.edit_rcd_case(data)
+    return HttpResponse(json.dumps(resp), content_type="application/json")
+
+
+def check_create(req):
+    """
+   创建方法
+   请求方法：post
+   如：
+   {
+        "pro_id":1,                 项目id
+        "check_name":"test",             方法名
+        "check_code":"wkcjkdwhwjkh",         方法代码
+        "check_desc":"hwbchjdcgxd"           方法描述
+    }
+   :return:
+   如：
+   成功：
+   {
+    "msg": "创建成功",
+    "code": 1
+    }
+   """
+    data = json.loads(str(req.body, encoding="utf-8"))
+    resp = checkdata.create_check(data)
+    return HttpResponse(json.dumps(resp), content_type="application/json")
+
+
+def check_list(req):
+    """
+   获取项目下方法列表
+   请求方法：post
+   如：
+   {
+        "pro_id":1                 项目id
+    }
+   :return:
+   如：
+   成功：
+   {
+  "code": 1,
+  "data": [
+    {
+      "check_desc": "hwbchjdcgxd",
+      "pro_id": 1,
+      "check_code": "wkcjkdwhwjkh",
+      "check_name": "test",
+      "check_id": 2
+    }
+  ],
+  "msg": "获取成功"
+}
+   """
+    data = json.loads(str(req.body, encoding="utf-8"))
+    resp = checkdata.get_check_list(data)
+    return HttpResponse(json.dumps(resp), content_type="application/json")
+
+
+def check_detail(req):
+    """
+    获取方法详情
+    请求方法：post
+    如：
+    {
+         "check_id":1                 方法id
+     }
+    :return:
+    如：
+    成功：
+    {
+      "data": {
+        "check_name": "test",
+        "check_id": 2,
+        "pro_id": 1,
+        "check_desc": "hwbchjdcgxd",
+        "check_code": "wkcjkdwhwjkh"
+      },
+      "code": 1,
+      "msg": "获取成功"
+    }
+    """
+    data = json.loads(str(req.body, encoding="utf-8"))
+    resp = checkdata.get_check_detail(data)
+    return HttpResponse(json.dumps(resp), content_type="application/json")
+
+
+def check_edit(req):
+    """
+    编辑方法
+    请求方法：post
+    如：
+    {
+         "check_id":1,                方法id
+         "check_name":"test",             方法名
+        "check_code":"wkcjkdwhwjkh",         方法代码
+        "check_desc":"hwbchjdcgxd"           方法描述
+     }
+    :return:
+    如：
+    成功：
+    {
+      "code": 1,
+      "msg": "编辑成功"
+    }
+    """
+    data = json.loads(str(req.body, encoding="utf-8"))
+    resp = checkdata.edit_check(data)
+    return HttpResponse(json.dumps(resp), content_type="application/json")
+
+
+def check_delete(req):
+    """
+    删除方法
+    请求方法：post
+    如：
+    {
+         "check_id":1                 方法id
+     }
+    :return:
+    如：
+    成功：
+    {
+      "code": 1,
+      "msg": "删除成功"
+    }
+    """
+    data = json.loads(str(req.body, encoding="utf-8"))
+    resp = checkdata.del_check(data)
+    return HttpResponse(json.dumps(resp), content_type="application/json")
+
+
+def check_run(req):
+    """
+    运行方法
+    请求方法：post
+    如：
+    {
+         "check_code":"jdshgjegdj"              方法代码
+     }
+    :return:
+    如：
+    成功：
+    {
+      "code": 1,
+      "msg": "删除成功"
+    }
+    """
+    data = json.loads(str(req.body, encoding="utf-8"))
+    resp = checkdata.run_check(data)
     return HttpResponse(json.dumps(resp), content_type="application/json")
