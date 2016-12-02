@@ -22,6 +22,7 @@ class RcdCase(CaseEntity):
         self.exp_data = self.rcd_case.exp_data
         self.resp_type = self.rcd_case.resp_type
         self.schema = self.rcd_case.case_schema
+        self.check_type = self.rcd_case.check_type
 
     def save_result(self):
         CaseEntity.save_result(self)

@@ -26,6 +26,7 @@ class MCase(CaseEntity, ReqResp):
         self.exp_data = self.case.exp_data
         self.resp_type = self.api.api_type
         self.schema = self.case.case_schema
+        self.check_type = self.case.check_type
 
     def save_result(self):
         CaseEntity.save_result(self)
