@@ -37,12 +37,14 @@ class ReqResp:
         self.param = self.param.replace("\'", "\"")
 
     def sendRequest(self):
-        if self.api_method == "post":
+        if self.api_method.lower() == "post":
             if "headers" in self.var_map.keys():
                 headers = json.loads(self.var_map["headers"])
                 re = requests.post(self.url, data=self.param, headers=headers)
+                print(re.json())
             else:
                 re = requests.post(self.url, data=self.param)
+                print(re.json())
             self.resp = {
                 "status_code": re.status_code,
                 "response_data": {
@@ -50,7 +52,7 @@ class ReqResp:
                     "body": re.json()
                 }
             }
-        if self.api_method == "get":
+        if self.api_method.lower() == "get":
             if "headers" in self.var_map.keys():
                 headers = json.loads(self.var_map["headers"])
                 self.param = json.loads(self.param)
