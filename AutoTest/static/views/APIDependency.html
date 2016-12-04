@@ -27,6 +27,39 @@
                             </h4>
                         </div>
                         <div class="panel-body" ng-show="showDetail && (apiDepId==Dep.depnd_api_id || Dep.depnd_api_id == null )">
+                            <form class="col-md-12 bs-example bs-example-form">
+                                <div class="input-group">
+                                    <span class="input-group-addon">请求协议</span>
+                                    <input type="text" style="background-color: white" class="form-control" ng-model="apiDep.depnd_api_protocol">
+                                </div>
+                                <div class="input-group">
+                                    <span class="input-group-addon">请求方式</span>
+                                    <input type="text" class="form-control" ng-model="apiDep.depnd_api_method">
+                                </div>
+                                <div class="input-group">
+                                    <span class="input-group-addon">数据格式</span>
+                                    <input type="text" class="form-control" ng-model="apiDep.depnd_api_type">
+                                </div>
+                                <div class="input-group">
+                                    <span class="input-group-addon">请求u r l</span>
+                                    <input type="text" class="form-control" ng-model="apiDep.depnd_api_url">
+                                </div>
+                                <div class="input-group">
+                                    <span class="input-group-addon">请&nbsp求&nbsp&nbsp体</span>
+                                    <input type="text" class="form-control"  ng-model="apiDep.depnd_api_param">
+                                </div>
+                                <div class="input-group">
+                                    <span class="input-group-addon">请求描述</span>
+                                    <input type="text" class="form-control" ng-model="apiDep.depnd_api_desc">
+                                </div>
+                                <div class="input-group">
+                                    <span class="input-group-addon">依赖接口</span>
+                                    <input type="text" class="form-control" ng-click="saveapiDep(apiDep)">
+                                </div>
+                                <button type="button" class="pull-right btn btn-info" ng-click="saveapiDep(apiDep)">保存</button>
+                            </form>
+
+                        <!--
                             <div class="row">
                                  <span class="container col-xs-2 input12">请求协议</span>
                                  <input type="text" class="input22 form-control" ng-model="apiDep.depnd_api_protocol">
@@ -56,7 +89,7 @@
                                  <input type="text" class="input22 form-control" ng-model="apiDep.depnd_id">
                             </div>
                             <button type="button" class="pull-right btn btn-info" ng-click="saveapiDep(apiDep)">保存
-                            </button>
+                            </button>-->
                         </div>
                     </div>
                 </div>
