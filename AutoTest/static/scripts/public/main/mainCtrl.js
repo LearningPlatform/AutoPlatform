@@ -27,6 +27,7 @@
 
         $scope.recordId=function (id) {
             $cookieStore.put("currProID",id);
+            $cookieStore.put("currmodelID",0);
         };
 
 
