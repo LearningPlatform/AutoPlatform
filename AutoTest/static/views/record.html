@@ -33,10 +33,8 @@
                             <th class="tableWid4">返回</th>
                             <th class="tableWid5">操作</th>
                         </tr>
-                        <tr ng-repeat="req_data in reqData" ng-style="styleList[$index]"
-                            ng-mouseenter="tableGray($index)"
-                            ng-mouseleave="tableWhite($index)">
-                            <td class="tableWid1" ng-bind="req_data.id"></td>
+                        <tr ng-repeat="req_data in reqData" ng-style="styleList[$index]" ng-mouseenter="tableGray($index)" ng-mouseleave="tableWhite($index)">
+                            <td class="tableWid1" ng-bind="$index+1"></td>
                             <td class="tableWid1" ng-bind="req_data.method"></td>
                             <td class="tableWid1" ng-bind="req_data.protocol"></td>
                             <td class="tableWid5" ng-bind="req_data.host"></td>
@@ -44,10 +42,9 @@
                             <td class="tableWid4" ng-bind="req_data.reqBody"></td>
                             <td class="tableWid4" ng-bind="req_data.resBody"></td>
                             <td>
-                                <button class="btn btn-xs btn-info" ng-click="dfRecord()">详情</button>
-                                <button class="btn btn-xs btn-primary" ng-click="dfRecord()">编辑</button>
-                                <button class="btn btn-xs btn-success" ng-click="dfRecord()">提交</button>
-                                <button class="btn btn-xs btn-danger" ng-click="dfRecord()">删除</button>
+                                <button class="btn btn-xs btn-danger" ng-disabled="undisabled && (undisabledId==$index)" ng-click="cfRecord($index)">删除</button>
+                                <button class="btn btn-xs btn-primary" ng-click="editRecord($index)">编辑</button>
+                                <button class="btn btn-xs btn-info" ng-click="runRecord()">运行</button>
                             </td>
                         </tr>
                     </table>
@@ -57,7 +54,6 @@
     </div>
 </div>
 
-<!--编辑项目-->
 <div class="modal fade" id="recordModal">
     <div class="modal-dialog">
         <div class="modal-content">
@@ -96,6 +92,167 @@
                 </button>
                 <button type="button" class="btn btn-primary" ng-click="startRecord()">
                     开始录制
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="editRecord" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+                    &times;
+                </button>
+                <h4 class="modal-title">
+                    编辑录制信息
+                </h4>
+            </div>
+            <div class="modal-body">
+                <form class="form-horizontal">
+                    <div class="form-group">
+                        <label class="col-md-3 control-label">用例名：</label>
+                        <div class="col-md-8">
+                            <input type="text" class="form-control" placeholder="请输入用例名称" ng-model="rcdCase.case_name">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-md-3 control-label">所属API：</label>
+                        <div class="col-md-8">
+                            <select class="form-control" ng-model="selected1"
+                                    ng-options="api.api_id as api.api_name for api in apiList">
+                                <option value="">请选择</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-md-3 control-label">所属套件：</label>
+                        <div class="col-md-8">
+                            <div class="panel panel-default">
+                                <div class="panel-body">
+                                    <div class="checkbox col-md-6" ng-repeat="st in suiteList">
+                                        <label>
+                                            <input type="checkbox" ng-model="check[$index]"
+                                                   ng-click="addSuiteList($index,st.suite_id)"><span
+                                                ng-bind="st.suite_name"></span>
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-md-3 control-label">描述：</label>
+                        <div class="col-md-8">
+                            <input type="text" class="form-control" placeholder="请输入用例描述" ng-model="rcdCase.case_desc">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-md-3 control-label">依赖接口：</label>
+                        <div class="col-md-8">
+                            <select class="form-control" ng-model="selected2"
+                                    ng-options="apiDep.depnd_api_id as apiDep.depnd_api_name for apiDep in apiDepList">
+                                <option value="">请选择</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="col-md-3 control-label">校验器：</label>
+                        <div class="col-md-8">
+                            <select class="form-control" ng-model="rcdCase.check_type"
+                                    ng-options="api.api_name for api in apiList">
+                                <option value="">请选择</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-md-3 control-label">所属模块：</label>
+                        <div class="col-md-8">
+                            <select class="form-control" ng-model="selected3"
+                                    ng-options="module.module_id as module.module_name for module in moduleList">
+                                <option value="">请选择</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-md-3 control-label">接口协议：</label>
+                        <div class="col-md-8">
+                            <input type="text" class="form-control" placeholder="请输入用例协议" ng-model="rcdCase.case_protocol">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-md-3 control-label">URL：</label>
+                        <div class="col-md-8">
+                            <input type="text" class="form-control" placeholder="请输入URL" ng-model="rcdCase.case_url">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-md-3 control-label">请求方法：</label>
+                        <div class="col-md-8">
+                            <input type="text" class="form-control" placeholder="请输入请求方法" ng-model="rcdCase.case_method">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-md-3 control-label">格式：</label>
+                        <div class="col-md-8">
+                            <select class="form-control" ng-model="rcdCase.resp_type"
+                                    ng-options="type for type in typeType">
+                                <option value="">请选择</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-md-3 control-label">请求头：</label>
+                        <div class="col-md-8">
+                            <textarea type="text" class="form-control" placeholder="请输入请求头" ng-model="rcdCase.case_header">
+                            </textarea>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-md-3 control-label">接口参数：</label>
+                        <div class="col-md-8">
+                            <textarea type="text" class="form-control" placeholder="请输入接口参数" ng-model="rcdCase.input_data">
+                            </textarea>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-md-3 control-label">期望响应：</label>
+                        <div class="col-md-8">
+                            <textarea type="text" class="form-control" placeholder="请输入期望响应" ng-model="rcdCase.exp_data">
+                            </textarea>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">关闭
+                </button>
+                <button type="button" class="btn btn-primary" ng-click="saveEditRecord(selected1,selected2,selected3)">
+                    保存
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="cfRecord">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header alert alert-danger">
+                <h4 class="modal-title">
+                    删除录制结果
+                </h4>
+            </div>
+            <div class="modal-body">
+                确定删除该录制结果？？
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">取消
+                </button>
+                <button type="button" class="btn btn-primary" ng-click="delRecord()">
+                    确定
                 </button>
             </div>
         </div>
