@@ -1364,20 +1364,146 @@ def case_del(req):
 
 def case_run(req):
     """
-   删除case
-   请求方法：post
-   如：
-   {
-     "case_id": 1,    case的id
-   }
-   :return:
-   如：
-   成功：
-   {
-     "code": 1,
-     "msg": "删除成功"
-   }
-   """
+       运行用例
+       请求方法：post
+       如：
+        {
+        "case_id":1,        case_id
+        "case_type":2,      case类型，手动为1，录制为2
+        "env_id":4          环境id
+        }
+       :return:
+       如：
+       成功：
+    {
+  "data":
+  {
+        "request_body": "{\"username\": \"liujing3@supernano.com\", \"pwd\": \"670b14728ad9902aecba32e22fa4f6bd\"}",
+        "status_code": 200,
+        "result_check": 1,
+        "response_body": {
+          "data": {
+            "realname": "刘静3",
+            "orgId": 19,
+            "orgName": "测试技术部",
+            "applyApp": "1",
+            "headimg": "http://oa.supernano.com/static/head-img/uploads/219.jpg",
+            "email": "liujing3@supernano.com",
+            "hid": "liujing3",
+            "taskApp": "1",
+            "username": "liujing3@supernano.com",
+            "accessToken": "704e8e873ae196e83fa3fb9861287823|219",
+            "entryTime": "2015-07-08",
+            "position": "游戏测试",
+            "companyName": "湖南纳米娱乐",
+            "phone": "14726968415",
+            "noticeApp": "1",
+            "hpwd": "000000",
+            "uid": "219"
+          },
+          "code": 20000,
+          "msg": "登录成功"
+        },
+        "exp_data": "刘静",
+        "url": "http://oa.supernano.com/index.php?r=api/login/login",
+        "schema": {
+          "type": "object",
+          "$schema": "http://json-schema.org/draft-04/schema#",
+          "required": [
+            "data",
+            "msg",
+            "code"
+          ],
+          "properties": {
+            "data": {
+              "type": "object",
+              "required": [
+                "username",
+                "hid",
+                "email",
+                "noticeApp",
+                "applyApp",
+                "taskApp",
+                "position",
+                "orgId",
+                "uid",
+                "hpwd",
+                "companyName",
+                "accessToken",
+                "entryTime",
+                "realname",
+                "phone",
+                "headimg",
+                "orgName"
+              ],
+              "properties": {
+                "realname": {
+                  "type": "string"
+                },
+                "orgId": {
+                  "type": "integer"
+                },
+                "orgName": {
+                  "type": "string"
+                },
+                "hid": {
+                  "type": "string"
+                },
+                "applyApp": {
+                  "type": "string"
+                },
+                "headimg": {
+                  "type": "string"
+                },
+                "email": {
+                  "type": "string"
+                },
+                "noticeApp": {
+                  "type": "string"
+                },
+                "taskApp": {
+                  "type": "string"
+                },
+                "username": {
+                  "type": "string"
+                },
+                "accessToken": {
+                  "type": "string"
+                },
+                "entryTime": {
+                  "type": "string"
+                },
+                "position": {
+                  "type": "string"
+                },
+                "companyName": {
+                  "type": "string"
+                },
+                "phone": {
+                  "type": "string"
+                },
+                "hpwd": {
+                  "type": "string"
+                },
+                "uid": {
+                  "type": "string"
+                }
+              }
+            },
+            "code": {
+              "type": "integer"
+            },
+            "msg": {
+              "type": "string"
+            }
+          }
+        },
+        "schema_check": 1
+      },
+      "code": 1,
+      "msg": "删除成功"
+    }
+    """
     data = json.loads(str(req.body, encoding="utf-8"))
     resp = casedata.run_case(data)
     return HttpResponse(json.dumps(resp), content_type="application/json")
@@ -1389,44 +1515,10 @@ def run(req):
    请求方法：post
    如：
     {
-    "case_id":1,        case_id
-    "case_type":2,      case类型，手动为1，录制为2
+    "pro_id":1,        case_id
+    "suite_id":2,      case类型，手动为1，录制为2
     "env_id":4          环境id
-    }
-   :return:
-   如：
-   成功：
-   {
-      "code": 1,
-      "data": {
-        "status_code": 200,
-        "response_body": {
-          "code": 20000,
-          "data": {
-            "taskApp": "1",
-            "phone": "14726968415",
-            "orgId": 19,
-            "applyApp": "1",
-            "entryTime": "2015-07-08",
-            "hpwd": "000000",
-            "accessToken": "48809f7d2c51e81c12cb336d4a562d7e|219",
-            "uid": "219",
-            "companyName": "湖南纳米娱乐",
-            "email": "liujing3@supernano.com",
-            "headimg": "http://oa.supernano.com/static/head-img/uploads/219.jpg",
-            "position": "游戏测试",
-            "username": "liujing3@supernano.com",
-            "noticeApp": "1",
-            "realname": "刘静3",
-            "hid": "liujing3",
-            "orgName": "测试技术部"
-          },
-          "msg": "登录成功"
-        },
-        "schema_check": 1,
-        "result_check": 1
-      },
-      "msg": "删除成功"
+    "report_name":"123123"
     }
    """
     data = json.loads(str(req.body, encoding="utf-8"))

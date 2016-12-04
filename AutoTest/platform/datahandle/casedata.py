@@ -121,8 +121,9 @@ def edit_req(data):
 def edit_resp(data):
     case_id = data['case_id']
     exp_data = data['exp_data']
+    case_schema = data['case_schema']
     check_type = data['check_type']
-    Case.objects.all().filter(case_id=case_id).update(exp_data=exp_data, check_type=check_type)
+    Case.objects.all().filter(case_id=case_id).update(exp_data=exp_data, check_type=check_type,case_schema=case_schema)
     return {
         "code": 1,
         "msg": "保存成功"
@@ -158,6 +159,10 @@ def run_case(data):
             "status_code":c.resp["status_code"],
             "response_body":c.resp["response_data"]["body"],
             "schema_check":c.schema_result,
-            "result_check":c.is_pass
+            "schema":c.schema,
+            "exp_data":c.exp_data,
+            "result_check":c.is_pass,
+            "request_body":c.param,
+            "url":c.url
         }
     }
