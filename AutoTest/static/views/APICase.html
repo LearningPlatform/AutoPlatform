@@ -98,7 +98,7 @@
                                         </div>
                                     </h4>
                                 </div>
-                                <div class="panel-body" ng-show="showinfo&&(showCaseID==case.case_id)">
+                                <div class="panel-body" ng-show="showinfo&&(showCaseID==case.case_id)&&(showCaseType==case.case_type)">
                                     <ul class="nav nav-tabs">
                                         <li class="{$al[0]$}">
                                             <a ng-click="active2(0,case)">基本信息</a>
@@ -213,9 +213,9 @@
                                                 </button>
                                             </div>
                                         </div>
-                                        <div ng-show="showSelectId==2">
-                                            <h3 class="container">期望的返回值</h3>
-                                            <div class="row container form-group">
+                                        <div class="container" ng-show="showSelectId==2">
+                                            <h3>期望的返回值</h3>
+                                            <div class="row form-group">
                                                 <div class="col-md-3">
                                                     <select class="form-control">
                                                         <option value="">自定义</option>
@@ -241,8 +241,8 @@
                                                     </button>
                                                 </div>
                                             </div>
-                                            <div>
-                                                <form role="form" class="col-md-12">
+                                            <div class="col-md-12">
+                                                <form role="form">
                                                     <textarea class="form-control" rows="3" ng-model="exp">
                                                     </textarea>
                                                 </form>
@@ -902,7 +902,7 @@
                             <label class="col-md-3 control-label">校验器：</label>
                             <div class="col-md-8">
                                 <select class="form-control" ng-model="case.check_type"
-                                        ng-options="api.api_name for api in apiList">
+                                        ng-options="check.check_name for check in checkList">
                                     <option value="">请选择</option>
                                 </select>
                             </div>
