@@ -78,4 +78,11 @@ urlpatterns = [
     url(r'project/rcd_case/create$', views.rcd_case_create, name="创建录制用例"),
     url(r'project/rcd_case/edit$', views.rcd_case_edit, name="编辑录制用例"),
 
+    url(r'project/check/create$', views.check_create, name="创建方法"),
+    url(r'project/check/list$', views.check_list, name="获取方法列表"),
+    url(r'project/check/detail$', views.check_detail, name="获取方法详情"),
+    url(r'project/check/edit$', views.check_edit, name="编辑方法"),
+    url(r'project/check/delete$', views.check_delete, name="删除方法"),
+    url(r'project/check/run$', views.check_run, name="运行方法"),
+
 ]
