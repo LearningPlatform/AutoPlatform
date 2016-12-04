@@ -269,7 +269,7 @@ myApp.controller('recordCtrl', function ($scope, $http, $cookieStore,$sce,$timeo
             }).success(function(response){
                 if(response.code==1){
                     num=$scope.rcdCase.case_url.indexOf('/');
-                    $scope.req_data.host=$scope.rcdCase.case_url.slice(0,num-1);
+                    $scope.req_data.host=$scope.rcdCase.case_url.slice(0,num);
                     $scope.req_data.path=$scope.rcdCase.case_url.slice(num,-1);
                     $scope.req_data.method=$scope.rcdCase.case_method;
                     $scope.req_data.protocol=$scope.rcdCase.case_protocol;
