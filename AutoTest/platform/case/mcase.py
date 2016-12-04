@@ -10,8 +10,9 @@ class MCase(CaseEntity, ReqResp):
 
     def __init__(self, case_id, var_map, result_id):
         ReqResp.__init__(self)
-        self.result_id = result_id
-        self.result_detail = ResultDetail.objects.create(result_id=self.result_id)
+        if result_id != 0:
+            self.result_id = result_id
+            self.result_detail = ResultDetail.objects.create(result_id=self.result_id)
         self.case = Case.objects.all().get(case_id=case_id)
         self.api = Api.objects.all().get(api_id=self.case.api_id)
         self.url = self.api.api_url

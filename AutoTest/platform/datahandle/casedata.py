@@ -1,5 +1,7 @@
+from ..case.mcase import MCase
+from ..case.rcdcase import RcdCase
 from ...models import Api, Suite, CaseSuite, Case, DepndApi
-from ..tools import jsontool
+from ..tools import jsontool, casetool
 
 
 def get_suite_case_list(data):
@@ -73,7 +75,8 @@ def create_case(data):
     case_name = data['case_name']
     depnd_api_id = data['depnd_api_id']
     check_type = data['check_type']
-    case_id = Case.objects.create(pro_id=pro_id, api_id=api_id, case_desc=case_desc, case_name=case_name,depnd_api_id=depnd_api_id, check_type=check_type).case_id
+    case_id = Case.objects.create(pro_id=pro_id, api_id=api_id, case_desc=case_desc, case_name=case_name,
+                                  depnd_api_id=depnd_api_id, check_type=check_type).case_id
     suite_list_data = data['suite_list']
     for suite_id in suite_list_data:
         CaseSuite.objects.create(pro_id=pro_id, api_id=api_id, case_id=case_id, suite_id=suite_id)
@@ -92,7 +95,8 @@ def edit_case_info(data):
     depnd_api_id = data['depnd_api_id']
     check_type = data['check_type']
     Case.objects.all().filter(case_id=case_id).update(pro_id=pro_id, api_id=api_id, case_desc=case_desc,
-                                                      case_name=case_name, depnd_api_id=depnd_api_id, check_type=check_type)
+                                                      case_name=case_name, depnd_api_id=depnd_api_id,
+                                                      check_type=check_type)
     CaseSuite.objects.all().filter(case_id=case_id).delete()
     suite_list_data = data['suite_list']
     for suite_id in suite_list_data:
@@ -132,4 +136,28 @@ def del_case(data):
     return {
         "code": 1,
         "msg": "删除成功"
+    }
+
+
+def run_case(data):
+    case_id = data['case_id']
+    case_type = data['case_type']
+    env_id = data["env_id"]
+    var_map = casetool.get_env_var_map(env_id)
+    if case_type == 1:
+        c = MCase(case_id, var_map, 0)
+    else:
+        c = RcdCase(case_id, var_map, 0)
+    c.run()
+    c.check_schema()
+    c.check_result()
+    return {
+        "code": 1,
+        "msg": "删除成功",
+        "data": {
+            "status_code":c.resp["status_code"],
+            "response_body":c.resp["response_data"]["body"],
+            "schema_check":c.schema_result,
+            "result_check":c.is_pass
+        }
     }

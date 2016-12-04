@@ -9,8 +9,9 @@ class RcdCase(CaseEntity):
 
     def __init__(self, case_id, var_map, result_id):
         CaseEntity.__init__(self)
-        self.result_id = result_id
-        self.result_detail = ResultDetail.objects.create(result_id=self.result_id)
+        if result_id != 0:
+            self.result_id = result_id
+            self.result_detail = ResultDetail.objects.create(result_id=self.result_id)
         self.rcd_case = RecordCase.objects.all().get(case_id=case_id)
         self.url = self.rcd_case.case_protocol + "://" + self.rcd_case.case_url
         self.param = self.rcd_case.input_data

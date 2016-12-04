@@ -1364,31 +1364,69 @@ def case_del(req):
 
 def case_run(req):
     """
-   运行用例
+   删除case
    请求方法：post
    如：
    {
-    "suite_id":1,    套件id，不选则置为0
-    "pro_id":1,      项目id
-    "env_id":2,        环境id
-    "report_name":" 2016.11.08_ 冒烟测试 "      生成报告的名字，非必填。
+     "case_id": 1,    case的id
+   }
+   :return:
+   如：
+   成功：
+   {
+     "code": 1,
+     "msg": "删除成功"
+   }
+   """
+    data = json.loads(str(req.body, encoding="utf-8"))
+    resp = casedata.run_case(data)
+    return HttpResponse(json.dumps(resp), content_type="application/json")
+
+
+def run(req):
+    """
+   运行用例
+   请求方法：post
+   如：
+    {
+    "case_id":1,        case_id
+    "case_type":2,      case类型，手动为1，录制为2
+    "env_id":4          环境id
     }
    :return:
    如：
    成功：
    {
-      "msg": "运行完毕",
+      "code": 1,
       "data": {
-        "report_name": " 2016.11.08_ 冒烟测试 ",       报告名字
-        "start_time": 1478621079,       开始时间，unix时间戳
-        "suite_id": 1,                  套件id
-        "fail_num": 1,                  失败用例数
-        "pro_id": 1,                    项目id
-        "pass_num": 1,                   成功用例数
-        "result_id": 50,                结果id
-        "end_time": 1478621079           结束时间，unix时间戳
+        "status_code": 200,
+        "response_body": {
+          "code": 20000,
+          "data": {
+            "taskApp": "1",
+            "phone": "14726968415",
+            "orgId": 19,
+            "applyApp": "1",
+            "entryTime": "2015-07-08",
+            "hpwd": "000000",
+            "accessToken": "48809f7d2c51e81c12cb336d4a562d7e|219",
+            "uid": "219",
+            "companyName": "湖南纳米娱乐",
+            "email": "liujing3@supernano.com",
+            "headimg": "http://oa.supernano.com/static/head-img/uploads/219.jpg",
+            "position": "游戏测试",
+            "username": "liujing3@supernano.com",
+            "noticeApp": "1",
+            "realname": "刘静3",
+            "hid": "liujing3",
+            "orgName": "测试技术部"
+          },
+          "msg": "登录成功"
+        },
+        "schema_check": 1,
+        "result_check": 1
       },
-      "code": 1
+      "msg": "删除成功"
     }
    """
     data = json.loads(str(req.body, encoding="utf-8"))

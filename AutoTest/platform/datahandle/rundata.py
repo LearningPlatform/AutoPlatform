@@ -1,7 +1,7 @@
-from ...models import Vars, VarValue, CaseSuite, Result
+from ...models import CaseSuite, Result
 from ..case.mcase import MCase
 from ..case.rcdcase import RcdCase
-from ..tools import jsontool, functool
+from ..tools import jsontool,  casetool
 import time
 
 
@@ -13,7 +13,7 @@ def get_run_info(data):
     pass_num = 0
     fail_num = 0
     result = Result.objects.create(report_name=report_name, pro_id=pro_id, suite_id=suite_id)
-    var_map = get_env_var_map(env_id)
+    var_map = casetool.get_env_var_map(env_id)
     case_list = get_run_case_id_list(suite_id)
     start_time = int(time.time())
     for a in case_list:
@@ -42,15 +42,6 @@ def get_run_info(data):
         "msg": "运行完毕",
         "data": result_json
         }
-
-
-def get_env_var_map(env_id):
-    var_map = {}
-    var_value_ob_list = VarValue.objects.all().filter(env_id=env_id)
-    for a in list(var_value_ob_list):
-        var = Vars.objects.all().get(var_id=a.var_id)
-        var_map[var.var_name] = a.var_value
-    return var_map
 
 
 def get_run_case_id_list(suite_id):

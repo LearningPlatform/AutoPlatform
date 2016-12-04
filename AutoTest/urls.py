@@ -52,8 +52,9 @@ urlpatterns = [
     url(r'project/case/edit/req$', views.case_req_edit, name="编辑case的请求信息"),
     url(r'project/case/edit/resp$', views.case_resp_edit, name="编辑case的响应信息"),
     url(r'project/case/delete$', views.case_del, name="删除case"),
+    url(r'project/case/runsingal$', views.case_run, name="删除case"),
 
-    url(r'project/case/run$', views.case_run, name="运行用例"),
+    url(r'project/case/run$', views.run, name="运行用例"),
 
     url(r'project/result/list$', views.result_list, name="获取项目的结果列表"),
     url(r'project/result/detailList$', views.result_detail_list, name="获取结果的详细信息列表"),
