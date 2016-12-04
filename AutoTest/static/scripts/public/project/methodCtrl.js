@@ -1,7 +1,7 @@
 myApp.controller('methodCtrl',function($scope,$http,$cookieStore,$timeout) {
     var pro_id = $cookieStore.get("currProID");
     $scope.activeList1=["active","disactive"];
-    $scope.funcList="";
+    $scope.funcList=[];
     $scope.func={
         "func_desc": "hwbchjdcgxd",
           "pro_id": pro_id,
