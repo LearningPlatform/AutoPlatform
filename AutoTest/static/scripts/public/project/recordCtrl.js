@@ -306,8 +306,8 @@ myApp.controller('recordCtrl', function ($scope, $http, $cookieStore,$sce,$timeo
         }).success(function(response){
             if(response.code==1){
                 $scope.rcdResult=response.data;
-                $scope.rcdResult.schema=String.valueOf($scope.rcdResult.schema);
-                $scope.rcdResult.response_body=String.valueOf($scope.rcdResult.response_body);
+                $scope.rcdResult.schema=JSON.stringify($scope.rcdResult.schema);
+                $scope.rcdResult.response_body=JSON.stringify($scope.rcdResult.response_body);
                 if($scope.rcdResult.schema_check==1){
                     $scope.rcdResult.schema_check="通过";
                 }else{
