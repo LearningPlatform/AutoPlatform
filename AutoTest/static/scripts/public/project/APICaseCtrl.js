@@ -412,7 +412,6 @@ myApp.controller('APICaseCtrl',function($scope,$http,$cookieStore,$timeout) {
     }
 
     $scope.saveEditAPI=function(id){
-        console.log(id)
         if($scope.api.api_name==null){
             $scope.api.api_name="";
         }
@@ -499,7 +498,6 @@ myApp.controller('APICaseCtrl',function($scope,$http,$cookieStore,$timeout) {
     }
 
     $scope.getAPICase=function(id){
-        console.log(id)
         $scope.showCase=!$scope.showCase;
         $scope.showAPIID=id;
         $http.post('project/api/caseList',{
@@ -533,7 +531,10 @@ myApp.controller('APICaseCtrl',function($scope,$http,$cookieStore,$timeout) {
         }
     }
 
-    $scope.saveCase=function(id){
+    $scope.saveCase=function(apiId,apiDepId,checkId){
+        $scope.case.check_type=checkId;
+        $scope.case.depnd_api_id=apiDepId;
+        $scope.case.api_id=apiId;
         for(var i=0;i<$scope.check.length;i++){
              if($scope.check[i]==true){
                 $scope.suite_list.push(suite_list[i]);
@@ -545,24 +546,18 @@ myApp.controller('APICaseCtrl',function($scope,$http,$cookieStore,$timeout) {
         if($scope.case.case_desc==null){
             $scope.case.case_desc="无";
         }
-        if($scope.case.check_type==null){
-            $scope.case.check_type="";
-        }
-        if($scope.case.depnt_api==null){
-            $scope.case.depnt_api={depnt_api_name:"",depnt_api_id:0};
-        }
         $http.post('project/case/create',{
-            api_id: $scope.case.api.api_id,
-            pro_id: pro_id,
-            case_desc: $scope.case.case_desc,
-            case_name: $scope.case.case_name,
-            suite_list:$scope.suite_list,
-            check_type:$scope.case.check_type,
-            depnd_api_id:$scope.case.depnt_api.depnd_api_id
+            "api_id": $scope.case.api_id,
+            "pro_id": pro_id,
+            "case_desc": $scope.case.case_desc,
+            "case_name": $scope.case.case_name,
+            "suite_list":$scope.suite_list,
+            "check_type":$scope.case.check_type,
+            "depnd_api_id":$scope.case.depnd_api_id
         }).success(function(response){
             if(response.code==1) {
                 $http.post('project/api/caseList',{
-                    "api_id":$scope.case.api.api_id
+                    "api_id":$scope.case.api_id
                 }).success(function(response1){
                     $scope.caseList=response1.data;
                 })
@@ -585,6 +580,7 @@ myApp.controller('APICaseCtrl',function($scope,$http,$cookieStore,$timeout) {
         $scope.al[index]="active";
         $scope.showSelectId=index;
         $scope.showParamId=0;
+        /*
         if($scope.str==""){
             if(obj.is_set==1){
                 $scope.str=obj.input_data.replace(/\'/ig,"\"");
@@ -596,9 +592,11 @@ myApp.controller('APICaseCtrl',function($scope,$http,$cookieStore,$timeout) {
                 }
                 $scope.str = $scope.str  +'"'+ $scope.param[$scope.param.length-1] + '" :"undefined"}';
             }
-        }
+        }*/
+        $scope.str=obj.input_data;
         $scope.exp = obj.exp_data;
-        $scope.showParam2();
+        $scope.showParamId=2;
+        //$scope.showParam2();
     }
 
     var editApiId=0;
@@ -654,14 +652,12 @@ myApp.controller('APICaseCtrl',function($scope,$http,$cookieStore,$timeout) {
         if(stringId==1){
             $scope.str="";
             $scope.str='{'
-            console.log($scope.param)
             for(var i=0;i<$scope.param.length-1;i++){
                 $scope.str = $scope.str +'"'+ $scope.param[i]+'" :'+ $scope.canshu[i]+', ';
             }
             $scope.str = $scope.str +'"'+$scope.param[$scope.param.length-1] + '" :'+ $scope.canshu[$scope.param.length-1]+'}';
         }
         $scope.textValue=$scope.str;
-        console.log($scope.str)
     }
 
     $scope.addParam1=function(){
@@ -687,7 +683,7 @@ myApp.controller('APICaseCtrl',function($scope,$http,$cookieStore,$timeout) {
     }
 
     $scope.saveParam2=function(id,abc){
-        $scope.case.input_data=angular.fromJson(abc);
+        $scope.case.input_data=eval("("+abc+")");
         $http.post('project/case/edit/req',{
             "case_id":id,
             "input_data":$scope.case.input_data,
@@ -844,6 +840,7 @@ myApp.controller('APICaseCtrl',function($scope,$http,$cookieStore,$timeout) {
     }
 
     $scope.runCase=function(obj){
+        $scope.env="";
         $("#runCase").modal();
     }
 
@@ -857,7 +854,6 @@ myApp.controller('APICaseCtrl',function($scope,$http,$cookieStore,$timeout) {
         }).success(function(response){
             if(response.code==1){
                 $scope.caseResult=response.data;
-                console.log($scope.caseResult);
                 $scope.caseResult.schema=JSON.stringify($scope.caseResult.schema);
                 $scope.caseResult.response_body=JSON.stringify($scope.caseResult.response_body);
                 if($scope.caseResult.schema_check==1){
@@ -875,6 +871,5 @@ myApp.controller('APICaseCtrl',function($scope,$http,$cookieStore,$timeout) {
                 alert(response.msg)
             }
         })
-
     }
 })
