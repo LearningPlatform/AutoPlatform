@@ -186,13 +186,19 @@ myApp.controller('APICaseCtrl',function($scope,$http,$cookieStore,$timeout) {
     $scope.run=function(){
         $("#runModule").modal();
         $scope.report_name="";
-        $scope.env="";
+        $scope.env="无";
         $scope.suite="";
     }
 
     $scope.report_name="";
 
     $scope.saveRun=function(envId,suiteId){
+        if(envId==undefined){
+            envId=0;
+        }
+        if(suiteId==undefined){
+            suiteId=0;
+        }
         $http.post('project/case/run',{
             "suite_id":suiteId,
             "pro_id":pro_id,
@@ -356,6 +362,18 @@ myApp.controller('APICaseCtrl',function($scope,$http,$cookieStore,$timeout) {
         if($scope.api.api_desc==null){
             $scope.api.api_desc="无";
         }
+        if(id==""){
+            id=0;
+        }
+        if($scope.api.api_protocol==undefined){
+            $scope.api.api_protocol="http";
+        }
+        if($scope.api.api_method==undefined){
+            $scope.api.api_method="POST";
+        }
+        if($scope.api.api_type==undefined){
+            $scope.api.api_type="json";
+        }
         $http.post('project/api/create',{
             "api_param": $scope.api.api_param,
             "module_id": id,
@@ -403,6 +421,8 @@ myApp.controller('APICaseCtrl',function($scope,$http,$cookieStore,$timeout) {
         }).success(function(response){
             if(response.code==1){
                 $scope.api=response.data;
+                $scope.api.api_method=$scope.api.api_method.toLocaleUpperCase();
+                console.log($scope.api.api_method)
                 $scope.selected=$scope.api.module_id;
             }else{
                 alert(response.msg);
@@ -532,6 +552,15 @@ myApp.controller('APICaseCtrl',function($scope,$http,$cookieStore,$timeout) {
     }
 
     $scope.saveCase=function(apiId,apiDepId,checkId){
+        if(apiId==undefined){
+            apiId=0;
+        }
+        if(apiDepId==undefined){
+            apiDepId=0;
+        }
+        if(checkId==undefined){
+            checkId=0;
+        }
         $scope.case.check_type=checkId;
         $scope.case.depnd_api_id=apiDepId;
         $scope.case.api_id=apiId;
@@ -613,6 +642,15 @@ myApp.controller('APICaseCtrl',function($scope,$http,$cookieStore,$timeout) {
         }).success(function(response) {
             if (response.code == 1) {
                 $scope.api = response.data;
+            }else{
+                alert(response.msg);
+            }
+        })
+        $http.post("project/check/detail",{
+            "check_id":obj.check_type
+        }).success(function(response){
+            if(response.code==1){
+                $scope.check1=response.data;
             }else{
                 alert(response.msg);
             }
@@ -713,11 +751,11 @@ myApp.controller('APICaseCtrl',function($scope,$http,$cookieStore,$timeout) {
         $("#cfParam").modal('hide');
     }
 
-    $scope.saveExp=function(id,data){
+    $scope.saveExp=function(id,data,checkType){
         $http.post('project/case/edit/resp',{
             "case_id": id,
              "exp_data": data,
-             "check_type": 0
+             "check_type": checkType
         }).success(function(response){
             if(response.code==0){
                 alert(response.msg)
@@ -761,8 +799,11 @@ myApp.controller('APICaseCtrl',function($scope,$http,$cookieStore,$timeout) {
         }).success(function(response) {
             if (response.code == 1) {
                 $scope.case=response.data;
+                console.log($scope.case);
                 $scope.selected1=$scope.case.api_id;
                 $scope.selected2=$scope.case.depnd_api_id;
+                $scope.selected3=$scope.case.check_type;
+                console.log($scope.selected3)
                 for(var i=0;i<$scope.suiteList.length;i++){
                     $scope.check[i]=false;
                     suite_list[i]=-1;
@@ -781,7 +822,7 @@ myApp.controller('APICaseCtrl',function($scope,$http,$cookieStore,$timeout) {
         })
     }
 
-    $scope.saveEditCase=function(apiId,depntId){
+    $scope.saveEditCase=function(apiId,depntId,checkId){
         for(var i=0;i<$scope.check.length;i++){
              if($scope.check[i]==true){
                 $scope.suite_list.push(suite_list[i]);
@@ -806,7 +847,7 @@ myApp.controller('APICaseCtrl',function($scope,$http,$cookieStore,$timeout) {
             case_desc: $scope.case.case_desc,
             case_name: $scope.case.case_name,
             suite_list:$scope.suite_list,
-            check_type:0,
+            check_type:checkId,
             depnd_api_id:depntId
         }).success(function(response){
             if(response.code==1) {
