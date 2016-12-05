@@ -147,11 +147,8 @@
                                                 <td class="wid2" ng-bind="api.api_name"></td>
                                             </tr>
                                             <tr>
-
                                                 <td class="wid1">校验器</td>
-                                                <td class="wid2">默认 <a ng-click="">
-                                                    <span class="glyphicon glyphicon-plus"></span>
-                                                </a></td>
+                                                <td class="wid2" ng-bind="check1.check_name"></td>
                                                 </td></td>
                                                 <td class="wid1">依赖
 
@@ -242,7 +239,7 @@
                                                     </div>
                                                 </form>
                                                 <div class="col-md-1">
-                                                    <button type="button" class="pull-right btn btn-primary" ng-click="saveExp(case.case_id,exp)">
+                                                    <button type="button" class="pull-right btn btn-primary" ng-click="saveExp(case.case_id,exp,case.check_type)">
                                                         保存
                                                     </button>
                                                 </div>
@@ -289,28 +286,34 @@
                                         </div>
                                     </h4>
                                 </div>
-                                <div class="panel-body" ng-show="showinfo&&(showCaseID==case.case_id)">
-                                    <ul class="nav nav-tabs">
-                                        <li class="{$al[0]$}">
-                                            <a ng-click="active2(0,case.input_data)">基本信息</a>
-                                        </li>
-                                        <li class="{$al[1]$} dropdown">
-                                            <a class="dropdown-toggle" data-toggle="dropdown"
-                                               ng-click="active2(1,case)">
-                                                请求<span class="caret"></span>
-                                            </a>
-                                            <ul class="dropdown-menu">
-                                                <li><a ng-mouseenter="showParam1()">表单形式</a></li>
-                                                <li><a ng-mouseenter="showParam2()">字符串形式</a></li>
-                                            </ul>
-                                        </li>
-                                        <li class="{$al[2]$} dropdown">
-                                            <a class="dropdown-toggle" data-toggle="dropdown"
-                                               ng-click="active2(2,case)">
-                                                响应<span class="caret"></span>
-                                            </a>
-                                        </li>
-                                    </ul>
+                                <div class="panel-body" ng-show="showinfo&&(showCaseID==case.case_id)&&(showCaseType==case.case_type)">
+                                     <div class="row col-md-10">
+                                        <ul class="col-md-10 nav nav-tabs">
+                                            <li class="{$al[0]$}">
+                                                <a ng-click="active2(0,case)">基本信息</a>
+                                            </li>
+                                            <li class="{$al[1]$} dropdown">
+                                                <a class="dropdown-toggle" data-toggle="dropdown"
+                                                   ng-click="active2(1,case)">
+                                                    请求
+                                                </a>
+                                                <!--
+                                                <ul class="dropdown-menu">
+                                                    <li><a ng-mouseenter="showParam1()">表单形式</a></li>
+                                                    <li><a ng-mouseenter="showParam2()">字符串形式</a></li>
+                                                </ul>-->
+                                            </li>
+                                            <li class="{$al[2]$} dropdown">
+                                                <a class="dropdown-toggle" data-toggle="dropdown"
+                                                   ng-click="active2(2,case)">
+                                                    响应
+                                                </a>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                    <div class="pull-right">
+                                        <button class="btn btn-xs btn-info" ng-click="runCase(case)">运行</button>
+                                    </div>
                                     <div class="container top2">
                                         <table class="table" ng-show="showSelectId==0">
                                             <thead>
@@ -337,7 +340,7 @@
                                                 <td class="wid1">场景</td>
                                                 <td class="wid2"></td>
                                                 <td class="wid1">校验器</td>
-                                                <td class="wid2"></td>
+                                                <td class="wid2" ng-bind="check1.check_name"></td>
                                             </tr>
                                             <tr>
                                                 <td class="wid1">请求超时(秒)</td>
@@ -365,6 +368,7 @@
                                             </tr>
                                         </table>
                                         <div ng-show="showSelectId==1">
+                                            <!--
                                             <div ng-show="showParamId==1">
                                                 <div>
                                                     <div class="btn-group pull-right marginRight">
@@ -396,14 +400,12 @@
                                                         </td>
                                                     </tr>
                                                 </table>
-                                            </div>
+                                            </div>-->
                                             <div ng-show="showParamId==2">
                                                 <form role="form">
                                                     <div class="form-group">
-                                                        <textarea class="form-control" rows="3" ng-model="str"
-                                                                  ng-blur="saveParam2(case.case_id,str)">
+                                                        <textarea class="form-control" rows="3" ng-model="str">
                                                         </textarea>
-                                                        <div ng-bind="textValue"></div>
                                                     </div>
                                                 </form>
                                                 <button type="button" class="pull-right btn btn-primary"
@@ -420,7 +422,7 @@
                                                         <option value="">自定义</option>
                                                     </select>
                                                 </div>
-                                                <form class="col-md-3 bs-example bs-example-form">
+                                                <form class="col-md-3 col-md-offset-1 bs-example bs-example-form">
                                                     <div class="input-group">
                                                         <span class="input-group-addon">格式</span>
                                                         <select class="form-control">
@@ -428,14 +430,14 @@
                                                         </select>
                                                     </div>
                                                 </form>
-                                                <form class="col-md-3 bs-example bs-example-form">
+                                                <form class="col-md-3 col-md-offset-1 bs-example bs-example-form">
                                                     <div class="input-group">
                                                         <span class="input-group-addon">状态码</span>
                                                         <input type="text" class="form-control" placeholder="200">
                                                     </div>
                                                 </form>
                                                 <div class="col-md-1">
-                                                    <button type="button" class="btn btn-default">
+                                                    <button type="button" class="pull-right btn btn-primary" ng-click="saveExp(case.case_id,exp,case.check_type)">
                                                         保存
                                                     </button>
                                                 </div>
@@ -443,10 +445,6 @@
                                             <form role="form">
                                                 <textarea class="form-control" rows="3" ng-model="exp">
                                                 </textarea>
-                                                <button type="button" class="pull-right btn btn-primary"
-                                                        ng-click="saveExp(case.case_id,exp)">
-                                                    保存
-                                                </button>
                                             </form>
                                         </div>
                                     </div>
@@ -483,7 +481,7 @@
                             <div class="col-md-8">
                                 <select class="form-control" ng-model="env"
                                         ng-options="env.env_name for env in envList">
-                                    <option value="">请选择</option>
+                                    <option value="">无</option>
                                 </select>
                             </div>
                         </div>
@@ -492,7 +490,7 @@
                             <div class="col-md-8">
                                 <select class="form-control" ng-model="suite"
                                         ng-options="suite.suite_name for suite in suiteList">
-                                    <option value="">请选择</option>
+                                    <option value="">无</option>
                                 </select>
                             </div>
                         </div>
@@ -675,7 +673,7 @@
                             <div class="col-md-8">
                                 <select class="form-control" ng-model="module"
                                         ng-options="module.module_name for module in moduleList">
-                                    <option value="">请选择</option>
+                                    <option value="">无</option>
                                 </select>
                             </div>
                         </div>
@@ -684,7 +682,7 @@
                             <div class="col-md-8">
                                 <select class="form-control" ng-model="api.api_protocol"
                                         ng-options="type for type in protocolType">
-                                    <option value="">请选择</option>
+                                    <option value="">无</option>
                                 </select>
                             </div>
                         </div>
@@ -699,7 +697,7 @@
                             <div class="col-md-8">
                                 <select class="form-control" ng-model="api.api_method"
                                         ng-options="type for type in methodType">
-                                    <option value="">请选择</option>
+                                    <option value="">无</option>
                                 </select>
                             </div>
                         </div>
@@ -708,7 +706,7 @@
                             <div class="col-md-8">
                                 <select class="form-control" ng-model="api.api_type"
                                         ng-options="type for type in typeType">
-                                    <option value="">请选择</option>
+                                    <option value="">无</option>
                                 </select>
                             </div>
                         </div>
@@ -769,7 +767,6 @@
                             <div class="col-md-8">
                                 <select class="form-control" ng-model="api.api_protocol"
                                         ng-options="type for type in protocolType">
-                                    <option value="" ng-bind="api.api_protocol">请选择</option>
                                 </select>
                             </div>
                         </div>
@@ -784,7 +781,6 @@
                             <div class="col-md-8">
                                 <select class="form-control" ng-model="api.api_method"
                                         ng-options="type for type in methodType">
-                                    <option value="" ng-bind="api.api_method">请选择</option>
                                 </select>
                             </div>
                         </div>
@@ -793,7 +789,6 @@
                             <div class="col-md-8">
                                 <select class="form-control" ng-model="api.api_type"
                                         ng-options="type for type in typeType">
-                                    <option value="" ng-bind="api.api_type">请选择</option>
                                 </select>
                             </div>
                         </div>
@@ -869,7 +864,7 @@
                             <div class="col-md-8">
                                 <select class="form-control" ng-model="api"
                                         ng-options="api.api_name for api in apiList">
-                                    <option value="">请选择</option>
+                                    <option value="">无</option>
                                 </select>
                             </div>
                         </div>
@@ -900,7 +895,7 @@
                             <div class="col-md-8">
                                 <select class="form-control" ng-model="apiDep"
                                         ng-options="apiDep.depnd_api_name for apiDep in apiDepList">
-                                    <option value="">请选择</option>
+                                    <option value="">无</option>
                                 </select>
                             </div>
                         </div>
@@ -909,7 +904,7 @@
                             <div class="col-md-8">
                                 <select class="form-control" ng-model="check1"
                                         ng-options="check1.check_name for check1 in checkList">
-                                    <option value="">请选择</option>
+                                    <option value="">无</option>
                                 </select>
                             </div>
                         </div>
@@ -986,9 +981,8 @@
                         <div class="form-group">
                             <label class="col-md-3 control-label">校验器：</label>
                             <div class="col-md-8">
-                                <select class="form-control" ng-model="case.check_type"
-                                        ng-options="api.api_name for api in apiList">
-                                    <option value="">请选择</option>
+                                <select class="form-control" ng-model="selected3"
+                                        ng-options="check1.check_id as check1.check_name for check1 in checkList">
                                 </select>
                             </div>
                         </div>
@@ -997,7 +991,7 @@
                 <div class="modal-footer">
                     <button type="button" class="btn btn-default" data-dismiss="modal">关闭
                     </button>
-                    <button type="button" class="btn btn-primary" ng-click="saveEditCase(selected1,selected2)">
+                    <button type="button" class="btn btn-primary" ng-click="saveEditCase(selected1,selected2,selected3)">
                         保存
                     </button>
                 </div>
@@ -1059,7 +1053,7 @@
                 </div>
                 <div class="modal-body">
                 <select class="form-control" ng-model="depnt_api" ng-options="depnt_api.depnd_api_name for depnt_api in apiDepList">
-                                    <option value="">请选择</option>
+                                    <option value="">无</option>
                 </select>
                 </div>
                 <div class="modal-footer">
@@ -1091,7 +1085,7 @@
                             <div class="col-md-8">
                                 <select class="form-control" ng-model="env"
                                         ng-options="env.env_name for env in envList">
-                                    <option value="">请选择</option>
+                                    <option value="">无</option>
                                 </select>
                             </div>
                         </div>
