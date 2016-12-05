@@ -1,6 +1,8 @@
 from ...models import DepndApi, Case
 
-from ..tools import jsontool
+from ..case.dapi import Interface
+
+from ..tools import jsontool, casetool
 
 
 def get_dapi_list(data):
@@ -106,3 +108,21 @@ def del_dapi(data):
             "code": 1,
             "msg": "删除成功"
         }
+
+
+def run_d_api(data):
+    depnd_api_id = data['depnd_api_id']
+    env_id = data["env_id"]
+    var_map = casetool.get_env_var_map(env_id)
+    c = Interface(depnd_api_id, var_map=var_map)
+    c.run()
+    return {
+        "code": 1,
+        "msg": "运行成功",
+        "data": {
+            "status_code": c.resp["status_code"],
+            "response_body": c.resp["response_data"]["body"],
+            "request_body": c.param,
+            "url": c.url
+        }
+    }

@@ -1,4 +1,4 @@
-from django.shortcuts import render_to_response,HttpResponse
+from django.shortcuts import render_to_response, HttpResponse
 import json
 
 from .platform.datahandle import prodata, envdata, vardata, moduledata, suitedata, \
@@ -1869,6 +1869,56 @@ def dapi_delete(req):
        """
     data = json.loads(str(req.body, encoding="utf-8"))
     resp = dapidata.del_dapi(data)
+    return HttpResponse(json.dumps(resp), content_type="application/json")
+
+
+def dapi_run(req):
+    """
+      运行依赖接口
+      请求方法：post
+      如：
+      {
+        "depnd_api_id":1,
+        "env_id":4
+    }
+      :return:
+      如：
+      成功：
+    {
+      "code": 1,
+      "data": {
+        "status_code": 200,
+        "url": "http://oa.supernano.com/index.php?r=api/login/login",
+        "request_body": "{\"username\": \"liujing3@supernano.com\", \"pwd\": \"670b14728ad9902aecba32e22fa4f6bd\"}",
+        "response_body": {
+          "code": 20000,
+          "data": {
+            "noticeApp": "1",
+            "username": "liujing3@supernano.com",
+            "phone": "14726968415",
+            "position": "游戏测试",
+            "entryTime": "2015-07-08",
+            "taskApp": "1",
+            "accessToken": "f22bda895ee41a50fab92d625ecae4bc|219",
+            "hpwd": "000000",
+            "orgId": 19,
+            "orgName": "测试技术部",
+            "email": "liujing3@supernano.com",
+            "realname": "刘静3",
+            "headimg": "http://oa.supernano.com/static/head-img/uploads/219.jpg",
+            "uid": "219",
+            "hid": "liujing3",
+            "applyApp": "1",
+            "companyName": "湖南纳米娱乐"
+          },
+          "msg": "登录成功"
+        }
+      },
+      "msg": "删除成功"
+    }
+    """
+    data = json.loads(str(req.body, encoding="utf-8"))
+    resp = dapidata.run_d_api(data)
     return HttpResponse(json.dumps(resp), content_type="application/json")
 
 

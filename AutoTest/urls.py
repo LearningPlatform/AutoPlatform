@@ -66,6 +66,7 @@ urlpatterns = [
     url(r'project/dapi/create$', views.dapi_create, name="新建依赖接口"),
     url(r'project/dapi/edit$', views.dapi_edit, name="编辑依赖接口"),
     url(r'project/dapi/delete$', views.dapi_delete, name="编辑依赖接口"),
+    url(r'project/dapi/run$', views.dapi_run, name="运行依赖接口"),
 
 
     url(r'project/func/create$', views.func_create, name="创建方法"),
