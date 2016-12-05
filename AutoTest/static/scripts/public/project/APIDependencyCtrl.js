@@ -26,6 +26,15 @@ myApp.controller('APIDependencyCtrl',function($scope,$http,$cookieStore,$timeout
                 alert(response.msg)
             }
         })
+        $http.post('project/env/list',{
+            "pro_id":pro_id
+        }).success(function(response){
+            if(response.code==1){
+                $scope.envList=response.data;
+            }else{
+                alert(response.msg)
+            }
+        })
     })
 
     $scope.addAPIDep=function(){
@@ -148,5 +157,24 @@ myApp.controller('APIDependencyCtrl',function($scope,$http,$cookieStore,$timeout
         })
     }
 
+    $scope.runAPIDep=function(obj){
+        $scope.env="";
+        $("#runAPIDep").modal();
+    }
 
+    $scope.getAPIDepResult=function(depAPIId,envId){
+        $("#runAPIDep").modal("hide");
+        $http.post("project/dapi/run",{
+            "depnd_api_id":depAPIId,
+            "env_id":envId
+        }).success(function(response){
+            if(response.code==1){
+                $scope.apiDepResult=response.data;
+                $scope.apiDepResult.response_body=JSON.stringify($scope.apiDepResult.response_body);
+                $("#apiDepResult").modal();
+            }else{
+                alert(response.msg);
+            }
+        })
+    }
 })
