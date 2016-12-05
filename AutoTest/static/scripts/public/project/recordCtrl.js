@@ -83,6 +83,15 @@ myApp.controller('recordCtrl', function ($scope, $http, $cookieStore,$sce,$timeo
                 alert(response.msg);
             }
         });
+        $http.post("project/check/list",{
+            "pro_id":pro_id
+        }).success(function(response){
+            if(response.code==1){
+                $scope.checkList=response.data;
+            }else{
+                alert(response.msg)
+            }
+        })
     })
 
     $scope.initSocket = function () {
@@ -175,7 +184,7 @@ myApp.controller('recordCtrl', function ($scope, $http, $cookieStore,$sce,$timeo
         $scope.idList.splice(RecordId, 1);
         $scope.objList.splice(RecordId, 1);
         $scope.reqData.splice(RecordId, 1);
-        $("#cfRecord").modal('hide');
+        $("#cfRecord").modal('');
     }
 
     var editId;
@@ -210,7 +219,6 @@ myApp.controller('recordCtrl', function ($scope, $http, $cookieStore,$sce,$timeo
         $scope.rcdCase.module_id=moduleId;
         $scope.rcdCase.depnd_api_id=apiDepId;
         $scope.rcdCase.suite_list=suite_list;
-        $scope.rcdCase.check_type=1;
         if($scope.rcdCase.case_id==""){
             $http.post('project/rcd_case/create',{
                 "pro_id":$scope.rcdCase.pro_id,
@@ -269,7 +277,7 @@ myApp.controller('recordCtrl', function ($scope, $http, $cookieStore,$sce,$timeo
             }).success(function(response){
                 if(response.code==1){
                     num=$scope.rcdCase.case_url.indexOf('/');
-                    $scope.req_data.host=$scope.rcdCase.case_url.slice(0,num);
+                    $scope.req_data.host=$scope.rcdCase.case_url.slice(0,num-1);
                     $scope.req_data.path=$scope.rcdCase.case_url.slice(num,-1);
                     $scope.req_data.method=$scope.rcdCase.case_method;
                     $scope.req_data.protocol=$scope.rcdCase.case_protocol;
@@ -283,5 +291,37 @@ myApp.controller('recordCtrl', function ($scope, $http, $cookieStore,$sce,$timeo
                 }
             })
         }
+    }
+
+    $scope.runRecord=function(obj){
+        $("#runRecord").modal();
+    }
+
+    $scope.getRecordResult=function(caseId,caseType,envId){
+        $("#runRecord").modal("hide");
+        $http.post("project/case/runsingal",{
+            "case_id":caseId,
+            "case_type":2,
+            "env_id":envId
+        }).success(function(response){
+            if(response.code==1){
+                $scope.rcdResult=response.data;
+                $scope.rcdResult.schema=String.valueOf($scope.rcdResult.schema);
+                $scope.rcdResult.response_body=String.valueOf($scope.rcdResult.response_body);
+                if($scope.rcdResult.schema_check==1){
+                    $scope.rcdResult.schema_check="通过";
+                }else{
+                    $scope.rcdResult.schema_check="失败";
+                }
+                if($scope.rcdResult.result_check==1){
+                    $scope.rcdResult.result_check="通过";
+                }else{
+                    $scope.rcdResult.result_check="失败";
+                }
+                $("#recordResult").modal();
+            }else{
+                alert(response.msg)
+            }
+        })
     }
 })
