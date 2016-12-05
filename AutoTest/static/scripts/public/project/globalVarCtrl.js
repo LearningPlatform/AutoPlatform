@@ -54,7 +54,6 @@ myApp.controller('globalVarCtrl',function($scope,$http,$cookieStore,$timeout){
                 alert(response.msg);
             }
         });
-
     })
 
     $scope.showEvnDiv=function(){
@@ -266,7 +265,7 @@ myApp.controller('globalVarCtrl',function($scope,$http,$cookieStore,$timeout){
             pro_id:pro_id,
             var_id:"",
             var_name:'',
-            var_type:'',
+            var_type:'无',
             var_desc:'',
             value:[{
                 env_id:"",
@@ -280,10 +279,13 @@ myApp.controller('globalVarCtrl',function($scope,$http,$cookieStore,$timeout){
 
     $scope.saveVar=function(){
         if($scope.var.var_name==null){
-            $scope.var.var_name="";
+            $scope.var.var_name=" ";
         }
         if($scope.var.var_desc==null){
             $scope.var.var_desc="无";
+        }
+        if($scope.var.var_type=="无"){
+            $scope.var.var_type="String";
         }
         for(var i=0;i<$scope.envList.length;i++){
             $scope.var.value[i].env_id=$scope.envList[i].env_id;
