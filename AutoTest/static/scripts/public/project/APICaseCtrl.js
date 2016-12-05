@@ -91,6 +91,15 @@ myApp.controller('APICaseCtrl',function($scope,$http,$cookieStore,$timeout) {
                 alert(response.msg)
             }
         })
+        $http.post("project/check/list",{
+            "pro_id":pro_id
+        }).success(function(response){
+            if(response.code==1){
+                $scope.checkList=response.data;
+            }else{
+                alert(response.msg)
+            }
+        })
         $scope.showAllAPI=true;
         $http.post('project/module/list', {
              "pro_id": pro_id
@@ -537,7 +546,7 @@ myApp.controller('APICaseCtrl',function($scope,$http,$cookieStore,$timeout) {
             $scope.case.case_desc="无";
         }
         if($scope.case.check_type==null){
-            $scope.case.check_type=0;
+            $scope.case.check_type="";
         }
         if($scope.case.depnt_api==null){
             $scope.case.depnt_api={depnt_api_name:"",depnt_api_id:0};
@@ -548,7 +557,7 @@ myApp.controller('APICaseCtrl',function($scope,$http,$cookieStore,$timeout) {
             case_desc: $scope.case.case_desc,
             case_name: $scope.case.case_name,
             suite_list:$scope.suite_list,
-            check_type:0,
+            check_type:$scope.case.check_type,
             depnd_api_id:$scope.case.depnt_api.depnd_api_id
         }).success(function(response){
             if(response.code==1) {
@@ -596,6 +605,7 @@ myApp.controller('APICaseCtrl',function($scope,$http,$cookieStore,$timeout) {
     $scope.infoCase=function(obj){
         $scope.showinfo=!$scope.showinfo;
         $scope.showCaseID=obj.case_id;
+        $scope.showCaseType=obj.case_type;
         $scope.str="";
         editApiId=obj.api_id;
         $scope.al=["active","disactive","disactive"];
@@ -831,5 +841,39 @@ myApp.controller('APICaseCtrl',function($scope,$http,$cookieStore,$timeout) {
 
     $scope.addDepnt = function () {
         $("#cfDepnt").modal('hide');
+    }
+
+    $scope.runCase=function(obj){
+        $("#runCase").modal();
+    }
+
+    $scope.caseResult="";
+    $scope.getCaseResult=function(caseId,caseType,envId){
+        $("#runCase").modal("hide");
+        $http.post("project/case/runsingal",{
+            "case_id":caseId,
+            "case_type":1,
+            "env_id":envId
+        }).success(function(response){
+            if(response.code==1){
+                $scope.caseResult=response.data;
+                $scope.caseResult.schema=String.valueOf($scope.caseResult.schema);
+                $scope.caseResult.response_body=String.valueOf($scope.caseResult.response_body);
+                if($scope.caseResult.schema_check==1){
+                    $scope.caseResult.schema_check="通过";
+                }else{
+                    $scope.caseResult.schema_check="失败";
+                }
+                if($scope.caseResult.result_check==1){
+                    $scope.caseResult.result_check="通过";
+                }else{
+                    $scope.caseResult.result_check="失败";
+                }
+                $("#caseResult").modal();
+            }else{
+                alert(response.msg)
+            }
+        })
+
     }
 })
