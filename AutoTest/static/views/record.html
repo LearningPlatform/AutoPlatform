@@ -44,7 +44,7 @@
                             <td>
                                 <button class="btn btn-xs btn-danger" ng-disabled="undisabled && (undisabledId==$index)" ng-click="cfRecord($index)">删除</button>
                                 <button class="btn btn-xs btn-primary" ng-click="editRecord($index)">编辑</button>
-                                <button class="btn btn-xs btn-info" ng-click="runRecord(rcdCase)">运行</button>
+                                <button class="btn btn-xs btn-info" ng-disabled="runDisabled[$index]" ng-click="runRecord(rcdCase)">运行</button>
                             </td>
                         </tr>
                     </table>
@@ -157,12 +157,11 @@
                             </select>
                         </div>
                     </div>
-
                     <div class="form-group">
                         <label class="col-md-3 control-label">校验器：</label>
                         <div class="col-md-8">
-                            <select class="form-control" ng-model="rcdCase.check_type"
-                                    ng-options="check.check_name for check in checkList">
+                            <select class="form-control" ng-model="selected4"
+                                    ng-options="check1.check_id as check1.check_name for check1 in checkList">
                                 <option value="">请选择</option>
                             </select>
                         </div>
@@ -229,7 +228,7 @@
             <div class="modal-footer">
                 <button type="button" class="btn btn-default" data-dismiss="modal">关闭
                 </button>
-                <button type="button" class="btn btn-primary" ng-click="saveEditRecord(selected1,selected2,selected3)">
+                <button type="button" class="btn btn-primary" ng-click="saveEditRecord(selected1,selected2,selected3,selected4)">
                     保存
                 </button>
             </div>
@@ -295,7 +294,7 @@
 </div>
 
 <div class="modal fade" id="recordResult" aria-hidden="true">
-    <div class="modal-dialog">
+    <div class="modal-dialog modalWidth">
         <div class="modal-content">
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
@@ -310,14 +309,14 @@
                     <div class="form-group">
                         <label class="col-md-3 control-label">URL：</label>
                         <div class="col-md-8">
-                            <textarea type="text" class="form-control" ng-model="caseResult.url" style="background-color: white" readonly>
+                            <textarea type="text" class="form-control" rows="3" ng-model="caseResult.url" style="background-color: white" readonly>
                             </textarea>
                         </div>
                     </div>
                     <div class="form-group">
                         <label class="col-md-3 control-label">响应：</label>
                         <div class="col-md-8">
-                            <textarea type="text" class="form-control" ng-model="caseResult.request_body" style="background-color: white" readonly>
+                            <textarea type="text" class="form-control" rows="3" ng-model="caseResult.request_body" style="background-color: white" readonly>
                             </textarea>
                         </div>
                     </div>
@@ -330,7 +329,7 @@
                     <div class="form-group">
                         <label class="col-md-3 control-label">schema：</label>
                         <div class="col-md-8">
-                            <textarea type="text" class="form-control" ng-model="caseResult.schema" style="background-color: white" readonly>
+                            <textarea type="text" class="form-control" rows="12" ng-model="caseResult.schema" style="background-color: white" readonly>
                             </textarea>
                         </div>
                     </div>
@@ -343,14 +342,14 @@
                     <div class="form-group">
                         <label class="col-md-3 control-label">期望输出值：</label>
                         <div class="col-md-8">
-                            <textarea type="text" class="form-control" ng-model="caseResult.exp_data" style="background-color: white" readonly>
+                            <textarea type="text" class="form-control" rows="3" ng-model="caseResult.exp_data" style="background-color: white" readonly>
                             </textarea>
                         </div>
                     </div>
                     <div class="form-group">
                         <label class="col-md-3 control-label">响应体：</label>
                         <div class="col-md-8">
-                            <textarea type="text" class="form-control" ng-model="caseResult.response_body" style="background-color: white" readonly>
+                            <textarea type="text" class="form-control" rows="8" ng-model="caseResult.response_body" style="background-color: white" readonly>
                             </textarea>
                         </div>
                     </div>
