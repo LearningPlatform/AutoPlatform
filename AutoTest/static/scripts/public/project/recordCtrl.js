@@ -92,6 +92,16 @@ myApp.controller('recordCtrl', function ($scope, $http, $cookieStore,$sce,$timeo
                 alert(response.msg)
             }
         })
+        $http.post("project/env/list",{
+            "pro_id":pro_id
+        }).success(function(response){
+            if(response.code==1){
+                $scope.envList=response.data;
+            }else{
+                alert(response.msg);
+            }
+
+        })
     })
 
     $scope.initSocket = function () {
@@ -129,6 +139,7 @@ myApp.controller('recordCtrl', function ($scope, $http, $cookieStore,$sce,$timeo
 
     $scope.idList=[];
     $scope.objList=[];
+    $scope.runDisabled=[];
     $scope.setRecord = function () {
         var temp_resp = "";
         $scope.reqData.forEach(function(value,index){
@@ -146,6 +157,7 @@ myApp.controller('recordCtrl', function ($scope, $http, $cookieStore,$sce,$timeo
         for (var i=0;i<$scope.reqData.length;i++){
             $scope.idList[i]=-1;
             $scope.objList[i]=new Object();
+            $scope.runDisabled[i]=true;
         }
         $scope.showiframe = false;
         $scope.showtable = true;
@@ -209,15 +221,17 @@ myApp.controller('recordCtrl', function ($scope, $http, $cookieStore,$sce,$timeo
             $scope.selected1=$scope.rcdCase.api_id;
             $scope.selected2=$scope.rcdCase.depnd_api_id;
             $scope.selected3=$scope.rcdCase.module_id;
+            $scope.selected4=$scope.rcdCase.check_type;
         }
     }
 
     var num;
-    $scope.saveEditRecord=function(apiId,apiDepId,moduleId){
+    $scope.saveEditRecord=function(apiId,apiDepId,moduleId,checkId){
         $scope.rcdCase.pro_id=pro_id;
         $scope.rcdCase.api_id=apiId;
         $scope.rcdCase.module_id=moduleId;
         $scope.rcdCase.depnd_api_id=apiDepId;
+        $scope.rcdCase.check_type=checkId;
         $scope.rcdCase.suite_list=suite_list;
         if($scope.rcdCase.case_id==""){
             $http.post('project/rcd_case/create',{
@@ -252,6 +266,7 @@ myApp.controller('recordCtrl', function ($scope, $http, $cookieStore,$sce,$timeo
                     $("#editRecord").modal('hide');
                     $scope.undisabled=true;
                     $scope.undisabledId=editId;
+                    $scope.runDisabled[editId]=false;
                 }else{
                     alert(response.msg);
                 }
@@ -294,6 +309,7 @@ myApp.controller('recordCtrl', function ($scope, $http, $cookieStore,$sce,$timeo
     }
 
     $scope.runRecord=function(obj){
+        $scope.env="";
         $("#runRecord").modal();
     }
 
