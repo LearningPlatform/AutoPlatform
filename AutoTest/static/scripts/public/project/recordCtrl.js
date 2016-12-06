@@ -227,6 +227,7 @@ myApp.controller('recordCtrl', function ($scope, $http, $cookieStore,$sce,$timeo
 
     var num;
     $scope.saveEditRecord=function(apiId,apiDepId,moduleId,checkId){
+        console.log($scope.rcdCase)
         $scope.rcdCase.pro_id=pro_id;
         $scope.rcdCase.api_id=apiId;
         $scope.rcdCase.module_id=moduleId;
@@ -249,7 +250,8 @@ myApp.controller('recordCtrl', function ($scope, $http, $cookieStore,$sce,$timeo
                 "case_desc":$scope.rcdCase.case_desc,
                 "depnd_api_id":$scope.rcdCase.depnd_api_id,
                 "resp_type":$scope.rcdCase.resp_type,
-                "suite_list":$scope.rcdCase.suite_list
+                "suite_list":$scope.rcdCase.suite_list,
+                "case_schema":$scope.rcdCase.case_schema
             }).success(function(response){
                 if(response.code==1){
                     num=$scope.rcdCase.case_url.indexOf('/');
@@ -288,7 +290,8 @@ myApp.controller('recordCtrl', function ($scope, $http, $cookieStore,$sce,$timeo
                 "case_desc":$scope.rcdCase.case_desc,
                 "depnd_api_id":$scope.rcdCase.depnd_api_id,
                 "resp_type":$scope.rcdCase.resp_type,
-                "suite_list":$scope.rcdCase.suite_list
+                "suite_list":$scope.rcdCase.suite_list,
+                "case_schema":$scope.rcdCase.case_schema
             }).success(function(response){
                 if(response.code==1){
                     num=$scope.rcdCase.case_url.indexOf('/');
