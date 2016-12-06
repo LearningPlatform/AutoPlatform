@@ -39,6 +39,7 @@ myApp.controller('APIDependencyCtrl',function($scope,$http,$cookieStore,$timeout
 
     $scope.addAPIDep=function(){
         $scope.apiDep={};
+        $scope.selected=0;
         $("#addapiDep").modal();
     }
 
@@ -49,7 +50,11 @@ myApp.controller('APIDependencyCtrl',function($scope,$http,$cookieStore,$timeout
 
     }
 
-    $scope.saveapiDep=function(obj){
+    $scope.saveapiDep=function(obj,apiDepId){
+        console.log(obj)
+        if(apiDepId==undefined){
+            apiDepId=0;
+        }
         if(obj.depnd_api_id==null){
             $http.post("project/dapi/create",{
                 "depnd_api_name": obj.depnd_api_name,
@@ -60,7 +65,7 @@ myApp.controller('APIDependencyCtrl',function($scope,$http,$cookieStore,$timeout
                 "depnd_api_url": obj.depnd_api_url,
                 "depnd_api_param": obj.depnd_api_param,
                 "pro_id": pro_id,
-                "depnd_id": obj.depnd_id
+                "depnd_id": apiDepId
             }).success(function(response){
                 if(response.code==1){
                     $http.post("project/dapi/list",{
@@ -87,7 +92,7 @@ myApp.controller('APIDependencyCtrl',function($scope,$http,$cookieStore,$timeout
                 "depnd_api_url": obj.depnd_api_url,
                 "depnd_api_param": obj.depnd_api_param,
                 "pro_id": pro_id,
-                "depnd_id": obj.depnd_id
+                "depnd_id": apiDepId
             }).success(function(response){
                 if(response.code==0){
                     alert(response.msg)
@@ -97,6 +102,7 @@ myApp.controller('APIDependencyCtrl',function($scope,$http,$cookieStore,$timeout
         $scope.edit=false;
     }
 
+    $scope.selected=0;
     $scope.apiDepDetail=function(obj){
         $scope.edit=false;
         $scope.apiDepId=obj.depnd_api_id;
@@ -106,6 +112,8 @@ myApp.controller('APIDependencyCtrl',function($scope,$http,$cookieStore,$timeout
         }).success(function(response){
             if(response.code==1){
                 $scope.apiDep=response.data;
+                $scope.selected=$scope.apiDep.depnd_id;
+                console.log($scope.selected)
             }else{
                 alert(reponse.msg)
             }
