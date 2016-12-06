@@ -129,6 +129,41 @@
                                 </tr>
                             </table>
                             <div class="container">
+                                <table class="table">
+                                    <thead>
+                                    <tr>
+                                        <td class="wid1">URL</td>
+                                        <td ng-bind="res.input_data.url"></td>
+                                    </tr>
+                                    </thead>
+                                    <tr>
+                                        <td class="wid1">body参数</td>
+                                        <td ng-bind="res.input_data.body"></td>
+                                    </tr>
+                                    <tr>
+                                        <td class="wid1">状态码</td>
+                                        <td ng-bind="res.out_data.status_code"></td>
+                                    </tr>
+                                    <tr>
+                                        <td class="wid1">body</td>
+                                        <td ng-show="res.is_pass==1">pass
+                                            <btn class="btn-info" ng-click="getResult1(res)">实际结果</btn>
+                                        </td>
+                                        <td ng-show="res.is_pass==0">fail
+                                            <btn class="btn-info" ng-click="getResult1(res)">实际结果</btn>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td class="wid1">schema</td>
+                                        <td ng-show="res.schema_check==1">pass
+                                            <btn class="btn-info" ng-click="getResult2(res)">实际结果</btn>
+                                        </td>
+                                        <td ng-show="res.schema_check==0">fail
+                                            <btn class="btn-info" ng-click="getResult2(res)">实际结果</btn>
+                                        </td>
+                                    </tr>
+                                </table>
+                                <!--
                                 <h4 class="text-info">
                                 请求信息：
                                 </h4>
@@ -154,16 +189,16 @@
                                         </textarea>
                                     </div>
                                     <div class="input-group">
-                                        <span class="input-group-addon">响应头</span>
-                                        <textarea type="text" rows="1"style="background: white"  class="form-control  msd-elastic: \n" ng-model="res.out_data.response_data.header" readonly>
-                                        </textarea>
+                                        <span class="input-group-addon">body</span>
+                                        <input type="text" style="background: white"  class="form-control " readonly ng-show="res.out_data.is_pass==1">pass
+                                        <input type="text" style="background: white"  class="form-control " readonly ng-show="res.out_data.is_pass==0">fail
                                     </div>
                                     <div class="input-group">
-                                        <span class="input-group-addon">响应体</span>
-                                        <textarea type="text" style="background: white" rows="1" class="form-control  msd-elastic: \n" ng-model="res.out_data.response_data.body" readonly>
+                                        <span class="input-group-addon">schema</span>
+                                        <textarea type="text" style="background: white" rows="1" class="form-control  msd-elastic: \n" ng-model="res.out_data.schema_check" readonly>
                                         </textarea>
                                     </div>
-                                </form>
+                                </form>-->
                             </div>
                         </td>
                         <td>
@@ -187,6 +222,68 @@
             </div>
         </div>
     </div>
+
+    <div class="modal fade" id="bodyDetail">
+        <div class="modal-dialog modalWidth">
+            <div class="modal-content">
+                <div class="modal-body">
+                    <form class="form-horizontal">
+                        <div class="form-group">
+                            <label class="col-md-1 control-label">验证器：</label>
+                            <div class="col-md-11">
+                                <input type="text" style="background-color: white" class="form-control"  ng-model="check.check_desc" readonly>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-md-1 control-label">实际响应：</label>
+                            <div class="col-md-11">
+                                <textarea type="text" rows="5" style="background-color: white" class="form-control" rows="" ng-model="res.out_data.response_data.body" readonly>
+                                </textarea>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-md-1 control-label">期望响应：</label>
+                            <div class="col-md-11">
+                                <input type="text" style="background-color: white" class="form-control" ng-model="res.exp_data" readonly>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="schemaDetail">
+        <div class="modal-dialog modalWidth">
+            <div class="modal-content">
+                <div class="modal-body">
+                    <form class="form-horizontal">
+                        <div class="form-group">
+                            <label class="col-md-1 control-label">实际响应：</label>
+                            <div class="col-md-11">
+                                <textarea type="text" rows="7" style="background-color: white" class="form-control"  ng-model="res.out_data.response_data.body" readonly>
+                                </textarea>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-md-1 control-label">schema：</label>
+                            <div class="col-md-11">
+                                <textarea type="text" rows="7" style="background-color: white" class="form-control" rows="" ng-model="res.case_schema" readonly>
+                                </textarea>
+                            </div>
+                        </div>
+                        <div class="form-group" ng-show="res.schema_check==0">
+                            <label class="col-md-1 control-label">错误信息：</label>
+                            <div class="col-md-11">
+                                <input type="text" style="background-color: white" class="form-control" readonly>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
 </div>
 
 
