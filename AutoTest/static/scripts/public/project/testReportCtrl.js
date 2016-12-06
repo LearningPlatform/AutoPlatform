@@ -86,6 +86,7 @@ myApp.controller('testReportCtrl', function ($scope, $http, $cookieStore, $timeo
         }).success(function (response) {
             if (response.code = 1) {
                 $scope.allResult = response.data;
+                console.log($scope.allResult[0])
                 $scope.resultStr = "";
                 for (var i = 0; i < $scope.allResult.length - 1; i++) {
                     $scope.reportDetal[i] = false;
@@ -142,6 +143,25 @@ myApp.controller('testReportCtrl', function ($scope, $http, $cookieStore, $timeo
                 alert(response.msg)
             }
         })
+    }
+
+    $scope.getResult1=function(obj){
+        $("#bodyDetail").modal();
+        $scope.res=obj;
+        $http.post("project/check/detail",{
+            "check_id": $scope.res.check_type
+        }).success(function(response){
+            if(response.code==1){
+                $scope.check=response.data;
+            }else{
+                alert(response.msg)
+            }
+        })
+    }
+
+    $scope.getResult2=function(obj){
+        $("#schemaDetail").modal();
+        $scope.res=obj;
     }
 
     $scope.styleList=[];
