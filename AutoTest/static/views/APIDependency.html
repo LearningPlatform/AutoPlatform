@@ -27,70 +27,41 @@
                             </h4>
                         </div>
                         <div class="panel-body" ng-show="showDetail && (apiDepId==Dep.depnd_api_id || Dep.depnd_api_id == null )">
-                            <button type="button" class="pull-right btn btn-info" ng-click="runAPIDep(apiDep)">运行</button>
-                            <button type="button" class="pull-right btn btn-info" ng-click="saveapiDep(apiDep)">保存</button>
+                            <button type="button" class="pull-right btn btn-info" ng-click="runAPIDep(Dep)">运行</button>
+                            <button type="button" class="pull-right btn btn-info" ng-click="saveapiDep(Dep,selected)">保存</button>
                             <form class="col-md-12 bs-example bs-example-form">
                                 <div class="input-group">
                                     <span class="input-group-addon">请求协议</span>
-                                    <input type="text" style="background-color: white" class="form-control" ng-model="apiDep.depnd_api_protocol">
+                                    <input type="text" style="background-color: white" class="form-control" ng-model="Dep.depnd_api_protocol">
                                 </div>
                                 <div class="input-group">
                                     <span class="input-group-addon">请求方式</span>
-                                    <input type="text" class="form-control" ng-model="apiDep.depnd_api_method">
+                                    <input type="text" class="form-control" ng-model="Dep.depnd_api_method">
                                 </div>
                                 <div class="input-group">
                                     <span class="input-group-addon">数据格式</span>
-                                    <input type="text" class="form-control" ng-model="apiDep.depnd_api_type">
+                                    <input type="text" class="form-control" ng-model="Dep.depnd_api_type">
                                 </div>
                                 <div class="input-group">
                                     <span class="input-group-addon">请求u r l</span>
-                                    <input type="text" class="form-control" ng-model="apiDep.depnd_api_url">
+                                    <input type="text" class="form-control" ng-model="Dep.depnd_api_url">
                                 </div>
                                 <div class="input-group">
                                     <span class="input-group-addon">请&nbsp求&nbsp&nbsp体</span>
-                                    <input type="text" class="form-control"  ng-model="apiDep.depnd_api_param">
+                                    <input type="text" class="form-control"  ng-model="Dep.depnd_api_param">
                                 </div>
                                 <div class="input-group">
                                     <span class="input-group-addon">请求描述</span>
-                                    <input type="text" class="form-control" ng-model="apiDep.depnd_api_desc">
+                                    <input type="text" class="form-control" ng-model="Dep.depnd_api_desc">
                                 </div>
                                 <div class="input-group">
                                     <span class="input-group-addon">依赖接口</span>
-                                    <input type="text" class="form-control" ng-click="saveapiDep(apiDep)">
+                                    <select class="form-control" ng-model="selected"
+                                        ng-options="apiDep.depnd_api_id as apiDep.depnd_api_name for apiDep in apiDepList">
+                                        <option value="">无</option>
+                                    </select>
                                 </div>
                             </form>
-
-                        <!--
-                            <div class="row">
-                                 <span class="container col-xs-2 input12">请求协议</span>
-                                 <input type="text" class="input22 form-control" ng-model="apiDep.depnd_api_protocol">
-                            </div>
-                            <div class="row">
-                                 <span class="container col-xs-2 input12">请求方式</span>
-                                 <input type="text" class="input22 form-control" ng-model="apiDep.depnd_api_method">
-                            </div>
-                            <div class="row">
-                                 <span class="container col-xs-2 input12">请求数据格式</span>
-                                 <input type="text" class="input22 form-control" ng-model="apiDep.depnd_api_type">
-                            </div>
-                            <div class="row">
-                                 <span class="container col-xs-2 input12">请求url</span>
-                                 <input type="text" class="input22 form-control" ng-model="apiDep.depnd_api_url">
-                            </div>
-                            <div class="row">
-                                 <span class="container col-xs-2 input12">请求体</span>
-                                 <input type="text" class="input22 form-control" ng-model="apiDep.depnd_api_param">
-                            </div>
-                            <div class="row">
-                                 <span class="container col-xs-2 input12">描述</span>
-                                 <input type="text" class="input22 form-control" ng-model="apiDep.depnd_api_desc">
-                            </div>
-                            <div class="row">
-                                 <span class="container col-xs-2 input12">依赖的接口id</span>
-                                 <input type="text" class="input22 form-control" ng-model="apiDep.depnd_id">
-                            </div>
-                            <button type="button" class="pull-right btn btn-info" ng-click="saveapiDep(apiDep)">保存
-                            </button>-->
                         </div>
                     </div>
                 </div>
