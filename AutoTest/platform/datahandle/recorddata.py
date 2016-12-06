@@ -67,8 +67,8 @@ def edit_rcd_case(data):
         pro_id=pro_id, api_id=api_id, module_id=module_id, case_desc=case_desc, case_url=case_url,
         exp_data=exp_data, case_header=case_header, input_data=input_data,
         case_method=case_method, case_name=case_name, case_protocol=case_protocol,
-        check_type=check_type, depnd_api_id=depnd_api_id, resp_type=resp_type)
-    CaseSuite.objects.all().filter(case_id=case_id,case_type=2,case_schema=case_schema).delete()
+        check_type=check_type, depnd_api_id=depnd_api_id, resp_type=resp_type,case_schema=case_schema)
+    CaseSuite.objects.all().filter(case_id=case_id,case_type=2).delete()
     for suite_id in suite_list_data:
         CaseSuite.objects.create(pro_id=pro_id, api_id=api_id, case_id=case_id, suite_id=suite_id, case_type=2)
     return {
