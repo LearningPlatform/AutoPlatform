@@ -91,7 +91,7 @@
                                         ng-mouseleave="shownCom1=false">
                                         <a ng-bind="case.case_name" ng-click="infoCase(case)"></a>
                                         <div class="pull-right">
-                                            <a ng-show="shownCom1" ng-click="editCase(case.case_id)"><span
+                                            <a ng-show="shownCom1" ng-click="editCase(case)"><span
                                         class="glyphicon glyphicon-pencil"></span>编辑</a>
                                             <a ng-show="shownCom1" ng-click="cfDelCase(case.case_id,case.api_id)"><span
                                                     class="glyphicon glyphicon-remove"></span>删除</a>
@@ -217,14 +217,17 @@
                                             </div>
                                         </div>
                                         <div class="container" ng-show="showSelectId==2">
-                                            <h3>期望的返回值</h3>
                                             <div class="row form-group">
-                                                <div class="col-md-3">
-                                                    <select class="form-control">
-                                                        <option value="">自定义</option>
-                                                    </select>
-                                                </div>
-                                                <form class="col-md-3 col-md-offset-1 bs-example bs-example-form">
+                                                <form class="col-md-2 col-md-offset-1 bs-example bs-example-form">
+                                                    <div class="input-group">
+                                                        <span class="input-group-addon">验证器</span>
+                                                        <select class="form-control" ng-model="check1" ng-options="check1.check_name for check1 in checkList">
+                                                            <option value="">无</option>
+                                                        </select>
+                                                    </div>
+                                                </form>
+                                                <!--
+                                                <form class="col-md-2  bs-example bs-example-form">
                                                     <div class="input-group">
                                                         <span class="input-group-addon">格式</span>
                                                         <select class="form-control">
@@ -232,21 +235,29 @@
                                                         </select>
                                                     </div>
                                                 </form>
-                                                <form class="col-md-3 col-md-offset-1 bs-example bs-example-form">
+                                                <form class="col-md-2 bs-example bs-example-form">
                                                     <div class="input-group">
                                                         <span class="input-group-addon">状态码</span>
                                                         <input type="text" class="form-control" placeholder="200">
                                                     </div>
-                                                </form>
+                                                </form>-->
                                                 <div class="col-md-1">
-                                                    <button type="button" class="pull-right btn btn-primary" ng-click="saveExp(case.case_id,exp,case.check_type)">
+                                                    <button type="button" class="pull-right btn btn-primary" ng-click="saveExp(case,exp,schema)">
                                                         保存
                                                     </button>
                                                 </div>
                                             </div>
+                                            <h3>期望的返回值</h3>
                                             <div class="col-md-12">
                                                 <form role="form">
-                                                    <textarea class="form-control" rows="3" ng-model="exp">
+                                                    <textarea class="form-control msd-elastic: \n" rows="3" ng-model="exp">
+                                                    </textarea>
+                                                </form>
+                                            </div>
+                                            <h3>shcema验证</h3>
+                                            <div class="col-md-12">
+                                                <form role="form">
+                                                    <textarea class="form-control msd-elastic: \n" rows="5" ng-model="schema">
                                                     </textarea>
                                                 </form>
                                             </div>
@@ -281,8 +292,8 @@
                                         ng-mouseleave="shownCom1=false">
                                         <a ng-bind="case.case_name" ng-click="infoCase(case)"></a>
                                         <div class="pull-right">
-                                            <a ng-show="shownCom1" ng-click="cfDelCase(case.case_id,case.api_id)"><span
-                                                    class="glyphicon glyphicon-remove"></span>删除</a>
+                                            <a ng-show="shownCom1" ng-click="editCase(case)"><span class="glyphicon glyphicon-pencil"></span>编辑</a>
+                                            <a ng-show="shownCom1" ng-click="cfDelCase(case.case_id,case.api_id)"><span class="glyphicon glyphicon-remove"></span>删除</a>
                                         </div>
                                     </h4>
                                 </div>
@@ -415,14 +426,17 @@
                                             </div>
                                         </div>
                                         <div ng-show="showSelectId==2">
-                                            <h3 class="container">期望的返回值</h3>
                                             <div class="row form-group">
-                                                <div class="col-md-3">
-                                                    <select class="form-control">
-                                                        <option value="">自定义</option>
-                                                    </select>
-                                                </div>
-                                                <form class="col-md-3 col-md-offset-1 bs-example bs-example-form">
+                                                <form class="col-md-2 col-md-offset-1 bs-example bs-example-form">
+                                                    <div class="input-group">
+                                                        <span class="input-group-addon">验证器</span>
+                                                        <select class="form-control" ng-model="check1" ng-options="check1.check_name for check1 in checkList">
+                                                            <option value="">无</option>
+                                                        </select>
+                                                    </div>
+                                                </form>
+                                                <!--
+                                                <form class="col-md-2  bs-example bs-example-form">
                                                     <div class="input-group">
                                                         <span class="input-group-addon">格式</span>
                                                         <select class="form-control">
@@ -430,22 +444,32 @@
                                                         </select>
                                                     </div>
                                                 </form>
-                                                <form class="col-md-3 col-md-offset-1 bs-example bs-example-form">
+                                                <form class="col-md-2 bs-example bs-example-form">
                                                     <div class="input-group">
                                                         <span class="input-group-addon">状态码</span>
                                                         <input type="text" class="form-control" placeholder="200">
                                                     </div>
-                                                </form>
+                                                </form>-->
                                                 <div class="col-md-1">
-                                                    <button type="button" class="pull-right btn btn-primary" ng-click="saveExp(case.case_id,exp,case.check_type)">
+                                                    <button type="button" class="pull-right btn btn-primary" ng-click="saveExp(case,exp,schema)">
                                                         保存
                                                     </button>
                                                 </div>
                                             </div>
-                                            <form role="form">
-                                                <textarea class="form-control" rows="3" ng-model="exp">
-                                                </textarea>
-                                            </form>
+                                            <h3>期望的返回值</h3>
+                                            <div class="col-md-12">
+                                                <form role="form">
+                                                    <textarea class="form-control" rows="3" ng-model="exp">
+                                                    </textarea>
+                                                </form>
+                                            </div>
+                                            <h3>shcema验证</h3>
+                                            <div class="col-md-12">
+                                                <form role="form">
+                                                    <textarea class="form-control" rows="5" ng-model="schema">
+                                                    </textarea>
+                                                </form>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
@@ -895,7 +919,6 @@
                             <div class="col-md-8">
                                 <select class="form-control" ng-model="apiDep"
                                         ng-options="apiDep.depnd_api_name for apiDep in apiDepList">
-                                    <option value="">无</option>
                                 </select>
                             </div>
                         </div>
