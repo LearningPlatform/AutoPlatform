@@ -887,31 +887,52 @@ myApp.controller('APICaseCtrl',function($scope,$http,$cookieStore,$timeout) {
 
     }
 
-    $scope.cfDelCase=function(caseid,APIid){
+    $scope.cfDelCase=function(obj){
         $("#cfCase").modal();
-        caseId=caseid;
-        apiId=APIid;
+        caseId=obj.case_id;
+        apiId=obj.api_id;
     }
 
     $scope.delCase=function(){
-        $http.post('project/case/delete',{
-            "case_id":caseId
-        }).success(function(response){
-            if(response.code==1){
-                $("#cfCase").modal("hide");
-                $http.post('project/api/caseList',{
-                    "api_id":apiId
-                }).success(function(response1){
-                    if(response1.code==1){
-                        $scope.caseList=response1.data;
-                    }else{
-                        alert(response1.msg);
-                    }
-                })
-            }else{
-                alert(response.msg);
-            }
-        })
+        if($scope.case_type==1){
+            $http.post('project/case/delete',{
+                "case_id":caseId
+            }).success(function(response){
+                if(response.code==1){
+                    $("#cfCase").modal("hide");
+                    $http.post('project/api/caseList',{
+                        "api_id":apiId
+                    }).success(function(response1){
+                        if(response1.code==1){
+                            $scope.caseList=response1.data;
+                        }else{
+                            alert(response1.msg);
+                        }
+                    })
+                }else{
+                    alert(response.msg);
+                }
+            })
+        }else{
+            $http.post('project/rcd_case/delete',{
+                "case_id":caseId
+            }).success(function(response){
+                if(response.code==1){
+                    $("#cfCase").modal("hide");
+                    $http.post('project/api/caseList',{
+                        "api_id":apiId
+                    }).success(function(response1){
+                        if(response1.code==1){
+                            $scope.caseList=response1.data;
+                        }else{
+                            alert(response1.msg);
+                        }
+                    })
+                }else{
+                    alert(response.msg);
+                }
+            })
+        }
     }
 
     var suiteIndex=0;
