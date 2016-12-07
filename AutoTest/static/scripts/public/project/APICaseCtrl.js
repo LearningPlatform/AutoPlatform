@@ -28,8 +28,9 @@ myApp.controller('APICaseCtrl',function($scope,$http,$cookieStore,$timeout) {
         "suite_name": ""
     };
     $scope.methodType=["GET","POST","PUT","DELETE"];
-    $scope.protocolType=["http","tcp","udp"];
-    $scope.typeType=["json","raw","text"];
+    $scope.protocolType=["http"];
+    //$scope.typeType=["json","raw","text"];
+    $scope.typeType=["json"];
     $scope.apiList="";
     $scope.api={
         "pro_id": pro_id,
@@ -59,8 +60,6 @@ myApp.controller('APICaseCtrl',function($scope,$http,$cookieStore,$timeout) {
         "is_set": 1,
         "depnt_api":{depnt_api_name:"",depnt_api_id:0}
     }
-
-
     $scope.report={
         "report_name": "",
         "start_time": "",
@@ -70,6 +69,13 @@ myApp.controller('APICaseCtrl',function($scope,$http,$cookieStore,$timeout) {
         "pass_num": 1,
         "result_id": 50,
         "end_time": 1478621079
+    }
+    $scope.check1={
+        "check_name": "",
+        "check_id": 0,
+        "pro_id": pro_id,
+        "check_desc": "",
+        "check_code": ""
     }
 
     $timeout(function(){
@@ -656,11 +662,24 @@ myApp.controller('APICaseCtrl',function($scope,$http,$cookieStore,$timeout) {
                             alert(response.msg);
                         }
                     })
-                    $http.post("project/check/detail", {
-                        "check_id": obj.check_type
+                    if(obj.check_type==0){
+                        $scope.check1.check_name="默认";
+                    }else{
+                        $http.post("project/check/detail", {
+                            "check_id": obj.check_type
+                        }).success(function (response) {
+                            if (response.code == 1) {
+                                $scope.check1 = response.data;
+                            } else {
+                                alert(response.msg);
+                            }
+                        })
+                    }
+                    $http.post("project/dapi/detail", {
+                        "depnd_api_id": $scope.case.depnd_api_id
                     }).success(function (response) {
                         if (response.code == 1) {
-                            $scope.check1 = response.data;
+                            $scope.depnd = response.data;
                         } else {
                             alert(response.msg);
                         }
@@ -673,7 +692,6 @@ myApp.controller('APICaseCtrl',function($scope,$http,$cookieStore,$timeout) {
             }).success(function (response) {
                 if (response.code == 1) {
                     $scope.case = response.data;
-                    console.log($scope.case)
                     $http.post('project/api/detail', {
                         "api_id": $scope.case.api_id
                     }).success(function (response) {
