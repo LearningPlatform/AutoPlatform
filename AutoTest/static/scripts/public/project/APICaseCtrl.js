@@ -426,7 +426,6 @@ myApp.controller('APICaseCtrl',function($scope,$http,$cookieStore,$timeout) {
             if(response.code==1){
                 $scope.api=response.data;
                 $scope.api.api_method=$scope.api.api_method.toLocaleUpperCase();
-                console.log($scope.api.api_method)
                 $scope.selected=$scope.api.module_id;
             }else{
                 alert(response.msg);
@@ -640,27 +639,62 @@ myApp.controller('APICaseCtrl',function($scope,$http,$cookieStore,$timeout) {
         $scope.showCaseID=obj.case_id;
         $scope.showCaseType=obj.case_type;
         $scope.str="";
-        editApiId=obj.api_id;
         $scope.al=["active","disactive","disactive"];
         $scope.showSelectId=0;
-         $http.post('project/api/detail',{
-            "api_id":editApiId
-        }).success(function(response) {
-            if (response.code == 1) {
-                $scope.api = response.data;
-            }else{
-                alert(response.msg);
-            }
-        })
-        $http.post("project/check/detail",{
-            "check_id":obj.check_type
-        }).success(function(response){
-            if(response.code==1){
-                $scope.check1=response.data;
-            }else{
-                alert(response.msg);
-            }
-        })
+        if(obj.case_type==1) {
+            $http.post("project/case/detail", {
+                "case_id": obj.case_id
+            }).success(function (response) {
+                if (response.code == 1) {
+                    $scope.case = response.data;
+                    $http.post('project/api/detail', {
+                        "api_id": $scope.case.api_id
+                    }).success(function (response) {
+                        if (response.code == 1) {
+                            $scope.api = response.data;
+                        } else {
+                            alert(response.msg);
+                        }
+                    })
+                    $http.post("project/check/detail", {
+                        "check_id": obj.check_type
+                    }).success(function (response) {
+                        if (response.code == 1) {
+                            $scope.check1 = response.data;
+                        } else {
+                            alert(response.msg);
+                        }
+                    })
+                }
+            })
+        }else{
+            $http.post("project/rcd_case/detail", {
+                "case_id": obj.case_id
+            }).success(function (response) {
+                if (response.code == 1) {
+                    $scope.case = response.data;
+                    console.log($scope.case)
+                    $http.post('project/api/detail', {
+                        "api_id": $scope.case.api_id
+                    }).success(function (response) {
+                        if (response.code == 1) {
+                            $scope.api = response.data;
+                        } else {
+                            alert(response.msg);
+                        }
+                    })
+                    $http.post("project/check/detail", {
+                        "check_id": obj.check_type
+                    }).success(function (response) {
+                        if (response.code == 1) {
+                            $scope.check1 = response.data;
+                        } else {
+                            alert(response.msg);
+                        }
+                    })
+                }
+            })
+        }
     }
     var value;
     var totalValue;
@@ -726,17 +760,51 @@ myApp.controller('APICaseCtrl',function($scope,$http,$cookieStore,$timeout) {
         })
     }
 
-    $scope.saveParam2=function(id,abc){
-        $scope.case.input_data=eval("("+abc+")");
-        $http.post('project/case/edit/req',{
-            "case_id":id,
-            "input_data":$scope.case.input_data,
-            "depnd_api_id":0
-        }).success(function(response){
-            if(response.code==0){
-                alert(response.msg);
-            }
-        })
+    $scope.saveParam2=function(obj){
+        //$scope.case.input_data=eval("("+$scope.case.input_data+")");
+        if(obj.case_type==1){
+            $http.post('project/case/edit',{
+                "case_id":obj.case_id,
+                "pro_id":obj.pro_id,
+                "api_id":obj.api_id,
+                "case_desc":obj.case_desc,
+                "case_name":obj.case_name,
+                "depnd_api_id":obj.depnd_api_id,
+                "input_data":obj.input_data,
+                "exp_data":obj.exp_data,
+                "case_schema":obj.case_schema,
+                "check_type":obj.check_type,
+                "suite_list":obj.suite_list
+            }).success(function(response){
+                if(response.code==0){
+                    alert(response.msg);
+                }
+            })
+        }else{
+            $http.post('project/rcd_case/edit',{
+                "case_id":obj.case_id,
+                "pro_id":obj.pro_id,
+                "api_id":obj.api_id,
+                "module_id":obj.module_id,
+                "case_url": obj.case_url,
+                "case_method" :obj.case_method,
+                "case_protocol":obj.case_protocol,
+                "case_header":obj.case_header,
+                "input_data":obj.input_data,
+                "exp_data": obj.exp_data,
+                "check_type":obj.check_type,
+                "case_name":obj.case_name,
+                "case_desc":obj.case_desc,
+                "depnd_api_id":obj.depnd_api_id,
+                "resp_type":obj.resp_type,
+                "suite_list":obj.suite_list,
+                "case_schema":obj.case_schema
+            }).success(function(response){
+                if(response.code==0){
+                    alert(response.msg);
+                }
+            })
+        }
     }
 
     var delParam=0;
@@ -761,7 +829,6 @@ myApp.controller('APICaseCtrl',function($scope,$http,$cookieStore,$timeout) {
         if(obj.case_header==""){
             obj.case_header=" ";
         }
-        console.log(obj)
         if(obj.case_type==1){
             $http.post('project/case/edit/resp',{
                 "case_id": obj.case_id,
@@ -832,13 +899,11 @@ myApp.controller('APICaseCtrl',function($scope,$http,$cookieStore,$timeout) {
     var suiteIndex=0;
     $scope.editCase = function (obj) {
         $scope.case=obj;
-        console.log($scope.case)
         $scope.suite_list=[];
         $("#EditCase").modal();
         $scope.selected1=$scope.case.api_id;
         $scope.selected2=$scope.case.depnd_api_id;
         $scope.selected3=$scope.case.check_type;
-        console.log($scope.selected3)
         if($scope.selected3==0){
             $scope.selected3="无"
         }
@@ -856,7 +921,7 @@ myApp.controller('APICaseCtrl',function($scope,$http,$cookieStore,$timeout) {
         }
     }
 
-    $scope.saveEditCase=function(apiId,depntId,checkId){
+    $scope.saveEditCase=function(obj,apiId,depntId,checkId){
         for(var i=0;i<$scope.check.length;i++){
              if($scope.check[i]==true){
                 $scope.suite_list.push(suite_list[i]);
@@ -874,26 +939,64 @@ myApp.controller('APICaseCtrl',function($scope,$http,$cookieStore,$timeout) {
         if($scope.case.depnt_api==null){
             $scope.case.depnt_api={depnt_api_name:"",depnt_api_id:0};
         }
-        $http.post('project/case/edit/info',{
-            case_id:$scope.case.case_id,
-            api_id: apiId,
-            pro_id: pro_id,
-            case_desc: $scope.case.case_desc,
-            case_name: $scope.case.case_name,
-            suite_list:$scope.suite_list,
-            check_type:checkId,
-            depnd_api_id:depntId
-        }).success(function(response){
-            if(response.code==1) {
-                $http.post('project/api/caseList',{
-                    "api_id":$scope.case.api.api_id
-                }).success(function(response1){
-                    $scope.caseList=response1.data;
-                })
-            }else{
-                alert(response.msg);
-            }
-        })
+        if(obj.case_type==1){
+            $http.post('project/case/edit',{
+                "case_id":obj.case_id,
+                "pro_id":obj.pro_id,
+                "api_id":apiId,
+                "case_desc":obj.case_desc,
+                "case_name":obj.case_name,
+                "depnd_api_id":depntId,
+                "input_data":obj.input_data,
+                "exp_data":obj.exp_data,
+                "case_schema":obj.case_schema,
+                "check_type":checkId,
+                "suite_list":obj.suite_list
+            }).success(function(response){
+                if(response.code==1) {
+                    $http.post('project/api/caseList',{
+                        "api_id":apiId
+                    }).success(function(response1){
+                        $scope.caseList=response1.data;
+                    })
+                }else{
+                    alert(response.msg);
+                }
+            })
+        }else{
+            $http.post('project/rcd_case/edit',{
+                "case_id":obj.case_id,
+                "pro_id":obj.pro_id,
+                "api_id":apiId,
+                "module_id":obj.module_id,
+                "case_url": obj.case_url,
+                "case_method" :obj.case_method,
+                "case_protocol":obj.case_protocol,
+                "case_header":obj.case_header,
+                "input_data":obj.input_data,
+                "exp_data": obj.exp_data,
+                "check_type":checkId,
+                "case_name":obj.case_name,
+                "case_desc":obj.case_desc,
+                "depnd_api_id":depntId,
+                "resp_type":obj.resp_type,
+                "suite_list":obj.suite_list,
+                "case_schema":obj.case_schema
+            }).success(function(response){
+                if(response.code==1) {
+                    $http.post('project/api/caseList',{
+                        "api_id":apiId
+                    }).success(function(response1){
+                        $scope.caseList=response1.data;
+                    })
+                }else{
+                    alert(response.msg);
+                }
+            })
+
+
+
+        }
         $("#EditCase").modal('hide');
     }
 
