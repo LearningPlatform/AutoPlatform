@@ -40,7 +40,7 @@
                             <td class="tableWid5" ng-bind="rcdCase.host"></td>
                             <td class="tableWid3" ng-bind="rcdCase.path"></td>
                             <td class="tableWid4" ng-bind="rcdCase.reqBody"></td>
-                            <td class="tableWid4" ng-bind="runDisabled[$index]"></td>
+                            <td class="tableWid4" ng-bind="rcdCase.resBody"></td>
                             <td>
                                 <button class="btn btn-xs btn-danger" ng-disabled="undisabled[$index]" ng-click="cfRecord($index)">删除</button>
                                 <button class="btn btn-xs btn-primary" ng-click="editRecord($index)">编辑</button>
@@ -316,54 +316,54 @@
                     <div class="form-group">
                         <label class="col-md-3 control-label">URL：</label>
                         <div class="col-md-8">
-                            <textarea type="text" class="form-control" rows="3" ng-model="caseResult.url" style="background-color: white" readonly>
+                            <textarea type="text" class="form-control" rows="3" ng-model="rcdResult.url" style="background-color: white" readonly>
                             </textarea>
                         </div>
                     </div>
                     <div class="form-group">
                         <label class="col-md-3 control-label">响应：</label>
                         <div class="col-md-8">
-                            <textarea type="text" class="form-control" rows="3" ng-model="caseResult.request_body" style="background-color: white" readonly>
+                            <textarea type="text" class="form-control" rows="3" ng-model="rcdResult.request_body" style="background-color: white" readonly>
                             </textarea>
                         </div>
                     </div>
                     <div class="form-group">
                         <label class="col-md-3 control-label">状态码：</label>
                         <div class="col-md-8">
-                            <input type="text" class="form-control" ng-model="caseResult.status_code" style="background-color: white" readonly>
+                            <input type="text" class="form-control" ng-model="rcdResult.status_code" style="background-color: white" readonly>
                         </div>
                     </div>
                     <div class="form-group">
                         <label class="col-md-3 control-label">schema：</label>
                         <div class="col-md-8">
-                            <textarea type="text" class="form-control" rows="12" ng-model="caseResult.schema" style="background-color: white" readonly>
+                            <textarea type="text" class="form-control" rows="12" ng-model="rcdResult.schema" style="background-color: white" readonly>
                             </textarea>
                         </div>
                     </div>
                     <div class="form-group">
                         <label class="col-md-3 control-label">schema检验：</label>
                         <div class="col-md-8">
-                            <input type="text" class="form-control" ng-model="caseResult.schema_check" style="background-color: white" readonly>
+                            <input type="text" class="form-control" ng-model="rcdResult.schema_check" style="background-color: white" readonly>
                         </div>
                     </div>
                     <div class="form-group">
                         <label class="col-md-3 control-label">期望输出值：</label>
                         <div class="col-md-8">
-                            <textarea type="text" class="form-control" rows="3" ng-model="caseResult.exp_data" style="background-color: white" readonly>
+                            <textarea type="text" class="form-control" rows="3" ng-model="rcdResult.exp_data" style="background-color: white" readonly>
                             </textarea>
                         </div>
                     </div>
                     <div class="form-group">
                         <label class="col-md-3 control-label">响应体：</label>
                         <div class="col-md-8">
-                            <textarea type="text" class="form-control" rows="8" ng-model="caseResult.response_body" style="background-color: white" readonly>
+                            <textarea type="text" class="form-control" rows="8" ng-model="rcdResult.response_body" style="background-color: white" readonly>
                             </textarea>
                         </div>
                     </div>
                     <div class="form-group">
                         <label class="col-md-3 control-label">运行结果：</label>
                         <div class="col-md-8">
-                            <input type="text" class="form-control" ng-model="caseResult.result_check" style="background-color: white" readonly>
+                            <input type="text" class="form-control" ng-model="rcdResult.result_check" style="background-color: white" readonly>
                         </div>
                     </div>
                 </form>

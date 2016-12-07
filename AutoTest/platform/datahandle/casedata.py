@@ -54,10 +54,12 @@ def get_case_detail(data):
     data_case = jsontool.convert_to_dict(Case.objects.all().get(case_id=case_id))
     data_api = jsontool.convert_to_dict(Api.objects.all().get(api_id=data_case["api_id"]))
     del (data_api['_state'])
-    depnt_api = jsontool.convert_to_dict(DepndApi.objects.all().get(depnd_api_id=data_case["depnd_api_id"]))
-    del (depnt_api['_state'])
+    if data_case["depnd_api_id"] != 0:
+        depnt_api = jsontool.convert_to_dict(DepndApi.objects.all().get(depnd_api_id=data_case["depnd_api_id"]))
+        del (depnt_api['_state'])
+        data_case["depnt_api"] = depnt_api
     data_case["api"] = data_api
-    data_case["depnt_api"] = depnt_api
+    data_case["case_type"] = 1
     del (data_case['_state'])
     suite_list = list(CaseSuite.objects.all().filter(case_id=case_id,case_type=1).values_list("suite_id", flat=True))
     data_case["suite_list"] = suite_list

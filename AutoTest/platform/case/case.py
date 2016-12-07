@@ -31,7 +31,7 @@ class CaseEntity(ReqResp):
 
     def check_schema(self):
         # 0-----未通过，1-----通过，2-----未检验
-        if self.schema != "":
+        if self.schema != "" and self.schema != None:
             self.schema = json.loads(self.schema)
             self.schema_result = int(Draft4Validator(self.schema).is_valid(self.resp["response_data"]["body"]))
         else:

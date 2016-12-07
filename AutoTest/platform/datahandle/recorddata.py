@@ -91,11 +91,13 @@ def get_rcd_detail(data):
     case_id = data["case_id"]
     data_case = jsontool.convert_to_dict(RecordCase.objects.all().get(case_id=case_id))
     del (data_case['_state'])
-    depnt_api = jsontool.convert_to_dict(DepndApi.objects.all().get(depnd_api_id=data_case["depnd_api_id"]))
-    del (depnt_api['_state'])
-    data_case["depnt_api"] = depnt_api
+    if data_case["depnd_api_id"] != 0:
+        depnt_api = jsontool.convert_to_dict(DepndApi.objects.all().get(depnd_api_id=data_case["depnd_api_id"]))
+        del (depnt_api['_state'])
+        data_case["depnt_api"] = depnt_api
     suite_list = list(CaseSuite.objects.all().filter(case_id=case_id,case_type=2).values_list("suite_id", flat=True))
     data_case["suite_list"] = suite_list
+    data_case["case_type"] = 2
     return {
         "code": 1,
         "msg": "获取成功",

@@ -1065,9 +1065,10 @@ myApp.controller('APICaseCtrl',function($scope,$http,$cookieStore,$timeout) {
     $scope.caseResult="";
     $scope.getCaseResult=function(caseId,caseType,envId){
         $("#runCase").modal("hide");
+        console.log(caseType)
         $http.post("project/case/runsingal",{
             "case_id":caseId,
-            "case_type":1,
+            "case_type":caseType,
             "env_id":envId
         }).success(function(response){
             if(response.code==1){
