@@ -28,6 +28,13 @@ myApp.controller('testReportCtrl', function ($scope, $http, $cookieStore, $timeo
         "api_name": "登录接口",
         "api_desc": "登录"
     }
+    $scope.check={
+        "check_name": "",
+        "check_id": 0,
+        "pro_id": pro_id,
+        "check_desc": "",
+        "check_code": ""
+    }
 
     var date;
     var m;
@@ -86,7 +93,6 @@ myApp.controller('testReportCtrl', function ($scope, $http, $cookieStore, $timeo
         }).success(function (response) {
             if (response.code = 1) {
                 $scope.allResult = response.data;
-                console.log($scope.allResult[0])
                 $scope.resultStr = "";
                 for (var i = 0; i < $scope.allResult.length - 1; i++) {
                     $scope.reportDetal[i] = false;
@@ -148,15 +154,20 @@ myApp.controller('testReportCtrl', function ($scope, $http, $cookieStore, $timeo
     $scope.getResult1=function(obj){
         $("#bodyDetail").modal();
         $scope.res=obj;
-        $http.post("project/check/detail",{
-            "check_id": $scope.res.check_type
-        }).success(function(response){
-            if(response.code==1){
-                $scope.check=response.data;
-            }else{
-                alert(response.msg)
-            }
-        })
+        if(obj.check_type==0){
+            $scope.check.check_desc="默认"
+        }else{
+            $http.post("project/check/detail",{
+                "check_id": $scope.res.check_type
+            }).success(function(response){
+                if(response.code==1){
+                    $scope.check=response.data;
+                }else{
+                    alert(response.msg)
+                }
+            })
+        }
+
     }
 
     $scope.getResult2=function(obj){
