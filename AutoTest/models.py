@@ -135,6 +135,7 @@ class ResultDetail(models.Model):
     exp_data = models.TextField(null=True)
     is_pass = models.IntegerField(null=True)
     schema_check = models.IntegerField(null=True)
+    body_check = models.IntegerField(null=True)
 
 
 class DepndApi(models.Model):
