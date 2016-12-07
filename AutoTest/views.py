@@ -1268,20 +1268,23 @@ def case_create(req):
     return HttpResponse(json.dumps(resp), content_type="application/json")
 
 
-def case_info_edit(req):
+def case_edit(req):
     """
     编辑case的基本信息
     请求方法：post
     如：
     {
-      "api_id": 1,     接口id
-      "case_id": 1,    case的id
-      "pro_id": 5,     项目id
-      "case_desc": "正向验证",     case描述
-      "case_name": "正确登录",     case名字
-      "suite_list":[1,2,3]     套件列表对象，checked为1，表示被勾选，
-                                                                                checked为0，表示未被勾选；
-    }
+	"case_id":1,
+    "pro_id":2,
+    "api_id":2,
+    "case_desc":"测试编辑描述",
+    "case_name":"正确登录",
+    "depnd_api_id":1,
+    "input_data":"{'username': '$.data.email', 'pwd': '{$get_md5_value(\"000000\")$}'}",
+    "exp_data":"",
+    "case_schema":"{\"$schema\":\"http://json-schema.org/draft-04/schema#\",\"type\":\"object\",\"properties\":{\"data\":{\"type\":\"object\",\"properties\":{\"username\":{\"type\":\"string\"},\"hid\":{\"type\":\"string\"},\"email\":{\"type\":\"string\"},\"noticeApp\":{\"type\":\"string\"},\"applyApp\":{\"type\":\"string\"},\"taskApp\":{\"type\":\"string\"},\"position\":{\"type\":\"string\"},\"orgId\":{\"type\":\"integer\"},\"uid\":{\"type\":\"string\"},\"hpwd\":{\"type\":\"string\"},\"companyName\":{\"type\":\"string\"},\"accessToken\":{\"type\":\"string\"},\"entryTime\":{\"type\":\"string\"},\"realname\":{\"type\":\"string\"},\"phone\":{\"type\":\"string\"},\"headimg\":{\"type\":\"string\"},\"orgName\":{\"type\":\"string\"}},\"required\":[\"username\",\"hid\",\"email\",\"noticeApp\",\"applyApp\",\"taskApp\",\"position\",\"orgId\",\"uid\",\"hpwd\",\"companyName\",\"accessToken\",\"entryTime\",\"realname\",\"phone\",\"headimg\",\"orgName\"]},\"msg\":{\"type\":\"string\"},\"code\":{\"type\":\"integer\"}},\"required\":[\"data\",\"msg\",\"code\"]}",
+    "check_type":1
+}
     :return:
     如：
     成功：
@@ -1291,54 +1294,81 @@ def case_info_edit(req):
     }
     """
     data = json.loads(str(req.body, encoding="utf-8"))
-    resp = casedata.edit_case_info(data)
+    resp = casedata.edit_case(data)
     return HttpResponse(json.dumps(resp), content_type="application/json")
 
 
-def case_req_edit(req):
-    """
-    编辑case的请求信息
-    请求方法：post
-    如：
-    {
-      "case_id": 1,    case的id
-      "input_data": xx,   根据设定的参数的格式，传入对应的的格式的值。如json的话，就直接传入json格式的对象等，数组就传入数组
-      "depnd_api_id":2    依赖接口id，若没有添加依赖接口，则默认置为0
-    }
-    :return:
-    如：
-    成功：
-    {
-      "code": 1,
-      "msg": "保存成功"
-    }
-    """
-    data = json.loads(str(req.body, encoding="utf-8"))
-    resp = casedata.edit_req(data)
-    return HttpResponse(json.dumps(resp), content_type="application/json")
-
-
-def case_resp_edit(req):
-    """
-   编辑case的请求信息
-   请求方法：post
-   如：
-   {
-     "case_id": 1,    case的id
-     "exp_data": xx,   根据设定的参数的格式，传入对应的的格式的值。如json的话，就直接传入json格式的对象等，数组就传入数组
-     "check_type": 0    核对的类型，0为默认，暂时都设为0，后续优化
-   }
-   :return:
-   如：
-   成功：
-   {
-     "code": 1,
-     "msg": "保存成功"
-   }
-   """
-    data = json.loads(str(req.body, encoding="utf-8"))
-    resp = casedata.edit_resp(data)
-    return HttpResponse(json.dumps(resp), content_type="application/json")
+# def case_info_edit(req):
+#     """
+#     编辑case的基本信息
+#     请求方法：post
+#     如：
+#     {
+#       "api_id": 1,     接口id
+#       "case_id": 1,    case的id
+#       "pro_id": 5,     项目id
+#       "case_desc": "正向验证",     case描述
+#       "case_name": "正确登录",     case名字
+#       "suite_list":[1,2,3]     套件列表对象，checked为1，表示被勾选，
+#                                                                                 checked为0，表示未被勾选；
+#     }
+#     :return:
+#     如：
+#     成功：
+#     {
+#       "code": 1,
+#       "msg": "保存成功"
+#     }
+#     """
+#     data = json.loads(str(req.body, encoding="utf-8"))
+#     resp = casedata.edit_case_info(data)
+#     return HttpResponse(json.dumps(resp), content_type="application/json")
+#
+#
+# def case_req_edit(req):
+#     """
+#     编辑case的请求信息
+#     请求方法：post
+#     如：
+#     {
+#       "case_id": 1,    case的id
+#       "input_data": xx,   根据设定的参数的格式，传入对应的的格式的值。如json的话，就直接传入json格式的对象等，数组就传入数组
+#       "depnd_api_id":2    依赖接口id，若没有添加依赖接口，则默认置为0
+#     }
+#     :return:
+#     如：
+#     成功：
+#     {
+#       "code": 1,
+#       "msg": "保存成功"
+#     }
+#     """
+#     data = json.loads(str(req.body, encoding="utf-8"))
+#     resp = casedata.edit_req(data)
+#     return HttpResponse(json.dumps(resp), content_type="application/json")
+#
+#
+# def case_resp_edit(req):
+#     """
+#    编辑case的请求信息
+#    请求方法：post
+#    如：
+#    {
+#      "case_id": 1,    case的id
+#      "exp_data": xx,   根据设定的参数的格式，传入对应的的格式的值。如json的话，就直接传入json格式的对象等，数组就传入数组
+#      "check_type": 0    核对的类型，0为默认，暂时都设为0，后续优化
+#    }
+#    :return:
+#    如：
+#    成功：
+#    {
+#      "code": 1,
+#      "msg": "保存成功"
+#    }
+#    """
+#     data = json.loads(str(req.body, encoding="utf-8"))
+#     resp = casedata.edit_resp(data)
+#     return HttpResponse(json.dumps(resp), content_type="application/json")
 
 
 def case_del(req):
@@ -2144,6 +2174,20 @@ def rcd_case_edit(req):
     return HttpResponse(json.dumps(resp), content_type="application/json")
 
 
+def rcd_case_detail(req):
+    """
+    创建录制case
+    请求：post
+    参数：
+    {
+        "case_id":1,    用例id
+    }
+    """
+    data = json.loads(str(req.body, encoding="utf-8"))
+    resp = recorddata.get_rcd_detail(data)
+    return HttpResponse(json.dumps(resp), content_type="application/json")
+
+
 def rcd_case_delete(req):
     """
     删除录制case
@@ -2154,7 +2198,7 @@ def rcd_case_delete(req):
     }
     """
     data = json.loads(str(req.body, encoding="utf-8"))
-    resp = recorddata.edit_rcd_case(data)
+    resp = recorddata.del_rcd_case(data)
     return HttpResponse(json.dumps(resp), content_type="application/json")
 
 

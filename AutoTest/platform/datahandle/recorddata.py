@@ -1,5 +1,5 @@
-from ...models import RecordCase, CaseSuite
-
+from ...models import RecordCase, CaseSuite, DepndApi
+from ..tools import jsontool
 import requests
 
 
@@ -74,4 +74,30 @@ def edit_rcd_case(data):
     return {
         "code": 1,
         "msg": "编辑成功",
+    }
+
+
+def del_rcd_case(data):
+    case_id = data['case_id']
+    RecordCase.objects.all().get(case_id=case_id).delete()
+    CaseSuite.objects.all().filter(case_id=case_id, case_type=2).delete()
+    return {
+        "code": 1,
+        "msg": "删除成功"
+    }
+
+
+def get_rcd_detail(data):
+    case_id = data["case_id"]
+    data_case = jsontool.convert_to_dict(RecordCase.objects.all().get(case_id=case_id))
+    del (data_case['_state'])
+    depnt_api = jsontool.convert_to_dict(DepndApi.objects.all().get(depnd_api_id=data_case["depnd_api_id"]))
+    del (depnt_api['_state'])
+    data_case["depnt_api"] = depnt_api
+    suite_list = list(CaseSuite.objects.all().filter(case_id=case_id,case_type=2).values_list("suite_id", flat=True))
+    data_case["suite_list"] = suite_list
+    return {
+        "code": 1,
+        "msg": "获取成功",
+        "data": data_case
     }
