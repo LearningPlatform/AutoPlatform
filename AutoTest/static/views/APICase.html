@@ -206,12 +206,12 @@
                                             <div ng-show="showParamId==2">
                                                 <form role="form">
                                                     <div class="form-group">
-                                                        <textarea class="form-control" rows="3" ng-model="str">
+                                                        <textarea class="form-control" rows="3" ng-model="case.input_data">
                                                         </textarea>
                                                     </div>
                                                 </form>
                                                 <button type="button" class="pull-right btn btn-primary"
-                                                        ng-click="saveParam2(case.case_id,str)">
+                                                        ng-click="saveParam2(case)">
                                                     保存
                                                 </button>
                                             </div>
@@ -242,7 +242,7 @@
                                                     </div>
                                                 </form>-->
                                                 <div class="col-md-1">
-                                                    <button type="button" class="pull-right btn btn-primary" ng-click="saveExp(case,exp,schema)">
+                                                    <button type="button" class="pull-right btn btn-primary" ng-click="saveParam2(case)">
                                                         保存
                                                     </button>
                                                 </div>
@@ -250,14 +250,14 @@
                                             <h3>期望的返回值</h3>
                                             <div class="col-md-12">
                                                 <form role="form">
-                                                    <textarea class="form-control msd-elastic: \n" rows="3" ng-model="exp">
+                                                    <textarea class="form-control msd-elastic: \n" rows="3" ng-model="case.exp_data">
                                                     </textarea>
                                                 </form>
                                             </div>
                                             <h3>shcema验证</h3>
                                             <div class="col-md-12">
                                                 <form role="form">
-                                                    <textarea class="form-control msd-elastic: \n" rows="5" ng-model="schema">
+                                                    <textarea class="form-control msd-elastic: \n" rows="5" ng-model="case.case_schema">
                                                     </textarea>
                                                 </form>
                                             </div>
@@ -1014,7 +1014,7 @@
                 <div class="modal-footer">
                     <button type="button" class="btn btn-default" data-dismiss="modal">关闭
                     </button>
-                    <button type="button" class="btn btn-primary" ng-click="saveEditCase(selected1,selected2,selected3)">
+                    <button type="button" class="btn btn-primary" ng-click="saveEditCase(case,selected1,selected2,selected3)">
                         保存
                     </button>
                 </div>
