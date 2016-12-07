@@ -151,11 +151,7 @@
                                                 <td class="wid2" ng-bind="check1.check_name"></td>
                                                 </td></td>
                                                 <td class="wid1">依赖
-
-                                                <td class="wid2">我是依赖接口的名字
-                                                    <a ng-click="addDepntApi()">
-                                                        <span class="glyphicon glyphicon-plus"></span>
-                                                    </a></td>
+                                                <td class="wid2" ng-bind="depnd.depnd_api_name">
                                             </tr>
                                             </tr>
                                             <tr>
@@ -415,12 +411,12 @@
                                             <div ng-show="showParamId==2">
                                                 <form role="form">
                                                     <div class="form-group">
-                                                        <textarea class="form-control" rows="3" ng-model="str">
+                                                        <textarea class="form-control" rows="3" ng-model="case.input_data">
                                                         </textarea>
                                                     </div>
                                                 </form>
                                                 <button type="button" class="pull-right btn btn-primary"
-                                                        ng-click="saveParam2(case.case_id)">
+                                                        ng-click="saveParam2(case)">
                                                     保存
                                                 </button>
                                             </div>
@@ -451,7 +447,7 @@
                                                     </div>
                                                 </form>-->
                                                 <div class="col-md-1">
-                                                    <button type="button" class="pull-right btn btn-primary" ng-click="saveExp(case,exp,schema)">
+                                                    <button type="button" class="pull-right btn btn-primary" ng-click="saveParam2(case)">
                                                         保存
                                                     </button>
                                                 </div>
@@ -459,14 +455,14 @@
                                             <h3>期望的返回值</h3>
                                             <div class="col-md-12">
                                                 <form role="form">
-                                                    <textarea class="form-control" rows="3" ng-model="exp">
+                                                    <textarea class="form-control" rows="3" ng-model="case.exp_data">
                                                     </textarea>
                                                 </form>
                                             </div>
                                             <h3>shcema验证</h3>
                                             <div class="col-md-12">
                                                 <form role="form">
-                                                    <textarea class="form-control" rows="5" ng-model="schema">
+                                                    <textarea class="form-control" rows="5" ng-model="case.case_schema">
                                                     </textarea>
                                                 </form>
                                             </div>
