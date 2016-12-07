@@ -19,7 +19,7 @@ myApp.controller('recordCtrl', function ($scope, $http, $cookieStore,$sce,$timeo
         "suite_list":""
     }
     $scope.record_info = {
-        host: "10.170.55.129",
+        host: "10.170.64.83",
         port: 8003,
         filter: "url"
     }
@@ -44,8 +44,6 @@ myApp.controller('recordCtrl', function ($scope, $http, $cookieStore,$sce,$timeo
     var temp;
 
     $timeout(function(){
-        $scope.undisabled=false;
-        $scope.undisabledId=-1;
         $scope.typeType=["json"];
         $http.post('project/api/list',{
             "pro_id":pro_id
@@ -140,6 +138,7 @@ myApp.controller('recordCtrl', function ($scope, $http, $cookieStore,$sce,$timeo
     $scope.idList=[];
     $scope.objList=[];
     $scope.runDisabled=[];
+    $scope.undisabled=[];
     $scope.setRecord = function () {
         var temp_resp = "";
         $scope.reqData.forEach(function(value,index){
@@ -158,6 +157,7 @@ myApp.controller('recordCtrl', function ($scope, $http, $cookieStore,$sce,$timeo
             $scope.idList[i]=-1;
             $scope.objList[i]=new Object();
             $scope.runDisabled[i]=true;
+            $scope.undisabled[i]=false;
         }
         $scope.showiframe = false;
         $scope.showtable = true;
@@ -196,12 +196,13 @@ myApp.controller('recordCtrl', function ($scope, $http, $cookieStore,$sce,$timeo
         $scope.idList.splice(RecordId, 1);
         $scope.objList.splice(RecordId, 1);
         $scope.reqData.splice(RecordId, 1);
-        $("#cfRecord").modal('');
+        $("#cfRecord").modal('hide');
     }
 
     var editId;
     $scope.check=[];
     $scope.editRecord=function(id){
+        console.log(id+" 1")
         editId=id;
         $("#editRecord").modal();
         if($scope.idList[id]==-1){
@@ -227,6 +228,21 @@ myApp.controller('recordCtrl', function ($scope, $http, $cookieStore,$sce,$timeo
 
     var num;
     $scope.saveEditRecord=function(apiId,apiDepId,moduleId,checkId){
+        if(apiId==undefined){
+            apiId=0;
+        }
+        if(apiDepId==undefined){
+            apiDepId=0;
+        }
+        if(checkId==undefined){
+            checkId=0;
+        }
+        if(moduleId==undefined){
+            moduleId=0;
+        }
+        if($scope.rcdCase.resp_type==undefined){
+            $scope.rcdCase.resp_type="json"
+        }
         $scope.rcdCase.pro_id=pro_id;
         $scope.rcdCase.api_id=apiId;
         $scope.rcdCase.module_id=moduleId;
@@ -234,6 +250,7 @@ myApp.controller('recordCtrl', function ($scope, $http, $cookieStore,$sce,$timeo
         $scope.rcdCase.check_type=checkId;
         $scope.rcdCase.suite_list=suite_list;
         if($scope.rcdCase.case_id==""){
+            console.log("a")
             $http.post('project/rcd_case/create',{
                 "pro_id":$scope.rcdCase.pro_id,
                 "api_id":$scope.rcdCase.api_id,
@@ -253,6 +270,7 @@ myApp.controller('recordCtrl', function ($scope, $http, $cookieStore,$sce,$timeo
                 "case_schema":$scope.rcdCase.case_schema
             }).success(function(response){
                 if(response.code==1){
+                    console.log(editId+"2")
                     num=$scope.rcdCase.case_url.indexOf('/');
                     $scope.req_data.host=$scope.rcdCase.case_url.slice(0,num-1);
                     $scope.req_data.path=$scope.rcdCase.case_url.slice(num,-1);
@@ -265,14 +283,14 @@ myApp.controller('recordCtrl', function ($scope, $http, $cookieStore,$sce,$timeo
                     $scope.idList[editId]=$scope.rcdCase.case_id;
                     $scope.objList[editId]=$scope.rcdCase;
                     $("#editRecord").modal('hide');
-                    $scope.undisabled=true;
-                    $scope.undisabledId=editId;
+                    $scope.undisabled[editId]=true;
                     $scope.runDisabled[editId]=false;
                 }else{
                     alert(response.msg);
                 }
             })
         }else{
+            console.log("b")
             $http.post('project/rcd_case/edit',{
                 "case_id":$scope.rcdCase.case_id,
                 "pro_id":$scope.rcdCase.pro_id,
@@ -301,8 +319,11 @@ myApp.controller('recordCtrl', function ($scope, $http, $cookieStore,$sce,$timeo
                     $scope.req_data.reqHeader=$scope.rcdCase.case_header;
                     $scope.req_data.reqBody=$scope.rcdCase.input_data;
                     $scope.req_data.resBody=$scope.rcdCase.exp_data;
+                    $scope.idList[editId]=$scope.rcdCase.case_id;
                     $scope.objList[editId]=$scope.rcdCase;
                     $("#editRecord").modal('hide');
+                    $scope.undisabled[editId]=true;
+                    $scope.runDisabled[editId]=false;
                 }else{
                     alert(response.msg)
                 }
@@ -316,6 +337,9 @@ myApp.controller('recordCtrl', function ($scope, $http, $cookieStore,$sce,$timeo
     }
 
     $scope.getRecordResult=function(caseId,caseType,envId){
+        if(envId==undefined){
+            envId=0;
+        }
         $("#runRecord").modal("hide");
         $http.post("project/case/runsingal",{
             "case_id":caseId,
