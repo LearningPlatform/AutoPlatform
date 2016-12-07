@@ -46,7 +46,7 @@ myApp.controller('recordCtrl', function ($scope, $http, $cookieStore,$sce,$timeo
     $timeout(function(){
         $scope.undisabled=false;
         $scope.undisabledId=-1;
-        $scope.typeType=["json","raw","text"];
+        $scope.typeType=["json"];
         $http.post('project/api/list',{
             "pro_id":pro_id
         }).success(function (response) {
@@ -227,7 +227,6 @@ myApp.controller('recordCtrl', function ($scope, $http, $cookieStore,$sce,$timeo
 
     var num;
     $scope.saveEditRecord=function(apiId,apiDepId,moduleId,checkId){
-        console.log($scope.rcdCase)
         $scope.rcdCase.pro_id=pro_id;
         $scope.rcdCase.api_id=apiId;
         $scope.rcdCase.module_id=moduleId;
