@@ -40,6 +40,7 @@ class RcdCase(CaseEntity):
         self.result_detail.is_pass = self.is_pass
         self.result_detail.case_type = 2
         self.result_detail.schema_check = self.schema_result
+        self.result_detail.body_check = self.body_result
         self.result_detail.save()
 
     def get_passnum(self):

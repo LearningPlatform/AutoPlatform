@@ -15,6 +15,7 @@ class CaseEntity(ReqResp):
     d_api = object
     schema = {}
     schema_result = 0
+    body_result = 0
     check_type = 0
 
     def __init__(self):
@@ -39,23 +40,26 @@ class CaseEntity(ReqResp):
     def check_result(self):
         if self.check_type == 0:
             if json.dumps(self.resp["response_data"]["body"], ensure_ascii=False).find(self.exp_data) == -1:
-                self.is_pass = 0
+                self.body_result = 0
             else:
-                self.is_pass = 1
+                self.body_result = 1
         else:
             check_name, check_code=self.setCheckCode()
             result1 = functool.get_return(check_name,check_code)
             if result1.find("True") !=-1:
-                self.is_pass = 1
+                self.body_result = 1
             else:
-                self.is_pass = 0
+                self.body_result = 0
 
     def save_result(self):
         if self.resp_type != "json":
             self.param = json.dumps(self.param)
         self.param = json.loads(self.param)
 
-    def get_passnum(self):
+    def set_is_pass(self):
+        self.is_pass = self.schema_result and self.body_result
+
+    def get_is_pass(self):
         return self.is_pass
 
     def setCheckCode(self):

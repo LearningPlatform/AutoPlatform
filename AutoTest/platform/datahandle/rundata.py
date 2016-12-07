@@ -24,8 +24,9 @@ def get_run_info(data):
         c.run()
         c.check_schema()
         c.check_result()
+        c.set_is_pass()
         c.save_result()
-        if c.get_passnum() == 1:
+        if c.get_is_pass() == 1:
             pass_num += 1
         else:
             fail_num += 1

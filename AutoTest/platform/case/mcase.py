@@ -44,4 +44,5 @@ class MCase(CaseEntity, ReqResp):
         self.result_detail.is_pass = self.is_pass
         self.result_detail.case_type = 1
         self.result_detail.schema_check = self.schema_result
+        self.result_detail.body_check = self.body_result
         self.result_detail.save()
