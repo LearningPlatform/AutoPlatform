@@ -41,10 +41,8 @@ class ReqResp:
             if "headers" in self.var_map.keys():
                 headers = json.loads(self.var_map["headers"])
                 re = requests.post(self.url, data=self.param, headers=headers)
-                print(re.json())
             else:
                 re = requests.post(self.url, data=self.param)
-                print(re.json())
             self.resp = {
                 "status_code": re.status_code,
                 "response_data": {
