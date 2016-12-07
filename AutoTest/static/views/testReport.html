@@ -85,12 +85,13 @@
                 <button type="button" class="textsize btn btn-lg btn-danger">
                     <span ng-bind="result.fail_num"></span></br>Failed
                 </button>
+                <!--
                 <button type="button" class="textsize btn btn-lg btn-info">
                     0</br>NotRun
                 </button>
                 <button type="button" class="textsize btn btn-lg btn-danger">
                     0</br>ERROR
-                </button>
+                </button>-->
                 <button type="button" class="textsize btn btn-lg btn-info">
                     <span ng-bind="result.pass_num+result.fail_num"></span></br>Total
                 </button>
@@ -146,10 +147,10 @@
                                     </tr>
                                     <tr>
                                         <td class="wid1">body</td>
-                                        <td ng-show="res.is_pass==1">pass
+                                        <td ng-show="res.body_check==1">pass
                                             <btn class="btn-info" ng-click="getResult1(res)">实际结果</btn>
                                         </td>
-                                        <td ng-show="res.is_pass==0">fail
+                                        <td ng-show="res.body_check==0">fail
                                             <btn class="btn-info" ng-click="getResult1(res)">实际结果</btn>
                                         </td>
                                     </tr>
@@ -249,6 +250,10 @@
                         </div>
                     </form>
                 </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-info" data-dismiss="modal">关闭
+                    </button>
+                </div>
             </div>
         </div>
     </div>
@@ -280,10 +285,13 @@
                         </div>
                     </form>
                 </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-info" data-dismiss="modal">关闭
+                    </button>
+                </div>
             </div>
         </div>
     </div>
-
 </div>
 
 
