@@ -51,7 +51,6 @@ myApp.controller('APIDependencyCtrl',function($scope,$http,$cookieStore,$timeout
     }
 
     $scope.saveapiDep=function(obj,apiDepId){
-        console.log(obj)
         if(apiDepId==undefined){
             apiDepId=0;
         }
@@ -113,7 +112,6 @@ myApp.controller('APIDependencyCtrl',function($scope,$http,$cookieStore,$timeout
             if(response.code==1){
                 $scope.apiDep=response.data;
                 $scope.selected=$scope.apiDep.depnd_id;
-                console.log($scope.selected)
             }else{
                 alert(reponse.msg)
             }
