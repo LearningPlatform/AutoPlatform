@@ -19,9 +19,9 @@ myApp.controller('recordCtrl', function ($scope, $http, $cookieStore,$sce,$timeo
         "suite_list":""
     }
     $scope.record_info = {
-        host: "10.170.64.83",
+        host: "192.168.36.32",
         port: 8003,
-        filter: "url"
+        filter: "192.168.32.112"
     }
     $scope.servers_url = "";
     $scope.reqData = [{}];
@@ -355,10 +355,10 @@ myApp.controller('recordCtrl', function ($scope, $http, $cookieStore,$sce,$timeo
                 }else{
                     $scope.rcdResult.schema_check="失败";
                 }
-                if($scope.rcdResult.result_check==1){
-                    $scope.rcdResult.result_check="通过";
+                if($scope.rcdResult.body_check==1){
+                    $scope.rcdResult.body_check="通过";
                 }else{
-                    $scope.rcdResult.result_check="失败";
+                    $scope.rcdResult.body_check="失败";
                 }
                 $("#recordResult").modal();
             }else{
