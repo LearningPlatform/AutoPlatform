@@ -14,8 +14,8 @@
                             <h4 class="panel-title"  ng-mouseenter="shownCom=true" ng-mouseleave="shownCom=false" >
                                  <div class="row">
                                      <div class="col-xs-4">
-                                     <input type="text" class="form-control" ng-show="edit && editCheckId==check.check_id" ng-model="check.check_name">
-                                     <a class="marginLeft" ng-bind="check.check_name" ng-show="!(edit && editCheckId==check.check_id)" ng-click="checkDetail(check.check_id)"></a>
+                                     <input type="text" class="form-control" ng-show="edit && editCheckId==check.check_id" ng-model="check.check_desc">
+                                     <a class="marginLeft" ng-bind="check.check_desc" ng-show="!(edit && editCheckId==check.check_id)" ng-click="checkDetail(check.check_id)"></a>
                                      </div>
                                      <div class="pull-right">
                                          <a ng-show="shownCom" ng-click="editCheck(check.check_id)"><span class="glyphicon glyphicon-pencil"></span>编辑</a>
