@@ -321,7 +321,7 @@
                         </div>
                     </div>
                     <div class="form-group">
-                        <label class="col-md-3 control-label">响应：</label>
+                        <label class="col-md-3 control-label">请求：</label>
                         <div class="col-md-8">
                             <textarea type="text" class="form-control" rows="3" ng-model="rcdResult.request_body" style="background-color: white" readonly>
                             </textarea>
@@ -340,12 +340,7 @@
                             </textarea>
                         </div>
                     </div>
-                    <div class="form-group">
-                        <label class="col-md-3 control-label">schema检验：</label>
-                        <div class="col-md-8">
-                            <input type="text" class="form-control" ng-model="rcdResult.schema_check" style="background-color: white" readonly>
-                        </div>
-                    </div>
+
                     <div class="form-group">
                         <label class="col-md-3 control-label">期望输出值：</label>
                         <div class="col-md-8">
@@ -361,9 +356,15 @@
                         </div>
                     </div>
                     <div class="form-group">
-                        <label class="col-md-3 control-label">运行结果：</label>
+                        <label class="col-md-3 control-label">schema检验：</label>
                         <div class="col-md-8">
-                            <input type="text" class="form-control" ng-model="rcdResult.result_check" style="background-color: white" readonly>
+                            <input type="text" class="form-control" ng-model="rcdResult.schema_check" style="background-color: white" readonly>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-md-3 control-label">响应校验：：</label>
+                        <div class="col-md-8">
+                            <input type="text" class="form-control" ng-model="rcdResult.body_check" style="background-color: white" readonly>
                         </div>
                     </div>
                 </form>
