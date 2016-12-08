@@ -14,8 +14,8 @@
                             <h4 class="panel-title"  ng-mouseenter="shownCom=true" ng-mouseleave="shownCom=false" >
                                  <div class="row">
                                      <div class="col-xs-4">
-                                     <input type="text" class="form-control" ng-show="edit && editFuncId==func.func_id" ng-model="func.func_name">
-                                     <a class="marginLeft" ng-bind="func.func_name" ng-show="!(edit && editFuncId==func.func_id)" ng-click="funcDetail(func.func_id)"></a>
+                                     <input type="text" class="form-control" ng-show="edit && editFuncId==func.func_id" ng-model="func.func_desc">
+                                     <a class="marginLeft" ng-bind="func.func_desc" ng-show="!(edit && editFuncId==func.func_id)" ng-click="funcDetail(func.func_id)"></a>
                                      </div>
                                      <div class="pull-right">
                                          <a ng-show="shownCom" ng-click="editFunc(func.func_id)"><span class="glyphicon glyphicon-pencil"></span>编辑</a>
@@ -47,7 +47,7 @@
                                 <table class="table" ng-show="formation && !edit">
                                     <thead>
                                         <tr>
-                                            <td class="wid6">名称</td>
+                                            <td class="wid6">函数名</td>
                                             <td class="wid7" ng-bind="func.func_name"></td>
                                         </tr>
                                     </thead>
