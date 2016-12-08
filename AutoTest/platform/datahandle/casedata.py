@@ -187,7 +187,7 @@ def run_case(data):
             "schema_check":c.schema_result,
             "schema":c.schema,
             "exp_data":c.exp_data,
-            "result_check":c.is_pass,
+            "body_check":c.body_result,
             "request_body":c.param,
             "url":c.url
         }
