@@ -68,9 +68,10 @@ DATABASES = {
         'ENGINE': 'django.db.backends.mysql', #数据库引擎
         'NAME': 'auto',                       #数据库名
         'USER': 'root',                       #用户名
-        'PASSWORD': '123456',                #密码
+        # 'PASSWORD': '000000',                  密码
         'HOST': '127.0.0.1',              #数据库主机，默认为localhost
         'PORT': '3306',
+        'ATOMIC_REQUESTS': True
     }
 }
 
