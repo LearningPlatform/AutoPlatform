@@ -670,6 +670,7 @@ myApp.controller('APICaseCtrl',function($scope,$http,$cookieStore,$timeout) {
                         }).success(function (response) {
                             if (response.code == 1) {
                                 $scope.check1 = response.data;
+                                console.log($scope.check1)
                             } else {
                                 alert(response.msg);
                             }
@@ -1080,10 +1081,10 @@ myApp.controller('APICaseCtrl',function($scope,$http,$cookieStore,$timeout) {
                 }else{
                     $scope.caseResult.schema_check="失败";
                 }
-                if($scope.caseResult.result_check==1){
-                    $scope.caseResult.result_check="通过";
+                if($scope.caseResult.body_check==1){
+                    $scope.caseResult.body_check="通过";
                 }else{
-                    $scope.caseResult.result_check="失败";
+                    $scope.caseResult.body_check="失败";
                 }
                 $("#caseResult").modal();
             }else{
