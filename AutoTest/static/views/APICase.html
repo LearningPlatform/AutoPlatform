@@ -92,15 +92,16 @@
                                         <a ng-bind="case.case_name" ng-click="infoCase(case)"></a>
                                         <div class="pull-right">
                                             <a ng-show="shownCom1" ng-click="editCase(case)"><span
-                                        class="glyphicon glyphicon-pencil"></span>编辑</a>
+                                                    class="glyphicon glyphicon-pencil"></span>编辑</a>
                                             <a ng-show="shownCom1" ng-click="cfDelCase(case)"><span
                                                     class="glyphicon glyphicon-remove"></span>删除</a>
                                         </div>
                                     </h4>
                                 </div>
-                                <div class="panel-body" ng-show="showinfo&&(showCaseID==case.case_id)&&(showCaseType==case.case_type)">
-                                    <div class="row col-md-10">
-                                        <ul class="col-md-10 nav nav-tabs">
+                                <div class="panel-body"
+                                     ng-show="showinfo&&(showCaseID==case.case_id)&&(showCaseType==case.case_type)">
+                                    <div class="row col-md-12">
+                                        <ul class="nav nav-tabs">
                                             <li class="{$al[0]$}">
                                                 <a ng-click="active2(0,case)">基本信息</a>
                                             </li>
@@ -123,11 +124,13 @@
                                             </li>
                                         </ul>
                                     </div>
+                                    <!--
                                     <div class="pull-right">
-                                        <button class="btn btn-xs btn-info" ng-click="runCase(case)">运行</button>
+                                        <button class="btn  btn-info" ng-click="runCase(case)">运行</button>
                                     </div>
+                                    -->
 
-                                    <div class="container top3">
+                                    <div class="panel-body top3">
                                         <table class="table" ng-show="showSelectId==0">
                                             <thead>
                                             <tr>
@@ -199,30 +202,33 @@
                                                     </tr>
                                                 </table>
                                             </div>-->
-                                            <div ng-show="showParamId==2">
-                                                <form role="form">
-                                                    <div class="form-group">
-                                                        <textarea class="form-control" rows="3" ng-model="case.input_data">
+                                            <div class="col-md-12" ng-show="showParamId==2">
+                                                <div class="panel-body  col-md-12">
+                                                    <form role="form">
+                                                        <div class="form-group">
+                                                        <textarea class="form-control msd-elastic: \n;" rows="3"
+                                                                  ng-model="case.input_data">
                                                         </textarea>
-                                                    </div>
-                                                </form>
-                                                <button type="button" class="pull-right btn btn-primary"
-                                                        ng-click="saveParam2(case)">
-                                                    保存
-                                                </button>
+                                                        </div>
+                                                    </form>
+
+                                                </div>
                                             </div>
                                         </div>
-                                        <div class="container" ng-show="showSelectId==2">
-                                            <div class="row form-group">
+                                        <div class="col-md-12" ng-show="showSelectId==2">
+                                            <!--<div class="row form-group">
+
                                                 <form class="col-md-2 col-md-offset-1 bs-example bs-example-form">
                                                     <div class="input-group">
                                                         <span class="input-group-addon">验证器</span>
-                                                        <select class="form-control" ng-model="check1" ng-options="check1.check_name for check1 in checkList">
+                                                        <select class="form-control" ng-model="case.check"
+                                                                ng-options="check1.check_name for check1 in checkList">
                                                             <option value="">无</option>
                                                         </select>
                                                     </div>
                                                 </form>
-                                                <!--
+
+
                                                 <form class="col-md-2  bs-example bs-example-form">
                                                     <div class="input-group">
                                                         <span class="input-group-addon">格式</span>
@@ -236,29 +242,33 @@
                                                         <span class="input-group-addon">状态码</span>
                                                         <input type="text" class="form-control" placeholder="200">
                                                     </div>
-                                                </form>-->
-                                                <div class="col-md-1">
-                                                    <button type="button" class="pull-right btn btn-primary" ng-click="saveParam2(case)">
-                                                        保存
-                                                    </button>
-                                                </div>
-                                            </div>
+                                                </form>
+                                            </div>-->
                                             <h3>期望的返回值</h3>
                                             <div class="col-md-12">
                                                 <form role="form">
-                                                    <textarea class="form-control msd-elastic: \n" rows="3" ng-model="case.exp_data">
+                                                    <textarea class="form-control msd-elastic: \n" rows="3"
+                                                              ng-model="case.exp_data">
                                                     </textarea>
                                                 </form>
                                             </div>
                                             <h3>shcema验证</h3>
                                             <div class="col-md-12">
                                                 <form role="form">
-                                                    <textarea class="form-control msd-elastic: \n" rows="5" ng-model="case.case_schema">
+                                                    <textarea class="form-control msd-elastic: \n" rows="5"
+                                                              ng-model="case.case_schema">
                                                     </textarea>
                                                 </form>
                                             </div>
                                         </div>
+                                        <div class="btn-group  col-sm-offset-11">
+                                        <button  class="btn btn-primary" ng-click="saveParam2(case)">
+                                            保存
+                                        </button>
+                                        <button class="btn btn-success" ng-click="runCase(case)">运行</button>
                                     </div>
+                                    </div>
+
                                 </div>
                             </div>
                         </div>
@@ -288,13 +298,16 @@
                                         ng-mouseleave="shownCom1=false">
                                         <a ng-bind="case.case_name" ng-click="infoCase(case)"></a>
                                         <div class="pull-right">
-                                            <a ng-show="shownCom1" ng-click="editCase(case)"><span class="glyphicon glyphicon-pencil"></span>编辑</a>
-                                            <a ng-show="shownCom1" ng-click="cfDelCase(case)"><span class="glyphicon glyphicon-remove"></span>删除</a>
+                                            <a ng-show="shownCom1" ng-click="editCase(case)"><span
+                                                    class="glyphicon glyphicon-pencil"></span>编辑</a>
+                                            <a ng-show="shownCom1" ng-click="cfDelCase(case)"><span
+                                                    class="glyphicon glyphicon-remove"></span>删除</a>
                                         </div>
                                     </h4>
                                 </div>
-                                <div class="panel-body" ng-show="showinfo&&(showCaseID==case.case_id)&&(showCaseType==case.case_type)">
-                                     <div class="row col-md-10">
+                                <div class="panel-body"
+                                     ng-show="showinfo&&(showCaseID==case.case_id)&&(showCaseType==case.case_type)">
+                                    <div class="row col-md-10">
                                         <ul class="col-md-10 nav nav-tabs">
                                             <li class="{$al[0]$}">
                                                 <a ng-click="active2(0,case)">基本信息</a>
@@ -411,7 +424,8 @@
                                             <div ng-show="showParamId==2">
                                                 <form role="form">
                                                     <div class="form-group">
-                                                        <textarea class="form-control" rows="3" ng-model="case.input_data">
+                                                        <textarea class="form-control" rows="3"
+                                                                  ng-model="case.input_data">
                                                         </textarea>
                                                     </div>
                                                 </form>
@@ -426,7 +440,8 @@
                                                 <form class="col-md-2 col-md-offset-1 bs-example bs-example-form">
                                                     <div class="input-group">
                                                         <span class="input-group-addon">验证器</span>
-                                                        <select class="form-control" ng-model="check1" ng-options="check1.check_name for check1 in checkList">
+                                                        <select class="form-control" ng-model="check1"
+                                                                ng-options="check1.check_name for check1 in checkList">
                                                             <option value="">无</option>
                                                         </select>
                                                     </div>
@@ -447,7 +462,8 @@
                                                     </div>
                                                 </form>-->
                                                 <div class="col-md-1">
-                                                    <button type="button" class="pull-right btn btn-primary" ng-click="saveParam2(case)">
+                                                    <button type="button" class="pull-right btn btn-primary"
+                                                            ng-click="saveParam2(case)">
                                                         保存
                                                     </button>
                                                 </div>
@@ -932,7 +948,8 @@
                 <div class="modal-footer">
                     <button type="button" class="btn btn-default" data-dismiss="modal">关闭
                     </button>
-                    <button type="button" class="btn btn-primary" ng-click="saveCase(api.api_id,apiDep.depnd_api_id,check1.check_id)">
+                    <button type="button" class="btn btn-primary"
+                            ng-click="saveCase(api.api_id,apiDep.depnd_api_id,check1.check_id)">
                         保存
                     </button>
                 </div>
@@ -1010,7 +1027,8 @@
                 <div class="modal-footer">
                     <button type="button" class="btn btn-default" data-dismiss="modal">关闭
                     </button>
-                    <button type="button" class="btn btn-primary" ng-click="saveEditCase(case,selected1,selected2,selected3)">
+                    <button type="button" class="btn btn-primary"
+                            ng-click="saveEditCase(case,selected1,selected2,selected3)">
                         保存
                     </button>
                 </div>
@@ -1071,9 +1089,10 @@
                     </h4>
                 </div>
                 <div class="modal-body">
-                <select class="form-control" ng-model="depnt_api" ng-options="depnt_api.depnd_api_name for depnt_api in apiDepList">
-                                    <option value="">无</option>
-                </select>
+                    <select class="form-control" ng-model="depnt_api"
+                            ng-options="depnt_api.depnd_api_name for depnt_api in apiDepList">
+                        <option value="">无</option>
+                    </select>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-default" data-dismiss="modal">取消
@@ -1113,7 +1132,8 @@
                 <div class="modal-footer">
                     <button type="button" class="btn btn-default" data-dismiss="modal">关闭
                     </button>
-                    <button type="button" class="btn btn-primary" ng-click="getCaseResult(case.case_id,case.case_type,env.env_id)">
+                    <button type="button" class="btn btn-primary"
+                            ng-click="getCaseResult(case.case_id,case.case_type,env.env_id)">
                         执行
                     </button>
                 </div>
@@ -1132,59 +1152,68 @@
                         运行
                     </h4>
                 </div>
-                <div class="modal-body" >
+                <div class="modal-body">
                     <form class="form-horizontal">
                         <div class="form-group">
                             <label class="col-md-2 control-label">URL：</label>
                             <div class="col-md-9">
-                                <textarea type="text" class="form-control" rows="3" ng-model="caseResult.url" style="background-color: white" readonly>
+                                <textarea type="text" class="form-control" rows="3" ng-model="caseResult.url"
+                                          style="background-color: white" readonly>
                                 </textarea>
                             </div>
                         </div>
                         <div class="form-group">
                             <label class="col-md-2 control-label">响应：</label>
                             <div class="col-md-9">
-                                <textarea type="text" class="form-control" rows="3" ng-model="caseResult.request_body" style="background-color: white" readonly>
+                                <textarea type="text" class="form-control" rows="3" ng-model="caseResult.request_body"
+                                          style="background-color: white" readonly>
                                 </textarea>
                             </div>
                         </div>
                         <div class="form-group">
                             <label class="col-md-2 control-label">状态码：</label>
                             <div class="col-md-9">
-                                <input type="text" class="form-control" ng-model="caseResult.status_code" style="background-color: white" readonly>
+                                <input type="text" class="form-control" ng-model="caseResult.status_code"
+                                       style="background-color: white" readonly>
                             </div>
                         </div>
                         <div class="form-group">
                             <label class="col-md-2 control-label">schema：</label>
                             <div class="col-md-9">
-                                <textarea type="text" class="form-control" rows="12" ng-model="caseResult.schema" style="background-color: white" readonly>
+                                <textarea type="text" class="form-control" rows="12" ng-model="caseResult.schema"
+                                          style="background-color: white" readonly>
                                 </textarea>
                             </div>
                         </div>
-                        <div class="form-group">
-                            <label class="col-md-2 control-label">schema检验：</label>
-                            <div class="col-md-9">
-                                <input type="text" class="form-control" ng-model="caseResult.schema_check" style="background-color: white" readonly>
-                            </div>
-                        </div>
+
                         <div class="form-group">
                             <label class="col-md-2 control-label">期望输出值：</label>
                             <div class="col-md-9">
-                                <textarea type="text" class="form-control" rows="3" ng-model="caseResult.exp_data" style="background-color: white" readonly>
+                                <textarea type="text" class="form-control" rows="3" ng-model="caseResult.exp_data"
+                                          style="background-color: white" readonly>
                                 </textarea>
                             </div>
                         </div>
                         <div class="form-group">
                             <label class="col-md-2 control-label">响应体：</label>
                             <div class="col-md-9">
-                                <textarea type="text" class="form-control" rows="8" ng-model="caseResult.response_body" style="background-color: white" readonly>
+                                <textarea type="text" class="form-control" rows="8" ng-model="caseResult.response_body"
+                                          style="background-color: white" readonly>
                                 </textarea>
                             </div>
                         </div>
                         <div class="form-group">
-                            <label class="col-md-2 control-label">运行结果：</label>
+                            <label class="col-md-2 control-label">schema检验：</label>
                             <div class="col-md-9">
-                                <input type="text" class="form-control" ng-model="caseResult.result_check" style="background-color: white" readonly>
+                                <input type="text" class="form-control" ng-model="caseResult.schema_check"
+                                       style="background-color: white" readonly>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-md-2 control-label">响应校验：</label>
+                            <div class="col-md-9">
+                                <input type="text" class="form-control" ng-model="caseResult.body_check"
+                                       style="background-color: white" readonly>
                             </div>
                         </div>
                     </form>
