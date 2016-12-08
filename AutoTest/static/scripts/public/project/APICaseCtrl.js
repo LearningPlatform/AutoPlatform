@@ -792,7 +792,7 @@ myApp.controller('APICaseCtrl',function($scope,$http,$cookieStore,$timeout) {
                 "input_data":obj.input_data,
                 "exp_data":obj.exp_data,
                 "case_schema":obj.case_schema,
-                "check_type":obj.check_type,
+                "check_type":objobj.check_type,
                 "suite_list":obj.suite_list
             }).success(function(response){
                 if(response.code==0){
@@ -892,6 +892,7 @@ myApp.controller('APICaseCtrl',function($scope,$http,$cookieStore,$timeout) {
         $("#cfCase").modal();
         caseId=obj.case_id;
         apiId=obj.api_id;
+        $scope.case_type=obj.case_type;
     }
 
     $scope.delCase=function(){
