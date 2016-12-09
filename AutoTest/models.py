@@ -203,6 +203,7 @@ class RunPlan(models.Model):
     定时计划
     """
     plan_id = models.AutoField(primary_key=True)
+    pro_id = models.IntegerField(null=True)
     plan_name = models.TextField(null=True)
     plan_type = models.IntegerField(null=True)
     plan_interval = models.IntegerField(null=True)
@@ -210,4 +211,3 @@ class RunPlan(models.Model):
     end_time = models.IntegerField(null=True)
     env_id = models.IntegerField(null=True)
     suite_id = models.IntegerField(null=True)
-
