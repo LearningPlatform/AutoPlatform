@@ -1,4 +1,4 @@
-myApp.controller('APICaseCtrl',function($scope,$http,$cookieStore,$timeout) {
+myApp.controller('APICaseCtrl',function($scope,$http,$cookieStore,$timeout,$location) {
     var pro_id = $cookieStore.get("currProID");
     var moduleId=0;
     var apiId=0;
@@ -200,8 +200,13 @@ myApp.controller('APICaseCtrl',function($scope,$http,$cookieStore,$timeout) {
         $scope.suite="";
     }
 
-    $scope.report_name="";
 
+      $scope.change = function() {
+           proCtrl.model_id = $scope.test;
+      };
+
+    $scope.report_name="";
+    $scope.showLoading=false;
     $scope.saveRun=function(envId,suiteId){
         if(envId==undefined){
             envId=0;
@@ -209,6 +214,7 @@ myApp.controller('APICaseCtrl',function($scope,$http,$cookieStore,$timeout) {
         if(suiteId==undefined){
             suiteId=0;
         }
+        $scope.showLoading=true;
         $http.post('project/case/run',{
             "suite_id":suiteId,
             "pro_id":pro_id,
@@ -217,11 +223,16 @@ myApp.controller('APICaseCtrl',function($scope,$http,$cookieStore,$timeout) {
         }).success(function(response){
             if(response.code==1){
                 $scope.report=response.data;
+                $scope.showLoading=false;
+                $cookieStore.put("currmodelID",8);
+                //$location.url('/project');
+                $location.url('/project/testReport');
+                window.location.reload('projectIntro.html');
             }else{
                 alert(response.msg)
             }
         })
-       $("#runModule").modal('hide');
+        $("#runModule").modal('hide');
     }
 
     $scope.addModule=function(){
