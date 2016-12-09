@@ -6,7 +6,10 @@ import time
 
 
 def get_run_info(data):
-    report_name = data["report_name"]
+    if data["report_name"] == "":
+        report_name = time.strftime("%Y-%m-%d %H:%M:%S", time.localtime())
+    else:
+        report_name = data["report_name"]
     pro_id = data["pro_id"]
     env_id = data["env_id"]
     suite_id = data["suite_id"]
