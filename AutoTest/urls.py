@@ -1,5 +1,6 @@
 from django.conf.urls import url
 from . import views
+from .platform.tools import plantool
 
 urlpatterns = [
     url(r'^$', views.to_index, name="渲染主页"),
@@ -90,4 +91,11 @@ urlpatterns = [
     url(r'project/check/delete$', views.check_delete, name="删除方法"),
     url(r'project/check/run$', views.check_run, name="运行方法"),
 
+
+    url(r'project/plan/create$', views.plan_create, name="创建计划"),
+    url(r'project/plan/delete$', views.plan_delete, name="删除计划"),
+    url(r'project/plan/edit$', views.plan_edit, name="编辑计划"),
+    url(r'project/plan/list$', views.plan_list, name="获取计划列表"),
 ]
+
+views.start_run()
