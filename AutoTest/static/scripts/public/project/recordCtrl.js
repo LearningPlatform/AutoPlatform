@@ -196,6 +196,8 @@ myApp.controller('recordCtrl', function ($scope, $http, $cookieStore,$sce,$timeo
         $scope.idList.splice(RecordId, 1);
         $scope.objList.splice(RecordId, 1);
         $scope.reqData.splice(RecordId, 1);
+        $scope.runDisabled.splice(RecordId, 1);
+        $scope.undisabled.splice(RecordId, 1);
         $("#cfRecord").modal('hide');
     }
 
