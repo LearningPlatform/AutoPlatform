@@ -21,7 +21,7 @@ def get_plan_list(data):
 
 
 def get_plan_detail(data):
-    plan_id = data["pro_id"]
+    plan_id = data["plan_id"]
     data = RunPlan.objects.all().get(plan_id=plan_id)
     data_json = jsontool.convert_to_dict(data)
     del (data_json['_state'])
