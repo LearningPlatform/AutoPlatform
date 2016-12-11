@@ -20,6 +20,18 @@ def get_plan_list(data):
     }
 
 
+def get_plan_detail(data):
+    plan_id = data["pro_id"]
+    data = RunPlan.objects.all().get(plan_id=plan_id)
+    data_json = jsontool.convert_to_dict(data)
+    del (data_json['_state'])
+    return {
+        "code": 1,
+        "msg": "获取成功",
+        "data": data_json
+    }
+
+
 def add_job(data, scheduler):
     plan_name = data["plan_name"]
     plan_type = data["plan_type"]

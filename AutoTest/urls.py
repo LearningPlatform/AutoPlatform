@@ -96,6 +96,7 @@ urlpatterns = [
     url(r'project/plan/delete$', views.plan_delete, name="删除计划"),
     url(r'project/plan/edit$', views.plan_edit, name="编辑计划"),
     url(r'project/plan/list$', views.plan_list, name="获取计划列表"),
+    url(r'project/plan/detail$', views.plan_detail, name="获取计划详情"),
 ]
 
 views.start_run()

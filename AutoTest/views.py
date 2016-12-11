@@ -2478,3 +2478,36 @@ def plan_list(req):
     data = json.loads(str(req.body, encoding="utf-8"))
     resp = plandata.get_plan_list(data)
     return HttpResponse(json.dumps(resp), content_type="application/json")
+
+
+def plan_detail(req):
+    """
+      获取计划列表
+      请求方法：post
+      如：
+     {
+           "plan_id":25
+       }
+      :return:
+      如：
+      成功：
+     {
+  "msg": "获取成功",
+  "code": 1,
+  "data":
+    {
+      "plan_interval": 5,
+      "suite_id": 5,
+      "plan_id": 25,
+      "pro_id": 4,
+      "start_time": 1481274000,
+      "plan_name": "test",
+      "end_time": 1481274000,
+      "env_id": 6,
+      "plan_type": 2
+    }
+}
+      """
+    data = json.loads(str(req.body, encoding="utf-8"))
+    resp = plandata.get_plan_detail(data)
+    return HttpResponse(json.dumps(resp), content_type="application/json")
