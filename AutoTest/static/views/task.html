@@ -14,7 +14,7 @@
                             <h4 class="panel-title"  ng-mouseenter="shownCom=true" ng-mouseleave="shownCom=false" >
                                  <div class="row">
                                      <div class="col-xs-4">
-                                     <a class="marginLeft" ng-bind="plan.plan_name"></a>
+                                     <a class="marginLeft" ng-bind="plan.plan_name" ng-click="getTaskDetail(plan.plan_id)"></a>
                                      </div>
                                      <div class="pull-right">
                                          <a ng-show="shownCom" ng-click="editPlan(plan.plan_id)"><span class="glyphicon glyphicon-pencil"></span>编辑</a>
@@ -22,6 +22,41 @@
                                      </div>
                                 </div>
                             </h4>
+                        </div>
+                        <div class="panel-body" ng-show="showDetail && (showTaskId==plan.plan_id)">
+                            <table class="table">
+                                <thead>
+                                <tr>
+                                    <td class="wid1">名称</td>
+                                    <td class="wid2" ng-bind="plan.plan_name"></td>
+                                </tr>
+                                </thead>
+                                <tr>
+                                    <td class="wid1">类型</td>
+                                    <td class="wid2" ng-bind="plan_type"></td>
+                                    <td class="wid1">间隔</td>
+                                    <td class="wid2" ng-bind="plan.plan_interval+'s'"></td>
+                                </tr>
+                                <tr>
+                                    <td class="wid1">开始时间</td>
+                                    <td class="wid2" ng-bind="plan.start_time*1000 | date:'yyyy-MM-dd HH:mm:ss'"></td>
+                                    </td></td>
+                                    <td class="wid1">结束时间</td>
+                                    <td class="wid2" ng-bind="plan.end_time*1000 | date:'yyyy-MM-dd HH:mm:ss'"></td>
+                                </tr>
+                                <tr>
+                                    <td class="wid1">套件</td>
+                                    <td class="wid2" ng-bind="suite.suite_name"></td>
+                                    <td class="wid1">运行环境</td>
+                                    <td class="wid2" colspan="3" ng-bind="env.env_name"></td>
+                                </tr>
+                                <tr>
+                                    <td class="wid1"></td>
+                                    <td class="wid2"></td>
+                                    <td class="wid1"></td>
+                                    <td class="wid2"></td>
+                                </tr>
+                            </table>
                         </div>
                     </div>
                 </div>
@@ -72,7 +107,7 @@
                         <div class="form-group">
                             <label class="col-md-3 control-label">开始时间：</label>
                             <div class="col-md-8 ">
-                                <div class="input-group date form_datetime" ddata-date="1979-09-16T05:25:07Z" data-link-field="dtp_input1">
+                                <div class="input-group date form_datetime" ddata-date="1979-09-16T05:25:07Z" >
                                     <input type="text" class="form-control" readonly style="background-color: white" ng-model="plan.start_time">
                                     <span class="input-group-addon"><span class="glyphicon glyphicon-time"></span></span>
                                 </div>
@@ -81,7 +116,7 @@
                         <div class="form-group" ng-hide="selected3==2">
                             <label class="col-md-3 control-label">结束时间：</label>
                             <div class="col-md-8 ">
-                                <div class="input-group date form_datetime" ddata-date="1979-09-16T05:25:07Z" data-link-field="dtp_input1">
+                                <div class="input-group date form_datetime" ddata-date="1979-09-16T05:25:07Z" >
                                     <input type="text" class="form-control" readonly style="background-color: white" ng-model="plan.end_time">
                                     <span class="input-group-addon"><span class="glyphicon glyphicon-time"></span></span>
                                 </div>
@@ -143,7 +178,7 @@
                                 </select>
                             </div>
                         </div>
-                        <div class="form-group">
+                        <div class="form-group" ng-hide="selected3==2">
                             <label class="col-md-3 control-label">间隔：</label>
                             <div class="col-md-3">
                                 <input type="text" class="form-control" ng-model="plan.plan_interval">
@@ -158,7 +193,7 @@
                         <div class="form-group">
                             <label class="col-md-3 control-label">开始时间：</label>
                             <div class="col-md-8 ">
-                                <div class="input-group date form_datetime" ddata-date="1979-09-16T05:25:07Z" data-link-field="dtp_input1">
+                                <div class="input-group date form_datetime" ddata-date="1979-09-16T05:25:07Z" >
                                     <input type="text" class="form-control" readonly style="background-color: white" ng-model="plan.start_time">
                                     <span class="input-group-addon"><span class="glyphicon glyphicon-time"></span></span>
                                 </div>
@@ -167,7 +202,7 @@
                         <div class="form-group" ng-hide="selected3==2">
                             <label class="col-md-3 control-label">结束时间：</label>
                             <div class="col-md-8 ">
-                                <div class="input-group date form_datetime" ddata-date="1979-09-16T05:25:07Z" data-link-field="dtp_input1">
+                                <div class="input-group date form_datetime" ddata-date="1979-09-16T05:25:07Z" >
                                     <input type="text" class="form-control" readonly style="background-color: white" ng-model="plan.end_time">
                                     <span class="input-group-addon"><span class="glyphicon glyphicon-time"></span></span>
                                 </div>

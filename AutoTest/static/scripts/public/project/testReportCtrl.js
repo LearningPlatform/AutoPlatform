@@ -1,4 +1,4 @@
-myApp.controller('testReportCtrl', function ($scope, $http, $cookieStore, $timeout) {
+myApp.controller('testReportCtrl', function ($scope, $http, $cookieStore, $timeout,$rootScope) {
     var pro_id = $cookieStore.get("currProID");
     $scope.wid = {}
     $scope.List = ['active'];
@@ -40,6 +40,7 @@ myApp.controller('testReportCtrl', function ($scope, $http, $cookieStore, $timeo
     var m;
     var s;
     $scope.timeInval = [];
+    $rootScope.caseRun;
     $timeout(function () {
         $scope.suite = "";
         $scope.startDate = "";
@@ -71,6 +72,9 @@ myApp.controller('testReportCtrl', function ($scope, $http, $cookieStore, $timeo
                         $scope.timeInval[i] = s + "s";
                     }
                 }
+                if($rootScope.caseRun==1){
+                    $rootScope.showDetail($scope.resultList[0]);
+                }
             } else {
                 alert(response1.msg)
             }
@@ -84,7 +88,7 @@ myApp.controller('testReportCtrl', function ($scope, $http, $cookieStore, $timeo
         $scope.title = "";
     }
 
-    $scope.showDetail = function (obj) {
+    $rootScope.showDetail = function (obj) {
         $scope.result = obj;
         $scope.repList = false;
         $scope.repDetail = true;
@@ -118,6 +122,7 @@ myApp.controller('testReportCtrl', function ($scope, $http, $cookieStore, $timeo
     }
 
     $scope.returnList = function () {
+        $rootScope.caseRun=0;
         $scope.repDetail = false;
         $scope.repList = true;
         $http.post('project/result/list', {

@@ -1,4 +1,4 @@
- myApp.controller('proCtrl',function($scope,$http,$cookieStore,$timeout){
+ myApp.controller('proCtrl',function($scope,$http,$cookieStore,$timeout,$rootScope){
      var pro_id = $cookieStore.get("currProID");
 
      $scope.activeList=["active","disactive","disactive","disactive","disactive","disactive","disactive","disactive","disactive","disactive"];
@@ -20,7 +20,7 @@
          $scope.activeList[model_id]='active';
      })
 
-     $scope.active = function(id) {
+     $rootScope.active = function(id) {
          $cookieStore.put("currmodelID",id);
          for (var i=0;i<$scope.activeList.length;i++){
              $scope.activeList[i]="disactive";

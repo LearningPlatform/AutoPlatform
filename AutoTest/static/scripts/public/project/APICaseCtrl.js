@@ -1,4 +1,4 @@
-myApp.controller('APICaseCtrl',function($scope,$http,$cookieStore,$timeout,$location) {
+myApp.controller('APICaseCtrl',function($scope,$http,$cookieStore,$timeout,$location,$rootScope) {
     var pro_id = $cookieStore.get("currProID");
     var moduleId=0;
     var apiId=0;
@@ -224,10 +224,10 @@ myApp.controller('APICaseCtrl',function($scope,$http,$cookieStore,$timeout,$loca
             if(response.code==1){
                 $scope.report=response.data;
                 $scope.showLoading=false;
-                $cookieStore.put("currmodelID",8);
-                //$location.url('/project');
+                $rootScope.caseRun=1;
                 $location.url('/project/testReport');
-                window.location.reload('projectIntro.html');
+                $rootScope.active(8);
+                //$rootScope.showDetail($rootScope.resultList[0]);
             }else{
                 alert(response.msg)
             }
@@ -1078,7 +1078,6 @@ myApp.controller('APICaseCtrl',function($scope,$http,$cookieStore,$timeout,$loca
     $scope.caseResult="";
     $scope.getCaseResult=function(caseId,caseType,envId){
         $("#runCase").modal("hide");
-        console.log(caseType)
         $http.post("project/case/runsingal",{
             "case_id":caseId,
             "case_type":caseType,
