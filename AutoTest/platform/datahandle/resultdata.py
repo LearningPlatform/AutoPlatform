@@ -13,6 +13,7 @@ def get_result_list(data):
         var = dict(a, **b)
         del (var['_state'])
         body.append(var)
+    body.reverse()
     return {
         "code": 1,
         "msg": "获取成功",
