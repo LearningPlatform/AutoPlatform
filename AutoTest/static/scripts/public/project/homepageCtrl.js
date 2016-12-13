@@ -11,10 +11,10 @@ myApp.controller('homepageCtrl', function ($scope, $http, $cookieStore, $timeout
             if (response1.code = 1) {
                 $scope.resultList = response1.data;
                 for (var i = 0; i < $scope.resultList.length; i++) {
-                    $scope.labels[i] = $scope.resultList[i].report_name
-                    $scope.data[0][i] = $scope.resultList[i].pass_num
-                    $scope.data[1][i] = $scope.resultList[i].fail_num
-                    $scope.data[2][i] = $scope.resultList[i].fail_num + $scope.resultList[i].pass_num
+                    $scope.labels[$scope.resultList.length-i-1] = $scope.resultList[i].report_name
+                    $scope.data[0][$scope.resultList.length-i-1] = $scope.resultList[i].pass_num
+                    $scope.data[1][$scope.resultList.length-i-1] = $scope.resultList[i].fail_num
+                    $scope.data[2][$scope.resultList.length-i-1] = $scope.resultList[i].fail_num + $scope.resultList[i].pass_num
                 }
             } else {
                 alert(response1.msg)
