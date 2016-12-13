@@ -2442,6 +2442,7 @@ def plan_list(req):
       如：
      {
            "pro_id":4,
+           "status":0    0:全部   1：进行中    2：已完成
        }
       :return:
       如：

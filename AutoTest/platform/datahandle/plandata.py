@@ -7,9 +7,18 @@ import time
 
 def get_plan_list(data):
     pro_id = data["pro_id"]
+    status = data["status"]
     body = []
-    test = RunPlan.objects.all().filter(pro_id=pro_id)
-    for a in list(test):
+    now_time = int(time.time())
+    if status == 0:  # 全部
+        plan_list = RunPlan.objects.all().filter(pro_id=pro_id)
+    elif status == 1:  # 进行中
+        plan_list1 = list(RunPlan.objects.all().filter(end_time__gte=now_time, plan_type=1, pro_id=pro_id))
+        plan_list2 = list(RunPlan.objects.all().filter(start_time__gte=now_time, plan_type=2, pro_id=pro_id))
+        plan_list = plan_list1 + plan_list2
+    elif status == 2:  # 已完成
+        plan_list = list(RunPlan.objects.all().filter(end_time__lte=now_time, pro_id=pro_id))
+    for a in list(plan_list):
         a = jsontool.class_to_dict(a)
         del (a['_state'])
         body.append(a)

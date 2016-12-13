@@ -11,7 +11,6 @@ def start_scheduler(scheduler):
     scheduler_list = scheduler_list1+scheduler_list2
     for scheduler_ob in scheduler_list:
         set_scheduler(scheduler, scheduler_ob)
-    print(scheduler.print_jobs())
 
 
 def set_scheduler(scheduler,scheduler_ob):
