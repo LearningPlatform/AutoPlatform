@@ -1071,12 +1071,11 @@ def api_create(req):
     参数：
     如：
         {
-        "api_param": "username,pwd",     接口参数
         "module_id": 1,                  模块id
         "pro_id": 5,                     项目id
         "api_url": "{host}/login",       接口url
         "api_method": "post",            请求方法：get，post，put，detele
-        "api_type": "34",                请求类型
+        "param_type": "34",                请求类型
         "api_protocol": "http",          请求协议：http，tcp，udp等等（待定）
         "api_name": "登录接口",           接口名字
         "api_desc": "登录"                接口描述
@@ -1258,11 +1257,22 @@ def case_create(req):
     请求方法：post
     如：
     {
-      "api_id": 1,     接口id
-      "pro_id": 5,     项目id
-      "case_desc": "正向验证",     case描述
-      "case_name": "正确登录",     case名字
-      "suite_list":[1,2]     套件列表对象，列表中为所属的suite_id
+        "pro_id": 1,   项目id
+        "api_id": 1,    接口id
+        "case_desc": "1111",    用例描述
+        "case_name": "1",       用例名
+        "depnd_api_id": 1,         依赖接口id
+        "check_id": 2,        验证器id
+        "input_data": "11",     请求输入
+        "exp_data": "11",       期待返回
+        "case_schema": "1",     schema检验
+        "case_protocol": "http",    请求协议
+        "case_url": "url",      请求的url
+        "case_method": "post",      请求方式
+        "exp_status": 200,      期待状态码
+        "exp_resp_header": "242",       期待响应头
+        "param_type": "json",        参数格式
+        "suite_list":[1,2]      套件列表
     }
     :return:
     如：
@@ -1283,16 +1293,23 @@ def case_edit(req):
     请求方法：post
     如：
     {
-	"case_id":1,
-    "pro_id":2,
-    "api_id":2,
-    "case_desc":"测试编辑描述",
-    "case_name":"正确登录",
-    "depnd_api_id":1,
-    "input_data":"{'username': '$.data.email', 'pwd': '{$get_md5_value(\"000000\")$}'}",
-    "exp_data":"",
-    "case_schema":"{\"$schema\":\"http://json-schema.org/draft-04/schema#\",\"type\":\"object\",\"properties\":{\"data\":{\"type\":\"object\",\"properties\":{\"username\":{\"type\":\"string\"},\"hid\":{\"type\":\"string\"},\"email\":{\"type\":\"string\"},\"noticeApp\":{\"type\":\"string\"},\"applyApp\":{\"type\":\"string\"},\"taskApp\":{\"type\":\"string\"},\"position\":{\"type\":\"string\"},\"orgId\":{\"type\":\"integer\"},\"uid\":{\"type\":\"string\"},\"hpwd\":{\"type\":\"string\"},\"companyName\":{\"type\":\"string\"},\"accessToken\":{\"type\":\"string\"},\"entryTime\":{\"type\":\"string\"},\"realname\":{\"type\":\"string\"},\"phone\":{\"type\":\"string\"},\"headimg\":{\"type\":\"string\"},\"orgName\":{\"type\":\"string\"}},\"required\":[\"username\",\"hid\",\"email\",\"noticeApp\",\"applyApp\",\"taskApp\",\"position\",\"orgId\",\"uid\",\"hpwd\",\"companyName\",\"accessToken\",\"entryTime\",\"realname\",\"phone\",\"headimg\",\"orgName\"]},\"msg\":{\"type\":\"string\"},\"code\":{\"type\":\"integer\"}},\"required\":[\"data\",\"msg\",\"code\"]}",
-    "check_type":1
+	    "case_id":1,
+        "pro_id": 1,   项目id
+        "api_id": 1,    接口id
+        "case_desc": "1111",    用例描述
+        "case_name": "1",       用例名
+        "depnd_api_id": 1,         依赖接口id
+        "check_id": 2,        验证器id
+        "input_data": "11",     请求输入
+        "exp_data": "11",       期待返回
+        "case_schema": "1",     schema检验
+        "case_protocol": "http",    请求协议
+        "case_url": "url",      请求的url
+        "case_method": "post",      请求方式
+        "exp_status": 200,      期待状态码
+        "exp_resp_header": "242",       期待响应头
+        "param_type": "json",        参数格式
+        "suite_list":[1,2]      套件列表
 }
     :return:
     如：
@@ -1305,79 +1322,6 @@ def case_edit(req):
     data = json.loads(str(req.body, encoding="utf-8"))
     resp = casedata.edit_case(data)
     return HttpResponse(json.dumps(resp), content_type="application/json")
-
-
-# def case_info_edit(req):
-#     """
-#     编辑case的基本信息
-#     请求方法：post
-#     如：
-#     {
-#       "api_id": 1,     接口id
-#       "case_id": 1,    case的id
-#       "pro_id": 5,     项目id
-#       "case_desc": "正向验证",     case描述
-#       "case_name": "正确登录",     case名字
-#       "suite_list":[1,2,3]     套件列表对象，checked为1，表示被勾选，
-#                                                                                 checked为0，表示未被勾选；
-#     }
-#     :return:
-#     如：
-#     成功：
-#     {
-#       "code": 1,
-#       "msg": "保存成功"
-#     }
-#     """
-#     data = json.loads(str(req.body, encoding="utf-8"))
-#     resp = casedata.edit_case_info(data)
-#     return HttpResponse(json.dumps(resp), content_type="application/json")
-#
-#
-# def case_req_edit(req):
-#     """
-#     编辑case的请求信息
-#     请求方法：post
-#     如：
-#     {
-#       "case_id": 1,    case的id
-#       "input_data": xx,   根据设定的参数的格式，传入对应的的格式的值。如json的话，就直接传入json格式的对象等，数组就传入数组
-#       "depnd_api_id":2    依赖接口id，若没有添加依赖接口，则默认置为0
-#     }
-#     :return:
-#     如：
-#     成功：
-#     {
-#       "code": 1,
-#       "msg": "保存成功"
-#     }
-#     """
-#     data = json.loads(str(req.body, encoding="utf-8"))
-#     resp = casedata.edit_req(data)
-#     return HttpResponse(json.dumps(resp), content_type="application/json")
-#
-#
-# def case_resp_edit(req):
-#     """
-#    编辑case的请求信息
-#    请求方法：post
-#    如：
-#    {
-#      "case_id": 1,    case的id
-#      "exp_data": xx,   根据设定的参数的格式，传入对应的的格式的值。如json的话，就直接传入json格式的对象等，数组就传入数组
-#      "check_type": 0    核对的类型，0为默认，暂时都设为0，后续优化
-#    }
-#    :return:
-#    如：
-#    成功：
-#    {
-#      "code": 1,
-#      "msg": "保存成功"
-#    }
-#    """
-#     data = json.loads(str(req.body, encoding="utf-8"))
-#     resp = casedata.edit_resp(data)
-#     return HttpResponse(json.dumps(resp), content_type="application/json")
 
 
 def case_del(req):
@@ -2442,7 +2386,6 @@ def plan_list(req):
       如：
      {
            "pro_id":4,
-           "status":0    0:全部   1：进行中    2：已完成
        }
       :return:
       如：

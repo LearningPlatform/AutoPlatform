@@ -44,17 +44,7 @@ def create_api(data):
     :param data:
     :return: 无
     """
-    pro_id = data['pro_id']
-    module_id = data['module_id']
-    api_name = data['api_name']
-    api_protocol = data['api_protocol']
-    api_method = data['api_method']
-    api_url = data['api_url']
-    api_type = data['api_type']
-    api_desc = data['api_desc']
-    api_param = data['api_param']
-    Api.objects.create(pro_id=pro_id, module_id=module_id, api_name=api_name, api_desc=api_desc, api_method=api_method
-                       , api_param=api_param, api_protocol=api_protocol, api_url=api_url, api_type=api_type)
+    Api.objects.create(**data)
     return {
         "code": 1,
         "msg": "创建接口成功",
@@ -67,18 +57,15 @@ def edit_api(data):
     :param data:
     :return: 无
     """
-    pro_id = data['pro_id']
     api_id = data['api_id']
-    module_id = data['module_id']
-    api_name = data['api_name']
-    api_protocol = data['api_protocol']
-    api_method = data['api_method']
-    api_url = data['api_url']
-    api_type = data['api_type']
-    api_desc = data['api_desc']
-    api_param = data['api_param']
-    Api.objects.all().filter(api_id=api_id).update(pro_id=pro_id, module_id=module_id, api_name=api_name, api_desc=api_desc, api_method=api_method
-                       , api_param=api_param, api_protocol=api_protocol, api_url=api_url, api_type=api_type)
+    Api.objects.all().filter(api_id=api_id).update(**data)
+    case_ob = {
+        "case_url": data['api_url'],
+        "case_method": data['api_method'],
+        "param_type": data['param_type'],
+        "case_protocol": data['api_protocol'],
+    }
+    Case.objects.filter(api_id=api_id).update(**case_ob)
     return {
         "code": 1,
         "msg": "修改成功"

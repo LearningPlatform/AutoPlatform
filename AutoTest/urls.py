@@ -50,9 +50,6 @@ urlpatterns = [
     url(r'project/case/detail$', views.case_detail, name="获取case详情"),
     url(r'project/case/create$', views.case_create, name="创建case"),
     url(r'project/case/edit$', views.case_edit, name="编辑case的基本信息"),
-    # url(r'project/case/edit/info$', views.case_info_edit, name="编辑case的基本信息"),
-    # url(r'project/case/edit/req$', views.case_req_edit, name="编辑case的请求信息"),
-    # url(r'project/case/edit/resp$', views.case_resp_edit, name="编辑case的响应信息"),
     url(r'project/case/delete$', views.case_del, name="删除case"),
     url(r'project/case/runsingal$', views.case_run, name="运行单个case"),
 

@@ -1,5 +1,5 @@
-from ..case.mcase import MCase
-from ..case.rcdcase import RcdCase
+# from ..case.mcase import MCase
+# from ..case.rcdcase import RcdCase
 from ...models import Api, Suite, CaseSuite, Case, DepndApi
 from ..tools import jsontool, casetool
 
@@ -71,17 +71,18 @@ def get_case_detail(data):
 
 
 def create_case(data):
-    pro_id = data['pro_id']
-    api_id = data['api_id']
-    case_desc = data['case_desc']
-    case_name = data['case_name']
-    depnd_api_id = data['depnd_api_id']
-    check_type = data['check_type']
-    case_id = Case.objects.create(pro_id=pro_id, api_id=api_id, case_desc=case_desc, case_name=case_name,
-                                  depnd_api_id=depnd_api_id, check_type=check_type).case_id
+    case = data.copy()
+    del(case["suite_list"])
+    case_id = Case.objects.create(**case).case_id
     suite_list_data = data['suite_list']
+    case_suite = {
+        "pro_id": data['pro_id'],
+        "api_id": data['api_id'],
+        "case_id": case_id
+    }
     for suite_id in suite_list_data:
-        CaseSuite.objects.create(pro_id=pro_id, api_id=api_id, case_id=case_id, suite_id=suite_id,case_type=1)
+        case_suite["suite_id"] = suite_id
+        CaseSuite.objects.create(**case_suite)
     return {
         "code": 1,
         "msg": "保存成功"
@@ -90,76 +91,29 @@ def create_case(data):
 
 def edit_case(data):
     case_id = data['case_id']
-    pro_id = data['pro_id']
-    api_id = data['api_id']
-    case_desc = data['case_desc']
-    case_name = data['case_name']
-    depnd_api_id = data['depnd_api_id']
-    input_data = data['input_data']
-    exp_data = data['exp_data']
-    case_schema = data['case_schema']
-    check_type = data['check_type']
-    Case.objects.all().filter(case_id=case_id).update(
-        pro_id=pro_id, api_id=api_id, case_desc=case_desc,case_name=case_name, depnd_api_id=depnd_api_id,
-        check_type=check_type,input_data=input_data,exp_data=exp_data, case_schema=case_schema)
-    CaseSuite.objects.all().filter(case_id=case_id,case_type=1).delete()
+    case = data.copy()
+    del (case["suite_list"])
+    Case.objects.all().filter(case_id=case_id).update(**case)
+    CaseSuite.objects.all().filter(case_id=case_id).delete()
     suite_list_data = data['suite_list']
+    case_suite = {
+        "pro_id": data['pro_id'],
+        "api_id": data['api_id'],
+        "case_id": case_id
+    }
     for suite_id in suite_list_data:
-        CaseSuite.objects.create(pro_id=pro_id, api_id=api_id, case_id=case_id, suite_id=suite_id,case_type=1)
+        case_suite["suite_id"] = suite_id
+        CaseSuite.objects.create(**case_suite)
     return {
             "code": 1,
             "msg": "保存成功"
         }
 
 
-# def edit_case_info(data):
-#     case_id = data['case_id']
-#     pro_id = data['pro_id']
-#     api_id = data['api_id']
-#     case_desc = data['case_desc']
-#     case_name = data['case_name']
-#     depnd_api_id = data['depnd_api_id']
-#     check_type = data['check_type']
-#     Case.objects.all().filter(case_id=case_id).update(pro_id=pro_id, api_id=api_id, case_desc=case_desc,
-#                                                       case_name=case_name, depnd_api_id=depnd_api_id,
-#                                                       check_type=check_type)
-#     CaseSuite.objects.all().filter(case_id=case_id,case_type=1).delete()
-#     suite_list_data = data['suite_list']
-#     for suite_id in suite_list_data:
-#         CaseSuite.objects.create(pro_id=pro_id, api_id=api_id, case_id=case_id, suite_id=suite_id,case_type=1)
-#     return {
-#         "code": 1,
-#         "msg": "保存成功"
-#     }
-#
-#
-# def edit_req(data):
-#     case_id = data['case_id']
-#     input_data = data['input_data']
-#     depnd_api_id = data['depnd_api_id']
-#     Case.objects.all().filter(case_id=case_id).update(input_data=input_data, is_set=1, depnd_api_id=depnd_api_id)
-#     return {
-#         "code": 1,
-#         "msg": "保存成功"
-#     }
-#
-#
-# def edit_resp(data):
-#     case_id = data['case_id']
-#     exp_data = data['exp_data']
-#     case_schema = data['case_schema']
-#     check_type = data['check_type']
-#     Case.objects.all().filter(case_id=case_id).update(exp_data=exp_data, check_type=check_type,case_schema=case_schema)
-#     return {
-#         "code": 1,
-#         "msg": "保存成功"
-#     }
-#
-
 def del_case(data):
     case_id = data['case_id']
     Case.objects.all().get(case_id=case_id).delete()
-    CaseSuite.objects.all().filter(case_id=case_id,case_type=1).delete()
+    CaseSuite.objects.all().filter(case_id=case_id).delete()
     return {
         "code": 1,
         "msg": "删除成功"
@@ -167,28 +121,29 @@ def del_case(data):
 
 
 def run_case(data):
-    case_id = data['case_id']
-    case_type = data['case_type']
-    env_id = data["env_id"]
-    var_map = casetool.get_env_var_map(env_id)
-    if case_type == 1:
-        c = MCase(case_id, var_map, 0)
-    else:
-        c = RcdCase(case_id, var_map, 0)
-    c.run()
-    c.check_schema()
-    c.check_result()
-    return {
-        "code": 1,
-        "msg": "删除成功",
-        "data": {
-            "status_code":c.resp["status_code"],
-            "response_body":c.resp["response_data"]["body"],
-            "schema_check":c.schema_result,
-            "schema":c.schema,
-            "exp_data":c.exp_data,
-            "body_check":c.body_result,
-            "request_body":c.param,
-            "url":c.url
-        }
-    }
+    pass
+#     case_id = data['case_id']
+#     case_type = data['case_type']
+#     env_id = data["env_id"]
+#     var_map = casetool.get_env_var_map(env_id)
+#     if case_type == 1:
+#         c = MCase(case_id, var_map, 0)
+#     else:
+#         c = RcdCase(case_id, var_map, 0)
+#     c.run()
+#     c.check_schema()
+#     c.check_result()
+#     return {
+#         "code": 1,
+#         "msg": "删除成功",
+#         "data": {
+#             "status_code":c.resp["status_code"],
+#             "response_body":c.resp["response_data"]["body"],
+#             "schema_check":c.schema_result,
+#             "schema":c.schema,
+#             "exp_data":c.exp_data,
+#             "body_check":c.body_result,
+#             "request_body":c.param,
+#             "url":c.url
+#         }
+#     }

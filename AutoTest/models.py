@@ -62,9 +62,8 @@ class Api(models.Model):
     api_protocol = models.CharField(max_length=10, null=True)
     api_method = models.CharField(max_length=10, null=True)
     api_url = models.CharField(max_length=50, null=True)
-    api_type = models.CharField(max_length=20, null=True)
+    param_type = models.CharField(max_length=20, null=True)
     api_desc = models.TextField(null=True)
-    api_param = models.TextField(null=True)
 
 
 class Case(models.Model):
@@ -72,16 +71,20 @@ class Case(models.Model):
     项目用例表
     """
     case_id = models.AutoField(primary_key=True)
-    case_name = models.CharField(max_length=20, null=True)
+    case_name = models.TextField(null=True)
+    case_desc = models.TextField(null=True)
     pro_id = models.IntegerField(null=True)
     api_id = models.IntegerField(null=True)
-    module_id = models.IntegerField(null=True)
-    input_data = models.TextField(null=True)
-    exp_data = models.TextField(null=True)
-    check_type = models.IntegerField(null=True)
-    case_desc = models.TextField(null=True)
-    is_set = models.IntegerField(null=True)
     depnd_api_id = models.IntegerField(null=True)
+    case_protocol = models.CharField(max_length=5, null=True)
+    case_url = models.TextField(null=True)
+    case_method = models.TextField(null=True)
+    input_data = models.TextField(null=True)
+    exp_status = models.IntegerField(null=True)
+    exp_resp_header = models.TextField(null=True)
+    exp_data = models.TextField(null=True)
+    check_id = models.IntegerField(null=True)
+    param_type = models.CharField(max_length=20, null=True)
     case_schema = models.TextField(null=True)
 
 
@@ -104,7 +107,6 @@ class CaseSuite(models.Model):
     suite_id = models.IntegerField(null=True)
     case_id = models.IntegerField(null=True)
     api_id = models.IntegerField(null=True)
-    case_type = models.IntegerField(null=True)
 
 
 class Result(models.Model):

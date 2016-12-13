@@ -12,8 +12,8 @@ class ReqResp:
     url = ""
     param = ""
     exp_data = ""
-    api_method = ""
-    api_protocol = ""
+    method = ""
+    protocol = ""
     resp = {}
     depnd_api_id = 0
     resp_type = ""
@@ -37,7 +37,7 @@ class ReqResp:
         self.param = self.param.replace("\'", "\"")
 
     def sendRequest(self):
-        if self.api_method.lower() == "post":
+        if self.method.lower() == "post":
             if "headers" in self.var_map.keys():
                 headers = json.loads(self.var_map["headers"])
                 re = requests.post(self.url, data=self.param, headers=headers)
@@ -50,7 +50,7 @@ class ReqResp:
                     "body": re.json()
                 }
             }
-        if self.api_method.lower() == "get":
+        if self.method.lower() == "get":
             if "headers" in self.var_map.keys():
                 headers = json.loads(self.var_map["headers"])
                 self.param = json.loads(self.param)

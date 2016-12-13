@@ -13,13 +13,13 @@ class Interface(ReqResp):
         self.depnd_api = DepndApi.objects.all().get(depnd_api_id=self.depnd_api_id)
         self.url = self.depnd_api.depnd_api_url
         self.param = self.depnd_api.depnd_api_param
-        self.api_protocol = self.depnd_api.depnd_api_protocol
+        self.protocol = self.depnd_api.depnd_api_protocol
         self.depnd_api_id = self.depnd_api.depnd_id
-        self.api_method = self.depnd_api.depnd_api_method
+        self.method = self.depnd_api.depnd_api_method
         self.var_map = var_map
         self.handle_depnd_param()
         self.pro_id = self.depnd_api.pro_id
-        self.url = self.api_protocol + "://" + self.url
+        self.url = self.protocol + "://" + self.url
 
     def handle_depnd_param(self):
         while "$." in self.param:
