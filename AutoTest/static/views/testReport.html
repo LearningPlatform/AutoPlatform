@@ -103,12 +103,12 @@
                         <th class="wid4">接口名称</th>
                         <th class="wid4">用例名称</th>
                         <th class="wid4">请求方法</th>
-                        <th class="wid4">场景</th>
                         <th class="wid4">验证器</th>
                         <th class="wid4">结果</th>
                     </tr>
-                    <tr ng-repeat="res in allResult" ng-style="styleList[$index]" ng-mouseenter="tableGray($index)" ng-mouseleave="tableWhite($index)">
-                        <td ng-show="reportDetal[$index]" colspan="7">
+                    <tr ng-repeat="res in allResult">
+                        <!--ng-style="styleList[$index]" ng-mouseenter="tableGray($index)" ng-mouseleave="tableWhite($index)"-->
+                        <td ng-show="reportDetal[$index]" colspan="6">
                             <table class="col-xs-12">
                                 <tr>
                                     <td class="wid3">
@@ -117,7 +117,6 @@
                                     <td class="wid4" ng-bind="res.api_name"></td>
                                     <td class="wid4" ng-bind="res.case_name"></td>
                                     <td class="wid4" ng-bind="res.api_method"></td>
-                                    <td class="wid4">434</td>
                                     <td class="wid4">4343</td>
                                     <td class="wid4">
                                         <button type="button" class="btn btn-success" ng-show="res.is_pass==1">
@@ -132,34 +131,42 @@
                             <div class="container">
                                 <table class="table">
                                     <thead>
-                                    <tr>
-                                        <td class="wid1">URL</td>
-                                        <td ng-bind="res.input_data.url"></td>
-                                    </tr>
+                                        <tr>
+                                            <td>请求信息</td>
+                                        </tr>
                                     </thead>
                                     <tr>
-                                        <td class="wid1">body参数</td>
-                                        <td ng-bind="res.input_data.body"></td>
+                                        <td class="detailTable1">URL</td>
+                                        <td class="detailTable2" ng-bind="res.input_data.url"></td>
                                     </tr>
                                     <tr>
-                                        <td class="wid1">状态码</td>
-                                        <td ng-bind="res.out_data.status_code"></td>
+                                        <td class="detailTable1">body参数</td>
+                                        <td class="detailTable2" ng-bind="res.input_data.body"></td>
+                                    </tr>
+                                    <thead>
+                                        <tr>
+                                            <td>响应信息</td>
+                                        </tr>
+                                    </thead>
+                                    <tr>
+                                        <td class="detailTable1">状态码</td>
+                                        <td class="detailTable2" ng-bind="res.out_data.status_code"></td>
                                     </tr>
                                     <tr>
-                                        <td class="wid1">body</td>
-                                        <td ng-show="res.body_check==1">pass
+                                        <td class="detailTable1">body</td>
+                                        <td class="detailTable2" ng-show="res.body_check==1">pass
                                             <btn class="btn-info" ng-click="getResult1(res)">实际结果</btn>
                                         </td>
-                                        <td ng-show="res.body_check==0">fail
+                                        <td class="detailTable2" ng-show="res.body_check==0">fail
                                             <btn class="btn-info" ng-click="getResult1(res)">实际结果</btn>
                                         </td>
                                     </tr>
                                     <tr>
-                                        <td class="wid1">schema</td>
-                                        <td ng-show="res.schema_check==1">pass
+                                        <td class="detailTable1">schema</td>
+                                        <td class="detailTable2" ng-show="res.schema_check==1">pass
                                             <btn class="btn-info" ng-click="getResult2(res)">实际结果</btn>
                                         </td>
-                                        <td ng-show="res.schema_check==0">fail
+                                        <td class="detailTable2" ng-show="res.schema_check==0">fail
                                             <btn class="btn-info" ng-click="getResult2(res)">实际结果</btn>
                                         </td>
                                     </tr>
@@ -208,7 +215,6 @@
                         <td  ng-show="!reportDetal[$index]" ng-bind="res.api_name"></td>
                         <td  ng-show="!reportDetal[$index]" ng-bind="res.case_name"></td>
                         <td  ng-show="!reportDetal[$index]" ng-bind="res.api_method"></td>
-                        <td ng-show="!reportDetal[$index]"></td>
                         <td ng-show="!reportDetal[$index]"></td>
                         <td ng-show="!reportDetal[$index]">
                             <button type="button" class="btn btn-success" ng-show="res.is_pass==1">

@@ -1,4 +1,4 @@
-myApp.controller('taskCtrl',function($scope,$http,$cookieStore,$timeout,$filter) {
+myApp.controller('taskCtrl',function($scope,$http,$cookieStore,$timeout,$filter,$rootScope) {
     var pro_id = $cookieStore.get("currProID");
     $scope.planList="";
     $scope.plan={
@@ -34,8 +34,27 @@ myApp.controller('taskCtrl',function($scope,$http,$cookieStore,$timeout,$filter)
                 alert(response1.msg);
             }
         });
+         if($rootScope.planSelect==1){
+             $scope.selectList=["disactive","active","disactive"];
+             $scope.showSelect(1);
+             $scope.getTaskDetail($rootScope.planId);
+        }else{
+             $scope.selectList=["active","disactive","disactive"];
+             $scope.showSelect(0);
+         }
+    })
+
+    var prentedIndex=0;
+    $scope.showSelect=function(index){
+        prentedIndex=index;
+        $scope.showDetail=false;
+        for(var i=0;i<$scope.selectList.length;i++){
+            $scope.selectList[i]="disactive";
+        }
+        $scope.selectList[index]="active";
         $http.post("project/plan/list",{
-            "pro_id":pro_id
+            "pro_id":pro_id,
+            "status":index
         }).success(function(response1){
             if(response1.code==1){
                 $scope.planList=response1.data;
@@ -43,10 +62,9 @@ myApp.controller('taskCtrl',function($scope,$http,$cookieStore,$timeout,$filter)
                 alert(response1.msg)
             }
         })
-    })
+    }
 
     $scope.addPlan=function(){
-        console.log(1)
         $scope.plan="";
         $scope.selected1=0;
         $scope.selected2=0;
@@ -56,34 +74,38 @@ myApp.controller('taskCtrl',function($scope,$http,$cookieStore,$timeout,$filter)
     }
 
     $scope.saveTask=function(inteval,envId,suiteId,typeId) {
-        $scope.plan.start_time=$scope.plan.start_time+':00';
-        $scope.plan.end_time=$scope.plan.end_time+':00';
-        if($scope.plan.plan_id==undefined){
-            if(typeId==2){
-                $scope.plan.end_time=$scope.plan.start_time;
-                $scope.plan.plan_interval=0;
-            }else{
-                $scope.plan.plan_interval=parseInt($scope.plan.plan_interval);
-                switch(inteval){
-                    case "秒":
-                        break;
-                    case "分":
-                        $scope.plan.plan_interval=$scope.plan.plan_interval*60;
-                        break;
-                    case "时":
-                        $scope.plan.plan_interval=$scope.plan.plan_interval*3600;
-                        break;
-                    case "日":
-                        $scope.plan.plan_interval=$scope.plan.plan_interval*3600*24;
-                        break;
-                    case "周":
-                        $scope.plan.plan_interval=$scope.plan.plan_interval*3600*24*7;
-                        break;
-                    case "月":
-                        $scope.plan.plan_interval=$scope.plan.plan_interval*3600*24*30;
-                        break;
-                }
+        if(typeId==2){
+            $scope.plan.end_time=$scope.plan.start_time;
+            $scope.plan.plan_interval=0;
+        }else{
+            $scope.plan.plan_interval=parseInt($scope.plan.plan_interval);
+            switch(inteval){
+                case "秒":
+                    break;
+                case "分":
+                    $scope.plan.plan_interval=$scope.plan.plan_interval*60;
+                    break;
+                case "时":
+                    $scope.plan.plan_interval=$scope.plan.plan_interval*3600;
+                    break;
+                case "日":
+                    $scope.plan.plan_interval=$scope.plan.plan_interval*3600*24;
+                    break;
+                case "周":
+                    $scope.plan.plan_interval=$scope.plan.plan_interval*3600*24*7;
+                    break;
+                case "月":
+                    $scope.plan.plan_interval=$scope.plan.plan_interval*3600*24*30;
+                    break;
             }
+        }
+        if($scope.plan.start_time.split(':').length==2){
+            $scope.plan.start_time=$scope.plan.start_time+':00';
+        }
+        if($scope.plan.end_time.split(':').length==2){
+            $scope.plan.end_time=$scope.plan.end_time+':00';
+        }
+        if($scope.plan.plan_id==undefined){
             $http.post("project/plan/create",{
                 "pro_id":pro_id,
                 "suite_id":suiteId,
@@ -97,7 +119,8 @@ myApp.controller('taskCtrl',function($scope,$http,$cookieStore,$timeout,$filter)
                 if(response.code==1){
                     $("#addPlanModal").modal('hide');
                     $http.post("project/plan/list",{
-                        "pro_id":pro_id
+                        "pro_id":pro_id,
+                        "status":prentedIndex
                     }).success(function(response1){
                         if(response1.code==1){
                             $scope.planList=response1.data;
@@ -110,31 +133,6 @@ myApp.controller('taskCtrl',function($scope,$http,$cookieStore,$timeout,$filter)
                 }
             })
         }else{
-            if(typeId==2){
-                $scope.plan.end_time=$scope.plan.start_time;
-                $scope.plan.plan_interval=0;
-            }else{
-                $scope.plan.plan_interval=parseInt($scope.plan.plan_interval);
-                switch(inteval){
-                    case "秒":
-                        break;
-                    case "分":
-                        $scope.plan.plan_interval=$scope.plan.plan_interval*60;
-                        break;
-                    case "时":
-                        $scope.plan.plan_interval=$scope.plan.plan_interval*3600;
-                        break;
-                    case "日":
-                        $scope.plan.plan_interval=$scope.plan.plan_interval*3600*24;
-                        break;
-                    case "周":
-                        $scope.plan.plan_interval=$scope.plan.plan_interval*3600*24*7;
-                        break;
-                    case "月":
-                        $scope.plan.plan_interval=$scope.plan.plan_interval*3600*24*30;
-                        break;
-                }
-            }
             $http.post("project/plan/edit",{
                 "plan_id":$scope.plan.plan_id,
                 "plan_name":$scope.plan.plan_name,
@@ -146,7 +144,8 @@ myApp.controller('taskCtrl',function($scope,$http,$cookieStore,$timeout,$filter)
                 if(response.code==1){
                     $("#editPlanModal").modal('hide');
                     $http.post("project/plan/list",{
-                        "pro_id":pro_id
+                        "pro_id":pro_id,
+                        "status":prentedIndex
                     }).success(function(response1){
                         if(response1.code==1){
                             $scope.planList=response1.data;
@@ -210,8 +209,8 @@ myApp.controller('taskCtrl',function($scope,$http,$cookieStore,$timeout,$filter)
                 $scope.selected1=$scope.plan.env_id;
                 $scope.selected2=$scope.plan.suite_id;
                 $scope.selected3=$scope.plan.plan_type;
-                $scope.plan.start_time=$filter('date')($scope.plan.start_time*1000, 'yyyy-mm-dd hh:mm:ss');
-                $scope.plan.end_time=$filter('date')($scope.plan.end_time*1000, 'yyyy-mm-dd hh:mm:ss')
+                $scope.plan.start_time=$filter('date')($scope.plan.start_time*1000, 'yyyy-MM-dd hh:mm:ss');
+                $scope.plan.end_time=$filter('date')($scope.plan.end_time*1000, 'yyyy-MM-dd hh:mm:ss')
                 if($scope.plan.plan_interval>3600*24*30){
                     $scope.plan.plan_interval=$scope.plan.plan_interval/3600*24*30;
                     $scope.inteval="月";

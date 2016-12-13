@@ -1,10 +1,22 @@
-myApp.controller('homepageCtrl', function ($scope, $http, $cookieStore, $timeout) {
+myApp.controller('homepageCtrl', function ($scope, $http, $cookieStore, $timeout,$location,$rootScope) {
     var pro_id = $cookieStore.get("currProID");
     $scope.resultList = new Array()
     $scope.data = [[], [], []]
     $scope.labels = new Array()
 
+    $scope.planList="";
     $timeout(function () {
+        $http.post("project/plan/list",{
+            "pro_id":pro_id,
+            "status":1
+        }).success(function(response){
+            if(response.code==1){
+                $scope.planList=response.data;
+                console.log($scope.planList)
+            }else{
+                alert(response.msg)
+            }
+        })
         $http.post('project/result/list', {
             "pro_id": pro_id
         }).success(function (response1) {
@@ -42,6 +54,14 @@ myApp.controller('homepageCtrl', function ($scope, $http, $cookieStore, $timeout
         borderWidth: 3,
         type: 'line'
       }];
+
+    $scope.gotoPlan=function(id){
+        $rootScope.planId=id;
+        $rootScope.planSelect=1;
+        $rootScope.active(7);
+        $location.url("/project/task");
+
+    }
 
 })
 

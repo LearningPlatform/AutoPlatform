@@ -100,7 +100,7 @@ myApp.controller('testReportCtrl', function ($scope, $http, $cookieStore, $timeo
                 $scope.resultStr = "";
                 for (var i = 0; i < $scope.allResult.length - 1; i++) {
                     $scope.reportDetal[i] = false;
-                     $scope.styleList.push($scope.tableStyle);
+                     //$scope.styleList.push($scope.tableStyle);
                 }
             } else {
                 alert(response.msg)
@@ -180,6 +180,7 @@ myApp.controller('testReportCtrl', function ($scope, $http, $cookieStore, $timeo
         $scope.res=obj;
     }
 
+    /*
     $scope.styleList=[];
     $scope.tableStyle = {
         "background-color": "white",
@@ -198,7 +199,7 @@ myApp.controller('testReportCtrl', function ($scope, $http, $cookieStore, $timeo
 
     $scope.tableWhite = function (index) {
         $scope.styleList[index]=$scope.tableStyle;
-    }
+    }*/
 
     $('.form_date').datetimepicker({
         format: 'yyyy-mm-dd',

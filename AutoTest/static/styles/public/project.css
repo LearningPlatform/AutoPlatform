@@ -120,7 +120,7 @@ a:active {text-decoration:none ;color: #3c3c3c}
 }
 
 .wid4{
-    width:15%;
+    width:18%;
     text-align: left;
     color:#3c3c3c;
     padding-bottom: 8px;
@@ -128,6 +128,20 @@ a:active {text-decoration:none ;color: #3c3c3c}
 
 .wid5{
     width:100%;
+}
+
+.detailTable1{
+     width:15%;
+    text-align:right;
+    border: 1px #aaaaaa solid;
+    background-color: #c9dde1;
+}
+
+
+.detailTable2{
+    width:80%;
+    text-align:left;
+    border: 1px #aaaaaa solid;
 }
 
 .design th{
