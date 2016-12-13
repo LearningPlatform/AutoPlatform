@@ -130,7 +130,6 @@ class ResultDetail(models.Model):
     result_detail_id = models.AutoField(primary_key=True)
     result_id = models.IntegerField(null=True)
     case_id = models.IntegerField(null=True)
-    case_type = models.IntegerField(null=True)
     api_id = models.IntegerField(null=True)
     input_data = models.TextField(null=True)
     out_data = models.TextField(null=True)
