@@ -1,4 +1,4 @@
-from ...models import Api, Suite, CaseSuite, Case, RecordCase
+from ...models import Api, Suite, CaseSuite, Case
 from ..tools import jsontool, dbtool
 
 
@@ -94,14 +94,6 @@ def get_api_case_list(data):
         a["case_type"] = 1
         a["suite_list"] = suite_list
         body.append(a)
-    test2 = RecordCase.objects.all().filter(api_id=api_id)
-    for b in test2:
-        b = jsontool.class_to_dict(b)
-        del (b['_state'])
-        suite_list = list(CaseSuite.objects.all().filter(case_type=2,case_id=b["case_id"]).values_list("suite_id", flat=True))
-        b["case_type"] = 2
-        b["suite_list"] = suite_list
-        body.append(b)
     return {
         "code": 1,
         "msg": "获取成功",
