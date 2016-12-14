@@ -1,7 +1,5 @@
 from ...models import CaseSuite, Result
-#from ..case.mcase import MCase
-from ..case.case1 import CaseEntity
-#from ..case.rcdcase import RcdCase
+from ..case.case import CaseEntity
 from ..tools import jsontool,  casetool
 import time
 
@@ -26,6 +24,8 @@ def get_run_info(data):
         c.run()
         c.check_schema()
         c.check_result()
+        c.check_header()
+        c.check_status()
         c.set_is_pass()
         c.save_result()
         if c.get_is_pass() == 1:
@@ -50,14 +50,4 @@ def get_run_info(data):
 def get_run_case_id_list(suite_id):
     case_list = list(CaseSuite.objects.all().filter(suite_id=suite_id).values_list("case_id", flat=True))
     return case_list
-# def get_run_case_id_list(suite_id):
-#     case_list_json = []
-#     case_ob_list = CaseSuite.objects.all().filter(suite_id=suite_id)
-#     for case_ob in case_ob_list:
-#         case_json = {
-#             "case_id":case_ob.case_id,
-#             "case_type":case_ob.case_type
-#         }
-#         case_list_json.append(case_json)
-#     return case_list_json
 
