@@ -60,9 +60,8 @@ def get_case_detail(data):
         del (depnt_api['_state'])
         data_case["depnt_api"] = depnt_api
     data_case["api"] = data_api
-    data_case["case_type"] = 1
     del (data_case['_state'])
-    suite_list = list(CaseSuite.objects.all().filter(case_id=case_id,case_type=1).values_list("suite_id", flat=True))
+    suite_list = list(CaseSuite.objects.all().filter(case_id=case_id).values_list("suite_id", flat=True))
     data_case["suite_list"] = suite_list
     return {
         "code": 1,
