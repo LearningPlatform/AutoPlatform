@@ -204,6 +204,16 @@
                                                 </table>
                                             </div>-->
                                             <div class="col-md-12" ng-show="showParamId==2">
+                                                <div class="row form-group">
+                                                    <form class="col-md-4 bs-example bs-example-form">
+                                                        <div class="input-group">
+                                                            <span class="input-group-addon">依赖接口</span>
+                                                            <select class="form-control" ng-model="selected2"
+                                                                    ng-options="apiDep.depnd_api_id as apiDep.depnd_api_name for apiDep in apiDepList">
+                                                            </select>
+                                                        </div>
+                                                    </form>
+                                                </div>
                                                 <div class="panel-body  col-md-12">
                                                     <form role="form">
                                                         <div class="form-group">
@@ -214,36 +224,36 @@
                                                     </form>
                                                 </div>
                                             </div>
+                                            <div class="btn-group  col-sm-offset-11">
+                                                <button  class="btn btn-primary" ng-click="saveEditCase(case,case.api_id,selected2,case.check_id)">
+                                                    保存
+                                                </button>
+                                                <button class="btn btn-success" ng-click="runCase(case)">运行</button>
+                                            </div>
                                         </div>
                                         <div class="col-md-12" ng-show="showSelectId==2">
-                                            <!--<div class="row form-group">
-
-                                                <form class="col-md-2 col-md-offset-1 bs-example bs-example-form">
+                                            <div class="row form-group">
+                                                <form class="col-md-4 bs-example bs-example-form">
                                                     <div class="input-group">
                                                         <span class="input-group-addon">验证器</span>
-                                                        <select class="form-control" ng-model="case.check"
-                                                                ng-options="check1.check_name for check1 in checkList">
-                                                            <option value="">无</option>
+                                                        <select class="form-control" ng-model="selected3"
+                                                                ng-options="check1.check_id as check1.check_name for check1 in checkList">
                                                         </select>
                                                     </div>
                                                 </form>
-
-
-                                                <form class="col-md-2  bs-example bs-example-form">
+                                                <form class="col-md-4  bs-example bs-example-form">
                                                     <div class="input-group">
-                                                        <span class="input-group-addon">格式</span>
-                                                        <select class="form-control">
-                                                            <option value="">text/xml</option>
-                                                        </select>
+                                                        <span class="input-group-addon">期望响应头</span>
+                                                        <input class="form-control" ng-model="case.exp_header">
                                                     </div>
                                                 </form>
-                                                <form class="col-md-2 bs-example bs-example-form">
+                                                <form class="col-md-4 bs-example bs-example-form">
                                                     <div class="input-group">
                                                         <span class="input-group-addon">状态码</span>
-                                                        <input type="text" class="form-control" placeholder="200">
+                                                        <input type="text" class="form-control" ng-model="case.exp_status">
                                                     </div>
                                                 </form>
-                                            </div>-->
+                                            </div>
                                             <h3>期望的返回值</h3>
                                             <div class="col-md-12">
                                                 <form role="form">
@@ -260,15 +270,14 @@
                                                     </textarea>
                                                 </form>
                                             </div>
+                                            <div class="btn-group  col-sm-offset-11">
+                                                <button  class="btn btn-primary" ng-click="saveEditCase(case,case.api_id,case.depnt_api_id,selected3)">
+                                                    保存
+                                                </button>
+                                                <button class="btn btn-success" ng-click="runCase(case)">运行</button>
+                                            </div>
                                         </div>
-                                        <div class="btn-group  col-sm-offset-11">
-                                        <button  class="btn btn-primary" ng-click="saveParam2(case)">
-                                            保存
-                                        </button>
-                                        <button class="btn btn-success" ng-click="runCase(case)">运行</button>
                                     </div>
-                                    </div>
-
                                 </div>
                             </div>
                         </div>
@@ -986,6 +995,7 @@
                                 <input type="text" class="form-control" placeholder="请输入用例描述" ng-model="case.case_desc">
                             </div>
                         </div>
+                        <!--
                         <div class="form-group">
                             <label class="col-md-3 control-label">依赖接口：</label>
                             <div class="col-md-8">
@@ -1002,14 +1012,14 @@
                                     <option value="">无</option>
                                 </select>
                             </div>
-                        </div>
+                        </div>-->
                     </form>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-default" data-dismiss="modal">关闭
                     </button>
                     <button type="button" class="btn btn-primary"
-                            ng-click="saveCase(api.api_id,apiDep.depnd_api_id,check1.check_id)">
+                            ng-click="saveCase(api.api_id)">
                         保存
                     </button>
                 </div>
@@ -1066,6 +1076,7 @@
                                 <input type="text" class="form-control" placeholder="请输入用例描述" ng-model="case.case_desc">
                             </div>
                         </div>
+                        <!--
                         <div class="form-group">
                             <label class="col-md-3 control-label">依赖接口：</label>
                             <div class="col-md-8">
@@ -1074,6 +1085,7 @@
                                 </select>
                             </div>
                         </div>
+
                         <div class="form-group">
                             <label class="col-md-3 control-label">校验器：</label>
                             <div class="col-md-8">
@@ -1081,14 +1093,14 @@
                                         ng-options="check1.check_id as check1.check_name for check1 in checkList">
                                 </select>
                             </div>
-                        </div>
+                        </div>-->
                     </form>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-default" data-dismiss="modal">关闭
                     </button>
                     <button type="button" class="btn btn-primary"
-                            ng-click="saveEditCase(case,selected1,selected2,selected3)">
+                            ng-click="saveEditCase(case,selected1,case.depnd_api_id,case.check_id)">
                         保存
                     </button>
                 </div>
@@ -1285,4 +1297,4 @@
             </div>
         </div>
     </div>
-</>
+</div>
