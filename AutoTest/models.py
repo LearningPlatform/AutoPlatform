@@ -81,7 +81,7 @@ class Case(models.Model):
     case_method = models.TextField(null=True)
     input_data = models.TextField(null=True)
     exp_status = models.IntegerField(null=True)
-    exp_resp_header = models.TextField(null=True)
+    exp_header = models.TextField(null=True)
     exp_data = models.TextField(null=True)
     check_id = models.IntegerField(null=True)
     param_type = models.CharField(max_length=20, null=True)
@@ -133,8 +133,9 @@ class ResultDetail(models.Model):
     api_id = models.IntegerField(null=True)
     input_data = models.TextField(null=True)
     out_data = models.TextField(null=True)
-    exp_data = models.TextField(null=True)
     is_pass = models.IntegerField(null=True)
+    status_check = models.IntegerField(null=True)
+    header_check = models.IntegerField(null=True)
     schema_check = models.IntegerField(null=True)
     body_check = models.IntegerField(null=True)
 
@@ -164,28 +165,6 @@ class Functions(models.Model):
     func_name = models.CharField(max_length=30, null=True)
     func_code = models.TextField(null=True)
     func_desc = models.TextField(null=True)
-
-
-class RecordCase(models.Model):
-    """
-    录制的case
-    """
-    case_id = models.AutoField(primary_key=True)
-    pro_id = models.IntegerField(null=True)
-    api_id = models.IntegerField(null=True)
-    module_id = models.IntegerField(null=True)
-    case_protocol = models.CharField(max_length=5, null=True)
-    case_url = models.TextField(null=True)
-    case_method = models.TextField(null=True)
-    case_header = models.TextField(null=True)
-    input_data = models.TextField(null=True)
-    exp_data = models.TextField(null=True)
-    check_type = models.IntegerField(null=True)
-    case_name = models.TextField(null=True)
-    case_desc = models.TextField(null=True)
-    depnd_api_id = models.IntegerField(null=True)
-    resp_type = models.CharField(max_length=20, null=True)
-    case_schema = models.TextField(null=True)
 
 
 class CheckModel(models.Model):
