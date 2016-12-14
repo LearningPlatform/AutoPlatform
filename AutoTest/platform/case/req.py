@@ -11,11 +11,10 @@ class ReqResp:
     var_map = {}
     url = ""
     param = ""
-    exp_data = ""
     method = ""
     protocol = ""
     resp = {}
-    depnd_api_id = 0
+
     resp_type = ""
 
     def __init__(self):
