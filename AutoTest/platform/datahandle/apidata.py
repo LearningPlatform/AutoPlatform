@@ -89,9 +89,8 @@ def get_api_case_list(data):
     test = Case.objects.all().filter(api_id=api_id)
     for a in test:
         a = jsontool.class_to_dict(a)
-        suite_list = list(CaseSuite.objects.all().filter(case_type=1,case_id=a["case_id"]).values_list("suite_id", flat=True))
+        suite_list = list(CaseSuite.objects.all().filter(case_id=a["case_id"]).values_list("suite_id", flat=True))
         del (a['_state'])
-        a["case_type"] = 1
         a["suite_list"] = suite_list
         body.append(a)
     return {
