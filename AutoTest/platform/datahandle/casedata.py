@@ -1,7 +1,8 @@
-# from ..case.mcase import MCase
-# from ..case.rcdcase import RcdCase
+from ..case.case import CaseEntity
 from ...models import Api, Suite, CaseSuite, Case, DepndApi
 from ..tools import jsontool, casetool
+
+import json
 
 
 def get_suite_case_list(data):
@@ -121,29 +122,31 @@ def del_case(data):
 
 
 def run_case(data):
-    pass
-#     case_id = data['case_id']
-#     case_type = data['case_type']
-#     env_id = data["env_id"]
-#     var_map = casetool.get_env_var_map(env_id)
-#     if case_type == 1:
-#         c = MCase(case_id, var_map, 0)
-#     else:
-#         c = RcdCase(case_id, var_map, 0)
-#     c.run()
-#     c.check_schema()
-#     c.check_result()
-#     return {
-#         "code": 1,
-#         "msg": "删除成功",
-#         "data": {
-#             "status_code":c.resp["status_code"],
-#             "response_body":c.resp["response_data"]["body"],
-#             "schema_check":c.schema_result,
-#             "schema":c.schema,
-#             "exp_data":c.exp_data,
-#             "body_check":c.body_result,
-#             "request_body":c.param,
-#             "url":c.url
-#         }
-#     }
+    case_id = data['case_id']
+    env_id = data["env_id"]
+    var_map = casetool.get_env_var_map(env_id)
+    c = CaseEntity(case_id, var_map, 0)
+    c.run()
+    c.check_schema()
+    c.check_result()
+    c.check_status()
+    c.check_header()
+    return {
+        "code": 1,
+        "msg": "删除成功",
+        "data": {
+            "url": c.url,
+            "request_body": str(c.param),
+            "status": c.resp["status_code"],
+            "exp_status": c.exp_status,
+            "status_check": c.status_result,
+            "header": str(dict(c.resp["response_data"]["header"])),
+            "exp_header": c.exp_header,
+            "header_check": c.header_result,
+            "response_body": str(c.resp["response_data"]["body"]),
+            "exp_data": c.exp_data,
+            "body_check": c.body_result,
+            "schema": str(c.schema),
+            "schema_check": c.schema_result
+        }
+    }
