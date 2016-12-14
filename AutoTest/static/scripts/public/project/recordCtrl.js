@@ -4,19 +4,19 @@ myApp.controller('recordCtrl', function ($scope, $http, $cookieStore,$sce,$timeo
         "case_id":"",
         "pro_id":pro_id,
         "api_id":"",
-        "module_id":"",
         "case_url": "",
         "case_method" :"",
         "case_protocol":"",
-        "case_header":"",
+        "exp_header":"",
         "input_data":"",
         "exp_data": "",
-        "check_type":"",
+        "check_id":"",
         "case_name":"",
         "case_desc":"",
         "depnd_api_id":"",
-        "resp_type":"",
-        "suite_list":""
+        "param_type":"",
+        "suite_list":"",
+        "exp_status":""
     }
     $scope.record_info = {
         host: "192.168.36.32",
@@ -242,17 +242,16 @@ myApp.controller('recordCtrl', function ($scope, $http, $cookieStore,$sce,$timeo
         /*if(moduleId==undefined){
             moduleId=0;
         }*/
-        if($scope.rcdCase.resp_type==undefined){
-            $scope.rcdCase.resp_type="json"
+        if($scope.rcdCase.param_type==undefined){
+            $scope.rcdCase.param_type="json"
         }
         $scope.rcdCase.pro_id=pro_id;
         $scope.rcdCase.api_id=apiId;
         //$scope.rcdCase.module_id=moduleId;
         $scope.rcdCase.depnd_api_id=apiDepId;
-        $scope.rcdCase.check_type=checkId;
+        $scope.rcdCase.check_id=checkId;
         $scope.rcdCase.suite_list=suite_list;
         if($scope.rcdCase.case_id==""){
-            console.log("a")
             $http.post('project/case/create',{
                 "pro_id":$scope.rcdCase.pro_id,
                 "api_id":$scope.rcdCase.api_id,
@@ -269,17 +268,16 @@ myApp.controller('recordCtrl', function ($scope, $http, $cookieStore,$sce,$timeo
                 "depnd_api_id":$scope.rcdCase.depnd_api_id,
                 "param_type":$scope.rcdCase.param_type,
                 "suite_list":$scope.rcdCase.suite_list,
-                "": $scope.case.exp_status,
+                "exp_status": $scope.rcdCase.exp_status,
                 "case_schema":$scope.rcdCase.case_schema
             }).success(function(response){
                 if(response.code==1){
-                    console.log(editId+"2")
                     num=$scope.rcdCase.case_url.indexOf('/');
                     $scope.req_data.host=$scope.rcdCase.case_url.slice(0,num-1);
                     $scope.req_data.path=$scope.rcdCase.case_url.slice(num,-1);
                     $scope.req_data.method=$scope.rcdCase.case_method;
                     $scope.req_data.protocol=$scope.rcdCase.case_protocol;
-                    $scope.req_data.reqHeader=$scope.rcdCase.case_header;
+                    $scope.req_data.reqHeader=$scope.rcdCase.exp_header;
                     $scope.req_data.reqBody=$scope.rcdCase.input_data;
                     $scope.req_data.resBody=$scope.rcdCase.exp_data;
                     $scope.rcdCase.case_id=response.data.case_id;
@@ -339,7 +337,7 @@ myApp.controller('recordCtrl', function ($scope, $http, $cookieStore,$sce,$timeo
         $("#runRecord").modal();
     }
 
-    $scope.getRecordResult=function(caseId,caseType,envId){
+    $scope.getRecordResult=function(caseId,envId){
         if(envId==undefined){
             envId=0;
         }
