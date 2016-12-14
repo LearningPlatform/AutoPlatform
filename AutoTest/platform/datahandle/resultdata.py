@@ -1,4 +1,4 @@
-from ...models import Result, ResultDetail, Case, Api, Suite, RecordCase, CheckModel
+from ...models import Result, ResultDetail, Case, Api, Suite, CheckModel
 
 from ..tools import jsontool
 
@@ -56,10 +56,7 @@ def get_result_detail(data):
     a = jsontool.class_to_dict(result_detail)
     a["input_data"] = jsontool.str_to_json(a["input_data"])
     a["out_data"] = jsontool.str_to_json(a["out_data"])
-    if result_detail.case_type == 1:
-        b = jsontool.class_to_dict(Case.objects.all().get(case_id=a["case_id"]))
-    else:
-        b = jsontool.class_to_dict(RecordCase.objects.all().get(case_id=a["case_id"]))
+    b = jsontool.class_to_dict(Case.objects.all().get(case_id=a["case_id"]))
     del (b['input_data'])
     c = jsontool.class_to_dict(Api.objects.all().get(api_id=a["api_id"]))
     var = dict(a, **b)
