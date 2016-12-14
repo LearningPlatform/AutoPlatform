@@ -263,7 +263,7 @@ myApp.controller('recordCtrl', function ($scope, $http, $cookieStore,$sce,$timeo
                 "exp_header":$scope.rcdCase.exp_header,
                 "input_data":$scope.rcdCase.input_data,
                 "exp_data": $scope.rcdCase.exp_data,
-                "check_id":$scexp_statusope.rcdCase.check_id,
+                "check_id":$scope.rcdCase.check_id,
                 "case_name":$scope.rcdCase.case_name,
                 "case_desc":$scope.rcdCase.case_desc,
                 "depnd_api_id":$scope.rcdCase.depnd_api_id,
