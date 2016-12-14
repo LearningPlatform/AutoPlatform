@@ -85,7 +85,10 @@ def create_case(data):
         CaseSuite.objects.create(**case_suite)
     return {
         "code": 1,
-        "msg": "保存成功"
+        "msg": "保存成功",
+        "data":{
+            "case_id": case_id
+        }
     }
 
 
