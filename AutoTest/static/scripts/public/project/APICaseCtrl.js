@@ -77,6 +77,18 @@ myApp.controller('APICaseCtrl',function($scope,$http,$cookieStore,$timeout,$loca
         "check_desc": "",
         "check_code": ""
     }
+    $scope.depnd={
+        "depnd_api_name": "",
+        "depnd_api_protocol": "",
+        "depnd_api_desc": "",
+        "depnd_api_method": "",
+        "depnd_api_type": "",
+        "depnd_api_id": 0,
+        "depnd_api_url": "",
+        "depnd_api_param": "",
+        "pro_id": pro_id,
+        "depnd_id": 0
+    }
 
     $timeout(function(){
         $http.post('project/env/list',{
@@ -654,6 +666,7 @@ myApp.controller('APICaseCtrl',function($scope,$http,$cookieStore,$timeout,$loca
 
     $scope.schema="";
     $scope.active2=function(index,obj){
+        $scope.case=obj;
         for(i=0;i<3;i++){
             $scope.al[i]="disactive";
         }
@@ -673,10 +686,10 @@ myApp.controller('APICaseCtrl',function($scope,$http,$cookieStore,$timeout,$loca
                 $scope.str = $scope.str  +'"'+ $scope.param[$scope.param.length-1] + '" :"undefined"}';
             }
         }*/
-        $scope.str=obj.input_data;
+        /*$scope.str=obj.input_data;
         $scope.exp = obj.exp_data;
         $scope.schema=obj.case_schema;
-        $scope.showParamId=2;
+        $scope.showParamId=2;*/
         //$scope.showParam2();
     }
 
@@ -716,15 +729,19 @@ myApp.controller('APICaseCtrl',function($scope,$http,$cookieStore,$timeout,$loca
                         }
                     })
                 }
-                $http.post("project/dapi/detail", {
-                    "depnd_api_id": $scope.case.depnd_api_id
-                }).success(function (response) {
-                    if (response.code == 1) {
-                        $scope.depnd = response.data;
-                    } else {
-                        alert(response.msg);
-                    }
-                })
+                if(obj.depnd_api_id==0){
+                    $scope.depnd.depnd_api_name="无"
+                }else{
+                    $http.post("project/dapi/detail", {
+                        "depnd_api_id": obj.depnd_api_id
+                    }).success(function (response) {
+                        if (response.code == 1) {
+                            $scope.depnd = response.data;
+                        } else {
+                            alert(response.msg);
+                        }
+                    })
+                }
             }else{
                 alert(response.msg)
             }
@@ -934,6 +951,8 @@ myApp.controller('APICaseCtrl',function($scope,$http,$cookieStore,$timeout,$loca
     }
 
     $scope.saveEditCase=function(obj,apiId,depntId,checkId){
+         console.log(obj.input_data)
+        $scope.case=obj;
         for(var i=0;i<$scope.check.length;i++){
              if($scope.check[i]==true){
                 $scope.suite_list.push(suite_list[i]);
@@ -949,7 +968,7 @@ myApp.controller('APICaseCtrl',function($scope,$http,$cookieStore,$timeout,$loca
             $scope.case.check_id=0;
         }
         $http.post('project/case/edit',{
-            "case_id":obj.case_id,
+            "case_id":$scope.case.case_id,
             "api_id": apiId,
             "pro_id": pro_id,
             "case_desc": $scope.case.case_desc,
@@ -968,11 +987,39 @@ myApp.controller('APICaseCtrl',function($scope,$http,$cookieStore,$timeout,$loca
             "param_type": $scope.case.param_type
         }).success(function(response){
             if(response.code==1) {
+                $scope.selected2=depntId;
+                $scope.selected3=checkId;
                 $http.post('project/api/caseList',{
                     "api_id":apiId
                 }).success(function(response1){
                     $scope.caseList=response1.data;
                 })
+                if(checkId==0){
+                    $scope.check1.check_name="默认";
+                }else{
+                    $http.post("project/check/detail", {
+                        "check_id": checkId
+                    }).success(function (response) {
+                        if (response.code == 1) {
+                            $scope.check1 = response.data;
+                        } else {
+                            alert(response.msg);
+                        }
+                    })
+                }
+                if(depntId==0){
+                    $scope.depnd.depnd_api_name="无"
+                }else{
+                    $http.post("project/dapi/detail", {
+                        "depnd_api_id": depntId
+                    }).success(function (response) {
+                        if (response.code == 1) {
+                            $scope.depnd = response.data;
+                        } else {
+                            alert(response.msg);
+                        }
+                    })
+                }
             }else{
                 alert(response.msg);
             }
