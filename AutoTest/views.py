@@ -1352,7 +1352,6 @@ def case_run(req):
        如：
         {
         "case_id":1,        case_id
-        "case_type":2,      case类型，手动为1，录制为2
         "env_id":4          环境id
         }
        :return:

@@ -135,20 +135,20 @@ def run_case(data):
     c.check_header()
     return {
         "code": 1,
-        "msg": "删除成功",
+        "msg": "运行成功",
         "data": {
             "url": c.url,
-            "request_body": str(c.param),
+            "request_body": c.param,
             "status": c.resp["status_code"],
             "exp_status": c.exp_status,
             "status_check": c.status_result,
-            "header": str(dict(c.resp["response_data"]["header"])),
+            "header": json.dumps(dict(c.resp["response_data"]["header"])),
             "exp_header": c.exp_header,
             "header_check": c.header_result,
-            "response_body": str(c.resp["response_data"]["body"]),
+            "response_body": json.dumps(c.resp["response_data"]["body"]),
             "exp_data": c.exp_data,
             "body_check": c.body_result,
-            "schema": str(c.schema),
+            "schema": json.dumps(c.schema),
             "schema_check": c.schema_result
         }
     }

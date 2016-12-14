@@ -49,7 +49,7 @@ urlpatterns = [
     url(r'project/caseList$', views.case_list, name="获取项目中的case列表"),
     url(r'project/case/detail$', views.case_detail, name="获取case详情"),
     url(r'project/case/create$', views.case_create, name="创建case"),
-    url(r'project/case/edit$', views.case_edit, name="编辑case的基本信息"),
+    url(r'project/case/edit$', views.case_edit, name="编辑case"),
     url(r'project/case/delete$', views.case_del, name="删除case"),
     url(r'project/case/runsingal$', views.case_run, name="运行单个case"),
 
@@ -76,10 +76,6 @@ urlpatterns = [
     url(r'project/func/run$', views.func_run, name="运行方法"),
 
     url(r'project/record/reqdetail$', views.record_anyproxy_req, name="从anyproxy服务器获取录制case的响应信息"),
-    url(r'project/rcd_case/create$', views.rcd_case_create, name="创建录制用例"),
-    url(r'project/rcd_case/edit$', views.rcd_case_edit, name="编辑录制用例"),
-    url(r'project/rcd_case/detail$', views.rcd_case_detail, name="编辑录制用例"),
-    url(r'project/rcd_case/delete$', views.rcd_case_delete, name="删除录制用例"),
 
     url(r'project/check/create$', views.check_create, name="创建方法"),
     url(r'project/check/list$', views.check_list, name="获取方法列表"),
