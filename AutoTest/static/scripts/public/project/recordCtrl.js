@@ -223,13 +223,13 @@ myApp.controller('recordCtrl', function ($scope, $http, $cookieStore,$sce,$timeo
             $scope.rcdCase=$scope.objList[id];
             $scope.selected1=$scope.rcdCase.api_id;
             $scope.selected2=$scope.rcdCase.depnd_api_id;
-            $scope.selected3=$scope.rcdCase.module_id;
+           // $scope.selected3=$scope.rcdCase.module_id;
             $scope.selected4=$scope.rcdCase.check_type;
         }
     }
 
     var num;
-    $scope.saveEditRecord=function(apiId,apiDepId,moduleId,checkId){
+    $scope.saveEditRecord=function(apiId,apiDepId,checkId){
         if(apiId==undefined){
             apiId=0;
         }
@@ -239,36 +239,37 @@ myApp.controller('recordCtrl', function ($scope, $http, $cookieStore,$sce,$timeo
         if(checkId==undefined){
             checkId=0;
         }
-        if(moduleId==undefined){
+        /*if(moduleId==undefined){
             moduleId=0;
-        }
+        }*/
         if($scope.rcdCase.resp_type==undefined){
             $scope.rcdCase.resp_type="json"
         }
         $scope.rcdCase.pro_id=pro_id;
         $scope.rcdCase.api_id=apiId;
-        $scope.rcdCase.module_id=moduleId;
+        //$scope.rcdCase.module_id=moduleId;
         $scope.rcdCase.depnd_api_id=apiDepId;
         $scope.rcdCase.check_type=checkId;
         $scope.rcdCase.suite_list=suite_list;
         if($scope.rcdCase.case_id==""){
             console.log("a")
-            $http.post('project/rcd_case/create',{
+            $http.post('project/case/create',{
                 "pro_id":$scope.rcdCase.pro_id,
                 "api_id":$scope.rcdCase.api_id,
-                "module_id":$scope.rcdCase.module_id,
+                //"module_id":$scope.rcdCase.module_id,
                 "case_url": $scope.rcdCase.case_url,
                 "case_method" :$scope.rcdCase.case_method,
                 "case_protocol":$scope.rcdCase.case_protocol,
-                "case_header":$scope.rcdCase.case_header,
+                "exp_header":$scope.rcdCase.exp_header,
                 "input_data":$scope.rcdCase.input_data,
                 "exp_data": $scope.rcdCase.exp_data,
-                "check_type":$scope.rcdCase.check_type,
+                "check_id":$scexp_statusope.rcdCase.check_id,
                 "case_name":$scope.rcdCase.case_name,
                 "case_desc":$scope.rcdCase.case_desc,
                 "depnd_api_id":$scope.rcdCase.depnd_api_id,
-                "resp_type":$scope.rcdCase.resp_type,
+                "param_type":$scope.rcdCase.param_type,
                 "suite_list":$scope.rcdCase.suite_list,
+                "": $scope.case.exp_status,
                 "case_schema":$scope.rcdCase.case_schema
             }).success(function(response){
                 if(response.code==1){
@@ -292,24 +293,24 @@ myApp.controller('recordCtrl', function ($scope, $http, $cookieStore,$sce,$timeo
                 }
             })
         }else{
-            console.log("b")
-            $http.post('project/rcd_case/edit',{
+            $http.post('project/case/edit',{
                 "case_id":$scope.rcdCase.case_id,
                 "pro_id":$scope.rcdCase.pro_id,
                 "api_id":$scope.rcdCase.api_id,
-                "module_id":$scope.rcdCase.module_id,
+                //"module_id":$scope.rcdCase.module_id,
                 "case_url": $scope.rcdCase.case_url,
                 "case_method" :$scope.rcdCase.case_method,
                 "case_protocol":$scope.rcdCase.case_protocol,
-                "case_header":$scope.rcdCase.case_header,
+                "exp_header":$scope.rcdCase.exp_header,
                 "input_data":$scope.rcdCase.input_data,
                 "exp_data": $scope.rcdCase.exp_data,
-                "check_type":$scope.rcdCase.check_type,
+                "check_id":$scope.rcdCase.check_id,
                 "case_name":$scope.rcdCase.case_name,
                 "case_desc":$scope.rcdCase.case_desc,
                 "depnd_api_id":$scope.rcdCase.depnd_api_id,
-                "resp_type":$scope.rcdCase.resp_type,
+                "param_type":$scope.rcdCase.param_type,
                 "suite_list":$scope.rcdCase.suite_list,
+                "exp_status": $scope.case.exp_status,
                 "case_schema":$scope.rcdCase.case_schema
             }).success(function(response){
                 if(response.code==1){
@@ -345,7 +346,6 @@ myApp.controller('recordCtrl', function ($scope, $http, $cookieStore,$sce,$timeo
         $("#runRecord").modal("hide");
         $http.post("project/case/runsingal",{
             "case_id":caseId,
-            "case_type":2,
             "env_id":envId
         }).success(function(response){
             if(response.code==1){
