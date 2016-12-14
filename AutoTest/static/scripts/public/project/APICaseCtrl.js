@@ -569,15 +569,12 @@ myApp.controller('APICaseCtrl',function($scope,$http,$cookieStore,$timeout,$loca
         }
     }
 
-    $scope.saveCase=function(apiId,apiDepId,checkId){
+    $scope.saveCase=function(apiId,apiDepId){
         if(apiId==undefined){
             apiId=0;
         }
         if(apiDepId==undefined){
             apiDepId=0;
-        }
-        if(checkId==undefined){
-            checkId=0;
         }
         $scope.case.depnd_api_id=apiDepId;
         $scope.case.api_id=apiId;
@@ -626,7 +623,7 @@ myApp.controller('APICaseCtrl',function($scope,$http,$cookieStore,$timeout,$loca
             "case_name": $scope.case.case_name,
             "suite_list":$scope.suite_list,
             "depnd_api_id":$scope.case.depnd_api_id,
-            "check_id": checkId,
+            "check_id": 0,
             "input_data": $scope.case.input_data,
             "exp_data": $scope.case.exp_data,
             "case_schema": $scope.case.case_schema,
@@ -690,6 +687,8 @@ myApp.controller('APICaseCtrl',function($scope,$http,$cookieStore,$timeout,$loca
         $scope.str="";
         $scope.al=["active","disactive","disactive"];
         $scope.showSelectId=0;
+        $scope.selected2=obj.depnd_api_id;
+        $scope.selected3=obj.check_id;
         $http.post("project/case/detail", {
             "case_id": obj.case_id
         }).success(function (response) {
@@ -914,11 +913,9 @@ myApp.controller('APICaseCtrl',function($scope,$http,$cookieStore,$timeout,$loca
     var suiteIndex=0;
     $scope.editCase = function (obj) {
         $scope.case=obj;
+        $scope.selected1=$scope.case.api_id;
         $scope.suite_list=[];
         $("#EditCase").modal();
-        $scope.selected1=$scope.case.api_id;
-        $scope.selected2=$scope.case.depnd_api_id;
-        $scope.selected3=$scope.case.check_id;
         if($scope.selected3==0){
             $scope.selected3="无"
         }
@@ -950,9 +947,6 @@ myApp.controller('APICaseCtrl',function($scope,$http,$cookieStore,$timeout,$loca
         }
         if($scope.case.check_id==null){
             $scope.case.check_id=0;
-        }
-        if($scope.case.depnt_api==null){
-            $scope.case.depnt_api={depnt_api_name:"",depnt_api_id:0};
         }
         $http.post('project/case/edit',{
             "case_id":obj.case_id,
