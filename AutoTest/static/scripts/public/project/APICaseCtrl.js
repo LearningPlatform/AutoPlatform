@@ -1097,7 +1097,22 @@ myApp.controller('APICaseCtrl',function($scope,$http,$cookieStore,$timeout,$loca
         $("#runCase").modal();
     }
 
-    $scope.caseResult="";
+    $scope.caseResult={
+        "request_body": "",
+        "schema_check": 0,
+        "header": "",
+        "response_body": "",
+        "header_check": 0,
+        "schema": "",
+        "url": "",
+        "exp_data": "",
+        "body_check": 0,
+        "status": 200,
+        "exp_status": 0,
+        "exp_header": "",
+        "status_check": 0,
+        "schema_msg":""
+    };
     $scope.getCaseResult=function(caseId,envId){
         $("#runCase").modal("hide");
         $http.post("project/case/runsingal",{
@@ -1105,6 +1120,7 @@ myApp.controller('APICaseCtrl',function($scope,$http,$cookieStore,$timeout,$loca
             "env_id":envId
         }).success(function(response){
             if(response.code==1){
+                $("#caseResult").modal();
                 $scope.caseResult=response.data;
                // $scope.caseResult.schema=JSON.stringify($scope.caseResult.schema);
                 //$scope.caseResult.response_body=JSON.stringify($scope.caseResult.response_body);
@@ -1118,7 +1134,20 @@ myApp.controller('APICaseCtrl',function($scope,$http,$cookieStore,$timeout,$loca
                 }else{
                     $scope.caseResult.body_check="失败";
                 }
-                $("#caseResult").modal();
+                if($scope.caseResult.status_check==0){
+                    $scope.caseResult.status_check="未通过";
+                }else if($scope.caseResult.status_check==1){
+                    $scope.caseResult.status_check="通过";
+                }else{
+                    $scope.caseResult.status_check="未校验";
+                }
+                if($scope.caseResult.header_check==0){
+                    $scope.caseResult.header_check="未通过";
+                }else if($scope.caseResult.header_check==1){
+                    $scope.caseResult.header_check="通过";
+                }else{
+                    $scope.caseResult.header_check="未校验";
+                }
             }else{
                 alert(response.msg)
             }
