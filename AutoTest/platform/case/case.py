@@ -4,10 +4,18 @@ from .req import ReqResp
 from ..tools import strtool, functool
 
 import json
-from jsonschema import Draft4Validator
+from jsonschema import validate, ValidationError, SchemaError, FormatError
 
 
 class CaseEntity(ReqResp):
+    # TODO:
+    """
+    1.增加notRun字段
+    2.增加异常处理
+    3.增加schema校验错误信息
+    4.优化字段的替换函数
+    5.优化函数运行结果
+    """
 
     result_id = 0
     result_detail = object
@@ -24,6 +32,7 @@ class CaseEntity(ReqResp):
     body_result = 2
     schema = {}
     schema_result = 2
+    schema_msg = ""
 
     def __init__(self, case_id, var_map, result_id):
         ReqResp.__init__(self)
@@ -66,11 +75,25 @@ class CaseEntity(ReqResp):
 
     def check_schema(self):
         # 0-----未通过，1-----通过，2-----未检验
-        if self.schema != "" and self.schema != None:
+        if self.schema != "":
             self.schema = json.loads(self.schema)
-            self.schema_result = int(Draft4Validator(self.schema).is_valid(self.resp["response_data"]["body"]))
+            try:
+                validate(self.resp["response_data"]["body"], self.schema)
+                self.schema_result = 1
+                self.schema_msg = "校验通过"
+            except ValidationError as e:
+                msg = str(e).split("\nFailed validating")[0]
+                self.schema_msg = "校验失败，失败原因："+str(msg)
+                self.schema_result = 0
+            except SchemaError:
+                self.schema_result = 2
+                self.schema_msg = "校验异常，请检查schema是否正确"
+            except FormatError:
+                self.schema_result = 2
+                self.schema_msg = "校验异常，请检查schema是否正确"
         else:
             self.schema_result = 2
+            self.schema_msg = "未进行schema校验"
 
     def check_result(self):
         if self.check_id == 0:
@@ -103,6 +126,7 @@ class CaseEntity(ReqResp):
         self.result_detail.body_check = self.body_result
         self.result_detail.header_check = self.header_result
         self.result_detail.status_check = self.status_result
+        self.result_detail.schema_msg = self.schema_msg
         self.result_detail.save()
 
     def set_is_pass(self):

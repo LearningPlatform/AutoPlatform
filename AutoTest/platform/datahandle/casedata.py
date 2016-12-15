@@ -149,6 +149,7 @@ def run_case(data):
             "exp_data": c.exp_data,
             "body_check": c.body_result,
             "schema": json.dumps(c.schema),
-            "schema_check": c.schema_result
+            "schema_check": c.schema_result,
+            "schema_msg": c.schema_msg
         }
     }
