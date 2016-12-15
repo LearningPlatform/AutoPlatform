@@ -204,9 +204,9 @@
                         </div>
                     </div>
                     <div class="form-group">
-                        <label class="col-md-3 control-label">请求头：</label>
+                        <label class="col-md-3 control-label">期望响应头：</label>
                         <div class="col-md-8">
-                            <textarea type="text" class="form-control" placeholder="请输入请求头" ng-model="rcdCase.exp_header">
+                            <textarea type="text" class="form-control" placeholder="请输入期望响应头" ng-model="rcdCase.exp_header">
                             </textarea>
                         </div>
                     </div>
@@ -321,57 +321,117 @@
             <div class="modal-body" >
                 <form class="form-horizontal">
                     <div class="form-group">
-                        <label class="col-md-3 control-label">URL：</label>
-                        <div class="col-md-8">
-                            <textarea type="text" class="form-control" rows="3" ng-model="rcdResult.url" style="background-color: white" readonly>
+                        <label class="col-md-2 control-label">URL：</label>
+                        <div class="col-md-9">
+                            <textarea type="text" class="form-control" rows="3" ng-model="rcdResult.url"
+                                      style="background-color: white" readonly>
                             </textarea>
                         </div>
                     </div>
                     <div class="form-group">
-                        <label class="col-md-3 control-label">请求：</label>
-                        <div class="col-md-8">
-                            <textarea type="text" class="form-control" rows="3" ng-model="rcdResult.request_body" style="background-color: white" readonly>
+                        <label class="col-md-2 control-label">响应：</label>
+                        <div class="col-md-9">
+                            <textarea type="text" class="form-control" rows="3" ng-model="rcdResult.request_body"
+                                      style="background-color: white" readonly>
                             </textarea>
                         </div>
                     </div>
                     <div class="form-group">
-                        <label class="col-md-3 control-label">状态码：</label>
-                        <div class="col-md-8">
-                            <input type="text" class="form-control" ng-model="rcdResult.status_code" style="background-color: white" readonly>
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <label class="col-md-3 control-label">schema：</label>
-                        <div class="col-md-8">
-                            <textarea type="text" class="form-control" rows="12" ng-model="rcdResult.schema" style="background-color: white" readonly>
-                            </textarea>
-                        </div>
-                    </div>
-
-                    <div class="form-group">
-                        <label class="col-md-3 control-label">期望输出值：</label>
-                        <div class="col-md-8">
-                            <textarea type="text" class="form-control" rows="3" ng-model="rcdResult.exp_data" style="background-color: white" readonly>
+                        <label class="col-md-2 control-label">schema：</label>
+                        <div class="col-md-9">
+                            <textarea type="text" class="form-control" rows="12" ng-model="rcdResult.schema"
+                                      style="background-color: white" readonly>
                             </textarea>
                         </div>
                     </div>
                     <div class="form-group">
-                        <label class="col-md-3 control-label">响应体：</label>
-                        <div class="col-md-8">
-                            <textarea type="text" class="form-control" rows="8" ng-model="rcdResult.response_body" style="background-color: white" readonly>
+                        <label class="col-md-2 control-label">期望状态码：</label>
+                        <div class="col-md-9">
+                            <input type="text" class="form-control" ng-model="rcdResult.exp_status"
+                                   style="background-color: white" readonly>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-md-2 control-label">状态码：</label>
+                        <div class="col-md-9">
+                            <input type="text" class="form-control" ng-model="rcdResult.status"
+                                   style="background-color: white" readonly>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-md-2 control-label">状态码校验：</label>
+                        <div class="col-md-9">
+                            <input type="text" class="form-control" ng-show="rcdResult.status_check==0"
+                                   style="background-color: white" readonly ng-model="未通过">
+                            <input type="text" class="form-control" ng-show="rcdResult.status_check==1"
+                                   style="background-color: white" readonly ng-model="通过">
+                            <input type="text" class="form-control" ng-show="rcdResult.status_check==2"
+                                   style="background-color: white" readonly ng-model="未校验">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-md-2 control-label">期望输出值：</label>
+                        <div class="col-md-9">
+                            <textarea type="text" class="form-control" rows="3" ng-model="rcdResult.exp_data"
+                                      style="background-color: white" readonly>
                             </textarea>
                         </div>
                     </div>
                     <div class="form-group">
-                        <label class="col-md-3 control-label">schema检验：</label>
-                        <div class="col-md-8">
-                            <input type="text" class="form-control" ng-model="rcdResult.schema_check" style="background-color: white" readonly>
+                        <label class="col-md-2 control-label">期望响应头：</label>
+                        <div class="col-md-9">
+                            <textarea type="text" class="form-control" rows="3" ng-model="rcdResult.exp_header"
+                                      style="background-color: white" readonly>
+                            </textarea>
                         </div>
                     </div>
                     <div class="form-group">
-                        <label class="col-md-3 control-label">响应校验：：</label>
-                        <div class="col-md-8">
-                            <input type="text" class="form-control" ng-model="rcdResult.body_check" style="background-color: white" readonly>
+                        <label class="col-md-2 control-label">响应头：</label>
+                        <div class="col-md-9">
+                            <textarea type="text" class="form-control" rows="3" ng-model="rcdResult.header"
+                                      style="background-color: white" readonly>
+                            </textarea>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-md-2 control-label">响应头检验：</label>
+                        <div class="col-md-9">
+                            <input type="text" class="form-control" ng-show="rcdResult.header_check==0"
+                                   style="background-color: white" readonly ng-model="未通过">
+                            <input type="text" class="form-control" ng-show="rcdResult.header_check==1"
+                                   style="background-color: white" readonly ng-model="通过">
+                            <input type="text" class="form-control" ng-show="rcdResult.header_check==2"
+                                   style="background-color: white" readonly ng-model="未校验">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-md-2 control-label">响应体：</label>
+                        <div class="col-md-9">
+                            <textarea type="text" class="form-control" rows="8" ng-model="rcdResult.response_body"
+                                      style="background-color: white" readonly>
+                            </textarea>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-md-2 control-label">schema检验：</label>
+                        <div class="col-md-9">
+                            <input type="text" class="form-control" ng-model="rcdResult.schema_check"
+                                   style="background-color: white" readonly>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-md-2 control-label">schema检验信息：</label>
+                        <div class="col-md-9">
+                            <textarea type="text" class="form-control" rows="1" ng-model="rcdResult.schema_msg"
+                                      style="background-color: white" readonly ng-hide="caseResult.schema_check==1">
+                            </textarea>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-md-2 control-label">响应校验：</label>
+                        <div class="col-md-9">
+                            <input type="text" class="form-control" ng-model="rcdResult.body_check"
+                                   style="background-color: white" readonly>
                         </div>
                     </div>
                 </form>
