@@ -1106,8 +1106,8 @@ myApp.controller('APICaseCtrl',function($scope,$http,$cookieStore,$timeout,$loca
         }).success(function(response){
             if(response.code==1){
                 $scope.caseResult=response.data;
-                $scope.caseResult.schema=JSON.stringify($scope.caseResult.schema);
-                $scope.caseResult.response_body=JSON.stringify($scope.caseResult.response_body);
+               // $scope.caseResult.schema=JSON.stringify($scope.caseResult.schema);
+                //$scope.caseResult.response_body=JSON.stringify($scope.caseResult.response_body);
                 if($scope.caseResult.schema_check==1){
                     $scope.caseResult.schema_check="通过";
                 }else{
