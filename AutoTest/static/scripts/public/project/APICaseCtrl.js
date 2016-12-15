@@ -47,18 +47,23 @@ myApp.controller('APICaseCtrl',function($scope,$http,$cookieStore,$timeout,$loca
 
     $scope.caseList="";
     $scope.case={
+        "case_id":0,
+        "pro_id": pro_id,
+        "api_id": 0,
+        "case_desc": "",
         "case_name": "",
+        "depnd_api_id": 0,
+        "check_id": 0,
         "input_data": "",
         "exp_data": "",
-        "pro_id": pro_id,
-        "module_id": 0,
-        "case_desc": "",
-        "check_id": 0,
-        "case_id": 1,
-        "api_id": 1,
-        api:{api_name:"",api_id:0},
-        "is_set": 1,
-        "depnt_api":{depnt_api_name:"",depnt_api_id:0}
+        "case_schema": "",
+        "case_protocol": "",
+        "case_url": "",
+        "case_method": "",
+        "exp_status": 200,
+        "exp_resp_header": "",
+        "param_type": "",
+        "suite_list":[]
     }
     $scope.report={
         "report_name": "",
@@ -118,6 +123,10 @@ myApp.controller('APICaseCtrl',function($scope,$http,$cookieStore,$timeout,$loca
         }).success(function(response){
             if(response.code==1){
                 $scope.checkList=response.data;
+                $scope.check1=new Object();
+                $scope.check1.check_desc="默认";
+                $scope.check1.check_id=0;
+                $scope.checkList.unshift($scope.check1);
             }else{
                 alert(response.msg)
             }
@@ -563,13 +572,51 @@ myApp.controller('APICaseCtrl',function($scope,$http,$cookieStore,$timeout,$loca
     $scope.check=[];
 
     $scope.addCase=function(){
-        $scope.case="";
+        $scope.case={
+            "case_id":0,
+            "pro_id": pro_id,
+            "api_id": 0,
+            "case_desc": "",
+            "case_name": "",
+            "depnd_api_id": 0,
+            "check_id": 0,
+            "input_data": "",
+            "exp_data": "",
+            "case_schema": "",
+            "case_protocol": "",
+            "case_url": "",
+            "case_method": "",
+            "exp_status": 200,
+            "exp_resp_header": "",
+            "param_type": "",
+            "suite_list":[]
+        };
+        $scope.selectedApi=0;
         $scope.api="";
         $scope.suite_list = [];
         for(var i=0;i<$scope.suiteList.length;i++){
             $scope.check[i]=false;
         }
         $("#AddCase").modal();
+    }
+
+    $scope.getApi=function(obj,apiId){
+        $scope.case=obj;
+        $http.post("project/api/detail",{
+            "api_id":apiId
+        }).success(function(response){
+            if(response.code==1){
+                $scope.api=response.data;
+                console.log($scope.api)
+                $scope.selectedApi=$scope.api.api_id;
+                $scope.case.case_url=$scope.api.api_url;
+                $scope.case.case_protocol=$scope.api.api_protocol;
+                $scope.case.case_method=$scope.api.api_method;
+                console.log($scope.case)
+            }else{
+                alert(response.msg)
+            }
+        })
     }
 
      var suite_list=[];
@@ -964,9 +1011,9 @@ myApp.controller('APICaseCtrl',function($scope,$http,$cookieStore,$timeout,$loca
         if($scope.case.case_desc==null){
             $scope.case.case_desc="无";
         }
-        if($scope.case.check_id==null){
+       /* if($scope.case.check_id==null){
             $scope.case.check_id=0;
-        }
+        }*/
         $http.post('project/case/edit',{
             "case_id":$scope.case.case_id,
             "api_id": apiId,
@@ -995,7 +1042,7 @@ myApp.controller('APICaseCtrl',function($scope,$http,$cookieStore,$timeout,$loca
                     $scope.caseList=response1.data;
                 })
                 if(checkId==0){
-                    $scope.check1.check_name="默认";
+                    $scope.check1.check_desc="默认";
                 }else{
                     $http.post("project/check/detail", {
                         "check_id": checkId
