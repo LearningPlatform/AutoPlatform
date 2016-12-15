@@ -137,6 +137,7 @@ class ResultDetail(models.Model):
     status_check = models.IntegerField(null=True)
     header_check = models.IntegerField(null=True)
     schema_check = models.IntegerField(null=True)
+    schema_msg = models.TextField(null=True)
     body_check = models.IntegerField(null=True)
 
 
