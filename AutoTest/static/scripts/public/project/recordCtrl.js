@@ -360,6 +360,20 @@ myApp.controller('recordCtrl', function ($scope, $http, $cookieStore,$sce,$timeo
                 }else{
                     $scope.rcdResult.body_check="失败";
                 }
+                if($scope.rcdResult.status_check==0){
+                    $scope.rcdResult.status_check="未通过";
+                }else if($scope.rcdResult.status_check==1){
+                    $scope.rcdResult.status_check="通过";
+                }else{
+                    $scope.rcdResult.status_check="未校验";
+                }
+                if($scope.rcdResult.header_check==0){
+                    $scope.rcdResult.header_check="未通过";
+                }else if($scope.rcdResult.header_check==1){
+                    $scope.rcdResult.header_check="通过";
+                }else{
+                    $scope.rcdResult.header_check="未校验";
+                }
                 $("#recordResult").modal();
             }else{
                 alert(response.msg)
