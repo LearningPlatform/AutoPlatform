@@ -1072,12 +1072,9 @@
                         <div class="form-group">
                             <label class="col-md-2 control-label">状态码校验：</label>
                             <div class="col-md-9">
-                                <input type="text" class="form-control" ng-show="caseResult.status_check==0"
-                                       style="background-color: white" readonly ng-model="未通过">
-                                <input type="text" class="form-control" ng-show="caseResult.status_check==1"
-                                       style="background-color: white" readonly ng-model="通过">
-                                <input type="text" class="form-control" ng-show="caseResult.status_check==2"
-                                       style="background-color: white" readonly ng-model="未校验">
+                                <input type="text" class="form-control" ng-model="caseResult.status_check"
+                                       style="background-color: white" readonly>
+
                             </div>
                         </div>
                         <div class="form-group">
@@ -1107,12 +1104,8 @@
                         <div class="form-group">
                             <label class="col-md-2 control-label">响应头检验：</label>
                             <div class="col-md-9">
-                                <input type="text" class="form-control" ng-show="caseResult.header_check==0"
-                                       style="background-color: white" readonly ng-model="未通过">
-                                <input type="text" class="form-control" ng-show="caseResult.header_check==1"
-                                       style="background-color: white" readonly ng-model="通过">
-                                <input type="text" class="form-control" ng-show="caseResult.header_check==2"
-                                       style="background-color: white" readonly ng-model="未校验">
+                                <input type="text" class="form-control" ng-model="caseResult.header_check"
+                                       style="background-color: white" readonly>
                             </div>
                         </div>
                         <div class="form-group">
@@ -1130,11 +1123,11 @@
                                        style="background-color: white" readonly>
                             </div>
                         </div>
-                        <div class="form-group">
+                        <div class="form-group" ng-hide="caseResult.schema_check==1">
                             <label class="col-md-2 control-label">schema检验信息：</label>
                             <div class="col-md-9">
                                 <textarea type="text" class="form-control" rows="1" ng-model="caseResult.schema_msg"
-                                          style="background-color: white" readonly ng-hide="caseResult.schema_check==1">
+                                          style="background-color: white" readonly>
                                 </textarea>
                             </div>
                         </div>
