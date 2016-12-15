@@ -12,7 +12,7 @@ class CaseEntity(ReqResp):
     """
     1.增加notRun字段
     2.增加异常处理
-    3.增加schema校验错误信息
+    3.增加schema校验错误信息（Done）
     4.优化字段的替换函数
     5.优化函数运行结果
     """
