@@ -116,14 +116,14 @@ a:active {text-decoration:none ;color: #3c3c3c}
     width:10%;
     text-align: left;
     color:#3c3c3c;
-    padding-bottom: 8px;
+    /*padding-bottom: 8px;*/
 }
 
 .wid4{
     width:18%;
     text-align: left;
     color:#3c3c3c;
-    padding-bottom: 8px;
+    /*padding-bottom: 8px;*/
 }
 
 .wid5{
@@ -202,6 +202,10 @@ textarea{
 
 .modalWidth{
     width:80%;
+}
+
+th,tr{
+    height: 39px;
 }
 
 

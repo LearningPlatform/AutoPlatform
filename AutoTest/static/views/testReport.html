@@ -79,21 +79,20 @@
                 结束时间：<span ng-bind="result.end_time*1000|date:'yyyy-MM-dd HH:mm:ss'"></span>
             </span>
             <div class="pull-right marginRight">
-                <button type="button" class="textsize btn btn-lg btn-success">
-                    <span ng-bind="result.pass_num"></span></br>Passed
+                <button ng-disabled="true" type="button" class="textsize btn btn-lg btn-success">
+                    <span ng-bind="result.pass_num"></span></br>通过
                 </button>
-                <button type="button" class="textsize btn btn-lg btn-danger">
-                    <span ng-bind="result.fail_num"></span></br>Failed
+                <button ng-disabled="true" type="button" class="textsize btn btn-lg btn-danger">
+                    <span ng-bind="result.fail_num"></span></br>失败
                 </button>
-                <!--
-                <button type="button" class="textsize btn btn-lg btn-info">
-                    0</br>NotRun
+                <button ng-disabled="true" type="button" class="textsize btn btn-lg btn-info">
+                    0</br>未运行
                 </button>
-                <button type="button" class="textsize btn btn-lg btn-danger">
-                    0</br>ERROR
-                </button>-->
-                <button type="button" class="textsize btn btn-lg btn-info">
-                    <span ng-bind="result.pass_num+result.fail_num"></span></br>Total
+                <button ng-disabled="true" type="button" class="textsize btn btn-lg btn-danger">
+                    0</br>错误
+                </button>
+                <button ng-disabled="true" type="button" class="textsize btn btn-lg btn-info">
+                    <span ng-bind="result.pass_num+result.fail_num"></span></br>合计
                 </button>
             </div>
             <div class="top2 col-md-11">
@@ -119,17 +118,17 @@
                                     <td class="wid4" ng-bind="res.case_method"></td>
                                     <td class="wid4" ng-bind="res.check_desc"></td>
                                     <td class="wid4">
-                                        <button type="button" class="btn btn-success" ng-show="res.is_pass==1">
-                                            PASS
+                                        <button ng-disabled="true" type="button" class="btn btn-success" ng-show="res.is_pass==1">
+                                            通过
                                         </button>
-                                        <button type="button" class="btn btn-danger" ng-show="res.is_pass==0">
-                                            FAILE
+                                        <button ng-disabled="true" type="button" class="btn btn-danger" ng-show="res.is_pass==0">
+                                            失败
                                         </button>
-                                        <button type="button" class="btn btn-danger" ng-show="res.is_pass==2">
-                                            NOTRUN
+                                        <button ng-disabled="true" type="button" class="btn btn-danger" ng-show="res.is_pass==2">
+                                            未运行
                                         </button>
-                                        <button type="button" class="btn btn-danger" ng-show="res.is_pass==3">
-                                            ERROR
+                                        <button ng-disabled="true" type="button" class="btn btn-danger" ng-show="res.is_pass==3">
+                                            错误
                                         </button>
                                     </td>
                                 </tr>
@@ -157,51 +156,58 @@
                                     <tr>
                                         <td class="detailTable1">状态码</td>
                                         <td class="detailTable2" ng-show="res.status_check==null">
-                                            <btn class="btn-info" ng-click="getResult(res,1)">实际结果</btn>
+                                            <a ng-click="getResult(res,1)">实际结果</a>
                                         </td>
-                                        <td class="detailTable2" ng-show="res.status_check==0">未通过
-                                            <btn class="btn-info" ng-click="getResult(res,1)">实际结果</btn>
+                                        <td class="detailTable2" ng-show="res.status_check==0">
+                                            <a ng-click="getResult(res,1)">未通过</a>
                                         </td>
-                                        <td class="detailTable2" ng-show="res.status_check==1">通过
-                                            <btn class="btn-info" ng-click="getResult(res,1)">实际结果</btn>
+                                        <td class="detailTable2" ng-show="res.status_check==1">
+                                            <a ng-click="getResult(res,1)">通过</a>
                                         </td>
-                                        <td class="detailTable2" ng-show="res.status_check==2">未校验
-                                            <btn class="btn-info" ng-click="getResul(res,1)">实际结果</btn>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td class="detailTable1">body</td>
-                                        <td class="detailTable2" ng-show="res.body_check==1">pass
-                                            <btn class="btn-info" ng-click="getResult(res,2)">实际结果</btn>
-                                        </td>
-                                        <td class="detailTable2" ng-show="res.body_check==0">fail
-                                            <btn class="btn-info" ng-click="getResult(res,2)">实际结果</btn>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td class="detailTable1">schema</td>
-                                        <td class="detailTable2" ng-show="res.schema_check==1">pass
-                                            <btn class="btn-info" ng-click="getResult(res,3)">实际结果</btn>
-                                        </td>
-                                        <td class="detailTable2" ng-show="res.schema_check==0">fail
-                                            <btn class="btn-info" ng-click="getResult(res,3)">实际结果</btn>
+                                        <td class="detailTable2" ng-show="res.status_check==2">
+                                            <a ng-click="getResul(res,1)">未校验</a>
                                         </td>
                                     </tr>
                                     <tr>
                                         <td class="detailTable1">响应头</td>
                                         <td class="detailTable2" ng-show="res.header_check==null">
-                                            <btn class="btn-info" ng-click="getResult(res,4)">实际结果</btn>
+                                            <a ng-click="getResult(res,4)">实际结果</a>
                                         </td>
-                                        <td class="detailTable2" ng-show="res.header_check==0">未通过
-                                            <btn class="btn-info" ng-click="getResult(res,4)">实际结果</btn>
+                                        <td class="detailTable2" ng-show="res.header_check==0">
+                                            <a ng-click="getResult(res,4)">未通过</a>
                                         </td>
-                                        <td class="detailTable2" ng-show="res.header_check==1">通过
-                                            <btn class="btn-info" ng-click="getResult(res,4)">实际结果</btn>
+                                        <td class="detailTable2" ng-show="res.header_check==1">
+                                            <a ng-click="getResult(res,4)">通过</a>
                                         </td>
-                                        <td class="detailTable2" ng-show="res.header_check==2">未校验
-                                            <btn class="btn-info" ng-click="getResult(res,4)">实际结果</btn>
+                                        <td class="detailTable2" ng-show="res.header_check==2">
+                                            <a ng-click="getResult(res,4)">未校验</a>
                                         </td>
                                     </tr>
+                                    <tr>
+                                        <td class="detailTable1">body</td>
+                                        <td class="detailTable2" ng-show="res.body_check==1">
+                                            <a ng-click="getResult(res,2)">通过</a>
+                                        </td>
+                                        <td class="detailTable2" ng-show="res.body_check==0">
+                                            <a ng-click="getResult(res,2)">未通过</a>
+                                        </td>
+                                        <td class="detailTable2" ng-show="res.body_check==2">
+                                            <a ng-click="getResul(res,2)">未校验</a>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td class="detailTable1">schema</td>
+                                        <td class="detailTable2" ng-show="res.schema_check==1">
+                                            <a ng-click="getResult(res,3)">通过</a>
+                                        </td>
+                                        <td class="detailTable2" ng-show="res.schema_check==0">
+                                            <a ng-click="getResult(res,3)">未通过</a>
+                                        </td>
+                                        <td class="detailTable2" ng-show="res.schema_check==2">
+                                            <a ng-click="getResul(res,3)">未校验</a>
+                                        </td>
+                                    </tr>
+
                                 </table>
                             </div>
                         </td>
@@ -213,11 +219,11 @@
                         <td  ng-show="!reportDetal[$index]" ng-bind="res.case_method"></td>
                         <td ng-show="!reportDetal[$index]" ng-bind="res.check_desc"></td>
                         <td ng-show="!reportDetal[$index]">
-                            <button type="button" class="btn btn-success" ng-show="res.is_pass==1">
-                                PASS
+                            <button type="button" ng-disabled="true" class="btn btn-success" ng-show="res.is_pass==1">
+                                通过
                             </button>
-                            <button type="button" class="btn btn-danger" ng-show="res.is_pass==0">
-                                FAILE
+                            <button type="button" ng-disabled="true" class="btn btn-danger" ng-show="res.is_pass==0">
+                                失败
                             </button>
                         </td>
                     </tr>
