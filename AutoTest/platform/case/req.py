@@ -36,33 +36,18 @@ class ReqResp:
         self.param = self.param.replace("\'", "\"")
 
     def sendRequest(self):
-        if self.method.lower() == "post":
-            if "headers" in self.var_map.keys():
-                headers = json.loads(self.var_map["headers"])
-                re = requests.post(self.url, data=self.param, headers=headers)
-            else:
-                re = requests.post(self.url, data=self.param)
-            self.resp = {
-                "status_code": re.status_code,
-                "response_data": {
-                    "header": re.headers,
-                    "body": re.json()
-                }
+        if "headers" in self.var_map.keys():
+            headers = json.loads(self.var_map["headers"])
+            re = requests.request(method=self.method,url=self.url, data=self.param, headers=headers)
+        else:
+            re = requests.request(method=self.method, url=self.url, data=self.param)
+        self.resp = {
+            "status_code": re.status_code,
+            "response_data": {
+                "header": re.headers,
+                "body": re.json()
             }
-        if self.method.lower() == "get":
-            if "headers" in self.var_map.keys():
-                headers = json.loads(self.var_map["headers"])
-                self.param = json.loads(self.param)
-                re = requests.get(self.url, params=self.param, headers=headers)
-            else:
-                re = requests.get(self.url, params=self.param)
-            self.resp = {
-                "status_code": re.status_code,
-                "response_data": {
-                    "header": re.headers,
-                    "body": re.json()
-                }
-            }
+        }
 
     def setFuncCode(self, func_name, func_str_re):
         func = Functions.objects.all().get(pro_id=self.pro_id, func_name=func_name)
