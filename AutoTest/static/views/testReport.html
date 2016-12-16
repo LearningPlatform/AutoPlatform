@@ -79,17 +79,17 @@
                 开始时间：<span ng-bind="result.start_time*1000|date:'yyyy-MM-dd HH:mm:ss'"></span></br>
                 结束时间：<span ng-bind="result.end_time*1000|date:'yyyy-MM-dd HH:mm:ss'"></span>
             </span>
-            <div class="pull-right marginRight">
-                <button ng-disabled="true" type="button" class="textsize btn btn-lg btn-success">
+            <div class="pull-right marginRight" >
+                <button ng-disabled="true" type="button" class="textsize btn btn-lg btn-success" style="font-size: 15px;">
                     <span ng-bind="result.pass_num"></span></br>通过
                 </button>
-                <button ng-disabled="true" type="button" class="textsize btn btn-lg btn-danger">
+                <button ng-disabled="true" type="button" class="textsize btn btn-lg btn-danger" style="font-size: 15px;">
                     <span ng-bind="result.fail_num"></span></br>失败
                 </button>
-                <button ng-disabled="true" type="button" class="textsize btn btn-lg btn-danger">
+                <button ng-disabled="true" type="button" class="textsize btn btn-lg btn-danger" style="font-size: 15px;">
                     <span ng-bind="result.unrun_num"></span></br>错误
                 </button>
-                <button ng-disabled="true" type="button" class="textsize btn btn-lg btn-info">
+                <button ng-disabled="true" type="button" class="textsize btn btn-lg btn-info" style="font-size: 15px;">
                     <span ng-bind="result.pass_num+result.fail_num"></span></br>合计
                 </button>
             </div>
