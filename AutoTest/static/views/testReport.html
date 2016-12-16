@@ -234,7 +234,7 @@
                         <div class="form-group">
                             <label class="col-md-1 control-label">验证器：</label>
                             <div class="col-md-11">
-                                <input type="text" style="background-color: white" class="form-control"  ng-model="check.check_desc" readonly>
+                                <input type="text" style="background-color: white" class="form-control"  ng-model="res.check_desc" readonly>
                             </div>
                         </div>
                         <div class="form-group">
@@ -282,7 +282,7 @@
                         <div class="form-group" ng-hide="res.schema_check==1">
                             <label class="col-md-1 control-label">校验信息：</label>
                             <div class="col-md-11">
-                                <input type="text" style="background-color: white" class="form-control" readonly ng-bind="res.schema_msg">
+                                <input type="text" style="background-color: white" class="form-control" readonly ng-model="res.schema_msg">
                             </div>
                         </div>
                     </form>
@@ -334,15 +334,13 @@
                         <div class="form-group">
                             <label class="col-md-1 control-label">状态码：</label>
                             <div class="col-md-11">
-                                <textarea type="text" rows="7" style="background-color: white" class="form-control"  ng-model="res.status" readonly>
-                                </textarea>
+                                <input type="text" style="background-color: white" class="form-control"  ng-model="res.status" readonly>
                             </div>
                         </div>
                         <div class="form-group">
                             <label class="col-md-1 control-label">期望状态码：</label>
                             <div class="col-md-11">
-                                <textarea type="text" rows="7" style="background-color: white" class="form-control" rows="" ng-model="res.exp_status" readonly>
-                                </textarea>
+                                <input type="text" rows="7" style="background-color: white" class="form-control" rows="" ng-model="res.exp_status" readonly>
                             </div>
                         </div>
                     </form>
