@@ -97,6 +97,7 @@ myApp.controller('testReportCtrl', function ($scope, $http, $cookieStore, $timeo
         }).success(function (response) {
             if (response.code = 1) {
                 $scope.allResult = response.data;
+                console.log( $scope.allResult[0])
                 $scope.resultStr = "";
                 for (var i = 0; i < $scope.allResult.length - 1; i++) {
                     $scope.reportDetal[i] = false;
@@ -109,6 +110,8 @@ myApp.controller('testReportCtrl', function ($scope, $http, $cookieStore, $timeo
     }
 
     $scope.showReport = function (obj, index) {
+        $scope.res=obj;
+        console.log(obj)
         $http.post("project/api/detail", {
             "api_id": obj.api_id
         }).success(function (response) {
@@ -156,28 +159,22 @@ myApp.controller('testReportCtrl', function ($scope, $http, $cookieStore, $timeo
         })
     }
 
-    $scope.getResult1=function(obj){
-        $("#bodyDetail").modal();
-        $scope.res=obj;
-        if(obj.check_type==0){
-            $scope.check.check_desc="默认"
-        }else{
-            $http.post("project/check/detail",{
-                "check_id": $scope.res.check_type
-            }).success(function(response){
-                if(response.code==1){
-                    $scope.check=response.data;
-                }else{
-                    alert(response.msg)
-                }
-            })
-        }
-
-    }
-
-    $scope.getResult2=function(obj){
-        $("#schemaDetail").modal();
-        $scope.res=obj;
+     $scope.getResult=function(obj,index){
+         $scope.res=obj;
+         switch (index){
+             case 1:
+                 $("#statusDetail").modal();
+                 break;
+             case 2:
+                 $("#bodyDetail").modal();
+                 break;
+             case 3:
+                 $("#schemaDetail").modal();
+                 break;
+             case 4:
+                 $("#headerDetail").modal();
+                 break;
+         }
     }
 
     /*
