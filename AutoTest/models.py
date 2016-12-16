@@ -118,6 +118,7 @@ class Result(models.Model):
     suite_id = models.IntegerField(null=True)
     pass_num = models.IntegerField(null=True)
     fail_num = models.IntegerField(null=True)
+    unrun_num = models.IntegerField(null=True)
     start_time = models.IntegerField(null=True)
     end_time = models.IntegerField(null=True)
     report_name = models.CharField(max_length=30, null=True)
