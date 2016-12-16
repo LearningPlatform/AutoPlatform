@@ -129,8 +129,11 @@ class CaseEntity(ReqResp):
         self.result_detail.schema_msg = self.schema_msg
         self.result_detail.save()
 
-    def set_is_pass(self):
-        self.is_pass = bool(self.schema_result and self.body_result and self.status_result and self.header_result)
+    def set_is_pass(self, flag):
+        if flag:
+            self.is_pass = bool(self.schema_result and self.body_result and self.status_result and self.header_result)
+        else:
+            self.is_pass = 2
 
     def get_is_pass(self):
         return self.is_pass
