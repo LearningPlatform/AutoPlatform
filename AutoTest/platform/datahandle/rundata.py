@@ -24,16 +24,16 @@ def get_run_info(data):
         c = CaseEntity(a, var_map, result.result_id)
         try:
             c.run()
-        except:
+        except Exception as e:
             c.set_is_pass(False)
-            c.save_result()
+            c.err_msg += "\n"+str(e)
         else:
             c.check_schema()
             c.check_result()
             c.check_header()
             c.check_status()
             c.set_is_pass(True)
-            c.save_result()
+        c.save_result()
         if c.get_is_pass() == 1:
             pass_num += 1
         elif c.get_is_pass() == 0:

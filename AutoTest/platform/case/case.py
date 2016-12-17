@@ -33,6 +33,7 @@ class CaseEntity(ReqResp):
     schema = {}
     schema_result = 2
     schema_msg = ""
+    err_msg = ""
 
     def __init__(self, case_id, var_map, result_id):
         ReqResp.__init__(self)
@@ -64,9 +65,12 @@ class CaseEntity(ReqResp):
             self.param = self.param.replace(path, str(self.d_api.get_param_value(path)))
 
     def check_status(self):
-        # 0-----未通过，1-----通过，2-----未检验
+        # 0-----未通过，1-----通过，2-----未检验, 3------错误
         if self.exp_status != 0:
-            self.status_result = int((lambda x, y: x == y)(self.exp_status,self.resp["status_code"]))
+            try:
+                self.status_result = int((lambda x, y: x == y)(self.exp_status,self.resp["status_code"]))
+            except:
+                self.status_result = 3
         else:
             self.status_result = 2
 
@@ -74,7 +78,7 @@ class CaseEntity(ReqResp):
         self.header_result = 2
 
     def check_schema(self):
-        # 0-----未通过，1-----通过，2-----未检验
+        # 0-----未通过，1-----通过，2-----未检验, 3------错误
         if self.schema != "":
             self.schema = json.loads(self.schema)
             try:
@@ -86,28 +90,35 @@ class CaseEntity(ReqResp):
                 self.schema_msg = "校验失败，失败原因："+str(msg)
                 self.schema_result = 0
             except SchemaError:
-                self.schema_result = 2
+                self.schema_result = 3
                 self.schema_msg = "校验异常，请检查schema是否正确"
             except FormatError:
-                self.schema_result = 2
+                self.schema_result = 3
                 self.schema_msg = "校验异常，请检查schema是否正确"
         else:
             self.schema_result = 2
             self.schema_msg = "未进行schema校验"
 
     def check_result(self):
-        if self.check_id == 0:
-            if json.dumps(self.resp["response_data"]["body"], ensure_ascii=False).find(self.exp_data) == -1:
-                self.body_result = 0
-            else:
-                self.body_result = 1
+        if self.exp_data != "":
+            try:
+                if self.check_id == 0:
+                    if json.dumps(self.resp["response_data"]["body"], ensure_ascii=False).find(self.exp_data) == -1:
+                        self.body_result = 0
+                    else:
+                        self.body_result = 1
+                else:
+                    check_name, check_code = self.setCheckCode()
+                    result1 = functool.get_return(check_name, check_code)
+                    if result1.find("True") != -1:
+                        self.body_result = 1
+                    else:
+                        self.body_result = 0
+            except Exception as e:
+                self.body_result = 3
+                self.err_msg += "\n"+str(e)
         else:
-            check_name, check_code = self.setCheckCode()
-            result1 = functool.get_return(check_name, check_code)
-            if result1.find("True") != -1:
-                self.body_result = 1
-            else:
-                self.body_result = 0
+            self.body_result = 2
 
     def save_result(self):
         if self.resp_type != "json":
@@ -127,11 +138,17 @@ class CaseEntity(ReqResp):
         self.result_detail.header_check = self.header_result
         self.result_detail.status_check = self.status_result
         self.result_detail.schema_msg = self.schema_msg
+        self.result_detail.err_msg = self.err_msg
         self.result_detail.save()
 
     def set_is_pass(self, flag):
         if flag:
-            self.is_pass = bool(self.schema_result and self.body_result and self.status_result and self.header_result)
+            if self.schema_result==3 or self.body_result==3 or self.status_result==3 or self.header_result==3:
+                self.is_pass = 2
+            elif self.schema_result==0 or self.body_result==0 or self.status_result==0 or self.header_result==0:
+                self.is_pass = 0
+            else:
+                self.is_pass = 1
         else:
             self.is_pass = 2
 

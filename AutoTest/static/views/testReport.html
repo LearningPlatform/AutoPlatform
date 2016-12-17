@@ -165,6 +165,9 @@
                                         <td class="detailTable2" ng-show="res.status_check==2">
                                             <button class="btn-link" ng-disabled="true">未校验</button>
                                         </td>
+                                        <td class="detailTable2" ng-show="res.status_check==3">
+                                            <button class="btn-link" ng-click="getResult(res,1)">错误</button>
+                                        </td>
                                     </tr>
                                     <tr>
                                         <td class="detailTable1">响应头</td>
@@ -180,6 +183,9 @@
                                         <td class="detailTable2" ng-show="res.header_check==2">
                                             <button class="btn-link" ng-disabled="true">未校验</button>
                                         </td>
+                                        <td class="detailTable2" ng-show="res.header_check==3">
+                                            <button class="btn-link" ng-click="getResult(res,4)">错误</button>
+                                        </td>
                                     </tr>
                                     <tr>
                                         <td class="detailTable1">body</td>
@@ -192,6 +198,9 @@
                                         <td class="detailTable2" ng-show="res.body_check==2">
                                             <button class="btn-link" ng-disabled="true">未校验</button>
                                         </td>
+                                        <td class="detailTable2" ng-show="res.body_check==3">
+                                            <button class="btn-link" ng-click="getResult(res,2)">错误</button>
+                                        </td>
                                     </tr>
                                     <tr>
                                         <td class="detailTable1">schema</td>
@@ -203,6 +212,9 @@
                                         </td>
                                         <td class="detailTable2" ng-show="res.schema_check==2">
                                             <button class="btn-link" ng-disabled="true">未校验</button>
+                                        </td>
+                                        <td class="detailTable2" ng-show="res.schema_check==3">
+                                            <button class="btn-link" ng-click="getResult(res,3)">错误</button>
                                         </td>
                                     </tr>
 
@@ -292,7 +304,7 @@
                                 </textarea>
                             </div>
                         </div>
-                        <div class="form-group" ng-hide="res.schema_check==1">
+                        <div class="form-group">
                             <label class="col-md-1 control-label">校验信息：</label>
                             <div class="col-md-11">
                                 <input type="text" style="background-color: white" class="form-control" readonly

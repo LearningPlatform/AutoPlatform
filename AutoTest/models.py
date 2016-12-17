@@ -140,6 +140,7 @@ class ResultDetail(models.Model):
     schema_check = models.IntegerField(null=True)
     schema_msg = models.TextField(null=True)
     body_check = models.IntegerField(null=True)
+    err_msg = models.TextField(null=True)
 
 
 class DepndApi(models.Model):
