@@ -131,7 +131,8 @@ a:active {text-decoration:none ;color: #3c3c3c}
 }
 
 .detailTable1{
-     width:15%;
+    font-family: Consolas, monospace, serif;
+    width:15%;
     text-align:right;
     border: 1px #aaaaaa solid;
     background-color: #c9dde1;
@@ -139,6 +140,7 @@ a:active {text-decoration:none ;color: #3c3c3c}
 
 
 .detailTable2{
+    font-family: Consolas, monospace, serif;
     width:80%;
     text-align:left;
     border: 1px #aaaaaa solid;
