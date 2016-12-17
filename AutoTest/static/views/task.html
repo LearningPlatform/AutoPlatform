@@ -31,7 +31,7 @@
                             <h4 class="panel-title"  ng-mouseenter="shownCom=true" ng-mouseleave="shownCom=false" >
                                  <div class="row">
                                      <div class="col-xs-4">
-                                     <a class="marginLeft" ng-bind="plan.plan_name" ng-click="getTaskDetail(plan.plan_id)"></a>
+                                     <a class="marginLeft" ng-bind="plan.plan_name" ng-click="getTaskDetail(plan.plan_id,$index)"></a>
                                      </div>
                                      <div class="pull-right">
                                          <a ng-show="shownCom" ng-click="editPlan(plan.plan_id)"><span class="glyphicon glyphicon-pencil"></span>编辑</a>
@@ -40,7 +40,7 @@
                                 </div>
                             </h4>
                         </div>
-                        <div class="panel-body" ng-show="showDetail && (showTaskId==plan.plan_id)">
+                        <div class="panel-body" ng-show="showDetail[$index]">
                             <table class="table">
                                 <thead>
                                 <tr>

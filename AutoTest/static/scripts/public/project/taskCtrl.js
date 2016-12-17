@@ -15,6 +15,7 @@ myApp.controller('taskCtrl',function($scope,$http,$cookieStore,$timeout,$filter,
     $scope.intevalType=["秒","分","时","日","周","月"];
     $scope.envList="";
     $scope.suiteList="";
+    $scope.showDetail=[];
     $timeout(function(){
         $http.post('project/env/list', {
              "pro_id": pro_id
@@ -37,7 +38,7 @@ myApp.controller('taskCtrl',function($scope,$http,$cookieStore,$timeout,$filter,
          if($rootScope.planSelect==1){
              $scope.selectList=["disactive","active","disactive"];
              $scope.showSelect(1);
-             $scope.getTaskDetail($rootScope.planId);
+             $scope.getTaskDetail($rootScope.planId,0);
         }else{
              $scope.selectList=["active","disactive","disactive"];
              $scope.showSelect(0);
@@ -47,7 +48,6 @@ myApp.controller('taskCtrl',function($scope,$http,$cookieStore,$timeout,$filter,
     var prentedIndex=0;
     $scope.showSelect=function(index){
         prentedIndex=index;
-        $scope.showDetail=false;
         for(var i=0;i<$scope.selectList.length;i++){
             $scope.selectList[i]="disactive";
         }
@@ -58,6 +58,10 @@ myApp.controller('taskCtrl',function($scope,$http,$cookieStore,$timeout,$filter,
         }).success(function(response1){
             if(response1.code==1){
                 $scope.planList=response1.data;
+                $scope.showDetail=[];
+                for(var i=0;i<$scope.planList.length;i++){
+                    $scope.showDetail[i]=false;
+                }
             }else{
                 alert(response1.msg)
             }
@@ -124,6 +128,10 @@ myApp.controller('taskCtrl',function($scope,$http,$cookieStore,$timeout,$filter,
                     }).success(function(response1){
                         if(response1.code==1){
                             $scope.planList=response1.data;
+                            $scope.showDetai=[];
+                            for(var i=0;i<$scope.planList.length;i++){
+                                $scope.showDetail[i]=false;
+                            }
                         }else{
                             alert(response1.msg)
                         }
@@ -149,6 +157,10 @@ myApp.controller('taskCtrl',function($scope,$http,$cookieStore,$timeout,$filter,
                     }).success(function(response1){
                         if(response1.code==1){
                             $scope.planList=response1.data;
+                             $scope.showDetai=[];
+                            for(var i=0;i<$scope.planList.length;i++){
+                                $scope.showDetail[i]=false;
+                            }
                         }else{
                             alert(response1.msg)
                         }
@@ -160,11 +172,15 @@ myApp.controller('taskCtrl',function($scope,$http,$cookieStore,$timeout,$filter,
         }
     }
 
-    $scope.showDetail=false;
-    $scope.showTaskId=0;
-    $scope.getTaskDetail=function(planID){
-        $scope.showDetail=!$scope.showDetail;
-        $scope.showTaskId=planID;
+    $scope.getTaskDetail=function(planID,index){
+        console.log($scope.showDetail[index])
+        for(var i=0;i<$scope.showDetail.length;i++){
+            if(i!=index){
+                $scope.showDetail[i]=false;
+            }
+        }
+        $scope.showDetail[index]=!$scope.showDetail[index];
+        console.log($scope.showDetail)
         $http.post("project/plan/detail",{
             "plan_id":planID
         }).success(function(response){
@@ -249,10 +265,15 @@ myApp.controller('taskCtrl',function($scope,$http,$cookieStore,$timeout,$filter,
             if(response.code==1){
                 $("#cfDelPlan").modal('hide');
                 $http.post("project/plan/list",{
-                    "pro_id":pro_id
+                    "pro_id":pro_id,
+                    "status":prentedIndex
                 }).success(function(response1){
                     if(response1.code==1){
                         $scope.planList=response1.data;
+                         $scope.showDetai=[];
+                        for(var i=0;i<$scope.planList.length;i++){
+                            $scope.showDetail[i]=false;
+                        }
                     }else{
                         alert(response1.msg)
                     }
@@ -276,6 +297,5 @@ myApp.controller('taskCtrl',function($scope,$http,$cookieStore,$timeout,$filter,
 		forceParse: 0,
         showMeridian: 1
     });
-
 })
 

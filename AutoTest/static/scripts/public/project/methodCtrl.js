@@ -10,12 +10,16 @@ myApp.controller('methodCtrl',function($scope,$http,$cookieStore,$timeout) {
           "func_id": 2
     }
 
+    $scope.showfunc=[];
     $timeout(function(){
         $http.post("project/func/list",{
              "pro_id": pro_id
         }).success(function (response) {
              if(response.code==1) {
                  $scope.funcList=response.data;
+                 for(var i=0;i<$scope.funcList.length;i++){
+                     $scope.showfunc[i]=false;
+                 }
              }else{
                 alert(response.msg);
             }
@@ -30,16 +34,23 @@ myApp.controller('methodCtrl',function($scope,$http,$cookieStore,$timeout) {
     $scope.moreFuncDetail=function(obj){
         $scope.func=obj;
         $scope.funcList.push($scope.func);
-        $scope.showfunc=true;
+        for(var i=0;i<$scope.showfunc.length;i++){
+            $scope.showfunc[i]=false;
+        }
+        $scope.showfunc.push(true);
         $scope.activeList1=["disactive","active"];
         $scope.formation=false;
         $scope.code=true;
     }
 
-    $scope.showfunc=false;
     $scope.funcId=0;
-    $scope.funcDetail=function(id){
-        $scope.showfunc=!$scope.showfunc;
+    $scope.funcDetail=function(id,index){
+        for(var i=0;i<$scope.showfunc.length;i++){
+            if(i!=index){
+                $scope.showfunc[i]=false;
+            }
+        }
+        $scope.showfunc[index]=!$scope.showfunc[index];
         $scope.funcId=id;
         $scope.activeList1=["active","disactive"];
         $scope.formation=true;
@@ -95,6 +106,10 @@ myApp.controller('methodCtrl',function($scope,$http,$cookieStore,$timeout) {
                                 }).success(function (response2) {
                                     if (response2.code == 1) {
                                         $scope.funcList = response2.data;
+                                        $scope.showfunc=[];
+                                        for(var i=0;i<$scope.funcList.length;i++){
+                                            $scope.showfunc[i]=false;
+                                        }
                                     } else {
                                         alert(response2.msg);
                                     }
@@ -166,11 +181,16 @@ myApp.controller('methodCtrl',function($scope,$http,$cookieStore,$timeout) {
         })
     }
 
-    $scope.editFunc=function(id){
+    $scope.editFunc=function(id,index){
+        for(var i=0;i<$scope.showfunc.length;i++){
+            if(i!=index){
+                $scope.showfunc[i]=false;
+            }
+        }
+        $scope.showfunc[index]=true;
         $scope.editFuncId=id;
         $scope.funcId=id;
         $scope.edit=true;
-        $scope.showfunc=true;
         $scope.activeList1=["active","disactive"];
         $scope.formation=true;
         $scope.code=false;
@@ -202,6 +222,10 @@ myApp.controller('methodCtrl',function($scope,$http,$cookieStore,$timeout) {
                 }).success(function (response) {
                      if(response.code==1) {
                          $scope.funcList=response.data;
+                         $scope.showfunc=[];
+                         for(var i=0;i<$scope.funcList.length;i++){
+                             $scope.showfunc[i]=false;
+                         }
                      }else{
                         alert(response.msg);
                     }
@@ -211,5 +235,4 @@ myApp.controller('methodCtrl',function($scope,$http,$cookieStore,$timeout) {
             }
         })
     }
-
 })

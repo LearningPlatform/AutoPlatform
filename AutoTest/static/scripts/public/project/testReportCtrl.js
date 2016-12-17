@@ -97,7 +97,6 @@ myApp.controller('testReportCtrl', function ($scope, $http, $cookieStore, $timeo
         }).success(function (response) {
             if (response.code = 1) {
                 $scope.allResult = response.data;
-                console.log( $scope.allResult[0])
                 $scope.resultStr = "";
                 for (var i = 0; i < $scope.allResult.length - 1; i++) {
                     $scope.reportDetal[i] = false;
@@ -111,7 +110,7 @@ myApp.controller('testReportCtrl', function ($scope, $http, $cookieStore, $timeo
 
     $scope.showReport = function (obj, index) {
         $scope.res=obj;
-        console.log(obj)
+        console.log($scope.res)
         $http.post("project/api/detail", {
             "api_id": obj.api_id
         }).success(function (response) {
@@ -134,7 +133,7 @@ myApp.controller('testReportCtrl', function ($scope, $http, $cookieStore, $timeo
             if (response1.code = 1) {
                 $scope.resultList = response1.data;
             } else {
-                alert(response.msg)
+                alert(response1.msg)
             }
         })
     }

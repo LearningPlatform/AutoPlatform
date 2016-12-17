@@ -207,7 +207,7 @@ myApp.controller('globalVarCtrl',function($scope,$http,$cookieStore,$timeout){
         });
     }
 
-    $scope.getEnvVar=function(id){
+    $scope.getEnvVar=function(id,index){
         $scope.showId=id;
         $scope.showVar=!$scope.showVar;
         $http.post('project/env/varList',{

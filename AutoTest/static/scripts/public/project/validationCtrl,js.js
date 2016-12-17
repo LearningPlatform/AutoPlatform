@@ -10,12 +10,16 @@ myApp.controller('validationCtrl',function($scope,$http,$cookieStore,$timeout) {
         "check_code": ""
     }
 
+    $scope.showcheck=[];
      $timeout(function(){
         $http.post("project/check/list",{
              "pro_id": pro_id
         }).success(function (response) {
              if(response.code==1) {
                  $scope.checkList=response.data;
+                 for(var i=0;i<$scope.checkList.length;i++){
+                     $scope.showcheck[i]=false;
+                 }
              }else{
                 alert(response.msg);
             }
@@ -30,16 +34,23 @@ myApp.controller('validationCtrl',function($scope,$http,$cookieStore,$timeout) {
     $scope.moreCheckDetail=function(obj){
         $scope.check=obj;
         $scope.checkList.push($scope.check);
-        $scope.showcheck=true;
+        for(var i=0;i<$scope.showcheck.length;i++){
+            $scope.showcheck[i]=false;
+        }
+        $scope.showcheck.push(true);
         $scope.activeList2=["disactivec","active"];
         $scope.formation=false;
         $scope.code=true;
     }
 
-    $scope.showcheck=false;
     $scope.checkId=0;
-    $scope.checkDetail=function(id){
-        $scope.showcheck=!$scope.showcheck;
+    $scope.checkDetail=function(id,index){
+        for(var i=0;i<$scope.showcheck.length;i++){
+            if(i!=index){
+                $scope.showcheck[i]=false;
+            }
+        }
+        $scope.showcheck[index]=!$scope.showcheck[index];
         $scope.checkId=id;
         $scope.activeList2=["active","disactive"];
         $scope.formation=true;
@@ -118,6 +129,10 @@ myApp.controller('validationCtrl',function($scope,$http,$cookieStore,$timeout) {
                                 }).success(function (response2) {
                                     if (response2.code == 1) {
                                         $scope.checkList = response2.data;
+                                        $scope.showcheck=[];
+                                        for(var i=0;i<$scope.checkList.length;i++){
+                                             $scope.showcheck[i]=false;
+                                         }
                                     } else {
                                         alert(response2.msg);
                                     }
@@ -163,11 +178,16 @@ myApp.controller('validationCtrl',function($scope,$http,$cookieStore,$timeout) {
         $scope.edit=false;
     }
 
-    $scope.editCheck=function(id){
+    $scope.editCheck=function(id,index){
         $scope.editCheckId=id;
         $scope.checkId=id;
         $scope.edit=true;
-        $scope.showcheck=true;
+        for(var i=0;i<$scope.showcheck.length;i++){
+            if(i!=index){
+                $scope.showcheck[i]=false;
+            }
+        }
+        $scope.showcheck[index]=true;
         $scope.activeList2=["active","disactive"];
         $scope.formation=true;
         $scope.code=false;
@@ -199,6 +219,10 @@ myApp.controller('validationCtrl',function($scope,$http,$cookieStore,$timeout) {
                 }).success(function (response) {
                      if(response.code==1) {
                          $scope.checkList=response.data;
+                         $scope.showcheck=[];
+                         for(var i=0;i<$scope.checkList.length;i++){
+                             $scope.showcheck[i]=false;
+                         }
                      }else{
                         alert(response.msg);
                     }

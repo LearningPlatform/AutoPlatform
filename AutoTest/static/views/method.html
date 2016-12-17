@@ -15,16 +15,16 @@
                                  <div class="row">
                                      <div class="col-xs-4">
                                      <input type="text" class="form-control" ng-show="edit && editFuncId==func.func_id" ng-model="func.func_desc">
-                                     <a class="marginLeft" ng-bind="func.func_desc" ng-show="!(edit && editFuncId==func.func_id)" ng-click="funcDetail(func.func_id)"></a>
+                                     <a class="marginLeft" ng-bind="func.func_desc" ng-show="!(edit && editFuncId==func.func_id)" ng-click="funcDetail(func.func_id,$index)"></a>
                                      </div>
                                      <div class="pull-right">
-                                         <a ng-show="shownCom" ng-click="editFunc(func.func_id)"><span class="glyphicon glyphicon-pencil"></span>编辑</a>
+                                         <a ng-show="shownCom" ng-click="editFunc(func.func_id,$index)"><span class="glyphicon glyphicon-pencil"></span>编辑</a>
                                          <a ng-show="shownCom" ng-click="cfDelFunc(func.func_id)"><span class="glyphicon glyphicon-remove"></span>删除</a>
                                      </div>
                                 </div>
                             </h4>
                         </div>
-                        <div class="panel-body" ng-show="showfunc&&(funcId==func.func_id || func.func_id==null)">
+                        <div class="panel-body" ng-show="showfunc[$index]&&(funcId==func.func_id || func.func_id==null)">
                             <div class="row">
                                 <div class="col-md-10">
                                     <ul class="nav nav-tabs">

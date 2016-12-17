@@ -217,7 +217,6 @@
                                             <button class="btn-link" ng-click="getResult(res,3)">错误</button>
                                         </td>
                                     </tr>
-
                                 </table>
                             </div>
                         </td>
@@ -320,68 +319,66 @@
             </div>
         </div>
     </div>
-</div>
 
-<div class="modal fade" id="headerDetail">
-    <div class="modal-dialog modalWidth">
-        <div class="modal-content">
-            <div class="modal-body">
-                <form class="form-horizontal">
-                    <div class="form-group">
-                        <label class="col-md-1 control-label">响应头：</label>
-                        <div class="col-md-11">
-                                <textarea type="text" rows="7" style="background-color: white" class="form-control"
-                                          ng-model="res.header" readonly>
-                                </textarea>
+    <div class="modal fade" id="headerDetail">
+        <div class="modal-dialog modalWidth">
+            <div class="modal-content">
+                <div class="modal-body">
+                    <form class="form-horizontal">
+                        <div class="form-group">
+                            <label class="col-md-1 control-label">响应头：</label>
+                            <div class="col-md-11">
+                                    <textarea type="text" rows="7" style="background-color: white" class="form-control"
+                                              ng-model="res.header" readonly>
+                                    </textarea>
+                            </div>
                         </div>
-                    </div>
-                    <div class="form-group">
-                        <label class="col-md-1 control-label">期望响应头：</label>
-                        <div class="col-md-11">
-                                <textarea type="text" rows="7" style="background-color: white" class="form-control"
-                                          rows="" ng-model="res.exp_header" readonly>
-                                </textarea>
+                        <div class="form-group">
+                            <label class="col-md-1 control-label">期望响应头：</label>
+                            <div class="col-md-11">
+                                    <textarea type="text" rows="7" style="background-color: white" class="form-control"
+                                              rows="" ng-model="res.exp_header" readonly>
+                                    </textarea>
+                            </div>
                         </div>
-                    </div>
-                </form>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-info" data-dismiss="modal">关闭
-                </button>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-info" data-dismiss="modal">关闭
+                    </button>
+                </div>
             </div>
         </div>
     </div>
-</div>
-</div>
 
-<div class="modal fade" id="statusDetail">
-    <div class="modal-dialog modalWidth">
-        <div class="modal-content">
-            <div class="modal-body">
-                <form class="form-horizontal">
-                    <div class="form-group">
-                        <label class="col-md-1 control-label">状态码：</label>
-                        <div class="col-md-11">
-                            <input type="text" style="background-color: white" class="form-control"
-                                   ng-model="res.status" readonly>
+    <div class="modal fade" id="statusDetail">
+        <div class="modal-dialog modalWidth">
+            <div class="modal-content">
+                <div class="modal-body">
+                    <form class="form-horizontal">
+                        <div class="form-group">
+                            <label class="col-md-1 control-label">状态码：</label>
+                            <div class="col-md-11">
+                                <input type="text" style="background-color: white" class="form-control"
+                                       ng-model="res.out_data.status_code" readonly>
+                            </div>
                         </div>
-                    </div>
-                    <div class="form-group">
-                        <label class="col-md-1 control-label">期望状态码：</label>
-                        <div class="col-md-11">
-                            <input type="text" rows="7" style="background-color: white" class="form-control" rows=""
-                                   ng-model="res.exp_status" readonly>
+                        <div class="form-group">
+                            <label class="col-md-1 control-label">期望状态码：</label>
+                            <div class="col-md-11">
+                                <input type="text" rows="7" style="background-color: white" class="form-control" rows=""
+                                       ng-model="res.exp_status" readonly>
+                            </div>
                         </div>
-                    </div>
-                </form>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-info" data-dismiss="modal">关闭
-                </button>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-info" data-dismiss="modal">关闭
+                    </button>
+                </div>
             </div>
         </div>
     </div>
-</div>
 </div>
 
 

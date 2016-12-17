@@ -75,7 +75,7 @@
                 <div class="panel panel-info">
                     <div class="panel-heading">
                         <h4 class="panel-title" ng-mouseenter="shownCom=true" ng-mouseleave="shownCom=false">
-                            <a ng-click="getAPICase(list.api_id)" ng-bind="list.api_name"></a>
+                            <a ng-click="getAPICase(list.api_id,$index)" ng-bind="list.api_name"></a>
                             <div class="pull-right">
                                 <a ng-show="shownCom" ng-click="editapi(list.api_id)"><span
                                         class="glyphicon glyphicon-pencil"></span>编辑</a>
@@ -84,13 +84,13 @@
                             </div>
                         </h4>
                     </div>
-                    <div class="panel-body" ng-show="showCase&&(showAPIID==list.api_id)">
+                    <div class="panel-body" ng-show="showCase[$index]">
                         <div ng-repeat="case in caseList">
                             <div class="panel panel-info">
                                 <div class="panel-heading">
                                     <h4 class="panel-title" ng-mouseenter="shownCom1=true"
                                         ng-mouseleave="shownCom1=false">
-                                        <a ng-bind="case.case_name" ng-click="infoCase(case)"></a>
+                                        <a ng-bind="case.case_name" ng-click="infoCase(case,$index)"></a>
                                         <div class="pull-right">
                                             <a ng-show="shownCom1" ng-click="editCase(case)"><span
                                                     class="glyphicon glyphicon-pencil"></span>编辑</a>
@@ -99,8 +99,7 @@
                                         </div>
                                     </h4>
                                 </div>
-                                <div class="panel-body"
-                                     ng-show="showinfo&&(showCaseID==case.case_id)">
+                                <div class="panel-body" ng-show="showinfo[$index]">
                                     <div class="row col-md-12">
                                         <ul class="nav nav-tabs">
                                             <li class="{$al[0]$}">
@@ -223,7 +222,8 @@
                                                         </div>
                                                     </form>
                                                 </div>
-                                                <div class="panel-body  col-md-12">
+                                                <h4>请求参数：</h4>
+                                                <div class="form">
                                                     <form role="form">
                                                         <div class="form-group">
                                                         <textarea class="form-control msd-elastic: \n;" rows="3"
@@ -250,20 +250,21 @@
                                                         </select>
                                                     </div>
                                                 </form>
-                                                <form class="col-md-4  bs-example bs-example-form">
-                                                    <div class="input-group">
-                                                        <span class="input-group-addon">期望响应头</span>
-                                                        <input class="form-control" ng-model="case.exp_header">
-                                                    </div>
-                                                </form>
                                                 <form class="col-md-4 bs-example bs-example-form">
                                                     <div class="input-group">
                                                         <span class="input-group-addon">状态码</span>
                                                         <input type="text" class="form-control" ng-model="case.exp_status">
                                                     </div>
                                                 </form>
+                                                <form class="col-md-4  bs-example bs-example-form">
+                                                    <div class="input-group">
+                                                        <span class="input-group-addon">期望响应头</span>
+                                                        <textarea class="form-control" ng-model="case.exp_header"></textarea>
+                                                    </div>
+                                                </form>
+
                                             </div>
-                                            <h3>期望的返回值</h3>
+                                            <h4>期望的返回值：</h4>
                                             <div class="col-md-12">
                                                 <form role="form">
                                                     <textarea class="form-control msd-elastic: \n" rows="3"
@@ -271,7 +272,7 @@
                                                     </textarea>
                                                 </form>
                                             </div>
-                                            <h3>shcema验证</h3>
+                                            <h4>shcema验证：</h4>
                                             <div class="col-md-12">
                                                 <form role="form">
                                                     <textarea class="form-control msd-elastic: \n" rows="5"

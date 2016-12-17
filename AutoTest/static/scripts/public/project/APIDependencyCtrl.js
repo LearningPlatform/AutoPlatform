@@ -1,6 +1,6 @@
 myApp.controller('APIDependencyCtrl',function($scope,$http,$cookieStore,$timeout) {
     var pro_id = $cookieStore.get("currProID");
-    $scope.showDetail=false;
+    $scope.showDetail=[];
     $scope.apiDepId=0;
     $scope.apiDepList="";
     $scope.apiDep={
@@ -22,6 +22,9 @@ myApp.controller('APIDependencyCtrl',function($scope,$http,$cookieStore,$timeout
         }).success(function(response){
             if(response.code==1){
                 $scope.apiDepList=response.data;
+                for(var i=0;i<$scope.apiDepList.length;i++){
+                    $scope.showDetail[i]=false;
+                }
             }else{
                 alert(response.msg)
             }
@@ -46,7 +49,10 @@ myApp.controller('APIDependencyCtrl',function($scope,$http,$cookieStore,$timeout
     $scope.moreDetail=function(obj){
         $scope.apiDep=obj;
         $scope.apiDepList.push(obj);
-        $scope.showDetail=true;
+        for(var i=0;i<$scope.showDetail.length;i++){
+            $scope.showDetail[i]=false;
+        }
+        $scope.showDetail.push(true);
 
     }
 
@@ -72,6 +78,10 @@ myApp.controller('APIDependencyCtrl',function($scope,$http,$cookieStore,$timeout
                     }).success(function(response1){
                         if(response1.code==1){
                             $scope.apiDepList=response1.data;
+                            $scope.showDetail=[];
+                            for(var i=0;i<$scope.apiDepList.length;i++){
+                                $scope.showDetail[i]=false;
+                            }
                         }else{
                             alert(response1.msg)
                         }
@@ -102,10 +112,15 @@ myApp.controller('APIDependencyCtrl',function($scope,$http,$cookieStore,$timeout
     }
 
     $scope.selected=0;
-    $scope.apiDepDetail=function(obj){
+    $scope.apiDepDetail=function(obj,index){
         $scope.edit=false;
         $scope.apiDepId=obj.depnd_api_id;
-        $scope.showDetail=!$scope.showDetail;
+        for(var i=0;i<$scope.showDetail.length;i++){
+            if(i!=index){
+                 $scope.showDetail[i]=false;
+            }
+        }
+        $scope.showDetail[index]=!$scope.showDetail[index];
         $http.post("project/dapi/detail",{
             "depnd_api_id":obj.depnd_api_id
         }).success(function(response){
@@ -120,11 +135,16 @@ myApp.controller('APIDependencyCtrl',function($scope,$http,$cookieStore,$timeout
 
     $scope.edit=false;
     $scope.editId=0;
-    $scope.editApiDep=function(obj){
+    $scope.editApiDep=function(obj,index){
         $scope.editId=obj.depnd_api_id;
         $scope.edit=true;
         $scope.apiDepId=obj.depnd_api_id;
-        $scope.showDetail=true;
+        for(var i=0;i<$scope.showDetail.length;i++){
+            if(i!=index){
+                 $scope.showDetail[i]=false;
+            }
+        }
+        $scope.showDetail[index]=true;
         $http.post("project/dapi/detail",{
             "depnd_api_id":obj.depnd_api_id
         }).success(function(response){
@@ -153,6 +173,10 @@ myApp.controller('APIDependencyCtrl',function($scope,$http,$cookieStore,$timeout
                 }).success(function(response1){
                     if(response1.code==1){
                         $scope.apiDepList=response1.data;
+                        $scope.showDetail=[];
+                        for(var i=0;i<$scope.apiDepList.length;i++){
+                            $scope.showDetail[i]=false;
+                        }
                     }else{
                         alert(response1.msg)
                     }
