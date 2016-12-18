@@ -33,8 +33,8 @@
                             <th class="tableWid4">返回</th>
                             <th class="tableWid5">操作</th>
                         </tr>
-                        <tr ng-repeat="rcdCase in reqData" ng-style="styleList[$index]" ng-mouseenter="tableGray($index)" ng-mouseleave="tableWhite($index)">
-                            <td class="tableWid1" ng-bind="$index+1"></td>
+                        <tr ng-repeat="rcdCase in pageList" ng-style="styleList[$index]" ng-mouseenter="tableGray($index)" ng-mouseleave="tableWhite($index)">
+                            <td class="tableWid1" ng-bind="(currentPage-1)*10+$index+1"></td>
                             <td class="tableWid1" ng-bind="rcdCase.method"></td>
                             <td class="tableWid1" ng-bind="rcdCase.protocol"></td>
                             <td class="tableWid5" ng-bind="rcdCase.host"></td>
@@ -48,6 +48,10 @@
                             </td>
                         </tr>
                     </table>
+                    <div class="pull-right marginRight">
+                        <pagination boundary-links="true" total-items="totalItems" ng-model="currentPage" ng-change="pageChanged()"
+                                    class="pagination" previous-text="&lsaquo;" next-text="&rsaquo;" first-text="&laquo;" last-text="&raquo;">
+                    </div>
                 </div>
             </div>
         </div>
