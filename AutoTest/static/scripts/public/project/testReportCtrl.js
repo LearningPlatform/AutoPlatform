@@ -148,7 +148,6 @@ myApp.controller('testReportCtrl', function ($scope, $http, $cookieStore, $timeo
             if (response.code = 1) {
                 $scope.allResult = response.data;
                 $scope.totalItems2=$scope.allResult.length;
-                $scope.currentPage2 = 1;//d当前页面
                 $scope.pageChanged(2);
                 $scope.resultStr = "";
                 for (var i = 0; i < $scope.allResult.length - 1; i++) {
@@ -184,6 +183,7 @@ myApp.controller('testReportCtrl', function ($scope, $http, $cookieStore, $timeo
         }).success(function (response1) {
             if (response1.code = 1) {
                 $scope.resultList = response1.data;
+                $scope.totalItems=$scope.resultList.length;
                 $scope.pageChanged(1);
             } else {
                 alert(response1.msg)
@@ -201,6 +201,7 @@ myApp.controller('testReportCtrl', function ($scope, $http, $cookieStore, $timeo
                 }).success(function (response1) {
                     if (response1.code = 1) {
                         $scope.resultList = response1.data;
+                        $scope.totalItems=$scope.resultList.length;
                         $scope.pageChanged(1);
                     } else {
                         alert(response1.msg)

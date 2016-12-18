@@ -215,6 +215,7 @@ myApp.controller('recordCtrl', function ($scope, $http, $cookieStore,$sce,$timeo
         $scope.objList.splice(RecordId, 1);
         $scope.reqData.splice(RecordId, 1);
         reqDataPage=$scope.reqData;
+        $scope.totalItems=reqDataPage.length;
         $scope.pageChanged();
         $scope.runDisabled.splice(RecordId, 1);
         $scope.undisabled.splice(RecordId, 1);

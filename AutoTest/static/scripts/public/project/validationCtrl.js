@@ -17,6 +17,9 @@ myApp.controller('validationCtrl',function($scope,$http,$cookieStore,$timeout) {
         }).success(function (response) {
              if(response.code==1) {
                  $scope.checkList=response.data;
+                 $scope.totalItems=$scope.checkList.length;
+                 $scope.currentPage = 1;
+                 $scope.pageChanged();
                  for(var i=0;i<$scope.checkList.length;i++){
                      $scope.showcheck[i]=false;
                  }
@@ -25,6 +28,27 @@ myApp.controller('validationCtrl',function($scope,$http,$cookieStore,$timeout) {
             }
         });
     })
+
+    $scope.pageChanged=function(){
+        $http.post("project/check/list",{
+             "pro_id": pro_id
+        }).success(function (response) {
+             if(response.code==1) {
+                 $scope.checkList = response.data;
+                 $scope.totalItems = $scope.checkList.length;
+             }
+        })
+        $scope.pageList=[];
+        if($scope.currentPage==Math.ceil($scope.checkList.length/10)){
+            for(var i=0;i<$scope.checkList.length-($scope.currentPage-1)*10;i++){
+                $scope.pageList[i]=$scope.checkList[($scope.currentPage-1)*10+i];
+            }
+        }else{
+            for(var i=0;i<10;i++){
+                $scope.pageList[i]=$scope.checkList[($scope.currentPage-1)*10+i];
+            }
+        }
+    }
 
     $scope.addCheck=function(){
         $("#addCheck").modal();
@@ -129,6 +153,7 @@ myApp.controller('validationCtrl',function($scope,$http,$cookieStore,$timeout) {
                                 }).success(function (response2) {
                                     if (response2.code == 1) {
                                         $scope.checkList = response2.data;
+                                        $scope.pageChanged();
                                         $scope.showcheck=[];
                                         for(var i=0;i<$scope.checkList.length;i++){
                                              $scope.showcheck[i]=false;
@@ -219,6 +244,7 @@ myApp.controller('validationCtrl',function($scope,$http,$cookieStore,$timeout) {
                 }).success(function (response) {
                      if(response.code==1) {
                          $scope.checkList=response.data;
+                         $scope.pageChanged();
                          $scope.showcheck=[];
                          for(var i=0;i<$scope.checkList.length;i++){
                              $scope.showcheck[i]=false;

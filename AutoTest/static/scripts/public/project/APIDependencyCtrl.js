@@ -1,5 +1,8 @@
 myApp.controller('APIDependencyCtrl',function($scope,$http,$cookieStore,$timeout) {
     var pro_id = $cookieStore.get("currProID");
+    $scope.protocolType=["http"];
+    $scope.methodType=["get","post","push","delete"];
+    $scope.typeType=["json"];
     $scope.showDetail=[];
     $scope.apiDepId=0;
     $scope.apiDepList="";
@@ -22,6 +25,9 @@ myApp.controller('APIDependencyCtrl',function($scope,$http,$cookieStore,$timeout
         }).success(function(response){
             if(response.code==1){
                 $scope.apiDepList=response.data;
+                $scope.totalItems=$scope.apiDepList.length;
+                $scope.currentPage = 1;
+                $scope.pageChanged();
                 for(var i=0;i<$scope.apiDepList.length;i++){
                     $scope.showDetail[i]=false;
                 }
@@ -40,6 +46,27 @@ myApp.controller('APIDependencyCtrl',function($scope,$http,$cookieStore,$timeout
         })
     })
 
+    $scope.pageChanged=function(){
+        $http.post("project/dapi/list",{
+            "pro_id":pro_id
+        }).success(function(response) {
+            if (response.code == 1) {
+                $scope.apiDepList = response.data;
+                $scope.totalItems=$scope.apiDepList.length;
+            }
+        })
+        $scope.pageList=[];
+        if($scope.currentPage==Math.ceil($scope.apiDepList.length/10)){
+            for(var i=0;i<$scope.apiDepList.length-($scope.currentPage-1)*10;i++){
+                $scope.pageList[i]=$scope.apiDepList[($scope.currentPage-1)*10+i];
+            }
+        }else{
+            for(var i=0;i<10;i++){
+                $scope.pageList[i]=$scope.apiDepList[($scope.currentPage-1)*10+i];
+            }
+        }
+    }
+
     $scope.addAPIDep=function(){
         $scope.apiDep={};
         $scope.selected=0;
@@ -49,6 +76,13 @@ myApp.controller('APIDependencyCtrl',function($scope,$http,$cookieStore,$timeout
     $scope.moreDetail=function(obj){
         $scope.apiDep=obj;
         $scope.apiDepList.push(obj);
+        $scope.totalItems=$scope.apiDepList.length;
+        $scope.currentPage = Math.ceil($scope.totalItems/10);
+        console.log($scope.currentPage)
+        $scope.pageList=[];
+        for(var i=0;i<$scope.apiDepList.length-($scope.currentPage-1)*10;i++){
+            $scope.pageList[i]=$scope.apiDepList[($scope.currentPage-1)*10+i];
+        }
         for(var i=0;i<$scope.showDetail.length;i++){
             $scope.showDetail[i]=false;
         }
@@ -78,6 +112,7 @@ myApp.controller('APIDependencyCtrl',function($scope,$http,$cookieStore,$timeout
                     }).success(function(response1){
                         if(response1.code==1){
                             $scope.apiDepList=response1.data;
+                            $scope.pageChanged();
                             $scope.showDetail=[];
                             for(var i=0;i<$scope.apiDepList.length;i++){
                                 $scope.showDetail[i]=false;
@@ -140,7 +175,7 @@ myApp.controller('APIDependencyCtrl',function($scope,$http,$cookieStore,$timeout
 
                  })
             }else{
-                alert(reponse.msg)
+                alert(response.msg)
             }
         })
     }
@@ -162,8 +197,9 @@ myApp.controller('APIDependencyCtrl',function($scope,$http,$cookieStore,$timeout
         }).success(function(response){
             if(response.code==1){
                 $scope.apiDep=response.data;
+                $scope.selected=$scope.apiDep.depnd_id;
             }else{
-                alert(reponse.msg)
+                alert(response.msg)
             }
         })
     }
@@ -185,6 +221,7 @@ myApp.controller('APIDependencyCtrl',function($scope,$http,$cookieStore,$timeout
                 }).success(function(response1){
                     if(response1.code==1){
                         $scope.apiDepList=response1.data;
+                        $scope.pageChanged();
                         $scope.showDetail=[];
                         for(var i=0;i<$scope.apiDepList.length;i++){
                             $scope.showDetail[i]=false;

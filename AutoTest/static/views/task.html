@@ -25,7 +25,7 @@
                 </div>
             </div>
             <div class="panel-body">
-                <div ng-repeat="plan in planList">
+                <div ng-repeat="plan in pageList">
                     <div class="panel panel-info">
                         <div class="panel-heading">
                             <h4 class="panel-title"  ng-mouseenter="shownCom=true" ng-mouseleave="shownCom=false" >
@@ -76,6 +76,10 @@
                             </table>
                         </div>
                     </div>
+                </div>
+                <div class="pull-right marginRight">
+                    <pagination boundary-links="true" total-items="totalItems" ng-model="currentPage" ng-change="pageChanged()"
+                                class="pagination" previous-text="&lsaquo;" next-text="&rsaquo;" first-text="&laquo;" last-text="&raquo;">
                 </div>
             </div>
         </div>

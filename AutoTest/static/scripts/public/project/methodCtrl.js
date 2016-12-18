@@ -17,6 +17,9 @@ myApp.controller('methodCtrl',function($scope,$http,$cookieStore,$timeout) {
         }).success(function (response) {
              if(response.code==1) {
                  $scope.funcList=response.data;
+                 $scope.totalItems=$scope.funcList.length;
+                 $scope.currentPage = 1;
+                 $scope.pageChanged();
                  for(var i=0;i<$scope.funcList.length;i++){
                      $scope.showfunc[i]=false;
                  }
@@ -25,6 +28,27 @@ myApp.controller('methodCtrl',function($scope,$http,$cookieStore,$timeout) {
             }
         });
     })
+
+    $scope.pageChanged=function(){
+        $http.post("project/func/list",{
+             "pro_id": pro_id
+        }).success(function (response) {
+             if(response.code==1) {
+                 $scope.funcList=response.data;
+                 $scope.totalItems=$scope.funcList.length;
+            }
+        })
+        $scope.pageList=[];
+        if($scope.currentPage==Math.ceil($scope.funcList.length/10)){
+            for(var i=0;i<$scope.funcList.length-($scope.currentPage-1)*10;i++){
+                $scope.pageList[i]=$scope.funcList[($scope.currentPage-1)*10+i];
+            }
+        }else{
+            for(var i=0;i<10;i++){
+                $scope.pageList[i]=$scope.funcList[($scope.currentPage-1)*10+i];
+            }
+        }
+    }
 
     $scope.addFunc=function(){
         $("#addFunc").modal();
@@ -106,6 +130,7 @@ myApp.controller('methodCtrl',function($scope,$http,$cookieStore,$timeout) {
                                 }).success(function (response2) {
                                     if (response2.code == 1) {
                                         $scope.funcList = response2.data;
+                                        $scope.pageChanged();
                                         $scope.showfunc=[];
                                         for(var i=0;i<$scope.funcList.length;i++){
                                             $scope.showfunc[i]=false;
@@ -219,6 +244,7 @@ myApp.controller('methodCtrl',function($scope,$http,$cookieStore,$timeout) {
                 }).success(function (response) {
                      if(response.code==1) {
                          $scope.funcList=response.data;
+                         $scope.pageChanged();
                          $scope.showfunc=[];
                          for(var i=0;i<$scope.funcList.length;i++){
                              $scope.showfunc[i]=false;

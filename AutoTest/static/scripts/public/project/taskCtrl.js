@@ -58,6 +58,9 @@ myApp.controller('taskCtrl',function($scope,$http,$cookieStore,$timeout,$filter,
         }).success(function(response1){
             if(response1.code==1){
                 $scope.planList=response1.data;
+                $scope.totalItems=$scope.planList.length;
+                $scope.currentPage = 1;
+                $scope.pageChanged();
                 $scope.showDetail=[];
                 for(var i=0;i<$scope.planList.length;i++){
                     $scope.showDetail[i]=false;
@@ -66,6 +69,29 @@ myApp.controller('taskCtrl',function($scope,$http,$cookieStore,$timeout,$filter,
                 alert(response1.msg)
             }
         })
+    }
+
+    $scope.pageChanged=function(){
+        $http.post("project/plan/list",{
+            "pro_id":pro_id,
+            "status":prentedIndex
+        }).success(function(response1) {
+            if (response1.code == 1) {
+                $scope.planList=response1.data;
+            }else{
+                alert(response1.msg)
+            }
+        })
+        $scope.pageList=[];
+        if($scope.currentPage==Math.ceil($scope.planList.length/10)){
+            for(var i=0;i<$scope.planList.length-($scope.currentPage-1)*10;i++){
+                $scope.pageList[i]=$scope.planList[($scope.currentPage-1)*10+i];
+            }
+        }else{
+            for(var i=0;i<10;i++){
+                $scope.pageList[i]=$scope.planList[($scope.currentPage-1)*10+i];
+            }
+        }
     }
 
     $scope.addPlan=function(){
@@ -128,6 +154,8 @@ myApp.controller('taskCtrl',function($scope,$http,$cookieStore,$timeout,$filter,
                     }).success(function(response1){
                         if(response1.code==1){
                             $scope.planList=response1.data;
+                            $scope.totalItems=$scope.planList.length;
+                            $scope.pageChanged();
                             $scope.showDetai=[];
                             for(var i=0;i<$scope.planList.length;i++){
                                 $scope.showDetail[i]=false;
@@ -157,6 +185,8 @@ myApp.controller('taskCtrl',function($scope,$http,$cookieStore,$timeout,$filter,
                     }).success(function(response1){
                         if(response1.code==1){
                             $scope.planList=response1.data;
+                            $scope.totalItems=$scope.planList.length;
+                            $scope.pageChanged();
                              $scope.showDetai=[];
                             for(var i=0;i<$scope.planList.length;i++){
                                 $scope.showDetail[i]=false;
@@ -268,6 +298,8 @@ myApp.controller('taskCtrl',function($scope,$http,$cookieStore,$timeout,$filter,
                 }).success(function(response1){
                     if(response1.code==1){
                         $scope.planList=response1.data;
+                        $scope.totalItems=$scope.planList.length;
+                        $scope.pageChanged();
                          $scope.showDetai=[];
                         for(var i=0;i<$scope.planList.length;i++){
                             $scope.showDetail[i]=false;
