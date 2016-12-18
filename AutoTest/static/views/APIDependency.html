@@ -7,7 +7,7 @@
             <span class="glyphicon glyphicon-plus"></span> 添加
         </button>
     </div>
-    <div class="col-md-11 top3" ng-show="apiDepList.length!=0">
+    <div class="col-md-12 top3" ng-show="apiDepList.length!=0">
         <div class="panel panel-default">
             <div class="panel-body">
                 <div ng-repeat="Dep in apiDepList">
@@ -33,32 +33,51 @@
                                 <table class="table">
                                     <tr>
                                         <td class="detailTable1">请求协议</td>
-                                        <td class="detailTable2" ng-model="Dep.depnd_api_protocol"></td>
+                                        <td class="detailTable2" >
+                                            <span ng-show="!(edit && editId==Dep.depnd_api_id)" ng-bind="Dep.depnd_api_protocol"></span>
+                                            <input type="text" class="col-md-12" ng-show="edit && editId==Dep.depnd_api_id" ng-model="Dep.depnd_api_protocol">
+                                        </td>
                                     </tr>
                                     <tr>
                                         <td class="detailTable1">请求方式</td>
-                                        <td class="detailTable2" ng-model="Dep.depnd_api_method"></td>
+                                        <td class="detailTable2">
+                                            <span ng-show="!(edit && editId==Dep.depnd_api_id)" ng-bind="Dep.depnd_api_method"></span>
+                                            <input type="text" class="col-md-12" ng-show="edit && editId==Dep.depnd_api_id" ng-model="Dep.depnd_api_method">
+                                        </td>
                                     </tr>
                                     <tr>
                                         <td class="detailTable1">数据格式</td>
-                                        <td class="detailTable2" ng-model="Dep.depnd_api_type"></td>
+                                        <td class="detailTable2">
+                                            <span ng-show="!(edit && editId==Dep.depnd_api_id)" ng-bind="Dep.depnd_api_type"></span>
+                                            <input type="text" class="col-md-12" ng-show="edit && editId==Dep.depnd_api_id" ng-model="Dep.depnd_api_type">
+                                        </td>
                                     </tr>
                                     <tr>
                                         <td class="detailTable1">请求url</td>
-                                        <td class="detailTable2" ng-model="Dep.depnd_api_url"></td>
+                                        <td class="detailTable2">
+                                            <span ng-show="!(edit && editId==Dep.depnd_api_id)" ng-bind="Dep.depnd_api_url"></span>
+                                            <input type="text" class="col-md-12" ng-show="edit && editId==Dep.depnd_api_id" ng-model="Dep.depnd_api_url">
+                                        </td>
                                     </tr>
                                     <tr>
                                         <td class="detailTable1">请求体</td>
-                                        <td class="detailTable2" ng-model="Dep.depnd_api_param"></td>
+                                        <td class="detailTable2">
+                                            <span ng-show="!(edit && editId==Dep.depnd_api_id)" ng-bind="Dep.depnd_api_param"></span>
+                                            <input type="text" class="col-md-12" ng-show="edit && editId==Dep.depnd_api_id" ng-model="Dep.depnd_api_param">
+                                        </td>
                                     </tr>
                                     <tr>
                                         <td class="detailTable1">请求描述</td>
-                                        <td class="detailTable2" ng-model="Dep.depnd_api_desc"></td>
+                                        <td class="detailTable2">
+                                            <span ng-show="!(edit && editId==Dep.depnd_api_id)" ng-bind="Dep.depnd_api_desc"></span>
+                                            <input type="text" class="col-md-12" ng-show="edit && editId==Dep.depnd_api_id" ng-model="Dep.depnd_api_desc">
+                                        </td>
                                     </tr>
                                     <tr>
                                         <td class="detailTable1">依赖接口</td>
                                         <td class="detailTable2">
-                                            <select class="form-control" ng-model="selected"
+                                            <span ng-show="!(edit && editId==Dep.depnd_api_id)" ng-bind="apiDepName"></span>
+                                            <select class="form-control" ng-show="edit && editId==Dep.depnd_api_id" ng-model="selected"
                                                 ng-options="apiDep.depnd_api_id as apiDep.depnd_api_name for apiDep in apiDepList">
                                                 <option value="">无</option>
                                             </select>

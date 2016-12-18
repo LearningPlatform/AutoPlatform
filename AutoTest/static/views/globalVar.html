@@ -2,102 +2,104 @@
     <div>
         <h1 class="page-header text-primary">全局变量</h1>
     </div>
-    <div class="panel panel-default">
-        <div class="panel-body">
-            <div>
-                <ul class="nav nav-tabs">
-                    <li class="{$evnactive$}">
-                        <a ng-click="showEvnDiv()">环境列表</a></li>
-                    <li class="{$varactive$}">
-                        <a ng-click="showVarDiv()">变量列表</a></li>
-                </ul>
-            </div>
-        </div>
-        <div class="panel-body">
-            <div class="row">
-                <div class="col-md-4">
-                    <div class="btn-group">
-                        <button type="button" class="btn btn-default" ng-click="addEnv()">
-                            新增环境
-                        </button>
-                        <button type="button" class="btn btn-default" ng-click="addVar()">
-                            新增变量
-                        </button>
-                    </div>
+    <div class="col-md-12">
+        <div class="panel panel-default">
+            <div class="panel-body">
+                <div>
+                    <ul class="nav nav-tabs">
+                        <li class="{$evnactive$}">
+                            <a ng-click="showEvnDiv()">环境列表</a></li>
+                        <li class="{$varactive$}">
+                            <a ng-click="showVarDiv()">变量列表</a></li>
+                    </ul>
                 </div>
-                <form>
-                    <div class="col-md-3 col-md-offset-4">
-                        <input class="form-control">
-                    </div>
-                    <div class="col-md-1">
-                        <button class="form-control">查询</button>
-                    </div>
-                </form>
             </div>
-        </div>
+            <div class="panel-body">
+                <div class="row">
+                    <div class="col-md-4">
+                        <div class="btn-group">
+                            <button type="button" class="btn btn-default" ng-click="addEnv()">
+                                新增环境
+                            </button>
+                            <button type="button" class="btn btn-default" ng-click="addVar()">
+                                新增变量
+                            </button>
+                        </div>
+                    </div>
+                    <form>
+                        <div class="col-md-3 col-md-offset-4">
+                            <input class="form-control">
+                        </div>
+                        <div class="col-md-1">
+                            <button class="form-control">查询</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
 
-        <div class="panel-body" ng-show="showVarCom">
-            <div ng-repeat="env in envList">
-                <div class="panel panel-info">
-                    <div class="panel-heading">
-                        <h4 class="panel-title"  ng-mouseenter="shownCom=true" ng-mouseleave="shownCom=false" >
-                            <a ng-click="getEnvVar(env.env_id)" ng-bind="env.env_name" ></a>
-                            <div class="pull-right">
-                                <a ng-show="shownCom" ng-click="editEnv(env.env_id)"><span class="glyphicon glyphicon-pencil"></span>编辑</a>
-                                <a ng-show="shownCom" ng-click="cfDel(env.env_id)"><span class="glyphicon glyphicon-remove"></span>删除</a>
-                            </div>
-                        </h4>
-                    </div>
-                    <div class="panel-body" ng-show="showVar&&(showId==env.env_id)">
-                        <table class="table table-bordered table-striped">
-                            <thead>
-                            <th> 变量名</th>
-                            <th> 类型</th>
-                            <th> 变量值</th>
-                            <th> 描述</th>
-                            </thead>
-                            <tbody>
-                                <tr ng-repeat="varEnv in envVarList">
-                                    <td ng-bind="varEnv.var_name"></td>
-                                    <td ng-bind="varEnv.var_type"></td>
-                                    <td ng-bind="varEnv.var_value"></td>
-                                    <td ng-bind="varEnv.var_desc"></td>
-                                </tr>
-                            </tbody>
-                        </table>
+            <div class="panel-body" ng-show="showVarCom">
+                <div ng-repeat="env in envList">
+                    <div class="panel panel-info">
+                        <div class="panel-heading">
+                            <h4 class="panel-title"  ng-mouseenter="shownCom=true" ng-mouseleave="shownCom=false" >
+                                <a ng-click="getEnvVar(env.env_id,$index)" ng-bind="env.env_name" ></a>
+                                <div class="pull-right">
+                                    <a ng-show="shownCom" ng-click="editEnv(env.env_id)"><span class="glyphicon glyphicon-pencil"></span>编辑</a>
+                                    <a ng-show="shownCom" ng-click="cfDel(env.env_id)"><span class="glyphicon glyphicon-remove"></span>删除</a>
+                                </div>
+                            </h4>
+                        </div>
+                        <div class="panel-body" ng-show="showVar[$index]">
+                            <table class="table table-bordered table-striped">
+                                <thead>
+                                <th> 变量名</th>
+                                <th> 类型</th>
+                                <th> 变量值</th>
+                                <th> 描述</th>
+                                </thead>
+                                <tbody>
+                                    <tr ng-repeat="varEnv in envVarList">
+                                        <td ng-bind="varEnv.var_name"></td>
+                                        <td ng-bind="varEnv.var_type"></td>
+                                        <td ng-bind="varEnv.var_value"></td>
+                                        <td ng-bind="varEnv.var_desc"></td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
                     </div>
                 </div>
             </div>
-        </div>
-        <div class="panel-body" ng-show="showEnvCom">
-            <div ng-repeat="varNum in varList">
-                <div class="panel panel-info">
-                    <div class="panel-heading">
-                        <h4 class="panel-title" ng-mouseenter="shownCom=true" ng-mouseleave="shownCom=false">
-                            <a ng-click="getVarEnv(varNum.var_id)" ng-bind="varNum.var_name" ></a>
-                            <div class="pull-right">
-                                <a class="op" ng-show="shownCom" ng-click="editVar(varNum.var_id)"><span class="glyphicon glyphicon-pencil"></span>编辑</a>
-                                <a class="op" ng-show="shownCom" ng-click="cfDelVar(varNum.var_id)"><span class="glyphicon glyphicon-remove"></span>删除</a>
-                            </div>
-                        </h4>
-                    </div>
-                    <div class="panel-body" ng-show="showEnv&&(showId==varNum.var_id)">
-                        <table class="table table-bordered table-striped">
-                            <thead>
-                            <th> 环境</th>
-                            <th> 类型</th>
-                            <th> 变量值</th>
-                            <th> 描述</th>
-                            </thead>
-                            <tbody>
-                                <tr ng-repeat="envVar in var.value">
-                                    <td ng-bind="envVar.env_name"></td>
-                                    <td ng-bind="varNum.var_type"></td>
-                                    <td ng-bind="envVar.var_value"></td>
-                                    <td ng-bind="varNum.var_desc"></td>
-                                </tr>
-                            </tbody>
-                        </table>
+            <div class="panel-body" ng-show="showEnvCom">
+                <div ng-repeat="varNum in varList">
+                    <div class="panel panel-info">
+                        <div class="panel-heading">
+                            <h4 class="panel-title" ng-mouseenter="shownCom=true" ng-mouseleave="shownCom=false">
+                                <a ng-click="getVarEnv(varNum.var_id,$index)" ng-bind="varNum.var_name" ></a>
+                                <div class="pull-right">
+                                    <a class="op" ng-show="shownCom" ng-click="editVar(varNum.var_id)"><span class="glyphicon glyphicon-pencil"></span>编辑</a>
+                                    <a class="op" ng-show="shownCom" ng-click="cfDelVar(varNum.var_id)"><span class="glyphicon glyphicon-remove"></span>删除</a>
+                                </div>
+                            </h4>
+                        </div>
+                        <div class="panel-body" ng-show="showEnv[$index]">
+                            <table class="table table-bordered table-striped">
+                                <thead>
+                                <th> 环境</th>
+                                <th> 类型</th>
+                                <th> 变量值</th>
+                                <th> 描述</th>
+                                </thead>
+                                <tbody>
+                                    <tr ng-repeat="envVar in var.value">
+                                        <td ng-bind="envVar.env_name"></td>
+                                        <td ng-bind="varNum.var_type"></td>
+                                        <td ng-bind="envVar.var_value"></td>
+                                        <td ng-bind="varNum.var_desc"></td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
                     </div>
                 </div>
             </div>

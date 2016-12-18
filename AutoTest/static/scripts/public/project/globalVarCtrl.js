@@ -5,9 +5,8 @@ myApp.controller('globalVarCtrl',function($scope,$http,$cookieStore,$timeout){
     $scope.varType=["String","Number","Array","Boolean"];
     $scope.varInfoShow=true;
     $scope.showVarCom=false;
-    $scope.showVar=false;
-    $scope.showEnv=false;
-    $scope.showId=0;
+    $scope.showVar=[];
+    $scope.showEnv=[];
     $scope.envList="";
     $scope.env={
         pro_id:pro_id,
@@ -41,6 +40,9 @@ myApp.controller('globalVarCtrl',function($scope,$http,$cookieStore,$timeout){
         }).success(function (response) {
             if(response.code==1) {
                 $scope.envList = response.data;
+                for(var i=0;i<$scope.envList.length;i++){
+                    $scope.showVar[i]=false;
+                }
             }else{
                 alert(response.msg);
             }
@@ -57,7 +59,6 @@ myApp.controller('globalVarCtrl',function($scope,$http,$cookieStore,$timeout){
     })
 
     $scope.showEvnDiv=function(){
-        $scope.showEnv=false;
         $scope.evnactive="active";
         $scope.varactive="disactive";
          $http.post('project/env/list', {
@@ -65,6 +66,10 @@ myApp.controller('globalVarCtrl',function($scope,$http,$cookieStore,$timeout){
          }).success(function (response) {
              if(response.code==1) {
                  $scope.envList = response.data;
+                 $scope.showVar=[];
+                 for(var i=0;i<$scope.envList.length;i++){
+                    $scope.showVar[i]=false;
+                 }
              }else{
                 alert(response.msg);
             }
@@ -74,6 +79,10 @@ myApp.controller('globalVarCtrl',function($scope,$http,$cookieStore,$timeout){
         }).success(function (response) {
             if(response.code==1) {
                 $scope.varList = response.data;
+                $scope.showEnv=[];
+                 for(var i=0;i<$scope.varList.length;i++){
+                    $scope.showEnv[i]=false;
+                 }
             }else{
                 alert(response.msg);
             }
@@ -83,7 +92,7 @@ myApp.controller('globalVarCtrl',function($scope,$http,$cookieStore,$timeout){
     }
 
     $scope.showVarDiv=function(){
-        $scope.showVar=false;
+        //$scope.showVar=false;
         $scope.varactive="active";
         $scope.evnactive="disactive";
         $scope.showVarCom=false;
@@ -93,19 +102,27 @@ myApp.controller('globalVarCtrl',function($scope,$http,$cookieStore,$timeout){
         }).success(function (response) {
             if(response.code==1) {
                 $scope.varList = response.data;
+                $scope.showEnv=[];
+                 for(var i=0;i<$scope.varList.length;i++){
+                    $scope.showEnv[i]=false;
+                 }
             }else{
                 alert(response.msg);
             }
         });
         $http.post('project/env/list', {
              "pro_id": pro_id
-         }).success(function (response) {
+        }).success(function (response) {
              if(response.code==1) {
                  $scope.envList = response.data;
+                 $scope.showVar=[];
+                 for(var i=0;i<$scope.envList.length;i++){
+                    $scope.showVar[i]=false;
+                 }
              }else{
                 alert(response.msg);
             }
-         });
+        });
     }
 
     $scope.addEnv=function(){
@@ -132,6 +149,10 @@ myApp.controller('globalVarCtrl',function($scope,$http,$cookieStore,$timeout){
                     }).success(function (response1) {
                          if(response1.code==1) {
                              $scope.envList = response1.data;
+                             $scope.showVar=[];
+                             for(var i=0;i<$scope.envList.length;i++){
+                                 $scope.showVar[i]=false;
+                             }
                          }else{
                             alert(response1.msg);
                         }
@@ -197,6 +218,10 @@ myApp.controller('globalVarCtrl',function($scope,$http,$cookieStore,$timeout){
                 }).success(function (response) {
                      if(response.code==1) {
                          $scope.envList = response.data;
+                         $scope.showVar=[];
+                         for(var i=0;i<$scope.envList.length;i++){
+                             $scope.showVar[i]=false;
+                         }
                      }else{
                         alert(response.msg);
                     }
@@ -208,8 +233,12 @@ myApp.controller('globalVarCtrl',function($scope,$http,$cookieStore,$timeout){
     }
 
     $scope.getEnvVar=function(id,index){
-        $scope.showId=id;
-        $scope.showVar=!$scope.showVar;
+        for(var i=0;i<$scope.showVar.length;i++){
+            if(i!=index){
+                $scope.showVar[i]=false;
+            }
+        }
+        $scope.showVar[index]=!$scope.showVar[index];
         $http.post('project/env/varList',{
             "env_id":id
         }).success(function(response){
@@ -306,6 +335,10 @@ myApp.controller('globalVarCtrl',function($scope,$http,$cookieStore,$timeout){
                 }).success(function (response1) {
                      if(response1.code==1) {
                          $scope.varList = response1.data;
+                         $scope.showEnv=[];
+                         for(var i=0;i<$scope.varList.length;i++){
+                            $scope.showEnv[i]=false;
+                         }
                      }else{
                         alert(response1.msg);
                     }
@@ -353,6 +386,10 @@ myApp.controller('globalVarCtrl',function($scope,$http,$cookieStore,$timeout){
                 }).success(function (response1) {
                      if(response1.code==1) {
                          $scope.varList = response1.data;
+                         $scope.showEnv=[];
+                         for(var i=0;i<$scope.varList.length;i++){
+                            $scope.showEnv[i]=false;
+                         }
                      }else{
                         alert(response1.msg);
                     }
@@ -363,9 +400,13 @@ myApp.controller('globalVarCtrl',function($scope,$http,$cookieStore,$timeout){
         });
     }
 
-    $scope.getVarEnv=function(id){
-        $scope.showId=id;
-        $scope.showEnv=!$scope.showEnv;
+    $scope.getVarEnv=function(id,index){
+        for(var i=0;i<$scope.showEnv.length;i++){
+            if(i!=index){
+                $scope.showEnv[i]=false;
+            }
+        }
+        $scope.showEnv[index]=!$scope.showEnv[index];
         $http.post('project/var/detail',{
             "var_id":id
         }).success(function(response){
@@ -413,6 +454,10 @@ myApp.controller('globalVarCtrl',function($scope,$http,$cookieStore,$timeout){
                 }).success(function (response) {
                      if(response.code==1) {
                          $scope.varList = response.data;
+                         $scope.showEnv=[];
+                         for(var i=0;i<$scope.varList.length;i++){
+                            $scope.showEnv[i]=false;
+                         }
                      }else{
                         alert(response.msg);
                     }
@@ -422,5 +467,4 @@ myApp.controller('globalVarCtrl',function($scope,$http,$cookieStore,$timeout){
             }
         });
     }
-
 })

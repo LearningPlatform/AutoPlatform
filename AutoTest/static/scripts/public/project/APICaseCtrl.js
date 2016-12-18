@@ -147,9 +147,10 @@ myApp.controller('APICaseCtrl',function($scope,$http,$cookieStore,$timeout,$loca
         }).success(function (response) {
             if(response.code==1){
                 $scope.apiList=response.data;
-                for(var i=0;i<$scope.apiList.length;i++){
+                $scope.showCase=[];
+                 for(var i=0;i<$scope.apiList.length;i++){
                     $scope.showCase[i]=false;
-                }
+                 }
             }else{
                 alert(response.msg)
             }
@@ -177,9 +178,10 @@ myApp.controller('APICaseCtrl',function($scope,$http,$cookieStore,$timeout,$loca
         }).success(function (response) {
             if(response.code==1){
                 $scope.apiList=response.data;
-                for(var i=0;i<$scope.apiList.length;i++){
+                $scope.showCase=[];
+                 for(var i=0;i<$scope.apiList.length;i++){
                     $scope.showCase[i]=false;
-                }
+                 }
             }else{
                 alert(response.msg)
             }
@@ -205,9 +207,10 @@ myApp.controller('APICaseCtrl',function($scope,$http,$cookieStore,$timeout,$loca
          }).success(function(response){
              if(response.code==1){
                  $scope.apiList=response.data;
+                 $scope.showCase=[];
                  for(var i=0;i<$scope.apiList.length;i++){
                     $scope.showCase[i]=false;
-                }
+                 }
              }else{
                  alert(response.msg);
              }
@@ -434,6 +437,10 @@ myApp.controller('APICaseCtrl',function($scope,$http,$cookieStore,$timeout,$loca
                     }).success(function (response1) {
                          if(response1.code==1) {
                              $scope.apiList = response1.data;
+                             $scope.showCase=[];
+                             for(var i=0;i<$scope.apiList.length;i++){
+                                $scope.showCase[i]=false;
+                             }
                          }else{
                             alert(response1.msg);
                         }
@@ -444,6 +451,10 @@ myApp.controller('APICaseCtrl',function($scope,$http,$cookieStore,$timeout,$loca
                      }).success(function(response2){
                          if(response2.code==1){
                              $scope.apiList=response2.data;
+                             $scope.showCase=[];
+                             for(var i=0;i<$scope.apiList.length;i++){
+                                $scope.showCase[i]=false;
+                             }
                          }else{
                              alert(response2.msg);
                          }
@@ -497,6 +508,10 @@ myApp.controller('APICaseCtrl',function($scope,$http,$cookieStore,$timeout,$loca
                     }).success(function (response1) {
                          if(response1.code==1) {
                              $scope.apiList = response1.data;
+                             $scope.showCase=[];
+                             for(var i=0;i<$scope.apiList.length;i++){
+                                $scope.showCase[i]=false;
+                             }
                          }else{
                             alert(response1.msg);
                         }
@@ -507,6 +522,10 @@ myApp.controller('APICaseCtrl',function($scope,$http,$cookieStore,$timeout,$loca
                  }).success(function(response2){
                      if(response2.code==1){
                          $scope.apiList=response2.data;
+                         $scope.showCase=[];
+                         for(var i=0;i<$scope.apiList.length;i++){
+                            $scope.showCase[i]=false;
+                         }
                      }else{
                          alert(response2.msg);
                      }
@@ -535,6 +554,10 @@ myApp.controller('APICaseCtrl',function($scope,$http,$cookieStore,$timeout,$loca
                     }).success(function (response1) {
                          if(response1.code==1) {
                              $scope.apiList = response1.data;
+                             $scope.showCase=[];
+                             for(var i=0;i<$scope.apiList.length;i++){
+                                $scope.showCase[i]=false;
+                             }
                          }else{
                             alert(response1.msg);
                         }
@@ -545,6 +568,10 @@ myApp.controller('APICaseCtrl',function($scope,$http,$cookieStore,$timeout,$loca
                      }).success(function(response2){
                          if(response2.code==1){
                              $scope.apiList=response2.data;
+                             $scope.showCase=[];
+                             for(var i=0;i<$scope.apiList.length;i++){
+                                $scope.showCase[i]=false;
+                             }
                          }else{
                              alert(response2.msg);
                          }
@@ -568,6 +595,7 @@ myApp.controller('APICaseCtrl',function($scope,$http,$cookieStore,$timeout,$loca
         }).success(function(response){
             if(response.code==1){
                 $scope.caseList=response.data;
+                $scope.showinfo=[];
                 for(var i=0;i<$scope.caseList.length;i++){
                     $scope.showinfo[i]=false;
                 }
@@ -614,12 +642,10 @@ myApp.controller('APICaseCtrl',function($scope,$http,$cookieStore,$timeout,$loca
         }).success(function(response){
             if(response.code==1){
                 $scope.api=response.data;
-                console.log($scope.api)
                 $scope.selectedApi=$scope.api.api_id;
                 $scope.case.case_url=$scope.api.api_url;
                 $scope.case.case_protocol=$scope.api.api_protocol;
                 $scope.case.case_method=$scope.api.api_method;
-                console.log($scope.case)
             }else{
                 alert(response.msg)
             }
@@ -705,6 +731,10 @@ myApp.controller('APICaseCtrl',function($scope,$http,$cookieStore,$timeout,$loca
                     "api_id":$scope.case.api_id
                 }).success(function(response1){
                     $scope.caseList=response1.data;
+                    $scope.showinfo=[];
+                    for(var i=0;i<$scope.caseList.length;i++){
+                        $scope.showinfo[i]=false;
+                    }
                 })
             }else{
                 alert(response.msg);
@@ -984,6 +1014,10 @@ myApp.controller('APICaseCtrl',function($scope,$http,$cookieStore,$timeout,$loca
                 }).success(function(response1){
                     if(response1.code==1){
                         $scope.caseList=response1.data;
+                        $scope.showinfo=[];
+                        for(var i=0;i<$scope.caseList.length;i++){
+                            $scope.showinfo[i]=false;
+                        }
                     }else{
                         alert(response1.msg);
                     }
@@ -1057,6 +1091,10 @@ myApp.controller('APICaseCtrl',function($scope,$http,$cookieStore,$timeout,$loca
                     "api_id":apiId
                 }).success(function(response1){
                     $scope.caseList=response1.data;
+                    $scope.showinfo=[];
+                    for(var i=0;i<$scope.caseList.length;i++){
+                        $scope.showinfo[i]=false;
+                    }
                 })
                 if(checkId==0){
                     $scope.check1.check_desc="默认";

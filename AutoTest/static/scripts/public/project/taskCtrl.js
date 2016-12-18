@@ -173,14 +173,12 @@ myApp.controller('taskCtrl',function($scope,$http,$cookieStore,$timeout,$filter,
     }
 
     $scope.getTaskDetail=function(planID,index){
-        console.log($scope.showDetail[index])
         for(var i=0;i<$scope.showDetail.length;i++){
             if(i!=index){
                 $scope.showDetail[i]=false;
             }
         }
         $scope.showDetail[index]=!$scope.showDetail[index];
-        console.log($scope.showDetail)
         $http.post("project/plan/detail",{
             "plan_id":planID
         }).success(function(response){

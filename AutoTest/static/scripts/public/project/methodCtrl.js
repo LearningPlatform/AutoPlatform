@@ -167,14 +167,11 @@ myApp.controller('methodCtrl',function($scope,$http,$cookieStore,$timeout) {
                     $scope.runResult=response.data;
                 }
                 else {
-                    console.log(response)
                     $scope.runResult = {
                         status: response.data.status,
                         output: "【异常】："+response.data.error + "【具体信息】:"+response.data.output
                     }
-                    console.log(response.data.output)
                 }
-                console.log($scope.runResult)
             }else{
                 alert(response.msg)
             }

@@ -204,7 +204,6 @@ myApp.controller('recordCtrl', function ($scope, $http, $cookieStore,$sce,$timeo
     var editId;
     $scope.check=[];
     $scope.editRecord=function(id){
-        console.log(id+" 1")
         editId=id;
         $("#editRecord").modal();
         if($scope.idList[id]==-1){

@@ -12,7 +12,6 @@ myApp.controller('homepageCtrl', function ($scope, $http, $cookieStore, $timeout
         }).success(function(response){
             if(response.code==1){
                 $scope.planList=response.data;
-                console.log($scope.planList)
             }else{
                 alert(response.msg)
             }
@@ -36,7 +35,6 @@ myApp.controller('homepageCtrl', function ($scope, $http, $cookieStore, $timeout
     $scope.colors = ['#46BFBD', '#FF0000', '#DCDCDC'];
     $scope.series = ['PASS_NUM', 'FAIL_NUM', 'CASE_NUM'];
     $scope.onClick = function (points, evt) {
-        console.log(points, evt);
     };
     $scope.datasetOverride = [{
         id:'y-axis-pass',

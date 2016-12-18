@@ -103,8 +103,14 @@ myApp.controller('APIDependencyCtrl',function($scope,$http,$cookieStore,$timeout
                 "pro_id": pro_id,
                 "depnd_id": apiDepId
             }).success(function(response){
-                if(response.code==0){
-                    alert(response.msg)
+                if(response.code==1){
+                    $http.post("project/dapi/detail",{
+                        "depnd_api_id":apiDepId
+                    }).success(function(response){
+                        $scope.apiDepName=response.data.depnd_api_name;
+                    })
+                }else{
+                     alert(response.msg)
                 }
             })
         }
@@ -127,6 +133,12 @@ myApp.controller('APIDependencyCtrl',function($scope,$http,$cookieStore,$timeout
             if(response.code==1){
                 $scope.apiDep=response.data;
                 $scope.selected=$scope.apiDep.depnd_id;
+                $http.post("project/dapi/detail",{
+                    "depnd_api_id":$scope.apiDep.depnd_id
+                }).success(function(response){
+                    $scope.apiDepName=response.data.depnd_api_name;
+
+                 })
             }else{
                 alert(reponse.msg)
             }

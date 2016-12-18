@@ -62,6 +62,9 @@ myApp.controller('testReportCtrl', function ($scope, $http, $cookieStore, $timeo
         }).success(function (response1) {
             if (response1.code = 1) {
                 $scope.resultList = response1.data;
+                $scope.totalItems=$scope.resultList.length;
+                $scope.currentPage = 1;//d当前页面
+                $scope.pageChanged(1);
                 for (var i = 0; i < $scope.resultList.length; i++) {
                     date = new Date(($scope.resultList[i].end_time - $scope.resultList[i].start_time) * 1000);
                     m = date.getMinutes();
@@ -81,6 +84,51 @@ myApp.controller('testReportCtrl', function ($scope, $http, $cookieStore, $timeo
         })
     })
 
+    $scope.pageList=[];
+    $scope.pageChanged=function(index){
+        if(index==1){
+            $http.post('project/result/list', {
+                "pro_id": pro_id
+            }).success(function (response1) {
+                if (response1.code = 1) {
+                    $scope.resultList = response1.data;
+                }else{
+                    alert(response1.msg)
+                }
+            })
+            $scope.pageList=[];
+            if($scope.currentPage==Math.ceil($scope.resultList.length/10)){
+                for(var i=0;i<$scope.resultList.length-($scope.currentPage-1)*10;i++){
+                    $scope.pageList[i]=$scope.resultList[($scope.currentPage-1)*10+i];
+                }
+            }else{
+                for(var i=0;i<10;i++){
+                    $scope.pageList[i]=$scope.resultList[($scope.currentPage-1)*10+i];
+                }
+            }
+        }else{
+            $http.post('project/result/detailList', {
+                "result_id": resultDetailId
+            }).success(function (response) {
+                if (response.code = 1) {
+                    $scope.allResult = response.data;
+                    $scope.reaultDetailList=[];
+                    if($scope.currentPage2==Math.ceil($scope.allResult.length/10)){
+                        for(var i=0;i<$scope.allResult.length-($scope.currentPage2-1)*10;i++){
+                            $scope.reaultDetailList[i]=$scope.allResult[($scope.currentPage2-1)*10+i];
+                        }
+                    }else{
+                        for(var i=0;i<10;i++){
+                            $scope.reaultDetailList[i]=$scope.allResult[($scope.currentPage2-1)*10+i];
+                        }
+                    }
+                }else{
+                    alert(response.msg)
+                }
+            })
+        }
+    }
+
     $scope.clearSelect = function () {
         $scope.suite = "";
         $scope.startDate = "";
@@ -88,15 +136,20 @@ myApp.controller('testReportCtrl', function ($scope, $http, $cookieStore, $timeo
         $scope.title = "";
     }
 
+    var resultDetailId=0;
     $rootScope.showDetail = function (obj) {
         $scope.result = obj;
         $scope.repList = false;
         $scope.repDetail = true;
+        resultDetailId=obj.result_id;
         $http.post('project/result/detailList', {
             "result_id": obj.result_id
         }).success(function (response) {
             if (response.code = 1) {
                 $scope.allResult = response.data;
+                $scope.totalItems2=$scope.allResult.length;
+                $scope.currentPage2 = 1;//d当前页面
+                $scope.pageChanged(2);
                 $scope.resultStr = "";
                 for (var i = 0; i < $scope.allResult.length - 1; i++) {
                     $scope.reportDetal[i] = false;
@@ -110,7 +163,6 @@ myApp.controller('testReportCtrl', function ($scope, $http, $cookieStore, $timeo
 
     $scope.showReport = function (obj, index) {
         $scope.res=obj;
-        console.log($scope.res)
         $http.post("project/api/detail", {
             "api_id": obj.api_id
         }).success(function (response) {
@@ -132,6 +184,7 @@ myApp.controller('testReportCtrl', function ($scope, $http, $cookieStore, $timeo
         }).success(function (response1) {
             if (response1.code = 1) {
                 $scope.resultList = response1.data;
+                $scope.pageChanged(1);
             } else {
                 alert(response1.msg)
             }
@@ -148,6 +201,7 @@ myApp.controller('testReportCtrl', function ($scope, $http, $cookieStore, $timeo
                 }).success(function (response1) {
                     if (response1.code = 1) {
                         $scope.resultList = response1.data;
+                        $scope.pageChanged(1);
                     } else {
                         alert(response1.msg)
                     }
