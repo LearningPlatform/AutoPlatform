@@ -131,10 +131,10 @@ myApp.controller('recordCtrl', function ($scope, $http, $cookieStore,$sce,$timeo
         window.frames["Iframe1"];
     }
 
+    var reqDataPage;
     $scope.stopRecord = function () {
         dataSocket.close();
     }
-
     $scope.idList=[];
     $scope.objList=[];
     $scope.runDisabled=[];
@@ -159,8 +159,26 @@ myApp.controller('recordCtrl', function ($scope, $http, $cookieStore,$sce,$timeo
             $scope.runDisabled[i]=true;
             $scope.undisabled[i]=false;
         }
+        reqDataPage=$scope.reqData;
         $scope.showiframe = false;
         $scope.showtable = true;
+        $scope.totalItems=$scope.reqData.length;
+        $scope.currentPage = 1;
+        $scope.pageChanged();
+    }
+
+    $scope.pageList=[];
+    $scope.pageChanged=function(){
+        $scope.pageList=[];
+        if($scope.currentPage==Math.ceil(reqDataPage.length/10)){
+            for(var i=0;i<reqDataPage.length-($scope.currentPage-1)*10;i++){
+                $scope.pageList[i]=reqDataPage[($scope.currentPage-1)*10+i];
+            }
+        }else{
+            for(var i=0;i<10;i++){
+                $scope.pageList[i]=reqDataPage[($scope.currentPage-1)*10+i];
+            }
+        }
     }
 
     $scope.styleList = [];
@@ -196,6 +214,8 @@ myApp.controller('recordCtrl', function ($scope, $http, $cookieStore,$sce,$timeo
         $scope.idList.splice(RecordId, 1);
         $scope.objList.splice(RecordId, 1);
         $scope.reqData.splice(RecordId, 1);
+        reqDataPage=$scope.reqData;
+        $scope.pageChanged();
         $scope.runDisabled.splice(RecordId, 1);
         $scope.undisabled.splice(RecordId, 1);
         $("#cfRecord").modal('hide');
