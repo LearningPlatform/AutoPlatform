@@ -36,7 +36,7 @@ class ReqResp:
             func_name = re.search("\\w+",re_str).group()
             func_code = self.setFuncCode(func_name, re_str[2:-2])
             self.param = re.sub(Constant.PATTERN_TYPE2, functool.get_return(func_name, func_code), self.param)
-        self.param = self.param.replace("\'", "\"")
+        #self.param = self.param.replace("\'", "\"")
 
     def sendRequest(self):
         if "headers" in self.var_map.keys():

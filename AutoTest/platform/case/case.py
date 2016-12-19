@@ -75,8 +75,8 @@ class CaseEntity(ReqResp):
     def check_schema(self):
         # 0-----未通过，1-----通过，2-----未检验, 3------错误
         if self.schema != "":
-            self.schema = json.loads(self.schema)
             try:
+                self.schema = json.loads(self.schema)
                 validate(self.resp["response_data"]["body"], self.schema)
                 self.schema_result = 1
                 self.schema_msg = "校验通过"
@@ -88,6 +88,9 @@ class CaseEntity(ReqResp):
                 self.schema_result = 3
                 self.schema_msg = "校验异常，请检查schema是否正确"
             except FormatError:
+                self.schema_result = 3
+                self.schema_msg = "校验异常，请检查schema是否正确"
+            except Exception:
                 self.schema_result = 3
                 self.schema_msg = "校验异常，请检查schema是否正确"
         else:
@@ -116,8 +119,9 @@ class CaseEntity(ReqResp):
             self.body_result = 2
 
     def save_result(self):
-        if self.resp_type != "json":
-            self.param = json.dumps(self.param)
+        # if self.resp_type != "json":
+        #     self.param = json.dumps(self.param)
+        print(self.param)
         self.param = json.loads(self.param)
         input_data = {
             "url": self.url,
