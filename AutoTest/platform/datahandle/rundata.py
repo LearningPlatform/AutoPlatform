@@ -27,6 +27,7 @@ def get_run_info(data):
         except Exception as e:
             c.set_is_pass(False)
             c.err_msg += "\n"+str(e)
+            c.setRespDefault()
         else:
             c.check_schema()
             c.check_result()
