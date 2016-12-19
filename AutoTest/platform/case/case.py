@@ -2,20 +2,14 @@ from .dapi import Interface
 from ...models import CheckModel, Case, ResultDetail
 from .req import ReqResp
 from ..tools import strtool, functool
+from .. import Constant
 
 import json
+import re
 from jsonschema import validate, ValidationError, SchemaError, FormatError
 
 
 class CaseEntity(ReqResp):
-    # TODO:
-    """
-    1.增加notRun字段
-    2.增加异常处理
-    3.增加schema校验错误信息（Done）
-    4.优化字段的替换函数
-    5.优化函数运行结果
-    """
 
     result_id = 0
     result_detail = object
@@ -58,11 +52,12 @@ class CaseEntity(ReqResp):
         self.exp_header = self.case.exp_header
 
     def handle_depnd_param(self):
-        while "$." in self.param:
-            path = strtool.str_replace(self.param, 2)
+        while re.search(Constant.PATTERN_TYPE3, self.param):
             self.d_api = Interface(self.depnd_api_id, var_map=self.var_map)
             self.d_api.run()
-            self.param = self.param.replace(path, str(self.d_api.get_param_value(path)))
+            self.param = re.sub(Constant.PATTERN_TYPE3,
+                                str(self.d_api.get_param_value(re.search(Constant.PATTERN_TYPE3, self.param).group())),
+                                self.param)
 
     def check_status(self):
         # 0-----未通过，1-----通过，2-----未检验, 3------错误
@@ -80,8 +75,8 @@ class CaseEntity(ReqResp):
     def check_schema(self):
         # 0-----未通过，1-----通过，2-----未检验, 3------错误
         if self.schema != "":
-            self.schema = json.loads(self.schema)
             try:
+                self.schema = json.loads(self.schema)
                 validate(self.resp["response_data"]["body"], self.schema)
                 self.schema_result = 1
                 self.schema_msg = "校验通过"
@@ -93,6 +88,9 @@ class CaseEntity(ReqResp):
                 self.schema_result = 3
                 self.schema_msg = "校验异常，请检查schema是否正确"
             except FormatError:
+                self.schema_result = 3
+                self.schema_msg = "校验异常，请检查schema是否正确"
+            except Exception:
                 self.schema_result = 3
                 self.schema_msg = "校验异常，请检查schema是否正确"
         else:
@@ -121,8 +119,9 @@ class CaseEntity(ReqResp):
             self.body_result = 2
 
     def save_result(self):
-        if self.resp_type != "json":
-            self.param = json.dumps(self.param)
+        # if self.resp_type != "json":
+        #     self.param = json.dumps(self.param)
+        print(self.param)
         self.param = json.loads(self.param)
         input_data = {
             "url": self.url,

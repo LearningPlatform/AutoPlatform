@@ -2,6 +2,8 @@ from ...models import DepndApi
 from .req import ReqResp
 from ..tools import strtool
 
+from ..tools import jsonpath
+
 
 class Interface(ReqResp):
     case = object
@@ -29,9 +31,5 @@ class Interface(ReqResp):
             self.param = self.param.replace(path, str(self.d_api.get_param_value(path)))
 
     def get_param_value(self, param_path):
-        param_path = param_path[2:]
-        param_path = param_path.split('.')
-        param = self.resp["response_data"]["body"]
-        for p in param_path:
-            param = param[p]
-        return param
+        return jsonpath.jsonpath(self.resp["response_data"]["body"],param_path)[0]
+
