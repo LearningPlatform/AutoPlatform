@@ -1038,27 +1038,19 @@
                         <div class="form-group">
                             <label class="col-md-2 control-label">URL：</label>
                             <div class="col-md-9">
-                                <textarea type="text" class="form-control" rows="3" ng-model="caseResult.url"
+                                <input type="text" class="form-control" ng-model="caseResult.url"
                                           style="background-color: white" readonly>
-                                </textarea>
                             </div>
                         </div>
                         <div class="form-group">
-                            <label class="col-md-2 control-label">响应：</label>
+                            <label class="col-md-2 control-label">请求参数：</label>
                             <div class="col-md-9">
-                                <textarea type="text" class="form-control" rows="3" ng-model="caseResult.request_body"
+                                <textarea type="text" class="form-control" rows="1" ng-model="caseResult.request_body"
                                           style="background-color: white" readonly>
                                 </textarea>
                             </div>
                         </div>
-                        <div class="form-group">
-                            <label class="col-md-2 control-label">schema：</label>
-                            <div class="col-md-9">
-                                <textarea type="text" class="form-control" rows="12" ng-model="caseResult.schema"
-                                          style="background-color: white" readonly>
-                                </textarea>
-                            </div>
-                        </div>
+
                         <div class="form-group">
                             <label class="col-md-2 control-label">期望状态码：</label>
                             <div class="col-md-9">
@@ -1081,18 +1073,11 @@
 
                             </div>
                         </div>
-                        <div class="form-group">
-                            <label class="col-md-2 control-label">期望输出值：</label>
-                            <div class="col-md-9">
-                                <textarea type="text" class="form-control" rows="3" ng-model="caseResult.exp_data"
-                                          style="background-color: white" readonly>
-                                </textarea>
-                            </div>
-                        </div>
+
                         <div class="form-group">
                             <label class="col-md-2 control-label">期望响应头：</label>
                             <div class="col-md-9">
-                                <textarea type="text" class="form-control" rows="3" ng-model="caseResult.exp_header"
+                                <textarea type="text" class="form-control" rows="1" ng-model="caseResult.exp_header"
                                           style="background-color: white" readonly>
                                 </textarea>
                             </div>
@@ -1100,7 +1085,7 @@
                         <div class="form-group">
                             <label class="col-md-2 control-label">响应头：</label>
                             <div class="col-md-9">
-                                <textarea type="text" class="form-control" rows="3" ng-model="caseResult.header"
+                                <textarea type="text" class="form-control" rows="2" ng-model="caseResult.header"
                                           style="background-color: white" readonly>
                                 </textarea>
                             </div>
@@ -1113,24 +1098,17 @@
                             </div>
                         </div>
                         <div class="form-group">
-                            <label class="col-md-2 control-label">响应体：</label>
+                            <label class="col-md-2 control-label">期望响应：</label>
                             <div class="col-md-9">
-                                <textarea type="text" class="form-control" rows="8" ng-model="caseResult.response_body"
+                                <textarea type="text" class="form-control" rows="1" ng-model="caseResult.exp_data"
                                           style="background-color: white" readonly>
                                 </textarea>
                             </div>
                         </div>
                         <div class="form-group">
-                            <label class="col-md-2 control-label">schema检验：</label>
+                            <label class="col-md-2 control-label">响应体：</label>
                             <div class="col-md-9">
-                                <input type="text" class="form-control" ng-model="caseResult.schema_check"
-                                       style="background-color: white" readonly>
-                            </div>
-                        </div>
-                        <div class="form-group" ng-hide="caseResult.schema_check==1">
-                            <label class="col-md-2 control-label">schema检验信息：</label>
-                            <div class="col-md-9">
-                                <textarea type="text" class="form-control" rows="1" ng-model="caseResult.schema_msg"
+                                <textarea type="text" class="form-control" rows="3" ng-model="caseResult.response_body"
                                           style="background-color: white" readonly>
                                 </textarea>
                             </div>
@@ -1142,6 +1120,30 @@
                                        style="background-color: white" readonly>
                             </div>
                         </div>
+                        <div class="form-group">
+                            <label class="col-md-2 control-label">schema：</label>
+                            <div class="col-md-9">
+                                <textarea type="text" class="form-control" rows="3" ng-model="caseResult.schema"
+                                          style="background-color: white" readonly>
+                                </textarea>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-md-2 control-label">schema检验：</label>
+                            <div class="col-md-9">
+                                <input type="text" class="form-control" ng-model="caseResult.schema_check"
+                                       style="background-color: white" readonly>
+                            </div>
+                        </div>
+                        <div class="form-group" ng-hide="caseResult.schema_check =='通过'">
+                            <label class="col-md-2 control-label">schema检验信息：</label>
+                            <div class="col-md-9">
+                                <textarea type="text" class="form-control" rows="1" ng-model="caseResult.schema_msg"
+                                          style="background-color: white" readonly>
+                                </textarea>
+                            </div>
+                        </div>
+
                     </form>
                 </div>
                 <div class="modal-footer">
