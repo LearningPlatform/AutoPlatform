@@ -1,7 +1,7 @@
 myApp.controller('APIDependencyCtrl',function($scope,$http,$cookieStore,$timeout) {
     var pro_id = $cookieStore.get("currProID");
     $scope.protocolType=["http"];
-    $scope.methodType=["get","post","push","delete"];
+    $scope.methodType=["GET","POST","PUSH","DELETE"];
     $scope.typeType=["json"];
     $scope.showDetail=[];
     $scope.apiDepId=0;
