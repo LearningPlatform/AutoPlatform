@@ -170,13 +170,15 @@ myApp.controller('recordCtrl', function ($scope, $http, $cookieStore,$sce,$timeo
     $scope.pageList=[];
     $scope.pageChanged=function(){
         $scope.pageList=[];
-        if($scope.currentPage==Math.ceil(reqDataPage.length/10)){
-            for(var i=0;i<reqDataPage.length-($scope.currentPage-1)*10;i++){
-                $scope.pageList[i]=reqDataPage[($scope.currentPage-1)*10+i];
-            }
-        }else{
-            for(var i=0;i<10;i++){
-                $scope.pageList[i]=reqDataPage[($scope.currentPage-1)*10+i];
+        if(reqDataPage.length>0){
+            if($scope.currentPage==Math.ceil(reqDataPage.length/10)){
+                for(var i=0;i<reqDataPage.length-($scope.currentPage-1)*10;i++){
+                    $scope.pageList[i]=reqDataPage[($scope.currentPage-1)*10+i];
+                }
+            }else{
+                for(var i=0;i<10;i++){
+                    $scope.pageList[i]=reqDataPage[($scope.currentPage-1)*10+i];
+                }
             }
         }
     }

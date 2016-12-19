@@ -67,23 +67,25 @@ myApp.controller('globalVarCtrl',function($scope,$http,$cookieStore,$timeout){
     $scope.pageChanged=function(index){
         if(index==1){
             $http.post('project/env/list', {
-             "pro_id": pro_id
-        }).success(function (response) {
-            if(response.code==1) {
-                $scope.envList = response.data;
-                $scope.envTotalItems=$scope.envList.length;
+                 "pro_id": pro_id
+            }).success(function (response) {
+                if(response.code==1) {
+                    $scope.envList = response.data;
+                    $scope.envTotalItems=$scope.envList.length;
+                    $scope.envPageList=[];
+                    if($scope.envTotalItems>0){
+                        if($scope.envCurrentPage==Math.ceil($scope.envList.length/10)){
+                            for(var i=0;i<$scope.envList.length-($scope.envCurrentPage-1)*10;i++){
+                                $scope.envPageList[i]=$scope.envList[($scope.envCurrentPage-1)*10+i];
+                            }
+                        }else{
+                            for(var i=0;i<10;i++){
+                                $scope.envPageList[i]=$scope.envList[($scope.envCurrentPage-1)*10+i];
+                            }
+                        }
+                    }
                 }
             })
-            $scope.envPageList=[];
-            if($scope.envCurrentPage==Math.ceil($scope.envList.length/10)){
-                for(var i=0;i<$scope.envList.length-($scope.envCurrentPage-1)*10;i++){
-                    $scope.envPageList[i]=$scope.envList[($scope.envCurrentPage-1)*10+i];
-                }
-            }else{
-                for(var i=0;i<10;i++){
-                    $scope.envPageList[i]=$scope.envList[($scope.envCurrentPage-1)*10+i];
-                }
-            }
         }else{
             $http.post('project/var/list', {
                  "pro_id": pro_id
@@ -91,20 +93,21 @@ myApp.controller('globalVarCtrl',function($scope,$http,$cookieStore,$timeout){
                 if(response.code==1) {
                     $scope.varList = response.data;
                     $scope.varTotalItems=$scope.varList.length;
+                    $scope.varPageList=[];
+                    if($scope.varTotalItems>0){
+                        if($scope.varCurrentPage==Math.ceil($scope.varList.length/10)){
+                            for(var i=0;i<$scope.varList.length-($scope.varCurrentPage-1)*10;i++){
+                                $scope.varPageList[i]=$scope.varList[($scope.varCurrentPage-1)*10+i];
+                            }
+                        }else{
+                            for(var i=0;i<10;i++){
+                                $scope.varPageList[i]=$scope.varList[($scope.varCurrentPage-1)*10+i];
+                            }
+                        }
+                    }
                 }
             })
-            $scope.varPageList=[];
-            if($scope.varCurrentPage==Math.ceil($scope.varList.length/10)){
-                for(var i=0;i<$scope.varList.length-($scope.varCurrentPage-1)*10;i++){
-                    $scope.varPageList[i]=$scope.varList[($scope.varCurrentPage-1)*10+i];
-                }
-            }else{
-                for(var i=0;i<10;i++){
-                    $scope.varPageList[i]=$scope.varList[($scope.varCurrentPage-1)*10+i];
-                }
-            }
         }
-
     }
 
     $scope.showEvnDiv=function(){

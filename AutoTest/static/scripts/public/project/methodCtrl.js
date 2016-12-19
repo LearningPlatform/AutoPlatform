@@ -2,6 +2,7 @@ myApp.controller('methodCtrl',function($scope,$http,$cookieStore,$timeout) {
     var pro_id = $cookieStore.get("currProID");
     $scope.activeList1=["active","disactive"];
     $scope.funcList=[];
+    $scope.pageList=[];
     $scope.func={
         "func_desc": "hwbchjdcgxd",
           "pro_id": pro_id,
@@ -29,6 +30,7 @@ myApp.controller('methodCtrl',function($scope,$http,$cookieStore,$timeout) {
         });
     })
 
+
     $scope.pageChanged=function(){
         $http.post("project/func/list",{
              "pro_id": pro_id
@@ -36,18 +38,20 @@ myApp.controller('methodCtrl',function($scope,$http,$cookieStore,$timeout) {
              if(response.code==1) {
                  $scope.funcList=response.data;
                  $scope.totalItems=$scope.funcList.length;
+                 $scope.pageList=[];
+                 if($scope.totalItems>0){
+                     if($scope.currentPage==Math.ceil($scope.funcList.length/10)){
+                        for(var i=0;i<$scope.funcList.length-($scope.currentPage-1)*10;i++){
+                            $scope.pageList[i]=$scope.funcList[($scope.currentPage-1)*10+i];
+                        }
+                     }else{
+                        for(var i=0;i<10;i++){
+                            $scope.pageList[i]=$scope.funcList[($scope.currentPage-1)*10+i];
+                        }
+                     }
+                 }
             }
         })
-        $scope.pageList=[];
-        if($scope.currentPage==Math.ceil($scope.funcList.length/10)){
-            for(var i=0;i<$scope.funcList.length-($scope.currentPage-1)*10;i++){
-                $scope.pageList[i]=$scope.funcList[($scope.currentPage-1)*10+i];
-            }
-        }else{
-            for(var i=0;i<10;i++){
-                $scope.pageList[i]=$scope.funcList[($scope.currentPage-1)*10+i];
-            }
-        }
     }
 
     $scope.addFunc=function(){
@@ -58,6 +62,12 @@ myApp.controller('methodCtrl',function($scope,$http,$cookieStore,$timeout) {
     $scope.moreFuncDetail=function(obj){
         $scope.func=obj;
         $scope.funcList.push($scope.func);
+        $scope.totalItems=$scope.funcList.length;
+        $scope.currentPage = Math.ceil($scope.totalItems/10);
+        $scope.pageList=[];
+        for(var i=0;i<$scope.funcList.length-($scope.currentPage-1)*10;i++){
+            $scope.pageList[i]=$scope.funcList[($scope.currentPage-1)*10+i];
+        }
         for(var i=0;i<$scope.showfunc.length;i++){
             $scope.showfunc[i]=false;
         }

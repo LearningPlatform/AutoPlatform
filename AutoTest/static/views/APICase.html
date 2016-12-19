@@ -72,7 +72,7 @@
             </div>
             <div class="panel-body" >
                 <!--ng-show="showAllAPI"-->
-                <div ng-repeat="list in apiList">
+                <div ng-repeat="list in pageList">
                     <div class="panel panel-info">
                         <div class="panel-heading">
                             <h4 class="panel-title" ng-mouseenter="shownCom=true" ng-mouseleave="shownCom=false">
@@ -295,6 +295,10 @@
                             </div>
                         </div>
                     </div>
+                </div>
+                <div class="pull-right marginRight">
+                    <pagination boundary-links="true" total-items="totalItems" ng-model="currentPage" ng-change="pageChanged()"
+                                class="pagination" previous-text="&lsaquo;" next-text="&rsaquo;" first-text="&laquo;" last-text="&raquo;">
                 </div>
             </div>
         </div>

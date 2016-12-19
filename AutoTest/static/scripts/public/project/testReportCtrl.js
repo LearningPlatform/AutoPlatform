@@ -92,34 +92,40 @@ myApp.controller('testReportCtrl', function ($scope, $http, $cookieStore, $timeo
             }).success(function (response1) {
                 if (response1.code = 1) {
                     $scope.resultList = response1.data;
+                    $scope.totalItems=$scope.resultList.length;
+                    $scope.pageList=[];
+                    if($scope.totalItems>0){
+                        if($scope.currentPage==Math.ceil($scope.resultList.length/10)){
+                            for(var i=0;i<$scope.resultList.length-($scope.currentPage-1)*10;i++){
+                                $scope.pageList[i]=$scope.resultList[($scope.currentPage-1)*10+i];
+                            }
+                        }else{
+                            for(var i=0;i<10;i++){
+                                $scope.pageList[i]=$scope.resultList[($scope.currentPage-1)*10+i];
+                            }
+                        }
+                    }
                 }else{
                     alert(response1.msg)
                 }
             })
-            $scope.pageList=[];
-            if($scope.currentPage==Math.ceil($scope.resultList.length/10)){
-                for(var i=0;i<$scope.resultList.length-($scope.currentPage-1)*10;i++){
-                    $scope.pageList[i]=$scope.resultList[($scope.currentPage-1)*10+i];
-                }
-            }else{
-                for(var i=0;i<10;i++){
-                    $scope.pageList[i]=$scope.resultList[($scope.currentPage-1)*10+i];
-                }
-            }
         }else{
             $http.post('project/result/detailList', {
                 "result_id": resultDetailId
             }).success(function (response) {
                 if (response.code = 1) {
                     $scope.allResult = response.data;
+                    $scope.totalItems2=$scope.allResult.length;
                     $scope.reaultDetailList=[];
-                    if($scope.currentPage2==Math.ceil($scope.allResult.length/10)){
-                        for(var i=0;i<$scope.allResult.length-($scope.currentPage2-1)*10;i++){
-                            $scope.reaultDetailList[i]=$scope.allResult[($scope.currentPage2-1)*10+i];
-                        }
-                    }else{
-                        for(var i=0;i<10;i++){
-                            $scope.reaultDetailList[i]=$scope.allResult[($scope.currentPage2-1)*10+i];
+                    if($scope.totalItems2>0){
+                        if($scope.currentPage2==Math.ceil($scope.allResult.length/10)){
+                            for(var i=0;i<$scope.allResult.length-($scope.currentPage2-1)*10;i++){
+                                $scope.reaultDetailList[i]=$scope.allResult[($scope.currentPage2-1)*10+i];
+                            }
+                        }else{
+                            for(var i=0;i<10;i++){
+                                $scope.reaultDetailList[i]=$scope.allResult[($scope.currentPage2-1)*10+i];
+                            }
                         }
                     }
                 }else{
@@ -147,6 +153,7 @@ myApp.controller('testReportCtrl', function ($scope, $http, $cookieStore, $timeo
         }).success(function (response) {
             if (response.code = 1) {
                 $scope.allResult = response.data;
+                $scope.currentPage2=1;
                 $scope.totalItems2=$scope.allResult.length;
                 $scope.pageChanged(2);
                 $scope.resultStr = "";

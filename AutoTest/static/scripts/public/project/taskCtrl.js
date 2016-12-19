@@ -78,20 +78,23 @@ myApp.controller('taskCtrl',function($scope,$http,$cookieStore,$timeout,$filter,
         }).success(function(response1) {
             if (response1.code == 1) {
                 $scope.planList=response1.data;
+                $scope.totalItems=$scope.planList.length;
+                $scope.pageList=[];
+                if($scope.totalItems>0){
+                    if($scope.currentPage==Math.ceil($scope.planList.length/10)){
+                        for(var i=0;i<$scope.planList.length-($scope.currentPage-1)*10;i++){
+                            $scope.pageList[i]=$scope.planList[($scope.currentPage-1)*10+i];
+                        }
+                    }else{
+                        for(var i=0;i<10;i++){
+                            $scope.pageList[i]=$scope.planList[($scope.currentPage-1)*10+i];
+                        }
+                    }
+                }
             }else{
                 alert(response1.msg)
             }
         })
-        $scope.pageList=[];
-        if($scope.currentPage==Math.ceil($scope.planList.length/10)){
-            for(var i=0;i<$scope.planList.length-($scope.currentPage-1)*10;i++){
-                $scope.pageList[i]=$scope.planList[($scope.currentPage-1)*10+i];
-            }
-        }else{
-            for(var i=0;i<10;i++){
-                $scope.pageList[i]=$scope.planList[($scope.currentPage-1)*10+i];
-            }
-        }
     }
 
     $scope.addPlan=function(){

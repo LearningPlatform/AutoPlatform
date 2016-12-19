@@ -53,18 +53,20 @@ myApp.controller('APIDependencyCtrl',function($scope,$http,$cookieStore,$timeout
             if (response.code == 1) {
                 $scope.apiDepList = response.data;
                 $scope.totalItems=$scope.apiDepList.length;
+                $scope.pageList=[];
+                if($scope.totalItems>0){
+                    if($scope.currentPage==Math.ceil($scope.apiDepList.length/10)){
+                        for(var i=0;i<$scope.apiDepList.length-($scope.currentPage-1)*10;i++){
+                            $scope.pageList[i]=$scope.apiDepList[($scope.currentPage-1)*10+i];
+                        }
+                    }else{
+                        for(var i=0;i<10;i++){
+                            $scope.pageList[i]=$scope.apiDepList[($scope.currentPage-1)*10+i];
+                        }
+                    }
+                }
             }
         })
-        $scope.pageList=[];
-        if($scope.currentPage==Math.ceil($scope.apiDepList.length/10)){
-            for(var i=0;i<$scope.apiDepList.length-($scope.currentPage-1)*10;i++){
-                $scope.pageList[i]=$scope.apiDepList[($scope.currentPage-1)*10+i];
-            }
-        }else{
-            for(var i=0;i<10;i++){
-                $scope.pageList[i]=$scope.apiDepList[($scope.currentPage-1)*10+i];
-            }
-        }
     }
 
     $scope.addAPIDep=function(){
@@ -78,7 +80,6 @@ myApp.controller('APIDependencyCtrl',function($scope,$http,$cookieStore,$timeout
         $scope.apiDepList.push(obj);
         $scope.totalItems=$scope.apiDepList.length;
         $scope.currentPage = Math.ceil($scope.totalItems/10);
-        console.log($scope.currentPage)
         $scope.pageList=[];
         for(var i=0;i<$scope.apiDepList.length-($scope.currentPage-1)*10;i++){
             $scope.pageList[i]=$scope.apiDepList[($scope.currentPage-1)*10+i];

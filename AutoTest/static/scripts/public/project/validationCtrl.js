@@ -36,18 +36,20 @@ myApp.controller('validationCtrl',function($scope,$http,$cookieStore,$timeout) {
              if(response.code==1) {
                  $scope.checkList = response.data;
                  $scope.totalItems = $scope.checkList.length;
+                 $scope.pageList=[];
+                 if($scope.totalItems>0){
+                     if($scope.currentPage==Math.ceil($scope.checkList.length/10)){
+                        for(var i=0;i<$scope.checkList.length-($scope.currentPage-1)*10;i++){
+                            $scope.pageList[i]=$scope.checkList[($scope.currentPage-1)*10+i];
+                        }
+                     }else{
+                        for(var i=0;i<10;i++){
+                            $scope.pageList[i]=$scope.checkList[($scope.currentPage-1)*10+i];
+                        }
+                     }
+                 }
              }
         })
-        $scope.pageList=[];
-        if($scope.currentPage==Math.ceil($scope.checkList.length/10)){
-            for(var i=0;i<$scope.checkList.length-($scope.currentPage-1)*10;i++){
-                $scope.pageList[i]=$scope.checkList[($scope.currentPage-1)*10+i];
-            }
-        }else{
-            for(var i=0;i<10;i++){
-                $scope.pageList[i]=$scope.checkList[($scope.currentPage-1)*10+i];
-            }
-        }
     }
 
     $scope.addCheck=function(){
@@ -58,6 +60,12 @@ myApp.controller('validationCtrl',function($scope,$http,$cookieStore,$timeout) {
     $scope.moreCheckDetail=function(obj){
         $scope.check=obj;
         $scope.checkList.push($scope.check);
+        $scope.totalItems=$scope.checkList.length;
+        $scope.currentPage = Math.ceil($scope.totalItems/10);
+        $scope.pageList=[];
+        for(var i=0;i<$scope.checkList.length-($scope.currentPage-1)*10;i++){
+            $scope.pageList[i]=$scope.checkList[($scope.currentPage-1)*10+i];
+        }
         for(var i=0;i<$scope.showcheck.length;i++){
             $scope.showcheck[i]=false;
         }
