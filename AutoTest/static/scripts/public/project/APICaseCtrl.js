@@ -1062,6 +1062,12 @@ myApp.controller('APICaseCtrl',function($scope,$http,$cookieStore,$timeout,$loca
         })
     }
 
+    $scope.copyCase=function(obj){
+        $scope.case=obj;
+        $scope.saveCase($scope.case.api_id,$scope.case.depnd_api_id);
+    }
+
+
     var suiteIndex=0;
     $scope.editCase = function (obj) {
         $scope.case=obj;
