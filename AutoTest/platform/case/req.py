@@ -1,8 +1,10 @@
 from ..tools import strtool,functool
 from ...models import Functions
+from .. import Constant
 
 import requests
 import json
+import re
 
 
 class ReqResp:
@@ -21,31 +23,32 @@ class ReqResp:
         pass
 
     def setUrl(self):
-        while "{{" in self.url:
-            a, b, str_param = strtool.str_replace(self.url, 1)
-            self.url = self.url.replace(self.url[a:b], self.var_map[str_param])
+        while re.search(Constant.PATTERN_TYPE1,self.url):
+            re_str = re.search(Constant.PATTERN_TYPE1, self.url).group()
+            self.url = re.sub(Constant.PATTERN_TYPE1,self.var_map[re_str[2:-2]],self.url)
 
     def setReqParam(self):
-        while "{{" in self.param:
-            a, b, str_param = strtool.str_replace(self.param, 1)
-            self.param = self.param.replace(self.param[a:b], self.var_map[str_param])
-        while "{$" in self.param:
-            a, b, func_str_re, func_name = strtool.str_replace(self.param, 3)
-            func_code = self.setFuncCode(func_name, func_str_re)
-            self.param = self.param.replace(self.param[a:b], functool.get_return(func_name, func_code))
+        while re.search(Constant.PATTERN_TYPE1,self.param):
+            re_str = re.search(Constant.PATTERN_TYPE1, self.param).group()
+            self.param = re.sub(Constant.PATTERN_TYPE1, self.var_map[re_str[2:-2]],self.param)
+        while re.search(Constant.PATTERN_TYPE2,self.param):
+            re_str = re.search(Constant.PATTERN_TYPE2, self.param).group()
+            func_name = re.search("\\w+",re_str).group()
+            func_code = self.setFuncCode(func_name, re_str[2:-2])
+            self.param = re.sub(Constant.PATTERN_TYPE2, functool.get_return(func_name, func_code), self.param)
         self.param = self.param.replace("\'", "\"")
 
     def sendRequest(self):
         if "headers" in self.var_map.keys():
             headers = json.loads(self.var_map["headers"])
-            re = requests.request(method=self.method,url=self.url, data=self.param, headers=headers)
+            req = requests.request(method=self.method,url=self.url, data=self.param, headers=headers)
         else:
-            re = requests.request(method=self.method, url=self.url, data=self.param)
+            req = requests.request(method=self.method, url=self.url, data=self.param)
         self.resp = {
-            "status_code": re.status_code,
+            "status_code": req.status_code,
             "response_data": {
-                "header": re.headers,
-                "body": re.json()
+                "header": req.headers,
+                "body": req.json()
             }
         }
 
@@ -53,6 +56,15 @@ class ReqResp:
         func = Functions.objects.all().get(pro_id=self.pro_id, func_name=func_name)
         func_code = func.func_code + '\nprint('+ func_str_re + ')'
         return func_code
+
+    def setRespDefault(self):
+        self.resp = {
+            "status_code": 404,
+            "response_data": {
+                "header": "",
+                "body": ""
+            }
+        }
 
     def run(self):
         self.setUrl()
