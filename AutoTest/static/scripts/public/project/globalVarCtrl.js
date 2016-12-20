@@ -35,13 +35,14 @@ myApp.controller('globalVarCtrl',function($scope,$http,$cookieStore,$timeout){
         $scope.varactive="disactive";
         $scope.showVarCom=true;
         $scope.showEnvCom=false;
+        $scope.envCurrentPage = 1;
+        $scope.varCurrentPage = 1;
         $http.post('project/env/list', {
              "pro_id": pro_id
         }).success(function (response) {
             if(response.code==1) {
                 $scope.envList = response.data;
                 $scope.envTotalItems=$scope.envList.length;
-                $scope.envCurrentPage = 1;
                 $scope.pageChanged(1);
                 for(var i=0;i<$scope.envList.length;i++){
                     $scope.showVar[i]=false;
@@ -56,7 +57,6 @@ myApp.controller('globalVarCtrl',function($scope,$http,$cookieStore,$timeout){
             if(response.code==1) {
                 $scope.varList = response.data;
                 $scope.varTotalItems=$scope.varList.length;
-                $scope.varCurrentPage = 1;
                 $scope.pageChanged(2);
             }else{
                 alert(response.msg);

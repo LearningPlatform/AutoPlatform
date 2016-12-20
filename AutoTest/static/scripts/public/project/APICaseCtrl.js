@@ -234,7 +234,19 @@ myApp.controller('APICaseCtrl',function($scope,$http,$cookieStore,$timeout,$loca
          }).success(function(response){
              if(response.code==1){
                  $scope.apiList=response.data;
-                 $scope.pageChanged();
+                 $scope.totalItems=$scope.apiList.length;
+                 $scope.pageList=[];
+                 if($scope.totalItems>0){
+                    if($scope.currentPage==Math.ceil($scope.apiList.length/10)){
+                        for(var i=0;i<$scope.apiList.length-($scope.currentPage-1)*10;i++){
+                            $scope.pageList[i]=$scope.apiList[($scope.currentPage-1)*10+i];
+                        }
+                    }else{
+                        for(var i=0;i<10;i++){
+                            $scope.pageList[i]=$scope.apiList[($scope.currentPage-1)*10+i];
+                        }
+                    }
+                 }
                  $scope.showCase=[];
                  for(var i=0;i<$scope.apiList.length;i++){
                     $scope.showCase[i]=false;
