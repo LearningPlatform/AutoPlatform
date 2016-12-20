@@ -16,6 +16,7 @@ class ReqResp:
     method = ""
     protocol = ""
     resp = {}
+    req_headers = {}
 
     resp_type = ""
 
@@ -36,14 +37,10 @@ class ReqResp:
             func_name = re.search("\\w+",re_str).group()
             func_code = self.setFuncCode(func_name, re_str[2:-2])
             self.param = re.sub(Constant.PATTERN_TYPE2, functool.get_return(func_name, func_code), self.param)
-        #self.param = self.param.replace("\'", "\"")
 
     def sendRequest(self):
-        if "headers" in self.var_map.keys():
-            headers = json.loads(self.var_map["headers"])
-            req = requests.request(method=self.method,url=self.url, data=self.param, headers=headers)
-        else:
-            req = requests.request(method=self.method, url=self.url, data=self.param)
+        print(self.req_headers)
+        req = requests.request(method=self.method, url=self.url, data=self.param, headers=self.req_headers)
         self.resp = {
             "status_code": req.status_code,
             "response_data": {

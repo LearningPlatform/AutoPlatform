@@ -50,6 +50,8 @@ class CaseEntity(ReqResp):
         self.check_id = self.case.check_id
         self.exp_status = self.case.exp_status
         self.exp_header = self.case.exp_header
+        if "headers" in var_map.keys():
+            self.req_headers = json.loads(self.var_map["headers"])
 
     def handle_depnd_param(self):
         while re.search(Constant.PATTERN_TYPE3, self.param):
@@ -121,7 +123,6 @@ class CaseEntity(ReqResp):
     def save_result(self):
         # if self.resp_type != "json":
         #     self.param = json.dumps(self.param)
-        print(self.param)
         self.param = json.loads(self.param)
         input_data = {
             "url": self.url,

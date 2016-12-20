@@ -4,6 +4,8 @@ from ..tools import strtool
 
 from ..tools import jsonpath
 
+import json
+
 
 class Interface(ReqResp):
     case = object
@@ -22,6 +24,8 @@ class Interface(ReqResp):
         self.handle_depnd_param()
         self.pro_id = self.depnd_api.pro_id
         self.url = self.protocol + "://" + self.url
+        if "headers" in var_map.keys():
+            self.req_headers = json.loads(self.var_map["headers"])
 
     def handle_depnd_param(self):
         while "$." in self.param:
