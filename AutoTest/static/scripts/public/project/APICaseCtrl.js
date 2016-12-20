@@ -24,7 +24,7 @@ myApp.controller('APICaseCtrl',function($scope,$http,$cookieStore,$timeout,$loca
         "suite_name": ""
     };
     $scope.methodType=["GET","POST","PUT","DELETE"];
-    $scope.protocolType=["http"];
+    $scope.protocolType=["http","https"];
     //$scope.typeType=["json","raw","text"];
     $scope.typeType=["json"];
     $scope.apiList="";
