@@ -52,6 +52,8 @@ class CaseEntity(ReqResp):
         self.exp_header = self.case.exp_header
         if "headers" in var_map.keys():
             self.req_headers = json.loads(self.var_map["headers"])
+        if "encode" in var_map.keys():
+            self.encode_type = self.var_map["encode"]
 
     def handle_depnd_param(self):
         while re.search(Constant.PATTERN_TYPE3, self.param):

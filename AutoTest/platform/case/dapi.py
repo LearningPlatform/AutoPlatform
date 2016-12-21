@@ -26,6 +26,8 @@ class Interface(ReqResp):
         self.url = self.protocol + "://" + self.url
         if "headers" in var_map.keys():
             self.req_headers = json.loads(self.var_map["headers"])
+        if "encode" in var_map.keys():
+            self.encode_type = self.var_map["encode"]
 
     def handle_depnd_param(self):
         while "$." in self.param:

@@ -17,7 +17,7 @@ class ReqResp:
     protocol = ""
     resp = {}
     req_headers = {}
-
+    encode_type = "utf-8"
     resp_type = ""
 
     def __init__(self):
@@ -39,8 +39,11 @@ class ReqResp:
             self.param = re.sub(Constant.PATTERN_TYPE2, functool.get_return(func_name, func_code), self.param)
 
     def sendRequest(self):
-        print(self.req_headers)
-        req = requests.request(method=self.method, url=self.url, data=self.param, headers=self.req_headers)
+        method_type = self.getMethodType()
+        if method_type == 1:
+            req = requests.request(method=self.method, url=self.url, params=self.param, headers=self.req_headers)
+        elif method_type == 2:
+            req = requests.request(method=self.method, url=self.url, data=self.param.encode(self.encode_type), headers=self.req_headers)
         self.resp = {
             "status_code": req.status_code,
             "response_data": {
@@ -62,6 +65,12 @@ class ReqResp:
                 "body": ""
             }
         }
+
+    def getMethodType(self):
+        if self.method.lower() == "get":
+            return 1
+        if self.method.lower() == "post":
+            return 2
 
     def run(self):
         self.setUrl()
