@@ -271,7 +271,7 @@ myApp.controller('APIDependencyCtrl', function ($scope, $http, $cookieStore, $ti
         }).success(function (response) {
             if (response.code == 1) {
                 $scope.apiDepResult = response.data;
-                $scope.apiDepResult.response_body = JSON.stringify($scope.apiDepResult.response_body);
+                $scope.apiDepResult.response_body = $scope.apiDepResult.response_body;
                 $("#apiDepResult").modal();
             } else {
                 alert(response.msg);
