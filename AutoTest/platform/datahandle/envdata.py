@@ -15,25 +15,17 @@ def get_env_list(data):
     """
     try:
         pro_id = data['pro_id']
-        id_list = dbtool.getFieldList(Env, 'pro_id')
-        if pro_id in id_list:
-            body = []
-            test = Env.objects.all().filter(pro_id=pro_id)
-
-            for a in list(test):
-                a = jsontool.class_to_dict(a)
-                del (a['_state'])
-                body.append(a)
-            return {
-                "code": 1,
-                "msg": "获取环境列表成功",
-                "data": body
-            }
-        else:
-            return {
-                "code": 0,
-                "msg": "获取失败，项目不存在",
-            }
+        body = []
+        test = Env.objects.all().filter(pro_id=pro_id)
+        for a in list(test):
+            a = jsontool.class_to_dict(a)
+            del (a['_state'])
+            body.append(a)
+        return {
+            "code": 1,
+            "msg": "获取环境列表成功",
+            "data": body
+        }
     except Exception as e:
         print(e)
         return {
@@ -82,22 +74,15 @@ def create_env(data):
         pro_id = data['pro_id']
         env_name = data['env_name']
         env_desc = data['env_desc']
-        pro_id_list = dbtool.getFieldList(Project, 'pro_id')
-        if pro_id in pro_id_list:
-            if env_name == '':
-                return {
-                    "code": 0,
-                    "msg": "环境名不能为空！"
-                }
-            Env.objects.create(pro_id=pro_id, env_name=env_name, env_desc=env_desc)
-            return {
-                    "code": 1,
-                    "msg": "环境创建成功"
-                }
-        else:
+        if env_name == '':
             return {
                 "code": 0,
-                "msg": "参数错误，项目id不存在"
+                "msg": "环境名不能为空！"
+            }
+        Env.objects.create(pro_id=pro_id, env_name=env_name, env_desc=env_desc)
+        return {
+                "code": 1,
+                "msg": "环境创建成功"
             }
     except Exception as e:
         print(e)

@@ -14,37 +14,23 @@ def create_vars(data):
         pro_id = data['pro_id']
         var_name = data['var_name']
         var_desc = data['var_desc']
-        var_type = data['var_type']
         value_list = data['value']
-        pro_id_list = dbtool.getFieldList(Project, 'pro_id')
-        if pro_id in pro_id_list:
-            if var_name == '':
-                return {
-                    "code": 0,
-                    "msg": "变量名不能为空！"
-                }
-            if var_type == '':
-                return {
-                    "code": 0,
-                    "msg": "变量类型不能为空！"
-                }
-            var_id = Vars.objects.create(pro_id=pro_id, var_name=var_name,
-                                         var_desc=var_desc, var_type=var_type).var_id
-            for value in value_list:
-                env_id = value['env_id']
-                var_value = value['var_value']
-                VarValue.objects.create(pro_id=pro_id, env_id=env_id, var_value=var_value, var_id=var_id)
+        if var_name == '':
             return {
-                "code": 1,
-                "msg": "创建变量成功！"
+                "code": 0,
+                "msg": "变量名不能为空！"
             }
-        else:
-            return {
-                    "code": 0,
-                    "msg": "参数错误，项目id不存在！"
-                }
+        var_id = Vars.objects.create(pro_id=pro_id, var_name=var_name,
+                                     var_desc=var_desc).var_id
+        for value in value_list:
+            env_id = value['env_id']
+            var_value = value['var_value']
+            VarValue.objects.create(pro_id=pro_id, env_id=env_id, var_value=var_value, var_id=var_id)
+        return {
+            "code": 1,
+            "msg": "创建变量成功！"
+        }
     except Exception as e:
-        print(e)
         return {
             "code": 0,
             "msg": "创建失败，参数错误！"
@@ -104,10 +90,9 @@ def edit_var(data):
     var_id = data["var_id"]
     var_name = data['var_name']
     var_desc = data['var_desc']
-    var_type = data['var_type']
     value_list = data['value']
     Vars.objects.all().filter(var_id=var_id).update(var_name=var_name
-                                 ,var_desc=var_desc, var_type=var_type)
+                                 ,var_desc=var_desc)
     for value in value_list:
         var_value = value['var_value']
         env_id = value["env_id"]
