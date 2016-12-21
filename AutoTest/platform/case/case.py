@@ -43,7 +43,7 @@ class CaseEntity(ReqResp):
         self.var_map = var_map
         self.handle_depnd_param()
         self.pro_id = self.case.pro_id
-        self.url = self.protocol + "://" + self.url
+        self.url = self.protocol + "://" + self.var_map["host"]+self.url
         self.exp_data = self.case.exp_data
         self.resp_type = self.case.param_type
         self.schema = self.case.case_schema
