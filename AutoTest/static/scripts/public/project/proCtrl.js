@@ -27,5 +27,9 @@
          }
          $scope.activeList[id]='active';
      }
+
+    $scope.openIntro = function () {
+        $("#Intro").modal();
+    }
  })
 

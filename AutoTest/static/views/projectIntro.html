@@ -5,16 +5,20 @@
                 <a class="navbar-brand" href="#" ><span ng-bind="pro.pro_name"></span></a>
             </div>
             <ul class="nav navbar-nav navbar-right">
+                <!--
                 <li><a href="#">Dashboard</a></li>
                 <li><a href="#">Settings</a></li>
                 <li><a href="#">Profile</a></li>
-                <li><a href="#">Help</a></li>
+                -->
+                <li><a ng-click="openIntro()"><span class="glyphicon glyphicon-question-sign"></span>帮助</a></li>
             </ul>
+            <!--
             <form class="navbar-form navbar-right" role="search">
                 <div class="form-group">
                     <input type="text" class="form-control" placeholder="查找">
                 </div>
             </form>
+            -->
         </div>
     </nav>
 
@@ -34,6 +38,38 @@
             </ul>
         </div>
         <div  class="dis container-fluid" ui-view="intro"></div>
+    </div>
+
+       <div class="modal fade" id="Intro" aria-hidden="true" >
+        <div class="modal-dialog modalWidth">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close"
+                            data-dismiss="modal" aria-hidden="true">
+                        &times;
+                    </button>
+                    <h4 class="modal-title">
+                        使用说明
+                    </h4>
+                </div>
+                <div class="modal-body">
+                    <div class="modal-body-div">
+                        <div class="panel-heading">
+                            <div class="panel-title">
+                                <p>全局变量</p>
+                                <ul>
+                                    <li>1.若需要添加请求头，请在全局变量添加变量名为"headers"的变量，格式为json型变量</li>
+                                    <li>2.若需要设置请求的编码，请在全局变量添加变量名为"encode"的变量，默认为"utf-8"</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer btn_div">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+                </div>
+            </div>
+        </div>
     </div>
 </div>
 
