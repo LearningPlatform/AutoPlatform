@@ -27,7 +27,6 @@ class Vars(models.Model):
     var_id = models.AutoField(primary_key=True)
     pro_id = models.IntegerField(null=True)
     var_name = models.CharField(max_length=20, null=True)
-    var_type = models.CharField(max_length=20, null=True)
     var_desc = models.TextField(null=True)
 
 
