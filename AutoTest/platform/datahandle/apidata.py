@@ -1,5 +1,5 @@
-from ...models import Api, Suite, CaseSuite, Case
-from ..tools import jsontool, dbtool
+from ...models import Api, CaseSuite, Case
+from ..tools import jsontool
 
 
 def get_api_list(data):

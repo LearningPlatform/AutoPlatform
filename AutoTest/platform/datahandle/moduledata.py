@@ -1,5 +1,5 @@
 from ...models import Module, Api, Case
-from ..tools import dbtool, jsontool
+from ..tools import jsontool
 
 
 def get_module_list(data):

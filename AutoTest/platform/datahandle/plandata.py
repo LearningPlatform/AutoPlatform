@@ -1,4 +1,3 @@
-from . import rundata
 from ...models import RunPlan
 from ..tools import plantool,jsontool
 

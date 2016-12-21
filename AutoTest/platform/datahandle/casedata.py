@@ -1,5 +1,5 @@
 from ..case.case import CaseEntity
-from ...models import Api, Suite, CaseSuite, Case, DepndApi
+from ...models import Api, CaseSuite, Case, DepndApi
 from ..tools import jsontool, casetool
 
 import json

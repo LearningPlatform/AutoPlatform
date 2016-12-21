@@ -1,7 +1,7 @@
 from .dapi import Interface
 from ...models import CheckModel, Case, ResultDetail
 from .req import ReqResp
-from ..tools import strtool, functool
+from ..tools import functool
 from .. import Constant
 
 import json

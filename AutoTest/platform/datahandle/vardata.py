@@ -1,7 +1,7 @@
 # 处理全局变量相关的请求
 
-from ...models import Vars, Project, VarValue, Env
-from ..tools import dbtool, jsontool
+from ...models import Vars, VarValue, Env
+from ..tools import jsontool
 
 
 def create_vars(data):

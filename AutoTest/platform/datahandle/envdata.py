@@ -3,8 +3,8 @@
 @author:liujing
 """
 
-from ...models import Env, Project, Vars, VarValue
-from ..tools import dbtool, jsontool
+from ...models import Env, Vars, VarValue
+from ..tools import jsontool
 
 
 def get_env_list(data):
@@ -42,21 +42,14 @@ def get_env_detail(data):
     """
     try:
         env_id = data['env_id']
-        env_id_list = dbtool.getFieldList(Env, 'env_id')
-        if env_id in env_id_list:
-            data = Env.objects.all().get(env_id=env_id)
-            data_json = jsontool.convert_to_dict(data)
-            del(data_json['_state'])
-            return {
-                "code": 1,
-                "msg": "获取成功",
-                "data": data_json
-            }
-        else:
-            return {
-                "code": 0,
-                "msg": "获取失败，id不存在",
-            }
+        data = Env.objects.all().get(env_id=env_id)
+        data_json = jsontool.convert_to_dict(data)
+        del(data_json['_state'])
+        return {
+            "code": 1,
+            "msg": "获取成功",
+            "data": data_json
+        }
     except Exception as e:
         return {
             "code": 0,

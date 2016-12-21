@@ -1,6 +1,6 @@
 from ...models import CaseSuite, Result
 from ..case.case import CaseEntity
-from ..tools import jsontool,  casetool
+from ..tools import jsontool, casetool
 import time
 
 

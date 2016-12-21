@@ -4,7 +4,7 @@
 """
 
 from ...models import Project
-from ..tools import dbtool, jsontool
+from ..tools import jsontool
 
 
 def get_pro_list():
@@ -40,21 +40,14 @@ def get_pro_detail(data):
     """
     try:
         pro_id = data['pro_id']
-        pro_id_list = dbtool.getFieldList(Project, 'pro_id')
-        if pro_id in pro_id_list:
-            data = Project.objects.all().get(pro_id=pro_id)
-            data_json = jsontool.convert_to_dict(data)
-            del(data_json['_state'])
-            return {
-                "code": 1,
-                "msg": "获取成功",
-                "data": data_json
-            }
-        else:
-            return {
-                "code": 0,
-                "msg": "获取失败，id不存在",
-            }
+        data = Project.objects.all().get(pro_id=pro_id)
+        data_json = jsontool.convert_to_dict(data)
+        del(data_json['_state'])
+        return {
+            "code": 1,
+            "msg": "获取成功",
+            "data": data_json
+        }
     except Exception as e:
         return {
             "code": 0,
@@ -82,7 +75,6 @@ def create_pro(data):
                 "msg": "项目创建成功"
             }
     except Exception as e:
-        print(e)
         return {
                 "code": 0,
                 "msg": "项目创建失败"
@@ -115,7 +107,6 @@ def edit_pro(data):
             "msg": "修改成功"
         }
     except Exception as e:
-        print(e)
         return {
             "code": 0,
             "msg": "参数错误"
@@ -130,21 +121,13 @@ def del_pro(data):
     """
     try:
         pro_id = data['pro_id']
-        pro_id_list = dbtool.getFieldList(Project, 'pro_id')
-        if pro_id in pro_id_list:
-            pro = Project.objects.all().get(pro_id=pro_id)
-            pro.delete()
-            return {
-                "code": 1,
-                "msg": "删除成功"
-            }
-        else:
-            return {
-                "code": 0,
-                "msg": "删除失败，项目id不存在"
-            }
+        pro = Project.objects.all().get(pro_id=pro_id)
+        pro.delete()
+        return {
+            "code": 1,
+            "msg": "删除成功"
+        }
     except Exception as e:
-        print(e)
         return {
             "code": 0,
             "msg": "请求超时"
