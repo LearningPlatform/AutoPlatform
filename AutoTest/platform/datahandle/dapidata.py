@@ -4,6 +4,8 @@ from ..case.dapi import Interface
 
 from ..tools import jsontool, casetool
 
+import json
+
 
 def get_dapi_list(data):
     """
@@ -120,9 +122,10 @@ def run_d_api(data):
         "code": 1,
         "msg": "运行成功",
         "data": {
-            "status_code": c.resp["status_code"],
-            "response_body": c.resp["response_data"]["body"],
+            "url": c.url,
             "request_body": c.param,
-            "url": c.url
+            "status": c.resp["status_code"],
+            "header": json.dumps(dict(c.resp["response_data"]["header"],ensure_ascii=False)),
+            "response_body": json.dumps(c.resp["response_data"]["body"],ensure_ascii=False),
         }
     }
