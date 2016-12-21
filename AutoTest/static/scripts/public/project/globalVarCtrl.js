@@ -20,7 +20,6 @@ myApp.controller('globalVarCtrl',function($scope,$http,$cookieStore,$timeout){
         pro_id:pro_id,
         var_id:0,
         var_name:'',
-        var_type:'',
         var_desc:'',
         value:[{
             env_id:0,
@@ -328,7 +327,6 @@ myApp.controller('globalVarCtrl',function($scope,$http,$cookieStore,$timeout){
             "pro_id":pro_id,
             "var_id":$scope.var.var_id,
             "var_name":$scope.var.var_name,
-            "var_type":$scope.var.var_type,
             "var_desc":$scope.var.var_desc,
             "value":$scope.var.value
         }).success(function (response) {
@@ -353,7 +351,6 @@ myApp.controller('globalVarCtrl',function($scope,$http,$cookieStore,$timeout){
             pro_id:pro_id,
             var_id:"",
             var_name:'',
-            var_type:'无',
             var_desc:'',
             value:[{
                 env_id:"",
@@ -372,9 +369,6 @@ myApp.controller('globalVarCtrl',function($scope,$http,$cookieStore,$timeout){
         if($scope.var.var_desc==null){
             $scope.var.var_desc="无";
         }
-        if($scope.var.var_type=="无"){
-            $scope.var.var_type="String";
-        }
         for(var i=0;i<$scope.envList.length;i++){
             $scope.var.value[i].env_id=$scope.envList[i].env_id;
             $scope.var.value[i].env_name=$scope.envList[i].env_name;
@@ -383,7 +377,6 @@ myApp.controller('globalVarCtrl',function($scope,$http,$cookieStore,$timeout){
         $http.post('project/var/create',{
             "pro_id":pro_id,
             "var_name":$scope.var.var_name,
-            "var_type":$scope.var.var_type,
             "var_desc":$scope.var.var_desc,
             "value":$scope.var.value
         }).success(function (response) {
@@ -435,7 +428,6 @@ myApp.controller('globalVarCtrl',function($scope,$http,$cookieStore,$timeout){
             "pro_id":pro_id,
             "var_id":id,
             "var_name":$scope.var.var_name,
-            "var_type":$scope.var.var_type,
             "var_desc":$scope.var.var_desc,
             "value":$scope.var.value
         }).success(function (response) {
@@ -489,7 +481,6 @@ myApp.controller('globalVarCtrl',function($scope,$http,$cookieStore,$timeout){
             "pro_id":pro_id,
             "var_id":$scope.var.var_id,
             "var_name":$scope.var.var_name,
-            "var_type":$scope.var.var_type,
             "var_desc":$scope.var.var_desc,
             "value":$scope.var.value
         }).success(function (response) {
