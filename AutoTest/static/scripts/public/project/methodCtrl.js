@@ -204,7 +204,7 @@ myApp.controller('methodCtrl',function($scope,$http,$cookieStore,$timeout) {
                 else {
                     $scope.runResult = {
                         status: response.data.status,
-                        output: "【异常】："+response.data.error + "【具体信息】:"+response.data.output
+                        output: "【异常】："+response.data.error + "\n" +"【具体信息】:"+response.data.output
                     }
                 }
             }else{
