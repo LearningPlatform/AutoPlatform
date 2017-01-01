@@ -43,13 +43,22 @@ class ReqResp:
             req = requests.request(method=self.method, url=self.url, params=self.param, headers=self.req_headers)
         elif method_type == 2:
             req = requests.request(method=self.method, url=self.url, data=self.param.encode(self.encode_type), headers=self.req_headers)
-        self.resp = {
-            "status_code": req.status_code,
-            "response_data": {
-                "header": req.headers,
-                "body": req.json()
+        if req.status_code == 200 or req.status_code == 304:
+            self.resp = {
+                "status_code": req.status_code,
+                "response_data": {
+                    "header": req.headers,
+                    "body": req.json()
+                }
             }
-        }
+        else:
+            self.resp = {
+                "status_code": req.status_code,
+                "response_data": {
+                    "header": req.headers,
+                    "body": ""
+                }
+            }
 
     def setFuncCode(self, func_name, func_str_re):
         func = Functions.objects.all().get(pro_id=self.pro_id, func_name=func_name)
