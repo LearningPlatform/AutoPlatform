@@ -1,7 +1,7 @@
 from .dapi import Interface
 from ...models import CheckModel, Case, ResultDetail
 from .req import ReqResp
-from ..tools import functool
+from ..tools import functool,dbtool
 from .. import Constant
 
 import json
@@ -28,6 +28,8 @@ class CaseEntity(ReqResp):
     schema_result = 2
     schema_msg = ""
     err_msg = ""
+    front_sql = ""
+    rear_sql = ""
 
     def __init__(self, case_id, var_map, result_id):
         ReqResp.__init__(self)
@@ -50,6 +52,10 @@ class CaseEntity(ReqResp):
         self.check_id = self.case.check_id
         self.exp_status = self.case.exp_status
         self.exp_header = self.case.exp_header
+        if self.case.front_sql != None:
+            self.front_sql = self.case.front_sql
+        if self.case.rear_sql != None:
+            self.rear_sql = self.case.rear_sql
         if "headers" in var_map.keys():
             self.req_headers = json.loads(self.var_map["headers"])
         if "encode" in var_map.keys():
@@ -125,6 +131,7 @@ class CaseEntity(ReqResp):
     def save_result(self):
         # if self.resp_type != "json":
         #     self.param = json.dumps(self.param)
+        print(self.case.case_id,self.param)
         self.param = json.loads(self.param)
         input_data = {
             "url": self.url,
@@ -162,3 +169,13 @@ class CaseEntity(ReqResp):
         check_name = check_ob.check_name
         check_code = check_ob.check_code + '\nprint('+check_name+'(\"'+ str(self.resp["response_data"]["body"]) +'\",\"'+ self.exp_data + '\"))'
         return check_name, check_code
+
+    def run_front_sql(self):
+        if self.front_sql != "":
+            with dbtool.connDB(**json.loads(self.var_map["DB"])) as db_cursor:
+                db_cursor.execute(self.front_sql)
+
+    def run_rear_sql(self):
+        if self.rear_sql != "":
+            with dbtool.connDB(**json.loads(self.var_map["DB"])) as db_cursor:
+                db_cursor.execute(self.rear_sql)

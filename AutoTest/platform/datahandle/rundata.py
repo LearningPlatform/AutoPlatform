@@ -23,12 +23,15 @@ def get_run_info(data):
     for a in case_list:
         c = CaseEntity(a, var_map, result.result_id)
         try:
+            c.run_front_sql()
             c.run()
         except Exception as e:
             c.set_is_pass(False)
             c.err_msg += "\n"+str(e)
             c.setRespDefault()
+            c.run_rear_sql()
         else:
+            c.run_rear_sql()
             c.check_schema()
             c.check_result()
             c.check_header()

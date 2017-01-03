@@ -87,7 +87,7 @@
                         </div>
                         <div class="panel-body" ng-show="showCase[$index]">
                             <div ng-repeat="case in caseList">
-                                <div class="panel panel-info">
+                                <div class="panel panel-default">
                                     <div class="panel-heading">
                                         <h4 class="panel-title" ng-mouseenter="shownCom1=true" ng-mouseleave="shownCom1=false">
                                             <a ng-bind="case.case_name" ng-click="infoCase(case,$index)"></a>
@@ -223,6 +223,13 @@
                                                                 </select>
                                                             </div>
                                                         </form>
+                                                        <!--
+                                                        <form class="col-md-2 bs-example bs-example-form">
+                                                            <div class="input-group">
+                                                                <input type="checkbox" ng-checked="case.is_run_sql" ng-model="case.is_run_sql">是否执行sql
+                                                            </div>
+                                                        </form>
+                                                        -->
                                                     </div>
                                                     <h4>请求参数：</h4>
                                                     <div class="form">
@@ -230,6 +237,26 @@
                                                             <div class="form-group">
                                                             <textarea class="form-control msd-elastic: \n;" rows="3"
                                                                       ng-model="case.input_data">
+                                                            </textarea>
+                                                            </div>
+                                                        </form>
+                                                    </div>
+                                                    <h4>前置SQL：</h4>
+                                                    <div class="form">
+                                                        <form role="form">
+                                                            <div class="form-group">
+                                                            <textarea class="form-control msd-elastic: \n;" rows="3"
+                                                                      ng-model="case.front_sql">
+                                                            </textarea>
+                                                            </div>
+                                                        </form>
+                                                    </div>
+                                                    <h4>后置SQL：</h4>
+                                                    <div class="form">
+                                                        <form role="form">
+                                                            <div class="form-group">
+                                                            <textarea class="form-control msd-elastic: \n;" rows="3"
+                                                                      ng-model="case.rear_sql">
                                                             </textarea>
                                                             </div>
                                                         </form>
@@ -1050,7 +1077,7 @@
                         <div class="form-group">
                             <label class="col-md-2 control-label">请求参数：</label>
                             <div class="col-md-9">
-                                <textarea type="text" class="form-control" rows="1" ng-model="caseResult.request_body"
+                                <textarea type="text" class="form-control" rows="3" ng-model="caseResult.request_body"
                                           style="background-color: white" readonly>
                                 </textarea>
                             </div>
@@ -1082,7 +1109,7 @@
                         <div class="form-group">
                             <label class="col-md-2 control-label">期望响应头：</label>
                             <div class="col-md-9">
-                                <textarea type="text" class="form-control" rows="1" ng-model="caseResult.exp_header"
+                                <textarea type="text" class="form-control" rows="3" ng-model="caseResult.exp_header"
                                           style="background-color: white" readonly>
                                 </textarea>
                             </div>
@@ -1090,7 +1117,7 @@
                         <div class="form-group">
                             <label class="col-md-2 control-label">响应头：</label>
                             <div class="col-md-9">
-                                <textarea type="text" class="form-control" rows="2" ng-model="caseResult.header"
+                                <textarea type="text" class="form-control" rows="3" ng-model="caseResult.header"
                                           style="background-color: white" readonly>
                                 </textarea>
                             </div>
@@ -1105,7 +1132,7 @@
                         <div class="form-group">
                             <label class="col-md-2 control-label">期望响应：</label>
                             <div class="col-md-9">
-                                <textarea type="text" class="form-control" rows="1" ng-model="caseResult.exp_data"
+                                <textarea type="text" class="form-control" rows="3" ng-model="caseResult.exp_data"
                                           style="background-color: white" readonly>
                                 </textarea>
                             </div>

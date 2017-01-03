@@ -60,7 +60,7 @@ class Api(models.Model):
     api_name = models.CharField(max_length=20, null=True)
     api_protocol = models.CharField(max_length=10, null=True)
     api_method = models.CharField(max_length=10, null=True)
-    api_url = models.CharField(max_length=50, null=True)
+    api_url = models.TextField(null=True)
     param_type = models.CharField(max_length=20, null=True)
     api_desc = models.TextField(null=True)
 
@@ -85,6 +85,9 @@ class Case(models.Model):
     check_id = models.IntegerField(null=True)
     param_type = models.CharField(max_length=20, null=True)
     case_schema = models.TextField(null=True)
+    is_run_sql = models.IntegerField(null=True)
+    front_sql = models.TextField(null=True)
+    rear_sql = models.TextField(null=True)
 
 
 class Suite(models.Model):

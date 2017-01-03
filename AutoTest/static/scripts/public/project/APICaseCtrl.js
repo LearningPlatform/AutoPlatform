@@ -670,7 +670,10 @@ myApp.controller('APICaseCtrl',function($scope,$http,$cookieStore,$timeout,$loca
             "exp_status": 200,
             "exp_resp_header": "",
             "param_type": "",
-            "suite_list":[]
+            "suite_list":[],
+            "front_sql":"",
+            "rear_sql":"",
+            "is_run_sql":0
         };
         $scope.selectedApi=0;
         $scope.api="";
@@ -770,7 +773,10 @@ myApp.controller('APICaseCtrl',function($scope,$http,$cookieStore,$timeout,$loca
             "case_method": $scope.case.case_method,
             "exp_status": $scope.case.exp_status,
             "exp_header":$scope.case.exp_header,
-            "param_type": $scope.case.param_type
+            "param_type": $scope.case.param_type,
+            "front_sql":$scope.case.front_sql,
+            "rear_sql":$scope.case.rear_sql,
+            "is_run_sql":1
         }).success(function(response){
             if(response.code==1) {
                 $http.post('project/api/caseList',{
@@ -974,7 +980,10 @@ myApp.controller('APICaseCtrl',function($scope,$http,$cookieStore,$timeout,$loca
             "case_method": $scope.case.case_method,
             "exp_status": $scope.case.exp_status,
             "exp_header":$scope.case.exp_header,
-            "param_type": $scope.case.param_type
+            "param_type": $scope.case.param_type,
+            "front_sql":$scope.case.front_sql,
+            "rear_sql":$scope.case.rear_sql,
+            "is_run_sql":1
         }).success(function(response){
             if(response.code==0){
                 alert(response.msg);
@@ -1134,7 +1143,10 @@ myApp.controller('APICaseCtrl',function($scope,$http,$cookieStore,$timeout,$loca
             "case_method": $scope.case.case_method,
             "exp_status": $scope.case.exp_status,
             "exp_header":$scope.case.exp_header,
-            "param_type": $scope.case.param_type
+            "param_type": $scope.case.param_type,
+            "front_sql":$scope.case.front_sql,
+            "rear_sql":$scope.case.rear_sql,
+            "is_run_sql":1
         }).success(function(response){
             if(response.code==1) {
                 $scope.selected2=depntId;
