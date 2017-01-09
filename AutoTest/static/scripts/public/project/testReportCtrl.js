@@ -95,13 +95,13 @@ myApp.controller('testReportCtrl', function ($scope, $http, $cookieStore, $timeo
                     $scope.totalItems=$scope.resultList.length;
                     $scope.pageList=[];
                     if($scope.totalItems>0){
-                        if($scope.currentPage==Math.ceil($scope.resultList.length/10)){
-                            for(var i=0;i<$scope.resultList.length-($scope.currentPage-1)*10;i++){
-                                $scope.pageList[i]=$scope.resultList[($scope.currentPage-1)*10+i];
+                        if($scope.currentPage==Math.ceil($scope.resultList.length/15)){
+                            for(var i=0;i<$scope.resultList.length-($scope.currentPage-1)*15;i++){
+                                $scope.pageList[i]=$scope.resultList[($scope.currentPage-1)*15+i];
                             }
                         }else{
-                            for(var i=0;i<10;i++){
-                                $scope.pageList[i]=$scope.resultList[($scope.currentPage-1)*10+i];
+                            for(var i=0;i<15;i++){
+                                $scope.pageList[i]=$scope.resultList[($scope.currentPage-1)*15+i];
                             }
                         }
                     }
@@ -118,13 +118,13 @@ myApp.controller('testReportCtrl', function ($scope, $http, $cookieStore, $timeo
                     $scope.totalItems2=$scope.allResult.length;
                     $scope.reaultDetailList=[];
                     if($scope.totalItems2>0){
-                        if($scope.currentPage2==Math.ceil($scope.allResult.length/10)){
-                            for(var i=0;i<$scope.allResult.length-($scope.currentPage2-1)*10;i++){
-                                $scope.reaultDetailList[i]=$scope.allResult[($scope.currentPage2-1)*10+i];
+                        if($scope.currentPage2==Math.ceil($scope.allResult.length/15)){
+                            for(var i=0;i<$scope.allResult.length-($scope.currentPage2-1)*15;i++){
+                                $scope.reaultDetailList[i]=$scope.allResult[($scope.currentPage2-1)*15+i];
                             }
                         }else{
-                            for(var i=0;i<10;i++){
-                                $scope.reaultDetailList[i]=$scope.allResult[($scope.currentPage2-1)*10+i];
+                            for(var i=0;i<15;i++){
+                                $scope.reaultDetailList[i]=$scope.allResult[($scope.currentPage2-1)*15+i];
                             }
                         }
                     }

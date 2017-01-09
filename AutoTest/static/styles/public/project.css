@@ -112,6 +112,13 @@ a:active {text-decoration:none ;color: #3c3c3c}
     margin-left: 20px;
 }
 
+.wid2{
+    width:5%;
+    text-align: left;
+    color:#3c3c3c;
+    /*padding-bottom: 8px;*/
+}
+
 .wid3{
     width:10%;
     text-align: left;
@@ -120,7 +127,7 @@ a:active {text-decoration:none ;color: #3c3c3c}
 }
 
 .wid4{
-    width:18%;
+    width:60%;
     text-align: left;
     color:#3c3c3c;
     /*padding-bottom: 8px;*/
