@@ -117,6 +117,7 @@ def run_d_api(data):
     env_id = data["env_id"]
     var_map = casetool.get_env_var_map(env_id)
     c = Interface(depnd_api_id, var_map=var_map)
+    c.handle_depnd_param()
     c.run()
     return {
         "code": 1,

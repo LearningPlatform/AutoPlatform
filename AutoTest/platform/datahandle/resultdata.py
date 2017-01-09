@@ -50,6 +50,7 @@ def get_result_detail_list(data):
             var["out_data"]["response_data"]["body"] = str(var["out_data"]["response_data"]["body"]).replace("\'", "\"")
             var["out_data"]["response_data"]["header"] = str(var["out_data"]["response_data"]["header"]).replace("\'", "\"")
         body_list.append(var)
+    body_list.sort(key=lambda api: api["api_id"], reverse=False)
     return {
         "code": 1,
         "msg": "返回成功",

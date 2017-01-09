@@ -24,6 +24,7 @@ def get_run_info(data):
         c = CaseEntity(a, var_map, result.result_id)
         try:
             c.run_front_sql()
+            c.handle_depnd_param()
             c.run()
         except Exception as e:
             c.set_is_pass(False)

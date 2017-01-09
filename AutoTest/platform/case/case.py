@@ -43,7 +43,6 @@ class CaseEntity(ReqResp):
         self.depnd_api_id = self.case.depnd_api_id
         self.method = self.case.case_method
         self.var_map = var_map
-        self.handle_depnd_param()
         self.pro_id = self.case.pro_id
         self.url = self.protocol + "://" + self.var_map["host"]+self.url
         self.exp_data = self.case.exp_data
@@ -64,10 +63,11 @@ class CaseEntity(ReqResp):
     def handle_depnd_param(self):
         while re.search(Constant.PATTERN_TYPE3, self.param):
             self.d_api = Interface(self.depnd_api_id, var_map=self.var_map)
+            self.d_api.handle_depnd_param()
             self.d_api.run()
             self.param = re.sub(Constant.PATTERN_TYPE3,
                                 str(self.d_api.get_param_value(re.search(Constant.PATTERN_TYPE3, self.param).group())),
-                                self.param)
+                                self.param,1)
 
     def check_status(self):
         # 0-----未通过，1-----通过，2-----未检验, 3------错误
@@ -131,7 +131,6 @@ class CaseEntity(ReqResp):
     def save_result(self):
         # if self.resp_type != "json":
         #     self.param = json.dumps(self.param)
-        print(self.case.case_id,self.param)
         self.param = json.loads(self.param)
         input_data = {
             "url": self.url,

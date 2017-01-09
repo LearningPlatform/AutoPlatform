@@ -21,7 +21,6 @@ class Interface(ReqResp):
         self.depnd_api_id = self.depnd_api.depnd_id
         self.method = self.depnd_api.depnd_api_method
         self.var_map = var_map
-        self.handle_depnd_param()
         self.pro_id = self.depnd_api.pro_id
         if "host" in var_map.keys():
             self.url = self.protocol + "://" + self.var_map["host"]+self.url

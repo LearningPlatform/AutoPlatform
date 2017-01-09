@@ -129,6 +129,7 @@ def run_case(data):
     var_map = casetool.get_env_var_map(env_id)
     c = CaseEntity(case_id, var_map, 0)
     c.run_front_sql()
+    c.handle_depnd_param()
     c.run()
     c.check_schema()
     c.check_result()
