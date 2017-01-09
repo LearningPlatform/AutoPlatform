@@ -635,7 +635,6 @@ myApp.controller('APICaseCtrl',function($scope,$http,$cookieStore,$timeout,$loca
                 $scope.showCase[i]=false;
             }
         }
-        $scope.showCase[index]=!$scope.showCase[index];
         $http.post('project/api/caseList',{
             "api_id":id
         }).success(function(response){
@@ -645,6 +644,7 @@ myApp.controller('APICaseCtrl',function($scope,$http,$cookieStore,$timeout,$loca
                 for(var i=0;i<$scope.caseList.length;i++){
                     $scope.showinfo[i]=false;
                 }
+                $scope.showCase[index]=!$scope.showCase[index];
             }else{
                 alert(response.msg);
             }
@@ -1212,6 +1212,7 @@ myApp.controller('APICaseCtrl',function($scope,$http,$cookieStore,$timeout,$loca
     }
 
     $scope.runCase=function(obj){
+        $scope.case = obj
         $scope.env="";
         $("#runCase").modal();
     }
@@ -1244,28 +1245,28 @@ myApp.controller('APICaseCtrl',function($scope,$http,$cookieStore,$timeout,$loca
                // $scope.caseResult.schema=JSON.stringify($scope.caseResult.schema);
                 //$scope.caseResult.response_body=JSON.stringify($scope.caseResult.response_body);
                 if($scope.caseResult.schema_check==1){
-                    $scope.caseResult.schema_check="通过";
+                    $scope.caseResult.schema_check_text="通过";
                 }else{
-                    $scope.caseResult.schema_check="失败";
+                    $scope.caseResult.schema_check_text="失败";
                 }
                 if($scope.caseResult.body_check==1){
-                    $scope.caseResult.body_check="通过";
+                    $scope.caseResult.body_check_text="通过";
                 }else{
-                    $scope.caseResult.body_check="失败";
+                    $scope.caseResult.body_check_text="失败";
                 }
                 if($scope.caseResult.status_check==0){
-                    $scope.caseResult.status_check="未通过";
+                    $scope.caseResult.status_check_text="未通过";
                 }else if($scope.caseResult.status_check==1){
-                    $scope.caseResult.status_check="通过";
+                    $scope.caseResult.status_check_text="通过";
                 }else{
-                    $scope.caseResult.status_check="未校验";
+                    $scope.caseResult.status_check_text="未校验";
                 }
                 if($scope.caseResult.header_check==0){
-                    $scope.caseResult.header_check="未通过";
+                    $scope.caseResult.header_check_text="未通过";
                 }else if($scope.caseResult.header_check==1){
-                    $scope.caseResult.header_check="通过";
+                    $scope.caseResult.header_check_text="通过";
                 }else{
-                    $scope.caseResult.header_check="未校验";
+                    $scope.caseResult.header_check_text="未校验";
                 }
             }else{
                 alert(response.msg)
