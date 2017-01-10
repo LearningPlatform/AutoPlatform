@@ -53,7 +53,7 @@
                 </thead>
                 <tbody>
                 <tr ng-repeat="result in pageList">
-                    <td ng-bind="(currentPage-1)*10+$index+1"></td>
+                    <td ng-bind="(currentPage-1)*15+$index+1"></td>
                     <td ng-bind="result.report_name"></td>
                     <td ng-bind="result.suite_name"></td>
                     <td ng-bind="result.start_time*1000 | date:'yyyy-MM-dd HH:mm:ss'"></td>
@@ -68,9 +68,9 @@
                 </tbody>
             </table>
         </div>
-        <div class="pull-right marginRight">
+        <div class="pull-right marginRight" ng-show="totalItems>15">
             <pagination boundary-links="true" total-items="totalItems" ng-model="currentPage" ng-change="pageChanged(1)"
-                        class="pagination" previous-text="&lsaquo;" next-text="&rsaquo;" first-text="&laquo;" last-text="&raquo;">
+                        class="pagination" items-per-page="15" previous-text="上一页" next-text="下一页" first-text="&laquo;" last-text="&raquo;">
         </div>
     </div>
 
@@ -100,26 +100,26 @@
             <div class="top2 col-md-11">
                 <table class="design col-xs-12">
                     <tr>
-                        <th class="wid2">ID</th>
+                        <th class="wid9">ID</th>
                         <th class="wid3">接口名称</th>
                         <th class="wid4">用例名称</th>
                         <th class="wid3">请求方法</th>
                         <th class="wid3">验证器</th>
-                        <th class="wid2">结果</th>
+                        <th class="wid9">结果</th>
                     </tr>
                     <tr ng-repeat="res in reaultDetailList">
                         <!--ng-style="styleList[$index]" ng-mouseenter="tableGray($index)" ng-mouseleave="tableWhite($index)"-->
                         <td ng-show="reportDetal[$index]" colspan="6">
                             <table class="col-xs-12">
                                 <tr>
-                                    <td class="wid2">
+                                    <td class="wid9">
                                         <a ng-bind="(currentPage2-1)*15+$index+1+'>'" ng-click="showReport(res,$index)"></a>
                                     </td>
                                     <td class="wid3" ng-bind="res.api_name"></td>
                                     <td class="wid4" ng-bind="res.case_name"></td>
                                     <td class="wid3" ng-bind="res.case_method"></td>
                                     <td class="wid3" ng-bind="res.check_desc"></td>
-                                    <td class="wid2">
+                                    <td class="wid9">
                                         <button ng-disabled="true" type="button" class="btn btn-success"
                                                 ng-show="res.is_pass==1">
                                             通过
@@ -225,7 +225,7 @@
                             </div>
                         </td>
                         <td>
-                            <a ng-show="!reportDetal[$index]" ng-bind="$index+1+'>'"
+                            <a ng-show="!reportDetal[$index]" ng-bind="(currentPage2-1)*15+$index+1+'>'"
                                ng-click="showReport(res,$index)"></a>
                         </td>
                         <td ng-show="!reportDetal[$index]" ng-bind="res.api_name"></td>
@@ -248,8 +248,8 @@
             </div>
         </div>
         <div class="pull-right marginRight">
-            <pagination boundary-links="true" total-items="totalItems2" ng-model="currentPage2" ng-change="pageChanged(2)"
-                        class="pagination" previous-text="&lsaquo;" next-text="&rsaquo;" first-text="&laquo;" last-text="&raquo;">
+            <pagination boundary-links="true" total-items="totalItems2" ng-model="currentPage2" items-per-page="15" ng-change="pageChanged(2)"
+                        class="pagination" previous-text="上一页" next-text="下一页" first-text="&laquo;" last-text="&raquo;" >
         </div>
     </div>
 

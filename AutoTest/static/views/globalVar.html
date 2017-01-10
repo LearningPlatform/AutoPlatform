@@ -67,9 +67,9 @@
                         </div>
                     </div>
                 </div>
-                <div class="pull-right marginRight" ng-show="envPageList.length>0">
+                <div class="pull-right" ng-show="totalItems>10">
                     <pagination boundary-links="true" total-items="envTotalItems" ng-model="envCurrentPage" ng-change="pageChanged(1)"
-                                class="pagination" previous-text="&lsaquo;" next-text="&rsaquo;" first-text="&laquo;" last-text="&raquo;">
+                                class="pagination" previous-text="上一页" next-text="下一页" first-text="&laquo;" last-text="&raquo;">
                 </div>
             </div>
             <div class="panel-body" ng-show="showEnvCom">

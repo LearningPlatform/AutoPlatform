@@ -133,10 +133,10 @@
                         </div>
                     </div>
                 </div>
-                <div class="pull-right marginRight">
+                <div class="pull-right" ng-show="totalItems>10">
                     <pagination boundary-links="true" total-items="totalItems" ng-model="currentPage"
                                 ng-change="pageChanged()"
-                                class="pagination" previous-text="&lsaquo;" next-text="&rsaquo;" first-text="&laquo;"
+                                class="pagination" previous-text="上一页" next-text="下一页" first-text="&laquo;"
                                 last-text="&raquo;">
                 </div>
             </div>

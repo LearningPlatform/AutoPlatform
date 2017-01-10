@@ -332,10 +332,10 @@
                         </div>
                     </div>
                 </div>
-                <div class="pull-right marginRight">
+                <div class="pull-right" ng-show="totalItems>10">
                     <pagination boundary-links="true" total-items="totalItems" ng-model="currentPage"
                                 ng-change="pageChanged()"
-                                class="pagination" previous-text="&lsaquo;" next-text="&rsaquo;" first-text="&laquo;"
+                                class="pagination" previous-text="上一页" next-text="下一页" first-text="&laquo;"
                                 last-text="&raquo;">
                 </div>
             </div>
@@ -1076,153 +1076,152 @@
                     </h4>
                 </div>
                 <div class="modal-body">
-
                     <form class="form-horizontal">
                         <div class="form-group">
-                        <label class="col-md-1 control-label">请求体：</label>
-                        <div class="col-md-11">
-                            <div class="panel panel-default">
-                                <div class="panel-body">
-                                    <div class="form-group">
-                                        <label class="col-md-1 control-label">URL：</label>
-                                        <div class="col-md-11">
-                                            <input type="text" class="form-control" ng-model="caseResult.url"
-                                                   style="background-color: white" readonly>
+                            <label class="col-md-1 control-label">请求体：</label>
+                            <div class="col-md-11">
+                                <div class="panel panel-default">
+                                    <div class="panel-body">
+                                        <div class="form-group">
+                                            <label class="col-md-1 control-label">URL：</label>
+                                            <div class="col-md-11">
+                                                <input type="text" class="form-control" ng-model="caseResult.url"
+                                                       style="background-color: white" readonly>
+                                            </div>
                                         </div>
-                                    </div>
-                                    <div class="form-group">
-                                        <label class="col-md-1 control-label">请求：</label>
-                                        <div class="col-md-11">
+                                        <div class="form-group">
+                                            <label class="col-md-1 control-label">请求：</label>
+                                            <div class="col-md-11">
                                 <textarea type="text" class="form-control" rows="3" ng-model="caseResult.request_body"
                                           style="background-color: white" readonly>
                                 </textarea>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
                             </div>
-                        </div>
-                        <label class="col-md-1 control-label">状态码：</label>
-                        <div class="col-md-11">
-                            <div class="panel {$caseResult.status_check == 1 ? 'panel-default' : 'panel-danger'$}">
-                                <div class="panel-body">
-                                    <div class="form-group">
-                                        <label class="col-md-1 control-label">期望：</label>
-                                        <div class="col-md-11">
-                                            <input type="text" class="form-control" ng-model="caseResult.exp_status"
-                                                   style="background-color: white" readonly>
+                            <label class="col-md-1 control-label">状态码：</label>
+                            <div class="col-md-11">
+                                <div class="panel {$caseResult.status_check == 1 ? 'panel-default' : 'panel-danger'$}">
+                                    <div class="panel-body">
+                                        <div class="form-group">
+                                            <label class="col-md-1 control-label">期望：</label>
+                                            <div class="col-md-11">
+                                                <input type="text" class="form-control" ng-model="caseResult.exp_status"
+                                                       style="background-color: white" readonly>
+                                            </div>
                                         </div>
-                                    </div>
-                                    <div class="form-group">
-                                        <label class="col-md-1 control-label">实际：</label>
-                                        <div class="col-md-11">
-                                            <input type="text" class="form-control" ng-model="caseResult.status"
-                                                   style="background-color: white" readonly>
+                                        <div class="form-group">
+                                            <label class="col-md-1 control-label">实际：</label>
+                                            <div class="col-md-11">
+                                                <input type="text" class="form-control" ng-model="caseResult.status"
+                                                       style="background-color: white" readonly>
+                                            </div>
                                         </div>
-                                    </div>
-                                    <div class="form-group">
-                                        <label class="col-md-1 control-label">校验：</label>
-                                        <div class="col-md-11">
-                                            <input type="text" class="form-control"
-                                                   ng-model="caseResult.status_check_text"
-                                                   style="background-color: white" readonly>
+                                        <div class="form-group">
+                                            <label class="col-md-1 control-label">校验：</label>
+                                            <div class="col-md-11">
+                                                <input type="text" class="form-control"
+                                                       ng-model="caseResult.status_check_text"
+                                                       style="background-color: white" readonly>
 
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
                             </div>
-                        </div>
-                        <!--
-                        <div class="form-group">
-                            <label class="col-md-2 control-label">期望响应头：</label>
-                            <div class="col-md-9">
-                                <textarea type="text" class="form-control" rows="3" ng-model="caseResult.exp_header"
-                                          style="background-color: white" readonly>
-                                </textarea>
+                            <!--
+                            <div class="form-group">
+                                <label class="col-md-2 control-label">期望响应头：</label>
+                                <div class="col-md-9">
+                                    <textarea type="text" class="form-control" rows="3" ng-model="caseResult.exp_header"
+                                              style="background-color: white" readonly>
+                                    </textarea>
+                                </div>
                             </div>
-                        </div>
-                        <div class="form-group">
-                            <label class="col-md-2 control-label">响应头：</label>
-                            <div class="col-md-9">
-                                <textarea type="text" class="form-control" rows="3" ng-model="caseResult.header"
-                                          style="background-color: white" readonly>
-                                </textarea>
+                            <div class="form-group">
+                                <label class="col-md-2 control-label">响应头：</label>
+                                <div class="col-md-9">
+                                    <textarea type="text" class="form-control" rows="3" ng-model="caseResult.header"
+                                              style="background-color: white" readonly>
+                                    </textarea>
+                                </div>
                             </div>
-                        </div>
-                        <div class="form-group">
-                            <label class="col-md-2 control-label">响应头检验：</label>
-                            <div class="col-md-9">
-                                <input type="text" class="form-control" ng-model="caseResult.header_check_text"
-                                       style="background-color: white" readonly>
+                            <div class="form-group">
+                                <label class="col-md-2 control-label">响应头检验：</label>
+                                <div class="col-md-9">
+                                    <input type="text" class="form-control" ng-model="caseResult.header_check_text"
+                                           style="background-color: white" readonly>
+                                </div>
                             </div>
-                        </div>
-                        -->
-                        <label class="col-md-1 control-label">响应：</label>
-                        <div class="col-md-11">
-                            <div class="panel {$caseResult.body_check == 1 ? 'panel-default' : 'panel-danger'$}">
-                                <div class="panel-body">
-                                    <div class="form-group">
-                                        <label class="col-md-1 control-label">期望：</label>
-                                        <div class="col-md-11">
+                            -->
+                            <label class="col-md-1 control-label">响应：</label>
+                            <div class="col-md-11">
+                                <div class="panel {$caseResult.body_check == 1 ? 'panel-default' : 'panel-danger'$}">
+                                    <div class="panel-body">
+                                        <div class="form-group">
+                                            <label class="col-md-1 control-label">期望：</label>
+                                            <div class="col-md-11">
                                 <textarea type="text" class="form-control" rows="3" ng-model="caseResult.exp_data"
                                           style="background-color: white" readonly>
                                 </textarea>
+                                            </div>
                                         </div>
-                                    </div>
-                                    <div class="form-group">
-                                        <label class="col-md-1 control-label">实际：</label>
-                                        <div class="col-md-11">
+                                        <div class="form-group">
+                                            <label class="col-md-1 control-label">实际：</label>
+                                            <div class="col-md-11">
                                 <textarea type="text" class="form-control" rows="3" ng-model="caseResult.response_body"
                                           style="background-color: white" readonly>
                                 </textarea>
+                                            </div>
                                         </div>
-                                    </div>
-                                    <div class="form-group">
-                                        <label class="col-md-1 control-label">校验：</label>
-                                        <div class="col-md-11">
-                                            <input type="text" class="form-control"
-                                                   ng-model="caseResult.body_check_text"
-                                                   style="background-color: white" readonly>
+                                        <div class="form-group">
+                                            <label class="col-md-1 control-label">校验：</label>
+                                            <div class="col-md-11">
+                                                <input type="text" class="form-control"
+                                                       ng-model="caseResult.body_check_text"
+                                                       style="background-color: white" readonly>
+                                            </div>
                                         </div>
-                                    </div>
 
+                                    </div>
                                 </div>
                             </div>
-                        </div>
-                        <label class="col-md-1 control-label">schema：</label>
-                        <div class="col-md-11">
-                            <div class="panel {$caseResult.schema_check == 1 ? 'panel-default' : 'panel-danger'$}">
-                                <div class="panel-body">
-                                    <div class="form-group">
-                                        <label class="col-md-1 control-label">schema：</label>
-                                        <div class="col-md-11">
+                            <label class="col-md-1 control-label">schema：</label>
+                            <div class="col-md-11">
+                                <div class="panel {$caseResult.schema_check == 1 ? 'panel-default' : 'panel-danger'$}">
+                                    <div class="panel-body">
+                                        <div class="form-group">
+                                            <label class="col-md-1 control-label">schema：</label>
+                                            <div class="col-md-11">
                                 <textarea type="text" class="form-control" rows="3" ng-model="caseResult.schema"
                                           style="background-color: white" readonly>
                                 </textarea>
+                                            </div>
                                         </div>
-                                    </div>
-                                    <div class="form-group">
-                                        <label class="col-md-1 control-label">检验：</label>
-                                        <div class="col-md-11">
-                                            <input type="text" class="form-control"
-                                                   ng-model="caseResult.schema_check_text"
-                                                   style="background-color: white" readonly>
+                                        <div class="form-group">
+                                            <label class="col-md-1 control-label">检验：</label>
+                                            <div class="col-md-11">
+                                                <input type="text" class="form-control"
+                                                       ng-model="caseResult.schema_check_text"
+                                                       style="background-color: white" readonly>
+                                            </div>
                                         </div>
-                                    </div>
-                                    <div class="form-group" ng-hide="caseResult.schema_check ==1">
-                                        <label class="col-md-1 control-label">信息：</label>
-                                        <div class="col-md-11">
+                                        <div class="form-group" ng-hide="caseResult.schema_check ==1">
+                                            <label class="col-md-1 control-label">信息：</label>
+                                            <div class="col-md-11">
                                 <textarea type="text" class="form-control" rows="1" ng-model="caseResult.schema_msg"
                                           style="background-color: white" readonly>
                                 </textarea>
+                                            </div>
                                         </div>
-                                    </div>
 
+                                    </div>
                                 </div>
                             </div>
                         </div>
                     </form>
                 </div>
-                    </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-info" data-dismiss="modal">关闭
                     </button>

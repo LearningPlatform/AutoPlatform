@@ -149,7 +149,7 @@ myApp.controller('recordCtrl', function ($scope, $http, $cookieStore,$sce,$timeo
                 req_id: value.id
             }).success(function (response) {
                 if (typeof(response.content) != "undefined") {
-                    value.resBody=response.content;
+                    value.resBody=JSON.stringify(response.content);
                 }
             })
         });
@@ -171,16 +171,17 @@ myApp.controller('recordCtrl', function ($scope, $http, $cookieStore,$sce,$timeo
     $scope.pageChanged=function(){
         $scope.pageList=[];
         if(reqDataPage.length>0){
-            if($scope.currentPage==Math.ceil(reqDataPage.length/10)){
-                for(var i=0;i<reqDataPage.length-($scope.currentPage-1)*10;i++){
-                    $scope.pageList[i]=reqDataPage[($scope.currentPage-1)*10+i];
+            if($scope.currentPage==Math.ceil(reqDataPage.length/15)){
+                for(var i=0;i<reqDataPage.length-($scope.currentPage-1)*15;i++){
+                    $scope.pageList[i]=reqDataPage[($scope.currentPage-1)*15+i];
                 }
             }else{
-                for(var i=0;i<10;i++){
-                    $scope.pageList[i]=reqDataPage[($scope.currentPage-1)*10+i];
+                for(var i=0;i<15;i++){
+                    $scope.pageList[i]=reqDataPage[($scope.currentPage-1)*15+i];
                 }
             }
         }
+        console.log($scope.totalItems)
     }
 
     $scope.styleList = [];
@@ -237,6 +238,7 @@ myApp.controller('recordCtrl', function ($scope, $http, $cookieStore,$sce,$timeo
             $scope.rcdCase.case_header=$scope.req_data.reqHeader;
             $scope.rcdCase.input_data=$scope.req_data.reqBody;
             $scope.rcdCase.exp_data=$scope.req_data.resBody;
+            $scope.rcdCase.exp_status=$scope.req_data.statusCode
             $scope.suite_list = [];
             for(var i=0;i<$scope.suiteList.length;i++){
                 $scope.check[i]=false;
@@ -261,15 +263,11 @@ myApp.controller('recordCtrl', function ($scope, $http, $cookieStore,$sce,$timeo
         if(checkId==undefined){
             checkId=0;
         }
-        /*if(moduleId==undefined){
-            moduleId=0;
-        }*/
         if($scope.rcdCase.param_type==undefined){
             $scope.rcdCase.param_type="json"
         }
         $scope.rcdCase.pro_id=pro_id;
         $scope.rcdCase.api_id=apiId;
-        //$scope.rcdCase.module_id=moduleId;
         $scope.rcdCase.depnd_api_id=apiDepId;
         $scope.rcdCase.check_id=checkId;
         $scope.rcdCase.suite_list=suite_list;
@@ -277,7 +275,6 @@ myApp.controller('recordCtrl', function ($scope, $http, $cookieStore,$sce,$timeo
             $http.post('project/case/create',{
                 "pro_id":$scope.rcdCase.pro_id,
                 "api_id":$scope.rcdCase.api_id,
-                //"module_id":$scope.rcdCase.module_id,
                 "case_url": $scope.rcdCase.case_url,
                 "case_method" :$scope.rcdCase.case_method,
                 "case_protocol":$scope.rcdCase.case_protocol,
@@ -330,7 +327,7 @@ myApp.controller('recordCtrl', function ($scope, $http, $cookieStore,$sce,$timeo
                 "depnd_api_id":$scope.rcdCase.depnd_api_id,
                 "param_type":$scope.rcdCase.param_type,
                 "suite_list":$scope.rcdCase.suite_list,
-                "exp_status": $scope.case.exp_status,
+                "exp_status": $scope.rcdCase.exp_status,
                 "case_schema":$scope.rcdCase.case_schema
             }).success(function(response){
                 if(response.code==1){
@@ -373,28 +370,28 @@ myApp.controller('recordCtrl', function ($scope, $http, $cookieStore,$sce,$timeo
                // $scope.rcdResult.schema=JSON.stringify($scope.rcdResult.schema);
                 //$scope.rcdResult.response_body=JSON.stringify($scope.rcdResult.response_body);
                 if($scope.rcdResult.schema_check==1){
-                    $scope.rcdResult.schema_check="通过";
+                    $scope.rcdResult.schema_check_text="通过";
                 }else{
-                    $scope.rcdResult.schema_check="失败";
+                    $scope.rcdResult.schema_check_text="失败";
                 }
                 if($scope.rcdResult.body_check==1){
-                    $scope.rcdResult.body_check="通过";
+                    $scope.rcdResult.body_check_text="通过";
                 }else{
-                    $scope.rcdResult.body_check="失败";
+                    $scope.rcdResult.body_check_text="失败";
                 }
                 if($scope.rcdResult.status_check==0){
-                    $scope.rcdResult.status_check="未通过";
+                    $scope.rcdResult.status_check_text="未通过";
                 }else if($scope.rcdResult.status_check==1){
-                    $scope.rcdResult.status_check="通过";
+                    $scope.rcdResult.status_check_text="通过";
                 }else{
-                    $scope.rcdResult.status_check="未校验";
+                    $scope.rcdResult.status_check_text="未校验";
                 }
                 if($scope.rcdResult.header_check==0){
-                    $scope.rcdResult.header_check="未通过";
+                    $scope.rcdResult.header_check_text="未通过";
                 }else if($scope.rcdResult.header_check==1){
-                    $scope.rcdResult.header_check="通过";
+                    $scope.rcdResult.header_check_text="通过";
                 }else{
-                    $scope.rcdResult.header_check="未校验";
+                    $scope.rcdResult.header_check_text="未校验";
                 }
                 $("#recordResult").modal();
             }else{
