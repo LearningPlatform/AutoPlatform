@@ -110,18 +110,12 @@ class CaseEntity(ReqResp):
     def check_result(self):
         if self.exp_data != "":
             try:
-                if self.check_id == 0:
-                    if json.dumps(self.resp["response_data"]["body"], ensure_ascii=False).find(self.exp_data) == -1:
-                        self.body_result = 0
-                    else:
-                        self.body_result = 1
+                check_name, check_code = self.setCheckCode()
+                result1 = functool.get_return(check_name, check_code)
+                if result1.find("True") != -1:
+                    self.body_result = 1
                 else:
-                    check_name, check_code = self.setCheckCode()
-                    result1 = functool.get_return(check_name, check_code)
-                    if result1.find("True") != -1:
-                        self.body_result = 1
-                    else:
-                        self.body_result = 0
+                    self.body_result = 0
             except Exception as e:
                 self.body_result = 3
                 self.err_msg += "\n"+str(e)
@@ -164,9 +158,12 @@ class CaseEntity(ReqResp):
         return self.is_pass
 
     def setCheckCode(self):
-        check_ob = CheckModel.objects.all().get(check_id=self.check_id)
+        if self.check_id == 0:
+            check_ob = CheckModel.objects.all().get(check_id=1)
+        else:
+            check_ob = CheckModel.objects.all().get(check_id=self.check_id)
         check_name = check_ob.check_name
-        check_code = check_ob.check_code + '\nprint('+check_name+'(\"'+ str(self.resp["response_data"]["body"]) +'\",\"'+ self.exp_data + '\"))'
+        check_code = check_ob.check_code + '\nprint('+check_name+'(\''+ self.exp_data +'\',\''+ json.dumps(self.resp["response_data"]["body"]) + '\'))'
         return check_name, check_code
 
     def run_front_sql(self):
