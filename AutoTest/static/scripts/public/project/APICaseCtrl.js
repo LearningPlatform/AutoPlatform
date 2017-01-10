@@ -297,6 +297,8 @@ myApp.controller('APICaseCtrl',function($scope,$http,$cookieStore,$timeout,$loca
             }
         })
         $("#runModule").modal('hide');
+        $("#loading").modal();
+
     }
 
     $scope.addModule=function(){
@@ -1273,4 +1275,5 @@ myApp.controller('APICaseCtrl',function($scope,$http,$cookieStore,$timeout,$loca
             }
         })
     }
+
 })

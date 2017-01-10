@@ -9,15 +9,32 @@
                     <div class="col-md-12">
                         <ul class="nav nav-tabs">
                             <li class="{$List[0]$}">
+                                <!--
                                 <div class="btn-group">
                                     <button type="button" ng-show="showBtn1" class="opt1 btn btn-xs btn-default">1
                                     </button>
                                     <button type="button" ng-show="showBtn1" class="opt1 btn btn-xs btn-default">2
                                     </button>
                                 </div>
+                                -->
                                 <a ng-click="showAll()">全部</a>
                             </li>
-                            <li ng-repeat="md in moduleList" class="{$List[$index+1]$}">
+
+                            <li ng-repeat="md in moduleList" class="{$List[$index+1]$} module_li" >
+                                <!--
+                                <em>
+                                    <a type="button"
+                                            class="opt btn btn-xs btn-default em_a_del" ng-click="editModule()">
+                                        编辑
+                                    </a>
+                                    <a type="button"
+                                            class="opt btn btn-xs btn-default em_a_del" ng-click="cfModoule(module.module_id)">
+                                        删除
+                                    </a>
+                                </em>
+                                <a class="bind_hover_card" ng-click="active1($index)" ng-bind="md.module_name"></a>
+                                -->
+                                <!--
                                 <div class="btn-group">
                                     <button type="button" ng-show="showBtn&&(showId==md.module_id)"
                                             class="opt btn btn-xs btn-default" ng-click="editModule()">
@@ -28,7 +45,10 @@
                                         删除
                                     </button>
                                 </div>
-                                <a class="bind_hover_card" ng-click="active1($index)" ng-bind="md.module_name"></a>
+                                -->
+                                <a class="bind_hover_card" ng-click="active1($index)" ng-bind="md.module_name">
+                                </a>
+
                             </li>
                         </ul>
                     </div>
@@ -390,10 +410,6 @@
                 </div>
             </div>
         </div>
-    </div>
-
-    <div id="loader-container" ng-show="showLoading">
-        <p id="loadingText">Loading</p>
     </div>
 
     <!--
@@ -1227,6 +1243,11 @@
                     </button>
                 </div>
             </div>
+        </div>
+    </div>
+    <div class="modal fade" id="loading" aria-hidden="true">
+        <div id="loader-container" ng-show="showLoading">
+            <p id="loadingText">运行中……</p>
         </div>
     </div>
 </div>

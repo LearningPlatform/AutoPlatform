@@ -39,7 +39,7 @@ a:active {text-decoration:none ;color: #3c3c3c}
 }
 
 .top3{
-    margin-top:25px;
+    margin-top:15px;
 }
 
 .top2{
@@ -91,7 +91,7 @@ a:active {text-decoration:none ;color: #3c3c3c}
 
 .wid7{
     width:50%;
-    color:blueviolet;
+    font-family: Consolas, monospace, serif;
 }
 
 .textsize{
@@ -99,7 +99,8 @@ a:active {text-decoration:none ;color: #3c3c3c}
     padding-right: 0px;
     text-align: center;
     margin-right: 20px;
-    font-size: 10px;
+    margin-bottom: 5px;
+    font-size: 15px;
     width:60px;
     height:60px;
 }
@@ -219,6 +220,17 @@ textarea{
 th,tr{
     height: 39px;
 }
+
+.div-set{
+    margin-bottom: 5px;
+    padding-bottom: 5px;
+}
+
+.module_li em {
+    position: absolute;
+    visibility: hidden;
+}
+
 
 
 

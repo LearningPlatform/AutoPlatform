@@ -58,9 +58,10 @@
                             <div class="panel-title">
                                 <p>全局变量</p>
                                 <ul>
-                                    <li>1.若需要设置host，请在全局变量添加变量名为"host"的变量</li>
-                                    <li>2.若需要添加请求头，请在全局变量添加变量名为"headers"的变量，格式为json型变量</li>
+                                    <li>1.请在全局变量添加变量名为"host"的变量，作为请求的域名</li>
+                                    <li>2.若需要添加请求头，请在全局变量添加变量名为"headers"的变量，格式为json</li>
                                     <li>3.若需要设置请求的编码，请在全局变量添加变量名为"encode"的变量，默认为"utf-8"</li>
+                                    <li>4.若需要使用数据库连接，请在全局变量添加变量名为"DB"的变量，格式给json，键值分别为"host","pwd","user","db_name","charset"</li>
                                 </ul>
                             </div>
                         </div>

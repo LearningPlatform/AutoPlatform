@@ -2,7 +2,7 @@
     <div>
         <h1 class="page-header text-primary">验证器</h1>
     </div>
-    <div class="marginRight pull-right">
+    <div class="col-md-1 pull-right">
         <button class="btn btn-info" ng-click="addCheck()"><span class="glyphicon glyphicon-plus"></span>添加</button>
     </div>
     <div class="col-md-12 top3" ng-show="checkList.length!=0">
@@ -47,7 +47,7 @@
                                 <table class="table" ng-show="formation && !edit">
                                     <thead>
                                         <tr>
-                                            <td class="wid6">名称</td>
+                                            <td class="wid6">函数名</td>
                                             <td class="wid7" ng-bind="check.check_name"></td>
                                         </tr>
                                     </thead>
@@ -61,7 +61,7 @@
                                 <div ng-show="formation && edit">
                                     <form class="col-md-10 bs-example bs-example-form">
                                         <div class="input-group">
-                                            <span class="input-group-addon">名字</span>
+                                            <span class="input-group-addon">函数名</span>
                                             <input type="text" class="form-control" ng-model="check.check_name">
                                         </div>
                                     </form>
