@@ -1118,7 +1118,7 @@
                             </div>
                             <label class="col-md-1 control-label">状态码：</label>
                             <div class="col-md-11">
-                                <div class="panel {$caseResult.status_check == 1 ? 'panel-default' : 'panel-danger'$}">
+                                <div class="panel {$caseResult.status_check == 1 || caseResult.status_check == 2 ? 'panel-default' : 'panel-danger'$}">
                                     <div class="panel-body">
                                         <div class="form-group">
                                             <label class="col-md-1 control-label">期望：</label>
@@ -1173,7 +1173,7 @@
                             -->
                             <label class="col-md-1 control-label">响应：</label>
                             <div class="col-md-11">
-                                <div class="panel {$caseResult.body_check == 1 ? 'panel-default' : 'panel-danger'$}">
+                                <div class="panel {$caseResult.body_check == 1 || caseResult.body_check == 2 ? 'panel-default' : 'panel-danger'$}">
                                     <div class="panel-body">
                                         <div class="form-group">
                                             <label class="col-md-1 control-label">期望：</label>
@@ -1205,7 +1205,7 @@
                             </div>
                             <label class="col-md-1 control-label">schema：</label>
                             <div class="col-md-11">
-                                <div class="panel {$caseResult.schema_check == 1 ? 'panel-default' : 'panel-danger'$}">
+                                <div class="panel {$caseResult.schema_check == 1 || caseResult.schema_check == 2 ? 'panel-default' : 'panel-danger'$}">
                                     <div class="panel-body">
                                         <div class="form-group">
                                             <label class="col-md-1 control-label">schema：</label>

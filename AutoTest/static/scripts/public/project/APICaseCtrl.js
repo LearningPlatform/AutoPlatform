@@ -1248,7 +1248,9 @@ myApp.controller('APICaseCtrl',function($scope,$http,$cookieStore,$timeout,$loca
                 //$scope.caseResult.response_body=JSON.stringify($scope.caseResult.response_body);
                 if($scope.caseResult.schema_check==1){
                     $scope.caseResult.schema_check_text="通过";
-                }else{
+                }else if($scope.caseResult.schema_check==2){
+                    $scope.caseResult.schema_check_text="未检验";
+                }else {
                     $scope.caseResult.schema_check_text="失败";
                 }
                 if($scope.caseResult.body_check==1){
@@ -1256,19 +1258,19 @@ myApp.controller('APICaseCtrl',function($scope,$http,$cookieStore,$timeout,$loca
                 }else{
                     $scope.caseResult.body_check_text="失败";
                 }
-                if($scope.caseResult.status_check==0){
-                    $scope.caseResult.status_check_text="未通过";
+                if($scope.caseResult.status_check==2){
+                    $scope.caseResult.status_check_text="未校验";
                 }else if($scope.caseResult.status_check==1){
                     $scope.caseResult.status_check_text="通过";
                 }else{
-                    $scope.caseResult.status_check_text="未校验";
+                    $scope.caseResult.status_check_text="失败";
                 }
-                if($scope.caseResult.header_check==0){
-                    $scope.caseResult.header_check_text="未通过";
+                if($scope.caseResult.header_check==2){
+                    $scope.caseResult.header_check_text="未校验";
                 }else if($scope.caseResult.header_check==1){
                     $scope.caseResult.header_check_text="通过";
                 }else{
-                    $scope.caseResult.header_check_text="未校验";
+                    $scope.caseResult.header_check_text="失败";
                 }
             }else{
                 alert(response.msg)

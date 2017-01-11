@@ -84,7 +84,8 @@ class CaseEntity(ReqResp):
 
     def check_schema(self):
         # 0-----未通过，1-----通过，2-----未检验, 3------错误
-        if self.schema != "":
+        print(self.schema)
+        if self.schema != "" and self.schema is not None:
             try:
                 self.schema = json.loads(self.schema)
                 validate(self.resp["response_data"]["body"], self.schema)
