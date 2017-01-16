@@ -87,6 +87,7 @@ def get_var_list(data):
 
 
 def edit_var(data):
+    pro_id = data['pro_id']
     var_id = data["var_id"]
     var_name = data['var_name']
     var_desc = data['var_desc']
@@ -96,7 +97,8 @@ def edit_var(data):
     for value in value_list:
         var_value = value['var_value']
         env_id = value["env_id"]
-        VarValue.objects.all().filter(var_id=var_id,env_id=env_id).update(var_value=var_value)
+        VarValue.objects.all().filter(var_id=var_id,env_id=env_id).delete()
+        VarValue.objects.create(pro_id=pro_id, env_id=env_id, var_value=var_value, var_id=var_id)
     return {
             "code": 1,
             "msg": "编辑变量成功！"

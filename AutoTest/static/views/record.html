@@ -36,12 +36,18 @@
                         <tr ng-repeat="rcdCase in pageList" ng-style="styleList[$index]"
                             ng-mouseenter="tableGray($index)" ng-mouseleave="tableWhite($index)">
                             <td class="tableWid1" ng-bind="(currentPage-1)*10+$index+1"></td>
-                            <td class="tableWid1" ng-bind="rcdCase.method"></td>
-                            <td class="tableWid1" ng-bind="rcdCase.protocol"></td>
-                            <td class="tableWid5" ng-bind="rcdCase.host"></td>
-                            <td class="tableWid3" ng-bind="rcdCase.path"></td>
-                            <td class="tableWid4" ng-bind="rcdCase.reqBody"></td>
-                            <td class="tableWid4" ng-bind="rcdCase.resBody"></td>
+                            <td class="tableWid1" ng-bind="rcdCase.method" data-toggle="tooltip" data-placement="top"
+                                title="{$rcdCase.method$}"></td>
+                            <td class="tableWid1" ng-bind="rcdCase.protocol" data-toggle="tooltip" data-placement="top"
+                                title="{$rcdCase.protocol$}"></td>
+                            <td class="tableWid5" ng-bind="rcdCase.host" data-toggle="tooltip" data-placement="top"
+                                title="{$rcdCase.host$}"></td>
+                            <td class="tableWid3" ng-bind="rcdCase.path" data-toggle="tooltip" data-placement="top"
+                                title="{$rcdCase.path$}"></td>
+                            <td class="tableWid4" ng-bind="rcdCase.reqBody" data-toggle="tooltip" data-placement="top"
+                                title="{$rcdCase.reqBody$}"></td>
+                            <td class="tableWid4" ng-bind="rcdCase.resBody" data-toggle="tooltip" data-placement="top"
+                                title="{$rcdCase.resBody$}"></td>
                             <td>
                                 <button class="btn btn-xs btn-danger" ng-disabled="undisabled[$index]"
                                         ng-click="cfRecord($index)">删除
@@ -172,7 +178,7 @@
                         <label class="col-md-2 control-label">校验器：</label>
                         <div class="col-md-9">
                             <select class="form-control" ng-model="selected4"
-                                    ng-options="check1.check_id as check1.check_name for check1 in checkList">
+                                    ng-options="check1.check_id as check1.check_desc for check1 in checkList">
                                 <option value="">无</option>
                             </select>
                         </div>
@@ -244,7 +250,8 @@
                     <div class="form-group">
                         <label class="col-md-2 control-label">期望状态码：</label>
                         <div class="col-md-9">
-                            <input type="text" class="form-control" placeholder="请输入期望状态码" ng-model="rcdCase.exp_status">
+                            <input type="text" class="form-control" placeholder="请输入期望状态码"
+                                   ng-model="rcdCase.exp_status">
                         </div>
                     </div>
                     <div class="form-group">
